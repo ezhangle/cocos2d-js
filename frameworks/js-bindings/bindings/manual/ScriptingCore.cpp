@@ -38,7 +38,7 @@
 #include <io.h>
 #include <WS2tcpip.h>
 #else
-#include <sys/socket.h>
+#include <socket.h>
 #include <unistd.h>
 #include <netdb.h>
 #endif
@@ -106,6 +106,8 @@ static std::unordered_map<std::string, JS::RootedObject*> globals;
 static void cc_closesocket(int fd)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    closesocket(fd);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
     closesocket(fd);
 #else
     close(fd);
