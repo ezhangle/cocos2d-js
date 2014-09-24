@@ -33,7 +33,6 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\frameworks\js-bindings\cocos2d-x\cocos\2d\cocos2dx.props" />
     <Import Project="..\..\..\..\frameworks\js-bindings\cocos2d-x\cocos\2d\cocos2d_wp8_headers.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -71,21 +70,22 @@
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>NOWINRES;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOWINRES;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-xcopy /Y /Q "$(ProjectDir)..\..\..\..\frameworks\js-bindings\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
-</Command>
+xcopy /Y /Q "$(EngineRoot)external\sqlite3\libraries\win32\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)external\curl\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>libcurl_imp.lib;mozjs-28.lib;ws2_32.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcurl.lib;spidermonkey.lib;ws2_32.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX86</TargetMachine>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
     <PreBuildEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
@@ -124,21 +124,22 @@ copy "$(ProjectDir)..\..\project.json" "$(OutDir)\js-moonwarriors-res"</Command>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>NOWINRES;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOWINRES;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-xcopy /Y /Q "$(ProjectDir)..\..\..\..\frameworks\js-bindings\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
-</Command>
+xcopy /Y /Q "$(EngineRoot)external\sqlite3\libraries\win32\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)external\curl\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>libcurl_imp.lib;mozjs-28.lib;ws2_32.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcurl.lib;spidermonkey.lib;ws2_32.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
     <PreBuildEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
