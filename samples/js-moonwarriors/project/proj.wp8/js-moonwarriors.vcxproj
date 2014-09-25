@@ -78,10 +78,11 @@
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\sqlite3\libraries\win32\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\curl\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform)\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>libcurl.lib;spidermonkey.lib;ws2_32.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcurl.lib;sqlite3.lib;Xaudio2.lib;libEGL_phone.lib;spidermonkey.lib;libGLESv2_phone.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -132,10 +133,11 @@ copy "$(ProjectDir)..\..\project.json" "$(OutDir)\js-moonwarriors-res"</Command>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\sqlite3\libraries\win32\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\curl\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform)\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>libcurl.lib;spidermonkey.lib;ws2_32.lib;sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcurl.lib;sqlite3.lib;Xaudio2.lib;libEGL_phone.lib;spidermonkey.lib;libGLESv2_phone.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
