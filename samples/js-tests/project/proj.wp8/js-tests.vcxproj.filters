@@ -5,7 +5,7 @@
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>win32</Filter>
+      <Filter>wp8</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -13,10 +13,10 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>win32</Filter>
+      <Filter>wp8</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>win32</Filter>
+      <Filter>wp8</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -26,7 +26,7 @@
     <Filter Include="resource">
       <UniqueIdentifier>{abaf0468-14d3-43ce-8d1a-8a4a34dba59b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="win32">
+    <Filter Include="wp8">
       <UniqueIdentifier>{bbe7342c-1f30-4512-b00a-841aa2d4ca9f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
