@@ -5,7 +5,7 @@
       <UniqueIdentifier>{ca9c9e15-d942-43a1-aa7a-5f0b74ca1afd}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
     </Filter>
-    <Filter Include="win32">
+    <Filter Include="wp8">
       <UniqueIdentifier>{ccb2323b-1cfa-41ea-bcf4-ba5f07309396}</UniqueIdentifier>
     </Filter>
     <Filter Include="Classes">
@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>win32</Filter>
+      <Filter>wp8</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
@@ -22,10 +22,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
-      <Filter>win32</Filter>
+      <Filter>wp8</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>win32</Filter>
+      <Filter>wp8</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
