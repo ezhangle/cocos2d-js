@@ -49,7 +49,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>WP8;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)..\bindings\manual;$(EngineRoot)..\external\spidermonkey\include\wp8;$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PrecompiledHeader>
       </PrecompiledHeader>
