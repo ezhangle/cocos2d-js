@@ -4,9 +4,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>wp8</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>wp8</Filter>
     </ClCompile>
@@ -14,9 +11,6 @@
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>wp8</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>wp8</Filter>
