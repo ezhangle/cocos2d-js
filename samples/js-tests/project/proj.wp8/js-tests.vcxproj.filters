@@ -17,29 +17,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\AlignmentGrid.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="Assets\ApplicationIcon.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="Assets\Tiles\FlipCycleTileLarge.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="Assets\Tiles\FlipCycleTileMedium.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="Assets\Tiles\FlipCycleTileSmall.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="Assets\Tiles\IconicTileMediumLarge.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="Assets\Tiles\IconicTileSmall.png">
-      <Filter>resource</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="AppManifest.xaml">
       <Filter>resource</Filter>
     </None>
