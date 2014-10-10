@@ -1,14 +1,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CocosDenshion", "..\frameworks\js-bindings\cocos2d-x\cocos\audio\proj.wp8\CocosDenshion.vcxproj", "{DF125891-EEE9-4466-B903-F828FD272158}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcocos2d", "..\frameworks\js-bindings\cocos2d-x\cocos\2d\cocos2d_wp8.vcxproj", "{B5AF91B3-64EA-44E1-84B0-D759E93758FB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Box2D", "..\frameworks\js-bindings\cocos2d-x\external\Box2D\proj.wp8\Box2D.vcxproj", "{C55734A3-702C-4FA1-B950-32C8E169302F}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chipmunk", "..\frameworks\js-bindings\cocos2d-x\external\chipmunk\proj.wp8\chipmunk.vcxproj", "{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libExtensions", "..\frameworks\js-bindings\cocos2d-x\extensions\proj.wp8\libExtensions.vcxproj", "{04A0C42F-23BB-469B-A9D8-CA49136ADBD4}"
 EndProject
@@ -42,7 +38,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libJSBindingForSpine", "..\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libJSBindingForStudio", "..\frameworks\js-bindings\bindings\proj.wp8\libJSBindingForStudio.vcxproj", "{79D34511-E54E-410A-8BBA-EF175AD6C695}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "js-tests", "..\samples\js-tests\project\proj.wp8\js-tests.vcxproj", "{D0F06A44-A245-4D13-A498-0120C203B539}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "js-tests", "..\samples\js-tests\project\proj.wp8\js-tests.vcxproj", "{F89C2D05-673F-4397-83DB-DE4C6BC65B27}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "js-moonwarriors", "..\samples\js-moonwarriors\project\proj.wp8\js-moonwarriors.vcxproj", "{1DB7C0FC-46FF-4A1B-82E0-C6244EEEC4C2}"
 EndProject
@@ -78,14 +74,6 @@ Global
 		{C55734A3-702C-4FA1-B950-32C8E169302F}.Release|ARM.Build.0 = Release|ARM
 		{C55734A3-702C-4FA1-B950-32C8E169302F}.Release|Win32.ActiveCfg = Release|Win32
 		{C55734A3-702C-4FA1-B950-32C8E169302F}.Release|Win32.Build.0 = Release|Win32
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Debug|ARM.ActiveCfg = Debug|ARM
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Debug|ARM.Build.0 = Debug|ARM
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Debug|Win32.Build.0 = Debug|Win32
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Release|ARM.ActiveCfg = Release|ARM
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Release|ARM.Build.0 = Release|ARM
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Release|Win32.ActiveCfg = Release|Win32
-		{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}.Release|Win32.Build.0 = Release|Win32
 		{04A0C42F-23BB-469B-A9D8-CA49136ADBD4}.Debug|ARM.ActiveCfg = Debug|ARM
 		{04A0C42F-23BB-469B-A9D8-CA49136ADBD4}.Debug|ARM.Build.0 = Debug|ARM
 		{04A0C42F-23BB-469B-A9D8-CA49136ADBD4}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -214,14 +202,14 @@ Global
 		{79D34511-E54E-410A-8BBA-EF175AD6C695}.Release|ARM.Build.0 = Release|ARM
 		{79D34511-E54E-410A-8BBA-EF175AD6C695}.Release|Win32.ActiveCfg = Release|Win32
 		{79D34511-E54E-410A-8BBA-EF175AD6C695}.Release|Win32.Build.0 = Release|Win32
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Debug|ARM.ActiveCfg = Debug|ARM
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Debug|ARM.Build.0 = Debug|ARM
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Debug|Win32.Build.0 = Debug|Win32
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Release|ARM.ActiveCfg = Release|ARM
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Release|ARM.Build.0 = Release|ARM
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Release|Win32.ActiveCfg = Release|Win32
-		{D0F06A44-A245-4D13-A498-0120C203B539}.Release|Win32.Build.0 = Release|Win32
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Debug|ARM.Build.0 = Debug|ARM
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Debug|Win32.Build.0 = Debug|Win32
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Release|ARM.ActiveCfg = Release|ARM
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Release|ARM.Build.0 = Release|ARM
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Release|Win32.ActiveCfg = Release|Win32
+		{F89C2D05-673F-4397-83DB-DE4C6BC65B27}.Release|Win32.Build.0 = Release|Win32
 		{1DB7C0FC-46FF-4A1B-82E0-C6244EEEC4C2}.Debug|ARM.ActiveCfg = Debug|ARM
 		{1DB7C0FC-46FF-4A1B-82E0-C6244EEEC4C2}.Debug|ARM.Build.0 = Debug|ARM
 		{1DB7C0FC-46FF-4A1B-82E0-C6244EEEC4C2}.Debug|Win32.ActiveCfg = Debug|Win32
