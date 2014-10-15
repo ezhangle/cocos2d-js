@@ -145,4 +145,17 @@ JSAutoCompartment __jsb_ac(ScriptingCore::getInstance()->getGlobalContext(), Scr
 #define JSB_MAX_STACK_QUOTA 500000
 #endif // JSB_MAX_STACK_QUOTA
 
+/** @def CC_BINDING_DLL
+ Defines correct possibility of export functions to DLL on Windows systems
+ */
+#if defined(WP8)
+  #if defined(JS_BINDING_DLL)
+    #define CC_BINDING_DLL __declspec(dllexport)
+  #else                  /* use a DLL library */
+    #define CC_BINDING_DLL __declspec(dllimport)
+  #endif
+#else
+  #define CC_BINDING_DLL
+#endif // CC_BINDING_DLL
+
 #endif // __JS_BINDINGS_CONFIG_H
