@@ -25,6 +25,6 @@
 #define __JSB_OPENGL_REGISTRATION
 #include "jsb_opengl_functions.h"
 
-void JSB_register_opengl( JSContext *globalC, JSObject *globalO);
+CC_BINDING_DLL void JSB_register_opengl(JSContext *globalC, JSObject *globalO);
 
 #endif // __JSB_OPENGL_REGISTRATION

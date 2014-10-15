@@ -114,11 +114,11 @@ inline js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj) {
     return NULL;
 }
 
-jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string);
-void register_cocos2dx_js_extensions(JSContext* cx, JSObject* obj);
+CC_BINDING_DLL jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string);
+CC_BINDING_DLL void register_cocos2dx_js_extensions(JSContext* cx, JSObject* obj);
 
 
-class JSCallbackWrapper: public cocos2d::Ref {
+class CC_BINDING_DLL JSCallbackWrapper: public cocos2d::Ref {
 public:
     JSCallbackWrapper();
     virtual ~JSCallbackWrapper();
@@ -225,7 +225,7 @@ private:
 };
 
 
-class CC_DLL __JSPlistDelegator: public cocos2d::SAXDelegator
+class CC_BINDING_DLL __JSPlistDelegator: public cocos2d::SAXDelegator
 {
 public:
     static __JSPlistDelegator* getInstance() {

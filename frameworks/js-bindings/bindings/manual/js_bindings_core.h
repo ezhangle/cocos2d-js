@@ -46,9 +46,9 @@ extern "C" {
 	};
 	
 	// Functions for setting / removing / getting the proxy used by the "C" Object Oriented API. Think of Chipmunk classes
-	struct jsb_c_proxy_s* jsb_get_c_proxy_for_jsobject( JSObject *jsobj );
-	void jsb_del_c_proxy_for_jsobject( JSObject *jsobj );
-	void jsb_set_c_proxy_for_jsobject( JSObject *jsobj, void *handle, unsigned long flags);
+	CC_BINDING_DLL struct jsb_c_proxy_s* jsb_get_c_proxy_for_jsobject( JSObject *jsobj );
+	CC_BINDING_DLL void jsb_del_c_proxy_for_jsobject( JSObject *jsobj );
+	CC_BINDING_DLL void jsb_set_c_proxy_for_jsobject( JSObject *jsobj, void *handle, unsigned long flags);
 
 	// JSObject -> proxy
 	/** gets a proxy for a given JSObject */
@@ -60,11 +60,11 @@ extern "C" {
 
 	// reverse: proxy -> JSObject
 	/** gets a JSObject for a given proxy */
-	JSObject* jsb_get_jsobject_for_proxy(void *proxy);
+	CC_BINDING_DLL JSObject* jsb_get_jsobject_for_proxy(void *proxy);
 	/** sets a JSObject for a given proxy */
-	void jsb_set_jsobject_for_proxy(JSObject *jsobj, void* proxy);
+	CC_BINDING_DLL void jsb_set_jsobject_for_proxy(JSObject *jsobj, void* proxy);
 	/** delts a JSObject for a given proxy */
-	void jsb_del_jsobject_for_proxy(void* proxy);
+	CC_BINDING_DLL void jsb_del_jsobject_for_proxy(void* proxy);
 	
 	
 	// needed for callbacks. It does nothing.

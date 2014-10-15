@@ -52,7 +52,7 @@ public:
 	void update(float d);
 };
 
-class ScriptingCore : public cocos2d::ScriptEngineProtocol
+class CC_BINDING_DLL ScriptingCore : public cocos2d::ScriptEngineProtocol
 {
 private:
 	JSRuntime *_rt;
@@ -264,10 +264,10 @@ JSObject* NewGlobalObject(JSContext* cx, bool debug = false);
 bool jsb_set_reserved_slot(JSObject *obj, uint32_t idx, jsval value);
 bool jsb_get_reserved_slot(JSObject *obj, uint32_t idx, jsval& ret);
 
-js_proxy_t* jsb_new_proxy(void* nativeObj, JSObject* jsObj);
-js_proxy_t* jsb_get_native_proxy(void* nativeObj);
-js_proxy_t* jsb_get_js_proxy(JSObject* jsObj);
-void jsb_remove_proxy(js_proxy_t* nativeProxy, js_proxy_t* jsProxy);
+CC_BINDING_DLL js_proxy_t* jsb_new_proxy(void* nativeObj, JSObject* jsObj);
+CC_BINDING_DLL js_proxy_t* jsb_get_native_proxy(void* nativeObj);
+CC_BINDING_DLL js_proxy_t* jsb_get_js_proxy(JSObject* jsObj);
+CC_BINDING_DLL void jsb_remove_proxy(js_proxy_t* nativeProxy, js_proxy_t* jsProxy);
 
 template <class T>
 jsval getJSObject(JSContext* cx, T* nativeObj)

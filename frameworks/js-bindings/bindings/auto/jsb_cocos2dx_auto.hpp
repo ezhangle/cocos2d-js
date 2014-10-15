@@ -3,7 +3,7 @@
 
 #include "jsapi.h"
 #include "jsfriendapi.h"
-
+#include "js_bindings_config.h"
 
 extern JSClass  *jsb_cocos2d_Configuration_class;
 extern JSObject *jsb_cocos2d_Configuration_prototype;
@@ -11,7 +11,7 @@ extern JSObject *jsb_cocos2d_Configuration_prototype;
 bool js_cocos2dx_Configuration_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_cocos2dx_Configuration_finalize(JSContext *cx, JSObject *obj);
 void js_register_cocos2dx_Configuration(JSContext *cx, JSObject *global);
-void register_all_cocos2dx(JSContext* cx, JSObject* obj);
+CC_BINDING_DLL void register_all_cocos2dx(JSContext* cx, JSObject* obj);
 bool js_cocos2dx_Configuration_checkForGLExtension(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_cocos2dx_Configuration_setValue(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_cocos2dx_Configuration_supportsS3TC(JSContext *cx, uint32_t argc, jsval *vp);
