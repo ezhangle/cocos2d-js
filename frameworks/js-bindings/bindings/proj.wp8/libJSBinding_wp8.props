@@ -10,19 +10,21 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>4068;4101;4800;4251;4244;4099;4083;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>..\auto;..\manual;
+      <AdditionalIncludeDirectories>
+        $(EngineRoot)..\bindings\auto;
+        $(EngineRoot)..\bindings\manual;
         $(EngineRoot)cocos\2d;
         $(EngineRoot)cocos\ui;
         $(EngineRoot)cocos\base;
-        $(EngineRoot)extensions;
         $(EngineRoot)cocos\storage;
-        $(EngineRoot)external\lua\lua;
-        $(EngineRoot)external\lua\luasocket;
         $(EngineRoot)cocos\editor-support\spine;
         $(EngineRoot)cocos\editor-support\cocostudio;
         $(EngineRoot)cocos\editor-support\cocosbuilder;
-        $(EngineRoot)..\external\spidermonkey\include\wp8;
+        $(EngineRoot)extensions;
+        $(EngineRoot)external\lua\lua;
+        $(EngineRoot)external\lua\luasocket;
         $(EngineRoot)external\websockets\include\wp8\win32helpers;
+        $(EngineRoot)..\external\spidermonkey\include\wp8;
         %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WP8;WIN32;_WINDOWS;_LIB;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
@@ -36,6 +38,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalDependencies>libcocos2d.lib;Spidermonkey.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -49,6 +52,7 @@
         $(SolutionDir)$(Configuration)\libCocosStudio;
         $(SolutionDir)$(Configuration)\libCocosBuilder;
         $(SolutionDir)$(Configuration)\libLocalStorage;
+        $(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform);
         %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
