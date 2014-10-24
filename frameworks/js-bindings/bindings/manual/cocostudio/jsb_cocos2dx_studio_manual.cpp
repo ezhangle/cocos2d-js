@@ -980,7 +980,7 @@ extern JSObject* jsb_cocostudio_BaseData_prototype;
 extern JSObject* jsb_cocostudio_AnimationData_prototype;
 extern JSObject* jsb_cocostudio_MovementData_prototype;
 
-void register_all_cocos2dx_studio_manual(JSContext* cx, JSObject* global)
+CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio_manual(JSContext* cx, JSObject* global)
 {
     JS_DefineFunction(cx, jsb_cocostudio_ColliderBody_prototype, "getCalculatedVertexList", js_cocos2dx_studio_ColliderBody_getCalculatedVertexList, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
 
