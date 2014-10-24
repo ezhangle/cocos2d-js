@@ -26,6 +26,7 @@
 #include "jsapi.h"
 #include "jsfriendapi.h"
 #include "uthash.h"
+#include "js_bindings_config.h"
 #include <unordered_map>
 
 typedef struct js_proxy {
@@ -34,7 +35,7 @@ typedef struct js_proxy {
 	UT_hash_handle hh;
 } js_proxy_t;
 
-extern js_proxy_t *_native_js_global_ht;
+extern CC_BINDING_DLL js_proxy_t *_native_js_global_ht;
 extern js_proxy_t *_js_native_global_ht;
 
 typedef struct js_type_class {
@@ -43,7 +44,7 @@ typedef struct js_type_class {
 	JSObject *parentProto;
 } js_type_class_t;
 
-extern std::unordered_map<std::string, js_type_class_t*> _js_global_type_map;
+extern CC_BINDING_DLL std::unordered_map<std::string, js_type_class_t*> _js_global_type_map;
 
 template< typename DERIVED >
 class TypeTest

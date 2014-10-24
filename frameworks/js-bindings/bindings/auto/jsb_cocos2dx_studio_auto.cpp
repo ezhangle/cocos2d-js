@@ -4117,7 +4117,7 @@ bool js_cocos2dx_studio_Bone_constructor(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocostudio_Bone_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Bone)", obj);
@@ -4234,7 +4234,7 @@ bool js_cocos2dx_studio_BatchNode_create(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocostudio_BatchNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (BatchNode)", obj);
@@ -6086,7 +6086,7 @@ bool js_cocos2dx_studio_Armature_constructor(JSContext *cx, uint32_t argc, jsval
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocostudio_Armature_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Armature)", obj);
@@ -6386,7 +6386,7 @@ bool js_cocos2dx_studio_Skin_constructor(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_Sprite_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Sprite_prototype;
 
 void js_cocostudio_Skin_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Skin)", obj);
@@ -6723,7 +6723,7 @@ bool js_cocos2dx_studio_ComAttribute_create(JSContext *cx, uint32_t argc, jsval 
 }
 
 
-extern JSObject *jsb_cocos2d_Component_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Component_prototype;
 
 void js_cocostudio_ComAttribute_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ComAttribute)", obj);
@@ -7354,7 +7354,7 @@ bool js_cocos2dx_studio_ComAudio_create(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Component_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Component_prototype;
 
 void js_cocostudio_ComAudio_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ComAudio)", obj);
@@ -7747,7 +7747,7 @@ bool js_cocos2dx_studio_ComController_constructor(JSContext *cx, uint32_t argc, 
 }
 
 
-extern JSObject *jsb_cocos2d_Component_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Component_prototype;
 
 void js_cocostudio_ComController_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ComController)", obj);
@@ -7934,7 +7934,7 @@ bool js_cocos2dx_studio_ComRender_create(JSContext *cx, uint32_t argc, jsval *vp
 	return false;
 }
 
-extern JSObject *jsb_cocos2d_Component_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Component_prototype;
 
 void js_cocostudio_ComRender_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ComRender)", obj);
@@ -8422,7 +8422,7 @@ void js_register_cocos2dx_studio_SceneReader(JSContext *cx, JSObject *global) {
 	}
 }
 
-void register_all_cocos2dx_studio(JSContext* cx, JSObject* obj) {
+CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);

@@ -29,6 +29,8 @@
 
 class JSScheduleWrapper;
 
+extern CC_BINDING_DLL std::unordered_map<std::string, js_type_class_t*> _js_global_type_map;
+
 // JSScheduleWrapper* --> Array* since one js function may correspond to many targets.
 // To debug this, you could refer to JSScheduleWrapper::dump function.
 // It will prove that i'm right. :)

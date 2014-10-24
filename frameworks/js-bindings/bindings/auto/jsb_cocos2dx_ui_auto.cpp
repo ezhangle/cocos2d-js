@@ -1943,7 +1943,7 @@ bool js_cocos2dx_ui_Widget_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_ProtectedNode_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_ProtectedNode_prototype;
 
 void js_cocos2d_ui_Widget_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Widget)", obj);
@@ -11126,7 +11126,7 @@ void js_register_cocos2dx_ui_RelativeBox(JSContext *cx, JSObject *global) {
 	}
 }
 
-void register_all_cocos2dx_ui(JSContext* cx, JSObject* obj) {
+CC_BINDING_GUI_DLL void register_all_cocos2dx_ui(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);

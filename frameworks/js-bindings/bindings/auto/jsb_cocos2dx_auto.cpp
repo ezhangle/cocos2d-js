@@ -1920,7 +1920,7 @@ void js_register_cocos2dx_EventKeyboard(JSContext *cx, JSObject *global) {
 }
 
 JSClass  *jsb_cocos2d_Node_class;
-JSObject *jsb_cocos2d_Node_prototype;
+CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 bool js_cocos2dx_Node_addChild(JSContext *cx, uint32_t argc, jsval *vp)
 {
@@ -5379,7 +5379,7 @@ bool js_cocos2dx___NodeRGBA_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d___NodeRGBA_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (__NodeRGBA)", obj);
@@ -5595,7 +5595,7 @@ bool js_cocos2dx_Scene_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_Scene_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Scene)", obj);
@@ -30724,7 +30724,7 @@ void js_register_cocos2dx_CatmullRomBy(JSContext *cx, JSObject *global) {
 }
 
 JSClass  *jsb_cocos2d_ProtectedNode_class;
-JSObject *jsb_cocos2d_ProtectedNode_prototype;
+CC_BINDING_DLL JSObject *jsb_cocos2d_ProtectedNode_prototype;
 
 bool js_cocos2dx_ProtectedNode_addProtectedChild(JSContext *cx, uint32_t argc, jsval *vp)
 {
@@ -31062,7 +31062,7 @@ bool js_cocos2dx_ProtectedNode_constructor(JSContext *cx, uint32_t argc, jsval *
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_ProtectedNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ProtectedNode)", obj);
@@ -31448,7 +31448,7 @@ bool js_cocos2dx_AtlasNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_AtlasNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (AtlasNode)", obj);
@@ -32260,7 +32260,7 @@ bool js_cocos2dx_DrawNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_DrawNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (DrawNode)", obj);
@@ -33466,7 +33466,7 @@ bool js_cocos2dx_LabelTTF_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_LabelTTF_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (LabelTTF)", obj);
@@ -34196,7 +34196,7 @@ bool js_cocos2dx_SpriteBatchNode_constructor(JSContext *cx, uint32_t argc, jsval
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_SpriteBatchNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (SpriteBatchNode)", obj);
@@ -36117,7 +36117,7 @@ bool js_cocos2dx_LabelBMFont_constructor(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_LabelBMFont_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (LabelBMFont)", obj);
@@ -36192,7 +36192,7 @@ void js_register_cocos2dx_LabelBMFont(JSContext *cx, JSObject *global) {
 }
 
 JSClass  *jsb_cocos2d_Layer_class;
-JSObject *jsb_cocos2d_Layer_prototype;
+CC_BINDING_DLL JSObject *jsb_cocos2d_Layer_prototype;
 
 bool js_cocos2dx_Layer_create(JSContext *cx, uint32_t argc, jsval *vp)
 {
@@ -36241,7 +36241,7 @@ bool js_cocos2dx_Layer_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_Layer_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Layer)", obj);
@@ -36369,7 +36369,7 @@ bool js_cocos2dx___LayerRGBA_constructor(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_Layer_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Layer_prototype;
 
 void js_cocos2d___LayerRGBA_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (__LayerRGBA)", obj);
@@ -36685,7 +36685,7 @@ bool js_cocos2dx_LayerColor_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Layer_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Layer_prototype;
 
 void js_cocos2d_LayerColor_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (LayerColor)", obj);
@@ -37388,7 +37388,7 @@ bool js_cocos2dx_LayerMultiplex_constructor(JSContext *cx, uint32_t argc, jsval 
 }
 
 
-extern JSObject *jsb_cocos2d_Layer_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Layer_prototype;
 
 void js_cocos2d_LayerMultiplex_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (LayerMultiplex)", obj);
@@ -43155,7 +43155,7 @@ bool js_cocos2dx_MenuItem_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_MenuItem_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (MenuItem)", obj);
@@ -45025,7 +45025,7 @@ bool js_cocos2dx_Menu_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Layer_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Layer_prototype;
 
 void js_cocos2d_Menu_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Menu)", obj);
@@ -45358,7 +45358,7 @@ bool js_cocos2dx_ClippingNode_constructor(JSContext *cx, uint32_t argc, jsval *v
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_ClippingNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ClippingNode)", obj);
@@ -45802,7 +45802,7 @@ bool js_cocos2dx_MotionStreak_constructor(JSContext *cx, uint32_t argc, jsval *v
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_MotionStreak_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (MotionStreak)", obj);
@@ -46232,7 +46232,7 @@ bool js_cocos2dx_ProgressTimer_constructor(JSContext *cx, uint32_t argc, jsval *
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_ProgressTimer_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ProgressTimer)", obj);
@@ -46324,7 +46324,7 @@ void js_register_cocos2dx_ProgressTimer(JSContext *cx, JSObject *global) {
 }
 
 JSClass  *jsb_cocos2d_Sprite_class;
-JSObject *jsb_cocos2d_Sprite_prototype;
+CC_BINDING_DLL JSObject *jsb_cocos2d_Sprite_prototype;
 
 bool js_cocos2dx_Sprite_setSpriteFrame(JSContext *cx, uint32_t argc, jsval *vp)
 {
@@ -47385,7 +47385,7 @@ bool js_cocos2dx_Sprite_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_Sprite_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Sprite)", obj);
@@ -48185,7 +48185,7 @@ bool js_cocos2dx_RenderTexture_constructor(JSContext *cx, uint32_t argc, jsval *
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_RenderTexture_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (RenderTexture)", obj);
@@ -48411,7 +48411,7 @@ bool js_cocos2dx_NodeGrid_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_NodeGrid_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (NodeGrid)", obj);
@@ -48891,7 +48891,7 @@ bool js_cocos2dx_ParticleBatchNode_constructor(JSContext *cx, uint32_t argc, jsv
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_ParticleBatchNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ParticleBatchNode)", obj);
@@ -51074,7 +51074,7 @@ bool js_cocos2dx_ParticleSystem_constructor(JSContext *cx, uint32_t argc, jsval 
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_ParticleSystem_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ParticleSystem)", obj);
@@ -57288,7 +57288,7 @@ bool js_cocos2dx_ParallaxNode_constructor(JSContext *cx, uint32_t argc, jsval *v
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_ParallaxNode_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ParallaxNode)", obj);
@@ -59961,7 +59961,7 @@ bool js_cocos2dx_TMXTiledMap_constructor(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_TMXTiledMap_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (TMXTiledMap)", obj);
@@ -60327,7 +60327,7 @@ void js_register_cocos2dx_TileMapAtlas(JSContext *cx, JSObject *global) {
 }
 
 JSClass  *jsb_cocos2d_Component_class;
-JSObject *jsb_cocos2d_Component_prototype;
+CC_BINDING_DLL JSObject *jsb_cocos2d_Component_prototype;
 
 bool js_cocos2dx_Component_setEnabled(JSContext *cx, uint32_t argc, jsval *vp)
 {

@@ -27,7 +27,7 @@
 #include "jsb_opengl_manual.h"
 #include "js_bindings_opengl.h"
 
-//#include "jsb_opengl_functions_registration.h"
+#include "jsb_opengl_registration.h"
 
 // system
 #include "jsb_opengl_functions.h"

@@ -1709,7 +1709,7 @@ void js_register_cocos2dx_builder_CCBReader(JSContext *cx, JSObject *global) {
 	}
 }
 
-void register_all_cocos2dx_builder(JSContext* cx, JSObject* obj) {
+CC_BINDING_BUILDER_DLL void register_all_cocos2dx_builder(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);

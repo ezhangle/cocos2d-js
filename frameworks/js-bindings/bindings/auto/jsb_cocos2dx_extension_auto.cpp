@@ -324,7 +324,7 @@ bool js_cocos2dx_extension_Control_constructor(JSContext *cx, uint32_t argc, jsv
 }
 
 
-extern JSObject *jsb_cocos2d_Layer_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Layer_prototype;
 
 void js_cocos2d_extension_Control_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Control)", obj);
@@ -1408,7 +1408,7 @@ bool js_cocos2dx_extension_Scale9Sprite_constructor(JSContext *cx, uint32_t argc
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_ui_Scale9Sprite_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Scale9Sprite)", obj);
@@ -7207,7 +7207,7 @@ bool js_cocos2dx_extension_ScrollView_constructor(JSContext *cx, uint32_t argc, 
 }
 
 
-extern JSObject *jsb_cocos2d_Layer_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Layer_prototype;
 
 void js_cocos2d_extension_ScrollView_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ScrollView)", obj);
@@ -7419,7 +7419,7 @@ bool js_cocos2dx_extension_TableViewCell_constructor(JSContext *cx, uint32_t arg
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_extension_TableViewCell_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (TableViewCell)", obj);
@@ -8257,7 +8257,7 @@ bool js_cocos2dx_extension_AssetsManager_constructor(JSContext *cx, uint32_t arg
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_cocos2d_extension_AssetsManager_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (AssetsManager)", obj);
@@ -9021,7 +9021,7 @@ void js_register_cocos2dx_extension_EditBox(JSContext *cx, JSObject *global) {
 	}
 }
 
-void register_all_cocos2dx_extension(JSContext* cx, JSObject* obj) {
+CC_BINDING_EXTENSIONS_DLL void register_all_cocos2dx_extension(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);

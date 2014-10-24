@@ -490,7 +490,7 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 }
 
 
-extern JSObject *jsb_cocos2d_Node_prototype;
+extern CC_BINDING_DLL JSObject *jsb_cocos2d_Node_prototype;
 
 void js_spine_Skeleton_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Skeleton)", obj);

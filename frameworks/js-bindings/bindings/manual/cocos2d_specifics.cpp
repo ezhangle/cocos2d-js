@@ -33,7 +33,14 @@ using namespace cocos2d;
 schedFunc_proxy_t *_schedFunc_target_ht = NULL;
 schedTarget_proxy_t *_schedObj_target_ht = NULL;
 
+CC_BINDING_DLL std::unordered_map<std::string, js_type_class_t*> _js_global_type_map;
+
 JSTouchDelegate::TouchDelegateMap JSTouchDelegate::sTouchDelegateMap;
+
+extern JSObject *jsb_cocos2d_Node_prototype;
+extern JSObject *jsb_cocos2d_Layer_prototype;
+extern JSObject *jsb_cocos2d_Component_prototype;
+extern JSObject *jsb_cocos2d_Sprite_prototype;
 
 JSTouchDelegate::JSTouchDelegate()
 : _obj(nullptr)
