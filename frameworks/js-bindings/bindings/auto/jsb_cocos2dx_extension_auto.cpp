@@ -8942,7 +8942,7 @@ bool js_cocos2dx_extension_EditBox_constructor(JSContext *cx, uint32_t argc, jsv
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_EditBox_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (EditBox)", obj);

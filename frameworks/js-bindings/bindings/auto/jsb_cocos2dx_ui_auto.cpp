@@ -621,7 +621,7 @@ void js_register_cocos2dx_ui_RelativeLayoutParameter(JSContext *cx, JSObject *gl
 }
 
 JSClass  *jsb_cocos2d_ui_Widget_class;
-JSObject *jsb_cocos2d_ui_Widget_prototype;
+CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 bool js_cocos2dx_ui_Widget_setSizePercent(JSContext *cx, uint32_t argc, jsval *vp)
 {
@@ -2778,7 +2778,7 @@ bool js_cocos2dx_ui_Layout_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_Layout_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Layout)", obj);
@@ -3658,7 +3658,7 @@ bool js_cocos2dx_ui_Button_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_Button_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Button)", obj);
@@ -4186,7 +4186,7 @@ bool js_cocos2dx_ui_CheckBox_constructor(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_CheckBox_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (CheckBox)", obj);
@@ -4548,7 +4548,7 @@ bool js_cocos2dx_ui_ImageView_constructor(JSContext *cx, uint32_t argc, jsval *v
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_ImageView_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (ImageView)", obj);
@@ -5202,7 +5202,7 @@ bool js_cocos2dx_ui_Text_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_Text_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Text)", obj);
@@ -5507,7 +5507,7 @@ bool js_cocos2dx_ui_TextAtlas_constructor(JSContext *cx, uint32_t argc, jsval *v
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_TextAtlas_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (TextAtlas)", obj);
@@ -5885,7 +5885,7 @@ bool js_cocos2dx_ui_LoadingBar_constructor(JSContext *cx, uint32_t argc, jsval *
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_LoadingBar_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (LoadingBar)", obj);
@@ -7708,7 +7708,7 @@ bool js_cocos2dx_ui_Slider_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_Slider_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (Slider)", obj);
@@ -8605,7 +8605,7 @@ bool js_cocos2dx_ui_TextField_constructor(JSContext *cx, uint32_t argc, jsval *v
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_TextField_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (TextField)", obj);
@@ -8892,7 +8892,7 @@ bool js_cocos2dx_ui_TextBMFont_constructor(JSContext *cx, uint32_t argc, jsval *
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_TextBMFont_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (TextBMFont)", obj);
@@ -10516,7 +10516,7 @@ bool js_cocos2dx_ui_RichText_constructor(JSContext *cx, uint32_t argc, jsval *vp
 }
 
 
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 void js_cocos2d_ui_RichText_finalize(JSFreeOp *fop, JSObject *obj) {
     CCLOGINFO("jsbindings: finalizing JS object %p (RichText)", obj);

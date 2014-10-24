@@ -46,7 +46,7 @@ bool js_cocos2dx_ui_RelativeLayoutParameter_create(JSContext *cx, uint32_t argc,
 bool js_cocos2dx_ui_RelativeLayoutParameter_RelativeLayoutParameter(JSContext *cx, uint32_t argc, jsval *vp);
 
 extern JSClass  *jsb_cocos2d_ui_Widget_class;
-extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject *jsb_cocos2d_ui_Widget_prototype;
 
 bool js_cocos2dx_ui_Widget_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_cocos2dx_ui_Widget_finalize(JSContext *cx, JSObject *obj);

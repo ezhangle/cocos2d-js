@@ -381,7 +381,7 @@ static bool js_cocos2dx_LayoutParameter_getMargin(JSContext *cx, uint32_t argc, 
     return false;
 }
 
-extern JSObject* jsb_cocos2d_ui_Widget_prototype;
+extern CC_BINDING_GUI_DLL JSObject* jsb_cocos2d_ui_Widget_prototype;
 extern JSObject* jsb_cocos2d_ui_CheckBox_prototype;
 extern JSObject* jsb_cocos2d_ui_Slider_prototype;
 extern JSObject* jsb_cocos2d_ui_TextField_prototype;
