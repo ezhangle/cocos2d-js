@@ -1133,12 +1133,12 @@ bool js_load_remote_image(JSContext *cx, uint32_t argc, jsval *vp)
 */
 extern JSObject* jsb_cocos2d_extension_ScrollView_prototype;
 extern JSObject* jsb_cocos2d_extension_TableView_prototype;
-//extern JSObject* jsb_cocos2d_extension_EditBox_prototype;
+extern CC_BINDING_DLL JSObject* jsb_cocos2d_extension_EditBox_prototype;
 extern JSObject* jsb_cocos2d_extension_Control_prototype;
-//extern JSObject* jsb_cocos2d_extension_AssetsManager_prototype;
-//extern JSObject* jsb_cocos2d_extension_Manifest_prototype;
+extern CC_BINDING_DLL JSObject* jsb_cocos2d_extension_AssetsManager_prototype;
+extern CC_BINDING_DLL JSObject* jsb_cocos2d_extension_Manifest_prototype;
 
-void register_all_cocos2dx_extension_manual(JSContext* cx, JSObject* global)
+CC_BINDING_EXTENSIONS_DLL void register_all_cocos2dx_extension_manual(JSContext* cx, JSObject* global)
 {
 //    JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "retain", js_cocos2dx_ext_retain, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
 //	JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "release", js_cocos2dx_ext_release, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
