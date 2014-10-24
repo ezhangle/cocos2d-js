@@ -35,7 +35,7 @@
 #include "js_bindings_chipmunk_manual.h"
 
 
-void jsb_register_chipmunk(JSContext* cx, JSObject *object)
+CC_BINDING_CHIPMUNK_DLL void jsb_register_chipmunk(JSContext* cx, JSObject *object)
 {
 	//
 	// Chipmunk

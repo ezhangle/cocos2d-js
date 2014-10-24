@@ -34,6 +34,8 @@ USING_NS_CC_EXT;
 // Function declarations
 void static freeSpaceChildren(cpSpace *space);
 
+extern CC_BINDING_DLL std::unordered_map<std::string, js_type_class_t*> _js_global_type_map;
+
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
     TypeTest<T> t;
