@@ -30,7 +30,7 @@
 #include "js_bindings_system_functions.h"
 
 
-void jsb_register_system( JSContext *_cx, JSObject *object)
+CC_BINDING_STORAGE_DLL void jsb_register_system(JSContext *_cx, JSObject *object)
 {
 	//
 	// sys
