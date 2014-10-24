@@ -316,7 +316,7 @@ bool js_CocosBuilder_create(JSContext *cx, uint32_t argc, jsval *vp)
 extern JSObject* jsb_cocosbuilder_CCBReader_prototype;
 extern JSObject* jsb_cocosbuilder_CCBAnimationManager_prototype;
 
-void register_CCBuilderReader(JSContext *cx, JSObject *obj) {
+CC_BINDING_BUILDER_DLL void register_CCBuilderReader(JSContext *cx, JSObject *obj) {
     JS::RootedValue  nsval(cx);
     JS::RootedObject ns(cx);
 	JS_GetProperty(cx, obj, "cc", &nsval);
