@@ -26,7 +26,8 @@
 
 #include "jsapi.h"
 #include "jsfriendapi.h"
+#include "js_bindings_config.h"
 
-void register_all_cocos2dx_ui_manual(JSContext* cx, JSObject* global);
+CC_BINDING_GUI_DLL void register_all_cocos2dx_ui_manual(JSContext* cx, JSObject* global);
 
 #endif /* defined(__jsb_cocos2dx_ui_manual__) */

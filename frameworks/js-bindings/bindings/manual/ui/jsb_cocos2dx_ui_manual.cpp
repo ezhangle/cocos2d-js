@@ -390,7 +390,7 @@ extern JSObject* jsb_cocos2d_ui_PageView_prototype;
 extern JSObject* jsb_cocos2d_ui_ScrollView_prototype;
 extern JSObject* jsb_cocos2d_ui_ListView_prototype;
 
-void register_all_cocos2dx_ui_manual(JSContext* cx, JSObject* global)
+CC_BINDING_GUI_DLL void register_all_cocos2dx_ui_manual(JSContext* cx, JSObject* global)
 {
     JS_DefineFunction(cx, jsb_cocos2d_ui_Widget_prototype, "addTouchEventListener", js_cocos2dx_UIWidget_addTouchEventListener, 2, JSPROP_ENUMERATE | JSPROP_PERMANENT);
 
