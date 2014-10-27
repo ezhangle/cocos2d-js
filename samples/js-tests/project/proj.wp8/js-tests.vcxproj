@@ -26,16 +26,15 @@
     <XapOutputs>true</XapOutputs>
     <XapFilename>js_tests_$(Configuration)_$(Platform).xap</XapFilename>
     <WinMDAssembly>true</WinMDAssembly>
-    <TestApplication>true</TestApplication>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110_wp80</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v110_wp80</PlatformToolset>
@@ -47,21 +46,37 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)$(Configuration).$(Platform)</OutDir>
-    <IntDir>$(Configuration).$(Platform)</IntDir>
+    <OutDir>$(SolutionDir)$(Platform).$(Configuration)\</OutDir>
+    <IntDir>$(Platform).$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>WP8;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot)cocos\base;$(EngineRoot)..\bindings\auto;$(EngineRoot)..\bindings\manual;$(EngineRoot)..\external\spidermonkey\include\wp8;$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WP8;WIN32;_WINDOWS;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PrecompiledHeader>
       </PrecompiledHeader>
+      <AdditionalIncludeDirectories>
+        $(ProjectDir)..\Classes;
+        $(EngineRoot)..\bindings\auto;
+        $(EngineRoot)..\bindings\manual;
+        $(EngineRoot)cocos\2d;
+        $(EngineRoot)cocos\ui;
+        $(EngineRoot)cocos\base;
+        $(EngineRoot)cocos\storage;
+        $(EngineRoot)cocos\editor-support\spine;
+        $(EngineRoot)cocos\editor-support\cocostudio;
+        $(EngineRoot)cocos\editor-support\cocosbuilder;
+        $(EngineRoot)extensions;
+        $(EngineRoot)external\lua\lua;
+        $(EngineRoot)external\lua\luasocket;
+        $(EngineRoot)external\websockets\include\wp8\win32helpers;
+        $(EngineRoot)..\external\spidermonkey\include\wp8;
+        %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <AdditionalDependencies>libcurl.lib;sqlite3.lib;xaudio2.lib;libEGL_phone.lib;spidermonkey.lib;libGLESv2_phone.lib;libwebsockets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Spidermonkey.lib;CocosDenshion.lib;libNetwork.lib;libSpine.lib;libJSBinding.lib;libJSBindingForGui.lib;libJSBindingForStudio.lib;libJSBindingForChipmunk.lib;libJSBindingForExtension.lib;libJSBindingForBuilder.lib;libJSBindingForLocalStorage.lib;libJSBindingForSpine.lib;libJSBindingForNetwork.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreLinkEvent>
@@ -71,6 +86,19 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform)\*.*" "$(O
 xcopy /Y /Q "$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform)\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
+if exist "$(OutDir)\js-tests-res" rd /s /q "$(OutDir)\js-tests-res"
+mkdir "$(OutDir)\js-tests-res"
+mkdir "$(OutDir)\js-tests-res\script"
+mkdir "$(OutDir)\js-tests-res\src"
+mkdir "$(OutDir)\js-tests-res\res"
+xcopy "$(ProjectDir)..\..\..\..\frameworks\js-bindings\bindings\script\*" "$(OutDir)\js-tests-res\script" /e /Y
+xcopy "$(ProjectDir)..\..\src" "$(OutDir)\js-tests-res\src\" /e /Y
+xcopy "$(ProjectDir)..\..\res" "$(OutDir)\js-tests-res\res\" /e /Y
+copy "$(ProjectDir)..\..\main.js" "$(OutDir)\js-tests-res"
+copy "$(ProjectDir)..\..\project.json" "$(OutDir)\js-tests-res"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="platform.winmd">

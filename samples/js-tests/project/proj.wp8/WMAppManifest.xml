@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US"/>
-  <App xmlns="" ProductID="{f89c2d05-673f-4397-83db-de4c6bc65b27}" Title="js_tests" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="js_tests author" Description="Simple Direct3D application" Publisher="js_tests" PublisherID="{8320ee26-5627-4f93-bfad-60c774487fda}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{f89c2d05-673f-4397-83db-de4c6bc65b27}" Title="js_tests" RuntimeType="Modern Native" Version="1.0.0.0" Genre="apps.normal"  Author="js_tests author" Description="Simple Direct3D application" Publisher="js_tests" PublisherID="{8320ee26-5627-4f93-bfad-60c774487fda}">
+    <IconPath IsRelative="true" IsResource="false">Icon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING"/>
       <Capability Name="ID_CAP_MEDIALIB_AUDIO"/>
@@ -11,14 +11,14 @@
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT"/>
     </Capabilities>
     <Tasks>
-      <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
+      <DefaultTask Name="_default" ImagePath="js-tests.exe" ImageParams="" />
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="js-testsToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Icon.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Icon.png</BackgroundImageURI>
           <Title>js_tests</Title>
           <BackContent></BackContent>
           <BackBackgroundImageURI></BackBackgroundImageURI>
@@ -28,20 +28,6 @@
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
-    <ActivatableClasses>
-      <InProcessServer>
-        <Path>vstest_executionengine_platformbridge.dll</Path>
-        <ActivatableClass ActivatableClassId="vstest_executionengine_platformbridge.ServiceMain" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="vstest_executionengine_platformbridge.MessageTransmitter" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="vstest_executionengine_platformbridge.NativeMethods" ThreadingModel="both" />
-      </InProcessServer>
-      <InProcessServer>
-        <Path>CppUnitTestFramework_Executor_WindowsPhone.dll</Path>
-        <ActivatableClass ActivatableClassId="CppUnitTestFramework_Executor_WindowsPhone.TestResult" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="CppUnitTestFramework_Executor_WindowsPhone.CppTestCase" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="CppUnitTestFramework_Executor_WindowsPhone.CTestRunner" ThreadingModel="both" />
-      </InProcessServer>
-    </ActivatableClasses>
     <ScreenResolutions>
       <ScreenResolution Name="ID_RESOLUTION_WVGA" />
       <ScreenResolution Name="ID_RESOLUTION_WXGA" />

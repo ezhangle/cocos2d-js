@@ -53,7 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = cocos2d::GLViewImpl::createWithRect("js-tests", Rect(0,0,900,640));
+        glview = cocos2d::GLViewImpl::create("js-tests");
         director->setOpenGLView(glview);
     }
 
