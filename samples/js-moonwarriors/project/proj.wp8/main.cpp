@@ -6,7 +6,7 @@ USING_NS_CC;
 // uncomment below line, open debug console
 // #define USE_WIN32_CONSOLE
 
-int APIENTRY _tWinMain(HINSTANCE hInstance,
+/*int APIENTRY _tWinMain(HINSTANCE hInstance,
                        HINSTANCE hPrevInstance,
                        LPTSTR    lpCmdLine,
                        int       nCmdShow)
@@ -30,4 +30,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #endif
 
     return ret;
+}*/
+
+[Platform::MTAThread]
+int main(Platform::Array<Platform::String^>^)
+{
+	// create the application instance
+	AppDelegate app;
+	int ret = Application::getInstance()->run();
+	return ret;
 }

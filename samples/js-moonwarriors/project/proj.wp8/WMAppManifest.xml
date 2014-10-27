@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US"/>
-  <App xmlns="" ProductID="{55ebd169-0489-4dfa-a408-7e0f2cfd9059}" Title="js-moonwarriors" RuntimeType="Modern Native" Version="1.0.0.0" Genre="apps.normal"  Author="js-moonwarriors author" Description="Simple Direct3D application" Publisher="js-moonwarriors" PublisherID="{0c61e983-c1db-4e00-aaf7-daf5d1ba2642}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{1DB7C0FC-46FF-4A1B-82E0-C6244EEEC4C2}" Title="js-moonwarriors" RuntimeType="Modern Native" Version="1.0.0.0" Genre="apps.normal"  Author="js-moonwarriors author" Description="Simple Direct3D application" Publisher="js-moonwarriors" PublisherID="{0c61e983-c1db-4e00-aaf7-daf5d1ba2642}">
+    <IconPath IsRelative="true" IsResource="false">Icon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -14,9 +14,9 @@
     <Tokens>
       <PrimaryToken TokenID="js-moonwarriorsToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Icon.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Icon.png</BackgroundImageURI>
           <Title>js_moonwarriors</Title>
           <BackContent></BackContent>
           <BackBackgroundImageURI></BackBackgroundImageURI>
