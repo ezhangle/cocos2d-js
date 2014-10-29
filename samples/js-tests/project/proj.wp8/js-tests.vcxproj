@@ -51,7 +51,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>WP8;WIN32;_WINDOWS;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WP8;STATIC_JS_API;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -76,7 +76,26 @@
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <AdditionalDependencies>Spidermonkey.lib;CocosDenshion.lib;libNetwork.lib;libSpine.lib;libJSBinding.lib;libJSBindingForGui.lib;libJSBindingForStudio.lib;libJSBindingForChipmunk.lib;libJSBindingForExtension.lib;libJSBindingForBuilder.lib;libJSBindingForLocalStorage.lib;libJSBindingForSpine.lib;libJSBindingForNetwork.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+        d3d11.lib;
+        sqlite3.lib;
+        xaudio2.lib;
+        libcocos2d.lib;
+        libNetwork.lib;
+        libEGL_phone.lib;
+        libJSBinding.lib;
+        Spidermonkey.lib;
+        CocosDenshion.lib;
+        libwebsockets.lib;
+        libJSBindingForGui.lib;
+        libJSBindingForSpine.lib;
+        libJSBindingForStudio.lib;
+        libJSBindingForNetwork.lib;
+        libJSBindingForBuilder.lib;
+        libJSBindingForChipmunk.lib;
+        libJSBindingForExtension.lib;
+        libJSBindingForLocalStorage.lib;
+        %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreLinkEvent>
@@ -84,7 +103,7 @@
 xcopy /Y /Q "$(EngineRoot)external\sqlite3\libraries\wp8\$(Platform)\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform)\*.*" "$(OutDir)"
-xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"</Command>
+xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform).$(Configuration)\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
     <PostBuildEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
