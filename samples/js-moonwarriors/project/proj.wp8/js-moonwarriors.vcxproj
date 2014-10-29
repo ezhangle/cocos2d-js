@@ -51,7 +51,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>WP8;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WP8;STATIC_JS_API;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsWinRT>true</CompileAsWinRT>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <AdditionalIncludeDirectories>
@@ -65,11 +66,19 @@
     <Link>
       <AdditionalDependencies>
         d3d11.lib;
+        sqlite3.lib;
+        xaudio2.lib;
         libcocos2d.lib;
-        CocosDenshion.lib;
+        libNetwork.lib;
+        libEGL_phone.lib;
         libJSBinding.lib;
+        Spidermonkey.lib;
+        CocosDenshion.lib;
+        libwebsockets.lib;
         libJSBindingForGui.lib;
+        libJSBindingForSpine.lib;
         libJSBindingForStudio.lib;
+        libJSBindingForNetwork.lib;
         libJSBindingForBuilder.lib;
         libJSBindingForChipmunk.lib;
         libJSBindingForExtension.lib;
@@ -77,6 +86,13 @@
         %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PreLinkEvent>
+      <Command>xcopy /Y /Q "$(EngineRoot)external\curl\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)external\sqlite3\libraries\wp8\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform)\*.*" "$(OutDir)"
+xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform).$(Configuration)\*.*" "$(OutDir)"</Command>
+    </PreLinkEvent>
     <PostBuildEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
 if exist "$(OutDir)\js-moonwarriors-res" rd /s /q "$(OutDir)\js-moonwarriors-res"
