@@ -103,8 +103,13 @@ mkdir "$(OutDir)\js-moonwarriors-res\res"
 xcopy "$(ProjectDir)..\..\..\..\frameworks\js-bindings\bindings\script\*" "$(OutDir)\js-moonwarriors-res\script" /e /Y
 xcopy "$(ProjectDir)..\..\src" "$(OutDir)\js-moonwarriors-res\src\" /e /Y
 xcopy "$(ProjectDir)..\..\res" "$(OutDir)\js-moonwarriors-res\res\" /e /Y
-copy "$(ProjectDir)..\..\main.js" "$(OutDir)\js-moonwarriors-res"
-copy "$(ProjectDir)..\..\project.json" "$(OutDir)\js-moonwarriors-res"</Command>
+copy "$(ProjectDir)..\..\main.js" "$(OutDir)\js-moonwarriors-res" /Y
+copy "$(ProjectDir)..\..\project.json" "$(OutDir)\js-moonwarriors-res" /Y
+mkdir "$(OutDir)\js-moonwarriors-res\cocos2d-html5"
+xcopy "$(ProjectDir)..\..\..\..\frameworks\cocos2d-html5" "$(OutDir)\js-moonwarriors-res\cocos2d-html5\" /E /Y
+copy "$(OutDir)*.lib" "$(OutDir)\js-moonwarriors-res" /Y
+copy "$(OutDir)*.dll" "$(OutDir)\js-moonwarriors-res" /Y
+copy "$(OutDir)js-moonwarriors.exe" "$(OutDir)\js-moonwarriors-res" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -126,6 +131,9 @@ copy "$(ProjectDir)..\..\project.json" "$(OutDir)\js-moonwarriors-res"</Command>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="$(OutDir)\js-moonwarriors-res" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\frameworks\js-bindings\bindings\proj.wp8\libJSBinding.vcxproj">
