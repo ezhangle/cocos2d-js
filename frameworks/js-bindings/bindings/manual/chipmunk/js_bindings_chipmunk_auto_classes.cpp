@@ -3155,7 +3155,7 @@ bool JSB_cpSpace_nearestPointQueryNearest(JSContext *cx, uint32_t argc, jsval *v
     cpGroup group;
     bool ok = true;
     ok &= jsval_to_cpVect( cx, argvp[0], &point );
-    if(JSVAL_IS_INT(argvp[1]))
+    if(argvp[1].isInt32())
     {
         int arg1;
         ok &= jsval_to_int(cx, argvp[1], &arg1);
