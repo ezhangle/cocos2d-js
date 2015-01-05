@@ -317,7 +317,7 @@ jsval charptr_to_jsval( JSContext *cx, const char *str)
     return c_string_to_jsval(cx, str);
 }
 
-bool JSB_jsval_typedarray_to_dataptr( JSContext *cx, jsval vp, GLsizei *count, void **data, JSArrayBufferViewType t)
+bool JSB_jsval_typedarray_to_dataptr(JSContext *cx, jsval vp, GLsizei *count, void **data, js::Scalar::Type t)
 {
     JS::RootedObject jsobj(cx);
 	bool ok = JS_ValueToObject( cx, JS::RootedValue(cx, vp), &jsobj );
@@ -329,7 +329,7 @@ bool JSB_jsval_typedarray_to_dataptr( JSContext *cx, jsval vp, GLsizei *count, v
 	if( JS_IsTypedArrayObject( jsobj ) ) {
         
 		*count = JS_GetTypedArrayLength(jsobj);
-		JSArrayBufferViewType type = JS_GetArrayBufferViewType(jsobj);
+		js::Scalar::Type type = JS_GetArrayBufferViewType(jsobj);
 		JSB_PRECONDITION2(t==type, cx, false, "TypedArray type different than expected type");
         
 		switch (t) {

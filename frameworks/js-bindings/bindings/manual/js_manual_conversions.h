@@ -81,8 +81,8 @@ CC_BINDING_DLL jsval c_class_to_jsval( JSContext *cx, void* handle, JSObject* ob
 
 /* Converts a char ptr into a jsval (using JS string) */
 jsval charptr_to_jsval( JSContext *cx, const char *str);
-bool JSB_jsval_typedarray_to_dataptr( JSContext *cx, jsval vp, GLsizei *count, void **data, JSArrayBufferViewType t);
-bool JSB_get_arraybufferview_dataptr( JSContext *cx, jsval vp, GLsizei *count, GLvoid **data );
+bool JSB_jsval_typedarray_to_dataptr(JSContext *cx, jsval vp, GLsizei *count, void **data, js::Scalar::Type t);
+bool JSB_get_arraybufferview_dataptr(JSContext *cx, jsval vp, GLsizei *count, GLvoid **data );
 
 // some utility functions
 // to native
