@@ -135,7 +135,7 @@ static void executeJSFunctionFromReservedSpot(JSContext *cx, JSObject *obj,
     if (thisObj == JSVAL_VOID) {
         JS_CallFunctionValue(cx, obj, func, 1, &dataVal, &retval);
     } else {
-        assert(!JSVAL_IS_PRIMITIVE(thisObj));
+        assert(!thisObj.isPrimitive());
         JS_CallFunctionValue(cx, thisObj.toObjectOrNull(), func, 1, &dataVal, &retval);
     }
 }
