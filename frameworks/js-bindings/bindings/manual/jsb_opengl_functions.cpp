@@ -221,7 +221,7 @@ bool JSB_glBlendFuncSeparate(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLenum, ArrayBufferView, GLenum
+// Arguments: GLenum, Scalar, GLenum
 // Ret value: void
 bool JSB_glBufferData(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 3, cx, false, "Invalid number of arguments" );
@@ -240,7 +240,7 @@ bool JSB_glBufferData(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLenum, GLintptr, ArrayBufferView
+// Arguments: GLenum, GLintptr, Scalar
 // Ret value: void
 bool JSB_glBufferSubData(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 3, cx, false, "Invalid number of arguments" );
@@ -378,7 +378,7 @@ bool JSB_glCompileShader(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLenum, GLint, GLenum, GLsizei, GLsizei, GLint, GLsizei, ArrayBufferView
+// Arguments: GLenum, GLint, GLenum, GLsizei, GLsizei, GLint, GLsizei, Scalar
 // Ret value: void
 bool JSB_glCompressedTexImage2D(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 8, cx, false, "Invalid number of arguments" );
@@ -402,7 +402,7 @@ bool JSB_glCompressedTexImage2D(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLsizei, ArrayBufferView
+// Arguments: GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLsizei, Scalar
 // Ret value: void
 bool JSB_glCompressedTexSubImage2D(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 9, cx, false, "Invalid number of arguments" );
@@ -665,7 +665,7 @@ bool JSB_glDrawArrays(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLenum, GLsizei, GLenum, ArrayBufferView
+// Arguments: GLenum, GLsizei, GLenum, Scalar
 // Ret value: void
 bool JSB_glDrawElements(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 4, cx, false, "Invalid number of arguments" );
@@ -1058,7 +1058,7 @@ bool JSB_glPolygonOffset(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, ArrayBufferView
+// Arguments: GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, Scalar
 // Ret value: void
 bool JSB_glReadPixels(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 7, cx, false, "Invalid number of arguments" );
@@ -1253,7 +1253,7 @@ bool JSB_glStencilOpSeparate(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, ArrayBufferView
+// Arguments: GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, Scalar
 // Ret value: void
 bool JSB_glTexImage2D(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 9, cx, false, "Invalid number of arguments" );
@@ -1314,7 +1314,7 @@ bool JSB_glTexParameteri(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-// Arguments: GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, ArrayBufferView
+// Arguments: GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, Scalar
 // Ret value: void
 bool JSB_glTexSubImage2D(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION2( argc == 9, cx, false, "Invalid number of arguments" );
@@ -1367,7 +1367,7 @@ bool JSB_glUniform1fv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform1fv((GLint)arg0 , (GLsizei)arg1 , (GLfloat*)arg2  );
@@ -1403,7 +1403,7 @@ bool JSB_glUniform1iv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_INT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Int32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform1iv((GLint)arg0 , (GLsizei)arg1 , (GLint*)arg2  );
@@ -1440,7 +1440,7 @@ bool JSB_glUniform2fv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform2fv((GLint)arg0 , (GLsizei)arg1 , (GLfloat*)arg2  );
@@ -1477,7 +1477,7 @@ bool JSB_glUniform2iv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_INT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Int32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform2iv((GLint)arg0 , (GLsizei)arg1 , (GLint*)arg2  );
@@ -1515,7 +1515,7 @@ bool JSB_glUniform3fv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform3fv((GLint)arg0 , (GLsizei)arg1 , (GLfloat*)arg2  );
@@ -1553,7 +1553,7 @@ bool JSB_glUniform3iv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_INT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Int32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform3iv((GLint)arg0 , (GLsizei)arg1 , (GLint*)arg2  );
@@ -1592,7 +1592,7 @@ bool JSB_glUniform4fv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform4fv((GLint)arg0 , (GLsizei)arg1 , (GLfloat*)arg2  );
@@ -1631,7 +1631,7 @@ bool JSB_glUniform4iv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_INT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Int32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniform4iv((GLint)arg0 , (GLsizei)arg1 , (GLint*)arg2  );
@@ -1650,7 +1650,7 @@ bool JSB_glUniformMatrix2fv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_uint16( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniformMatrix2fv(arg0, 1, (GLboolean)arg1 , (GLfloat*)arg2  );
@@ -1669,7 +1669,7 @@ bool JSB_glUniformMatrix3fv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_uint16( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniformMatrix3fv(arg0, 1, (GLboolean)arg1 , (GLfloat*)arg2  );
@@ -1688,7 +1688,7 @@ bool JSB_glUniformMatrix4fv(JSContext *cx, uint32_t argc, jsval *vp) {
 	ok &= jsval_to_int32( cx, *argvp++, &arg0 );
 	ok &= jsval_to_uint16( cx, *argvp++, &arg1 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg2, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glUniformMatrix4fv(arg0, 1, (GLboolean)arg1 , (GLfloat*)arg2  );
@@ -1755,7 +1755,7 @@ bool JSB_glVertexAttrib1fv(JSContext *cx, uint32_t argc, jsval *vp) {
 
 	ok &= jsval_to_uint32( cx, *argvp++, &arg0 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glVertexAttrib1fv((GLuint)arg0 , (GLfloat*)arg1  );
@@ -1791,7 +1791,7 @@ bool JSB_glVertexAttrib2fv(JSContext *cx, uint32_t argc, jsval *vp) {
 
 	ok &= jsval_to_uint32( cx, *argvp++, &arg0 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glVertexAttrib2fv((GLuint)arg0 , (GLfloat*)arg1  );
@@ -1828,7 +1828,7 @@ bool JSB_glVertexAttrib3fv(JSContext *cx, uint32_t argc, jsval *vp) {
 
 	ok &= jsval_to_uint32( cx, *argvp++, &arg0 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glVertexAttrib3fv((GLuint)arg0 , (GLfloat*)arg1  );
@@ -1866,7 +1866,7 @@ bool JSB_glVertexAttrib4fv(JSContext *cx, uint32_t argc, jsval *vp) {
 
 	ok &= jsval_to_uint32( cx, *argvp++, &arg0 );
 	GLsizei count;
-	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::ArrayBufferView::TYPE_FLOAT32);
+	ok &= JSB_jsval_typedarray_to_dataptr( cx, *argvp++, &count, &arg1, js::Scalar::Float32);
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	glVertexAttrib4fv((GLuint)arg0 , (GLfloat*)arg1  );

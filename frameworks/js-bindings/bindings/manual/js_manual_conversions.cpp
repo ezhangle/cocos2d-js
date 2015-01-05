@@ -334,22 +334,22 @@ bool JSB_jsval_typedarray_to_dataptr(JSContext *cx, jsval vp, GLsizei *count, vo
 		JSB_PRECONDITION2(t==type, cx, false, "TypedArray type different than expected type");
         
 		switch (t) {
-			case js::ArrayBufferView::TYPE_INT8:
-			case js::ArrayBufferView::TYPE_UINT8:
+			case js::Scalar::Int8:
+			case js::Scalar::Uint8:
 				*data = JS_GetUint8ArrayData(jsobj);
 				break;
                 
-			case js::ArrayBufferView::TYPE_INT16:
-			case js::ArrayBufferView::TYPE_UINT16:
+			case js::Scalar::Int16:
+			case js::Scalar::Uint16:
 				*data = JS_GetUint16ArrayData(jsobj);
 				break;
                 
-			case js::ArrayBufferView::TYPE_INT32:
-			case js::ArrayBufferView::TYPE_UINT32:
+			case js::Scalar::Int32:
+			case js::Scalar::Uint32:
 				*data = JS_GetUint32ArrayData(jsobj);
 				break;
                 
-			case js::ArrayBufferView::TYPE_FLOAT32:
+			case js::Scalar::Float32:
 				*data = JS_GetFloat32ArrayData(jsobj);
 				break;
                 
@@ -369,14 +369,14 @@ bool JSB_jsval_typedarray_to_dataptr(JSContext *cx, jsval vp, GLsizei *count, vo
 			JS_GetElement(cx, jsobj, i, &valarg);
             
 			switch(t) {
-				case js::ArrayBufferView::TYPE_INT32:
-				case js::ArrayBufferView::TYPE_UINT32:
+				case js::Scalar::Int32:
+				case js::Scalar::Uint32:
 				{
 					uint32_t e = valarg.toInt32();
 					((uint32_t*)data)[i] = e;
 					break;
 				}
-				case js::ArrayBufferView::TYPE_FLOAT32:
+				case js::Scalar::Float32:
 				{
 					double e = valarg.toDouble();
 					((GLfloat*)data)[i] = (GLfloat)e;
@@ -399,7 +399,7 @@ bool JSB_get_arraybufferview_dataptr( JSContext *cx, jsval vp, GLsizei *count, G
     JS::RootedObject jsobj(cx);
 	bool ok = JS_ValueToObject( cx, JS::RootedValue(cx, vp), &jsobj );
 	JSB_PRECONDITION2( ok && jsobj, cx, false, "Error converting value to object");
-	JSB_PRECONDITION2( JS_IsArrayBufferViewObject(jsobj), cx, false, "Not an ArrayBufferView object");
+	JSB_PRECONDITION2( JS_IsArrayBufferViewObject(jsobj), cx, false, "Not an Scalar object");
     
 	*data = JS_GetArrayBufferViewData(jsobj);
 	*count = JS_GetArrayBufferViewByteLength(jsobj);
@@ -637,7 +637,7 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
                 bool ok = jsval_to_ccvaluemap(cx, value, &dictVal);
                 if (ok)
                 {
-                    ret->push_back(Value(dictVal));
+                    ret->push_back(cocos2d::Value(dictVal));
                 }
             }
             else {
@@ -646,14 +646,14 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
                 bool ok = jsval_to_ccvaluevector(cx, value, &arrVal);
                 if (ok)
                 {
-                    ret->push_back(Value(arrVal));
+                    ret->push_back(cocos2d::Value(arrVal));
                 }
             }
         }
         else if (value.isString())
         {
             JSStringWrapper valueWapper(value.toString(), cx);
-            ret->push_back(Value(valueWapper.get()));
+            ret->push_back(cocos2d::Value(valueWapper.get()));
         }
         else if (value.isNumber())
         {
@@ -661,13 +661,13 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
             bool ok = JS::ToNumber(cx, JS::RootedValue(cx, value), &number);
             if (ok)
             {
-                ret->push_back(Value(number));
+                ret->push_back(cocos2d::Value(number));
             }
         }
         else if (value.isBoolean())
         {
             bool boolVal = JS::ToBoolean(JS::RootedValue(cx, value));
-            ret->push_back(Value(boolVal));
+            ret->push_back(cocos2d::Value(boolVal));
         }
         else
         {
@@ -930,7 +930,7 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
             bool ok = jsval_to_ccvaluemap(cx, v, &dictVal);
             if (ok)
             {
-                *ret = Value(dictVal);
+                *ret = cocos2d::Value(dictVal);
             }
         }
         else {
@@ -939,27 +939,27 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
             bool ok = jsval_to_ccvaluevector(cx, v, &arrVal);
             if (ok)
             {
-                *ret = Value(arrVal);
+                *ret = cocos2d::Value(arrVal);
             }
         }
     }
     else if (v.isString())
     {
         JSStringWrapper valueWapper(v.toString(), cx);
-        *ret = Value(valueWapper.get());
+        *ret = cocos2d::Value(valueWapper.get());
     }
     else if (v.isNumber())
     {
         double number = 0.0;
         bool ok = JS::ToNumber(cx, JS::RootedValue(cx, v), &number);
         if (ok) {
-            *ret = Value(number);
+            *ret = cocos2d::Value(number);
         }
     }
     else if (v.isBoolean())
     {
         bool boolVal = JS::ToBoolean(JS::RootedValue(cx, v));
-        *ret = Value(boolVal);
+        *ret = cocos2d::Value(boolVal);
     }
     else {
         CCASSERT(false, "not supported type");
@@ -1016,7 +1016,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
                 bool ok = jsval_to_ccvaluemap(cx, value, &dictVal);
                 if (ok)
                 {
-                    dict.insert(ValueMap::value_type(keyWrapper.get(), Value(dictVal)));
+                    dict.insert(ValueMap::value_type(keyWrapper.get(), cocos2d::Value(dictVal)));
                 }
             }
             else {
@@ -1025,14 +1025,14 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
                 bool ok = jsval_to_ccvaluevector(cx, value, &arrVal);
                 if (ok)
                 {
-                    dict.insert(ValueMap::value_type(keyWrapper.get(), Value(arrVal)));
+                    dict.insert(ValueMap::value_type(keyWrapper.get(), cocos2d::Value(arrVal)));
                 }
             }
         }
         else if (value.isString())
         {
             JSStringWrapper valueWapper(value.toString(), cx);
-            dict.insert(ValueMap::value_type(keyWrapper.get(), Value(valueWapper.get())));
+            dict.insert(ValueMap::value_type(keyWrapper.get(), cocos2d::Value(valueWapper.get())));
             //            CCLOG("iterate object: key = %s, value = %s", keyWrapper.get().c_str(), valueWapper.get().c_str());
         }
         else if (value.isNumber())
@@ -1040,14 +1040,14 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
             double number = 0.0;
             bool ok = JS::ToNumber(cx, value, &number);
             if (ok) {
-                dict.insert(ValueMap::value_type(keyWrapper.get(), Value(number)));
+                dict.insert(ValueMap::value_type(keyWrapper.get(), cocos2d::Value(number)));
                 // CCLOG("iterate object: key = %s, value = %lf", keyWrapper.get().c_str(), number);
             }
         }
         else if (value.isBoolean())
         {
             bool boolVal = JS::ToBoolean(value);
-            dict.insert(ValueMap::value_type(keyWrapper.get(), Value(boolVal)));
+            dict.insert(ValueMap::value_type(keyWrapper.get(), cocos2d::Value(boolVal)));
             // CCLOG("iterate object: key = %s, value = %d", keyWrapper.get().c_str(), boolVal);
         }
         else {
@@ -1106,7 +1106,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
                 bool ok = jsval_to_ccvaluemap(cx, value, &dictVal);
                 if (ok)
                 {
-                    dict.insert(ValueMapIntKey::value_type(keyVal, Value(dictVal)));
+                    dict.insert(ValueMapIntKey::value_type(keyVal, cocos2d::Value(dictVal)));
                 }
             }
             else {
@@ -1115,27 +1115,27 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
                 bool ok = jsval_to_ccvaluevector(cx, value, &arrVal);
                 if (ok)
                 {
-                    dict.insert(ValueMapIntKey::value_type(keyVal, Value(arrVal)));
+                    dict.insert(ValueMapIntKey::value_type(keyVal, cocos2d::Value(arrVal)));
                 }
             }
         }
         else if (value.isString())
         {
             JSStringWrapper valueWapper(value.toString(), cx);
-            dict.insert(ValueMapIntKey::value_type(keyVal, Value(valueWapper.get())));
+            dict.insert(ValueMapIntKey::value_type(keyVal, cocos2d::Value(valueWapper.get())));
         }
         else if (value.isNumber())
         {
             double number = 0.0;
             bool ok = JS::ToNumber(cx, value, &number);
             if (ok) {
-                dict.insert(ValueMapIntKey::value_type(keyVal, Value(number)));
+                dict.insert(ValueMapIntKey::value_type(keyVal, cocos2d::Value(number)));
             }
         }
         else if (value.isBoolean())
         {
             bool boolVal = JS::ToBoolean(value);
-            dict.insert(ValueMapIntKey::value_type(keyVal, Value(boolVal)));
+            dict.insert(ValueMapIntKey::value_type(keyVal, cocos2d::Value(boolVal)));
         }
         else {
             CCASSERT(false, "not supported type");
@@ -1172,7 +1172,7 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
                     ok = jsval_to_ccvaluemap(cx, value, &dictVal);
                     if (ok)
                     {
-                        ret->push_back(Value(dictVal));
+                        ret->push_back(cocos2d::Value(dictVal));
                     }
                 }
                 else {
@@ -1181,14 +1181,14 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
                     ok = jsval_to_ccvaluevector(cx, value, &arrVal);
                     if (ok)
                     {
-                        ret->push_back(Value(arrVal));
+                        ret->push_back(cocos2d::Value(arrVal));
                     }
                 }
             }
             else if (value.isString())
             {
                 JSStringWrapper valueWapper(value.toString(), cx);
-                ret->push_back(Value(valueWapper.get()));
+                ret->push_back(cocos2d::Value(valueWapper.get()));
             }
             else if (value.isNumber())
             {
@@ -1196,13 +1196,13 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
                 ok = JS::ToNumber(cx, value, &number);
                 if (ok)
                 {
-                    ret->push_back(Value(number));
+                    ret->push_back(cocos2d::Value(number));
                 }
             }
             else if (value.isBoolean())
             {
                 bool boolVal = JS::ToBoolean(value);
-                ret->push_back(Value(boolVal));
+                ret->push_back(cocos2d::Value(boolVal));
             }
             else
             {
@@ -2167,30 +2167,30 @@ jsval CGPoint_to_jsval( JSContext *cx, cpVect p)
 jsval ccvalue_to_jsval(JSContext* cx, const cocos2d::Value& v)
 {
     jsval ret = JSVAL_NULL;
-    const Value& obj = v;
+    const cocos2d::Value& obj = v;
     
     switch (obj.getType())
     {
-        case Value::Type::BOOLEAN:
+        case cocos2d::Value::Type::BOOLEAN:
             ret = BOOLEAN_TO_JSVAL(obj.asBool());
             break;
-        case Value::Type::FLOAT:
-        case Value::Type::DOUBLE:
+        case cocos2d::Value::Type::FLOAT:
+        case cocos2d::Value::Type::DOUBLE:
             ret = DOUBLE_TO_JSVAL(obj.asDouble());
             break;
-        case Value::Type::INTEGER:
+        case cocos2d::Value::Type::INTEGER:
             ret = INT_TO_JSVAL(obj.asInt());
             break;
-        case Value::Type::STRING:
+        case cocos2d::Value::Type::STRING:
             ret = std_string_to_jsval(cx, obj.asString());
             break;
-        case Value::Type::VECTOR:
+        case cocos2d::Value::Type::VECTOR:
             ret = ccvaluevector_to_jsval(cx, obj.asValueVector());
             break;
-        case Value::Type::MAP:
+        case cocos2d::Value::Type::MAP:
             ret = ccvaluemap_to_jsval(cx, obj.asValueMap());
             break;
-        case Value::Type::INT_KEY_MAP:
+        case cocos2d::Value::Type::INT_KEY_MAP:
             ret = ccvaluemapintkey_to_jsval(cx, obj.asIntKeyMap());
             break;
         default:
@@ -2209,30 +2209,30 @@ jsval ccvaluemap_to_jsval(JSContext* cx, const cocos2d::ValueMap& v)
         JS::RootedValue dictElement(cx);
 
         std::string key = iter->first;
-        const Value& obj = iter->second;
+        const cocos2d::Value& obj = iter->second;
         
         switch (obj.getType())
         {
-            case Value::Type::BOOLEAN:
+            case cocos2d::Value::Type::BOOLEAN:
                 dictElement = BOOLEAN_TO_JSVAL(obj.asBool());
                 break;
-            case Value::Type::FLOAT:
-            case Value::Type::DOUBLE:
+            case cocos2d::Value::Type::FLOAT:
+            case cocos2d::Value::Type::DOUBLE:
                 dictElement = DOUBLE_TO_JSVAL(obj.asDouble());
                 break;
-            case Value::Type::INTEGER:
+            case cocos2d::Value::Type::INTEGER:
                 dictElement = INT_TO_JSVAL(obj.asInt());
                 break;
-            case Value::Type::STRING:
+            case cocos2d::Value::Type::STRING:
                 dictElement = std_string_to_jsval(cx, obj.asString());
                 break;
-            case Value::Type::VECTOR:
+            case cocos2d::Value::Type::VECTOR:
                 dictElement = ccvaluevector_to_jsval(cx, obj.asValueVector());
                 break;
-            case Value::Type::MAP:
+            case cocos2d::Value::Type::MAP:
                 dictElement = ccvaluemap_to_jsval(cx, obj.asValueMap());
                 break;
-            case Value::Type::INT_KEY_MAP:
+            case cocos2d::Value::Type::INT_KEY_MAP:
                 dictElement = ccvaluemapintkey_to_jsval(cx, obj.asIntKeyMap());
                 break;
             default:
@@ -2258,30 +2258,30 @@ jsval ccvaluemapintkey_to_jsval(JSContext* cx, const cocos2d::ValueMapIntKey& v)
         keyss << iter->first;
         std::string key = keyss.str();
         
-        const Value& obj = iter->second;
+        const cocos2d::Value& obj = iter->second;
         
         switch (obj.getType())
         {
-            case Value::Type::BOOLEAN:
+            case cocos2d::Value::Type::BOOLEAN:
                 dictElement = BOOLEAN_TO_JSVAL(obj.asBool());
                 break;
-            case Value::Type::FLOAT:
-            case Value::Type::DOUBLE:
+            case cocos2d::Value::Type::FLOAT:
+            case cocos2d::Value::Type::DOUBLE:
                 dictElement = DOUBLE_TO_JSVAL(obj.asDouble());
                 break;
-            case Value::Type::INTEGER:
+            case cocos2d::Value::Type::INTEGER:
                 dictElement = INT_TO_JSVAL(obj.asInt());
                 break;
-            case Value::Type::STRING:
+            case cocos2d::Value::Type::STRING:
                 dictElement = std_string_to_jsval(cx, obj.asString());
                 break;
-            case Value::Type::VECTOR:
+            case cocos2d::Value::Type::VECTOR:
                 dictElement = ccvaluevector_to_jsval(cx, obj.asValueVector());
                 break;
-            case Value::Type::MAP:
+            case cocos2d::Value::Type::MAP:
                 dictElement = ccvaluemap_to_jsval(cx, obj.asValueMap());
                 break;
-            case Value::Type::INT_KEY_MAP:
+            case cocos2d::Value::Type::INT_KEY_MAP:
                 dictElement = ccvaluemapintkey_to_jsval(cx, obj.asIntKeyMap());
                 break;
             default:
@@ -2307,26 +2307,26 @@ jsval ccvaluevector_to_jsval(JSContext* cx, const cocos2d::ValueVector& v)
         
         switch (obj.getType())
         {
-            case Value::Type::BOOLEAN:
+            case cocos2d::Value::Type::BOOLEAN:
                 arrElement = BOOLEAN_TO_JSVAL(obj.asBool());
                 break;
-            case Value::Type::FLOAT:
-            case Value::Type::DOUBLE:
+            case cocos2d::Value::Type::FLOAT:
+            case cocos2d::Value::Type::DOUBLE:
                 arrElement = DOUBLE_TO_JSVAL(obj.asDouble());
                 break;
-            case Value::Type::INTEGER:
+            case cocos2d::Value::Type::INTEGER:
                 arrElement = INT_TO_JSVAL(obj.asInt());
                 break;
-            case Value::Type::STRING:
+            case cocos2d::Value::Type::STRING:
                 arrElement = std_string_to_jsval(cx, obj.asString());
                 break;
-            case Value::Type::VECTOR:
+            case cocos2d::Value::Type::VECTOR:
                 arrElement = ccvaluevector_to_jsval(cx, obj.asValueVector());
                 break;
-            case Value::Type::MAP:
+            case cocos2d::Value::Type::MAP:
                 arrElement = ccvaluemap_to_jsval(cx, obj.asValueMap());
                 break;
-            case Value::Type::INT_KEY_MAP:
+            case cocos2d::Value::Type::INT_KEY_MAP:
                 arrElement = ccvaluemapintkey_to_jsval(cx, obj.asIntKeyMap());
                 break;
             default:
