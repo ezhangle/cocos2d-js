@@ -118,7 +118,7 @@ bool jsvals_variadic_to_ccvector( JSContext *cx, jsval *vp, int argc, cocos2d::V
     for (int i = 0; i < argc; i++)
     {
         js_proxy_t* p;
-        JSObject* obj = JSVAL_TO_OBJECT(*vp);
+        JSObject* obj = vp->toObjectOrNull();
         p = jsb_get_js_proxy(obj);
         CCASSERT(p, "Native object not found!");
         if (p) {
@@ -159,7 +159,7 @@ bool jsval_to_ccvector(JSContext* cx, jsval v, cocos2d::Vector<T>* ret)
             CCASSERT(value.isObject(), "the element in Vector isn't a native object.");
 
             js_proxy_t *proxy;
-            JSObject *tmp = JSVAL_TO_OBJECT(value);
+            JSObject *tmp = value.toObjectOrNull();
             proxy = jsb_get_js_proxy(tmp);
             T cobj = (T)(proxy ? proxy->ptr : nullptr);
             if (cobj)
@@ -192,7 +192,7 @@ bool jsval_to_ccmap_string_key(JSContext *cx, jsval v, cocos2d::Map<std::string,
         return true;
     }
     
-    JSObject* tmp = JSVAL_TO_OBJECT(v);
+    JSObject* tmp = v.toObjectOrNull();
     if (!tmp) {
         CCLOG("%s", "jsval_to_ccvaluemap: the jsval is not an object.");
         return false;
@@ -223,7 +223,7 @@ bool jsval_to_ccmap_string_key(JSContext *cx, jsval v, cocos2d::Map<std::string,
         if (value.isObject())
         {
             js_proxy_t *proxy = nullptr;
-            JSObject* jsobj = JSVAL_TO_OBJECT(value);
+            JSObject* jsobj = value.toObjectOrNull();
             proxy = jsb_get_js_proxy(jsobj);
             CCASSERT(proxy, "Native object should be added!");
             T cobj = (T)(proxy ? proxy->ptr : nullptr);

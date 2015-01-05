@@ -60,7 +60,7 @@ void JSArmatureWrapper::setJSCallbackThis(jsval _jsThisObj)
 {
     JSCallbackWrapper::setJSCallbackThis(_jsThisObj);
 
-    JSObject *thisObj = JSVAL_TO_OBJECT(_jsThisObj);
+    JSObject *thisObj = _jsThisObj.toObjectOrNull();
     js_proxy *p = jsb_get_js_proxy(thisObj);
     if (!p)
     {
@@ -73,7 +73,7 @@ void JSArmatureWrapper::setJSCallbackThis(jsval _jsThisObj)
 void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, cocostudio::MovementEventType movementType, const std::string& movementID)
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : JSVAL_TO_OBJECT(_jsThisObj);
+    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : _jsThisObj.toObjectOrNull();
     js_proxy_t *proxy = js_get_or_create_proxy(cx, armature);
     jsval retval;
     if (_jsCallback != JSVAL_VOID)
@@ -100,7 +100,7 @@ void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, coc
 void JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc(float percent)
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : JSVAL_TO_OBJECT(_jsThisObj);
+    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : _jsThisObj.toObjectOrNull();
     jsval retval;
     if (_jsCallback != JSVAL_VOID)
     {
@@ -121,7 +121,7 @@ void JSArmatureWrapper::frameCallbackFunc(cocostudio::Bone *bone, const std::str
     JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
     
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : JSVAL_TO_OBJECT(_jsThisObj);
+    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : _jsThisObj.toObjectOrNull();
     js_proxy_t *proxy = js_get_or_create_proxy(cx, bone);
     jsval retval;
     if (_jsCallback != JSVAL_VOID)
@@ -740,7 +740,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
         {
             return true;
         }
-        JSObject* tmp = JSVAL_TO_OBJECT(val);
+        JSObject* tmp = val.toObjectOrNull();
         JSB_PRECONDITION2(tmp, cx, false, "js_set_AnimationData_movementDataDic: the js value is not an object.");
 
         cocos2d::Map<std::string, cocostudio::MovementData*> dict;
@@ -770,7 +770,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
             do {
                 if (!value.isObject()) { ok = false; break; }
                 js_proxy_t *jsProxy;
-                JSObject *tmpObj = JSVAL_TO_OBJECT(value);
+                JSObject *tmpObj = value.toObjectOrNull();
                 jsProxy = jsb_get_js_proxy(tmpObj);
                 movementData = (cocostudio::MovementData*)(jsProxy ? jsProxy->ptr : NULL);
                 JSB_PRECONDITION2(movementData, cx, false, "js_set_AnimationData_movementDataDic : Invalid Native Object.");

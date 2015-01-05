@@ -96,7 +96,7 @@ static bool js_cocos2dx_CCScrollView_setDelegate(JSContext *cx, uint32_t argc, j
     if (argc == 1)
     {
         // save the delegate
-        JSObject *jsDelegate = JSVAL_TO_OBJECT(argv[0]);
+        JSObject *jsDelegate = argv[0].toObjectOrNull();
         JSB_ScrollViewDelegate* nativeDelegate = new JSB_ScrollViewDelegate();
         nativeDelegate->setJSDelegate(jsDelegate);
         
@@ -220,7 +220,7 @@ static bool js_cocos2dx_CCTableView_setDelegate(JSContext *cx, uint32_t argc, js
     if (argc == 1)
     {
         // save the delegate
-        JSObject *jsDelegate = JSVAL_TO_OBJECT(argv[0]);
+        JSObject *jsDelegate = argv[0].toObjectOrNull();
         JSB_TableViewDelegate* nativeDelegate = new JSB_TableViewDelegate();
         nativeDelegate->setJSDelegate(jsDelegate);
         
@@ -294,7 +294,7 @@ public:
             cocos2d::extension::TableViewCell* arg0;
             do {
                 js_proxy_t *proxy;
-                JSObject *tmpObj = JSVAL_TO_OBJECT(ret);
+                JSObject *tmpObj = ret.toObjectOrNull();
                 proxy = jsb_get_js_proxy(tmpObj);
                 arg0 = (cocos2d::extension::TableViewCell*)(proxy ? proxy->ptr : NULL);
                 JSB_PRECONDITION2( arg0, cx, NULL, "Invalid Native Object");
@@ -415,7 +415,7 @@ static bool js_cocos2dx_CCTableView_setDataSource(JSContext *cx, uint32_t argc, 
     if (argc == 1)
     {
         JSB_TableViewDataSource* pNativeSource = new JSB_TableViewDataSource();
-        pNativeSource->setTableViewDataSource(JSVAL_TO_OBJECT(argv[0]));
+        pNativeSource->setTableViewDataSource(argv[0].toObjectOrNull());
     
         __Dictionary* userDict = static_cast<__Dictionary*>(cobj->getUserObject());
         if (NULL == userDict)
@@ -447,7 +447,7 @@ static bool js_cocos2dx_CCTableView_create(JSContext *cx, uint32_t argc, jsval *
     {
         
         JSB_TableViewDataSource* pNativeSource = new JSB_TableViewDataSource();
-        pNativeSource->setTableViewDataSource(JSVAL_TO_OBJECT(argv[0]));
+        pNativeSource->setTableViewDataSource(argv[0].toObjectOrNull());
         
         cocos2d::Size arg1;
         ok &= jsval_to_ccsize(cx, argv[1], &arg1);
@@ -480,7 +480,7 @@ static bool js_cocos2dx_CCTableView_create(JSContext *cx, uint32_t argc, jsval *
             do 
             {
                 js_proxy_t *proxy;
-                JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+                JSObject *tmpObj = argv[2].toObjectOrNull();
                 proxy = jsb_get_js_proxy(tmpObj);
                 arg2 = (cocos2d::Node*)(proxy ? proxy->ptr : NULL);
                 JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -517,7 +517,7 @@ static bool js_cocos2dx_CCTableView_init(JSContext *cx, uint32_t argc, jsval *vp
     {
         
         JSB_TableViewDataSource* pNativeSource = new JSB_TableViewDataSource();
-        pNativeSource->setTableViewDataSource(JSVAL_TO_OBJECT(argv[0]));
+        pNativeSource->setTableViewDataSource(argv[0].toObjectOrNull());
         cobj->setDataSource(pNativeSource);
 
         cocos2d::Size arg1;
@@ -533,7 +533,7 @@ static bool js_cocos2dx_CCTableView_init(JSContext *cx, uint32_t argc, jsval *vp
             do 
             {
                 js_proxy_t *proxy;
-                JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+                JSObject *tmpObj = argv[2].toObjectOrNull();
                 proxy = jsb_get_js_proxy(tmpObj);
                 arg2 = (cocos2d::Node*)(proxy ? proxy->ptr : NULL);
                 JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -646,7 +646,7 @@ static bool js_cocos2dx_CCEditBox_setDelegate(JSContext *cx, uint32_t argc, jsva
     if (argc == 1)
     {
         // save the delegate
-        JSObject *jsDelegate = JSVAL_TO_OBJECT(argv[0]);
+        JSObject *jsDelegate = argv[0].toObjectOrNull();
         JSB_EditBoxDelegate* nativeDelegate = new JSB_EditBoxDelegate();
         nativeDelegate->setJSDelegate(jsDelegate);
         
@@ -762,8 +762,8 @@ static bool js_cocos2dx_CCControl_addTargetWithActionForControlEvents(JSContext 
     bool ok = true;
     if (argc == 3)
     {
-        JSObject* jsDelegate = JSVAL_TO_OBJECT(argv[0]);
-        JSObject* jsFunc = JSVAL_TO_OBJECT(argv[1]);
+        JSObject* jsDelegate = argv[0].toObjectOrNull();
+        JSObject* jsFunc = argv[1].toObjectOrNull();
         Control::EventType arg2;
         ok &= jsval_to_int32(cx, argv[2], (int32_t *)&arg2);
         JSB_PRECONDITION2(ok, cx, false, "Error processing control event");
@@ -826,8 +826,8 @@ static bool js_cocos2dx_CCControl_removeTargetWithActionForControlEvents(JSConte
         ok &= jsval_to_int32(cx, argv[2], (int32_t *)&arg2);
         JSB_PRECONDITION2(ok, cx, false, "Error processing control event");
         
-        obj = JSVAL_TO_OBJECT(argv[0]);
-        JSObject* jsFunc = JSVAL_TO_OBJECT(argv[1]);
+        obj = argv[0].toObjectOrNull();
+        JSObject* jsFunc = argv[1].toObjectOrNull();
         
         JSB_ControlButtonTarget* nativeTargetToRemoved = nullptr;
         
@@ -863,7 +863,7 @@ static bool js_cocos2dx_ext_AssetsManager_updateAssets(JSContext *cx, uint32_t a
 		std::unordered_map<std::string, Downloader::DownloadUnit> dict;
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
             
 			if (!tmpObj) {
                 CCLOG("%s", "jsval_to_ccvaluemap: the jsval is not an object.");
@@ -1156,8 +1156,8 @@ CC_BINDING_EXTENSIONS_DLL void register_all_cocos2dx_extension_manual(JSContext*
     JS_DefineFunction(cx, jsb_cocos2d_extension_Control_prototype, "addTargetWithActionForControlEvents", js_cocos2dx_CCControl_addTargetWithActionForControlEvents, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     JS_DefineFunction(cx, jsb_cocos2d_extension_Control_prototype, "removeTargetWithActionForControlEvents", js_cocos2dx_CCControl_removeTargetWithActionForControlEvents, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    JSObject *tmpObj = JSVAL_TO_OBJECT(anonEvaluate(cx, global, "(function () { return cc.TableView; })()"));
-	JS_DefineFunction(cx, tmpObj, "create", js_cocos2dx_CCTableView_create, 3, JSPROP_READONLY | JSPROP_PERMANENT);
+    JSObject *tmpObj = anonEvaluate(cx, global, "(function () { return cc.TableView; })()").toObjectOrNull();
+    JS_DefineFunction(cx, tmpObj, "create", js_cocos2dx_CCTableView_create, 3, JSPROP_READONLY | JSPROP_PERMANENT);
     
     /*
     JS::RootedObject jsbObj(cx);

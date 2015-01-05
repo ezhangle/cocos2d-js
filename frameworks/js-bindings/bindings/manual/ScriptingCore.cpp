@@ -136,7 +136,7 @@ static void executeJSFunctionFromReservedSpot(JSContext *cx, JSObject *obj,
         JS_CallFunctionValue(cx, obj, func, 1, &dataVal, &retval);
     } else {
         assert(!JSVAL_IS_PRIMITIVE(thisObj));
-        JS_CallFunctionValue(cx, JSVAL_TO_OBJECT(thisObj), func, 1, &dataVal, &retval);
+        JS_CallFunctionValue(cx, thisObj.toObjectOrNull(), func, 1, &dataVal, &retval);
     }
 }
 
@@ -247,12 +247,12 @@ void ScriptingCore::executeJSFunctionWithThisObj(jsval thisObj,
         // So we have to check the availability of 'retVal'.
         if (retVal)
         {
-            JS_CallFunctionValue(_cx, JSVAL_TO_OBJECT(thisObj), callback, argc, vp, retVal);
+            JS_CallFunctionValue(_cx, thisObj.toObjectOrNull(), callback, argc, vp, retVal);
         }
         else
         {
             jsval jsRet;
-            JS_CallFunctionValue(_cx, JSVAL_TO_OBJECT(thisObj), callback, argc, vp, &jsRet);
+            JS_CallFunctionValue(_cx, thisObj.toObjectOrNull(), callback, argc, vp, &jsRet);
         }
     }
 }
@@ -911,7 +911,7 @@ bool ScriptingCore::isFunctionOverridedInJS(JSObject* obj, const std::string& na
 {
     JS::RootedValue value(_cx);
     bool ok = JS_GetProperty(_cx, obj, name.c_str(), &value);
-    if (ok && !value.isNullOrUndefined() && !JS_IsNativeFunction(JSVAL_TO_OBJECT(value), native))
+    if (ok && !value.isNullOrUndefined() && !JS_IsNativeFunction(value.toObjectOrNull(), native))
     {
         return true;
     }
@@ -1213,7 +1213,7 @@ bool ScriptingCore::executeFunctionWithOwner(jsval owner, const char *name, uint
     bool hasAction;
     JSContext* cx = this->_cx;
     JS::RootedValue temp_retval(cx);
-    JSObject* obj = JSVAL_TO_OBJECT(owner);
+    JSObject* obj = owner.toObjectOrNull();
     
     do
     {

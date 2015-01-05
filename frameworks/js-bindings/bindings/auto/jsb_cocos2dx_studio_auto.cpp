@@ -182,7 +182,7 @@ bool js_cocos2dx_studio_ActionObject_play(JSContext *cx, uint32_t argc, jsval *v
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::CallFunc*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -235,7 +235,7 @@ bool js_cocos2dx_studio_ActionObject_removeActionNode(JSContext *cx, uint32_t ar
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::ActionNode*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -281,7 +281,7 @@ bool js_cocos2dx_studio_ActionObject_initWithBinary(JSContext *cx, uint32_t argc
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::CocoLoader*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -291,7 +291,7 @@ bool js_cocos2dx_studio_ActionObject_initWithBinary(JSContext *cx, uint32_t argc
 		do {
 			if (!argv[2].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+			JSObject *tmpObj = argv[2].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg2 = (cocos2d::Ref*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -318,7 +318,7 @@ bool js_cocos2dx_studio_ActionObject_addActionNode(JSContext *cx, uint32_t argc,
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::ActionNode*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -554,7 +554,7 @@ bool js_cocos2dx_studio_ActionManagerEx_playActionByName(JSContext *cx, uint32_t
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::CallFunc*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -649,7 +649,7 @@ bool js_cocos2dx_studio_ActionManagerEx_initWithBinary(JSContext *cx, uint32_t a
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::Ref*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -657,7 +657,7 @@ bool js_cocos2dx_studio_ActionManagerEx_initWithBinary(JSContext *cx, uint32_t a
 		do {
 			if (!argv[2].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+			JSObject *tmpObj = argv[2].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg2 = (cocostudio::CocoLoader*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -979,7 +979,7 @@ bool js_cocos2dx_studio_MovementData_addMovementBoneData(JSContext *cx, uint32_t
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::MovementBoneData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1164,7 +1164,7 @@ bool js_cocos2dx_studio_AnimationData_addMovement(JSContext *cx, uint32_t argc, 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::MovementData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1745,7 +1745,7 @@ bool js_cocos2dx_studio_Tween_play(JSContext *cx, uint32_t argc, jsval *vp)
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::MovementBoneData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1796,7 +1796,7 @@ bool js_cocos2dx_studio_Tween_init(JSContext *cx, uint32_t argc, jsval *vp)
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1825,7 +1825,7 @@ bool js_cocos2dx_studio_Tween_setAnimation(JSContext *cx, uint32_t argc, jsval *
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::ArmatureAnimation*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1848,7 +1848,7 @@ bool js_cocos2dx_studio_Tween_create(JSContext *cx, uint32_t argc, jsval *vp)
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2200,7 +2200,7 @@ bool js_cocos2dx_studio_ColliderDetector_init(JSContext *cx, uint32_t argc, jsva
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2260,7 +2260,7 @@ bool js_cocos2dx_studio_ColliderDetector_setBone(JSContext *cx, uint32_t argc, j
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2285,7 +2285,7 @@ bool js_cocos2dx_studio_ColliderDetector_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2458,7 +2458,7 @@ bool js_cocos2dx_studio_DecorativeDisplay_setDisplay(JSContext *cx, uint32_t arg
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2502,7 +2502,7 @@ bool js_cocos2dx_studio_DecorativeDisplay_setDisplayData(JSContext *cx, uint32_t
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::DisplayData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2553,7 +2553,7 @@ bool js_cocos2dx_studio_DecorativeDisplay_setColliderDetector(JSContext *cx, uin
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::ColliderDetector*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2736,7 +2736,7 @@ bool js_cocos2dx_studio_DisplayManager_setCurrentDecorativeDisplay(JSContext *cx
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::DecorativeDisplay*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2820,7 +2820,7 @@ bool js_cocos2dx_studio_DisplayManager_init(JSContext *cx, uint32_t argc, jsval 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2887,7 +2887,7 @@ bool js_cocos2dx_studio_DisplayManager_addDisplay(JSContext *cx, uint32_t argc, 
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2908,7 +2908,7 @@ bool js_cocos2dx_studio_DisplayManager_addDisplay(JSContext *cx, uint32_t argc, 
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocostudio::DisplayData*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2982,7 +2982,7 @@ bool js_cocos2dx_studio_DisplayManager_initDisplayList(JSContext *cx, uint32_t a
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::BoneData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3183,7 +3183,7 @@ bool js_cocos2dx_studio_DisplayManager_create(JSContext *cx, uint32_t argc, jsva
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3441,7 +3441,7 @@ bool js_cocos2dx_studio_Bone_addChildBone(JSContext *cx, uint32_t argc, jsval *v
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3612,7 +3612,7 @@ bool js_cocos2dx_studio_Bone_setBoneData(JSContext *cx, uint32_t argc, jsval *vp
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::BoneData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3661,7 +3661,7 @@ bool js_cocos2dx_studio_Bone_setParentBone(JSContext *cx, uint32_t argc, jsval *
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3692,7 +3692,7 @@ bool js_cocos2dx_studio_Bone_addDisplay(JSContext *cx, uint32_t argc, jsval *vp)
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3713,7 +3713,7 @@ bool js_cocos2dx_studio_Bone_addDisplay(JSContext *cx, uint32_t argc, jsval *vp)
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocostudio::DisplayData*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3893,7 +3893,7 @@ bool js_cocos2dx_studio_Bone_setArmature(JSContext *cx, uint32_t argc, jsval *vp
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Armature*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3941,7 +3941,7 @@ bool js_cocos2dx_studio_Bone_removeChildBone(JSContext *cx, uint32_t argc, jsval
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3969,7 +3969,7 @@ bool js_cocos2dx_studio_Bone_setChildArmature(JSContext *cx, uint32_t argc, jsva
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Armature*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4365,7 +4365,7 @@ bool js_cocos2dx_studio_ArmatureAnimation_init(JSContext *cx, uint32_t argc, jsv
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Armature*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4631,7 +4631,7 @@ bool js_cocos2dx_studio_ArmatureAnimation_setAnimationData(JSContext *cx, uint32
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::AnimationData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4733,7 +4733,7 @@ bool js_cocos2dx_studio_ArmatureAnimation_create(JSContext *cx, uint32_t argc, j
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Armature*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4916,7 +4916,7 @@ bool js_cocos2dx_studio_ArmatureDataManager_addArmatureData(JSContext *cx, uint3
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocostudio::ArmatureData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -4934,7 +4934,7 @@ bool js_cocos2dx_studio_ArmatureDataManager_addArmatureData(JSContext *cx, uint3
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocostudio::ArmatureData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5113,7 +5113,7 @@ bool js_cocos2dx_studio_ArmatureDataManager_addAnimationData(JSContext *cx, uint
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocostudio::AnimationData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5131,7 +5131,7 @@ bool js_cocos2dx_studio_ArmatureDataManager_addAnimationData(JSContext *cx, uint
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocostudio::AnimationData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5235,7 +5235,7 @@ bool js_cocos2dx_studio_ArmatureDataManager_addTextureData(JSContext *cx, uint32
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocostudio::TextureData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5253,7 +5253,7 @@ bool js_cocos2dx_studio_ArmatureDataManager_addTextureData(JSContext *cx, uint32
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocostudio::TextureData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5474,7 +5474,7 @@ bool js_cocos2dx_studio_Armature_changeBoneParent(JSContext *cx, uint32_t argc, 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5502,7 +5502,7 @@ bool js_cocos2dx_studio_Armature_setAnimation(JSContext *cx, uint32_t argc, jsva
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::ArmatureAnimation*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5637,7 +5637,7 @@ bool js_cocos2dx_studio_Armature_removeBone(JSContext *cx, uint32_t argc, jsval 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5696,7 +5696,7 @@ bool js_cocos2dx_studio_Armature_init(JSContext *cx, uint32_t argc, jsval *vp)
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5739,7 +5739,7 @@ bool js_cocos2dx_studio_Armature_setParentBone(JSContext *cx, uint32_t argc, jsv
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5781,7 +5781,7 @@ bool js_cocos2dx_studio_Armature_setBatchNode(JSContext *cx, uint32_t argc, jsva
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::BatchNode*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5825,7 +5825,7 @@ bool js_cocos2dx_studio_Armature_setArmatureData(JSContext *cx, uint32_t argc, j
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::ArmatureData*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5853,7 +5853,7 @@ bool js_cocos2dx_studio_Armature_addBone(JSContext *cx, uint32_t argc, jsval *vp
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6038,7 +6038,7 @@ bool js_cocos2dx_studio_Armature_create(JSContext *cx, uint32_t argc, jsval *vp)
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -6278,7 +6278,7 @@ bool js_cocos2dx_studio_Skin_setBone(JSContext *cx, uint32_t argc, jsval *vp)
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocostudio::Bone*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -7843,7 +7843,7 @@ bool js_cocos2dx_studio_ComRender_setNode(JSContext *cx, uint32_t argc, jsval *v
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -7892,7 +7892,7 @@ bool js_cocos2dx_studio_ComRender_create(JSContext *cx, uint32_t argc, jsval *vp
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");

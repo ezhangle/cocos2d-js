@@ -132,7 +132,7 @@ bool js_cocos2dx_CCBReader_readNodeGraphFromFile(JSContext *cx, uint32_t argc, j
         cocos2d::Ref* arg1;
         do {
             js_proxy_t *proxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+            JSObject *tmpObj = argv[1].toObjectOrNull();
             proxy = jsb_get_js_proxy(tmpObj);
             arg1 = (cocos2d::Ref*)(proxy ? proxy->ptr : NULL);
         } while (0);
@@ -174,7 +174,7 @@ bool js_cocos2dx_CCBReader_readNodeGraphFromFile(JSContext *cx, uint32_t argc, j
         cocos2d::Ref* arg1;
         do {
             js_proxy_t *proxy;
-            JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+            JSObject *tmpObj = argv[1].toObjectOrNull();
             proxy = jsb_get_js_proxy(tmpObj);
             arg1 = (cocos2d::Ref*)(proxy ? proxy->ptr : NULL);
         } while (0);
@@ -215,7 +215,7 @@ bool js_cocos2dx_CCBReader_createSceneWithNodeGraphFromFile(JSContext *cx, uint3
 		cocos2d::Ref* arg1;
 		do {
 			js_proxy_t *proxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			proxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::Ref*)(proxy ? proxy->ptr : NULL);
 			TEST_NATIVE_OBJECT(cx, arg1)
@@ -258,7 +258,7 @@ bool js_cocos2dx_CCBReader_createSceneWithNodeGraphFromFile(JSContext *cx, uint3
 		cocos2d::Ref* arg1;
 		do {
 			js_proxy_t *proxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			proxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::Ref*)(proxy ? proxy->ptr : NULL);
 			TEST_NATIVE_OBJECT(cx, arg1)
@@ -329,7 +329,7 @@ CC_BINDING_BUILDER_DLL void register_CCBuilderReader(JSContext *cx, JSObject *ob
 	}
 	obj = ns;
 
-    JSObject  *tmpObj = JSVAL_TO_OBJECT(anonEvaluate(cx, obj, "(function () { return cc._Reader; })()"));
+    JSObject  *tmpObj = anonEvaluate(cx, obj, "(function () { return cc._Reader; })()").toObjectOrNull();
     JS_DefineFunction(cx, tmpObj, "create", js_CocosBuilder_create, 2, JSPROP_READONLY | JSPROP_PERMANENT);
     JS_DefineFunction(cx, tmpObj, "loadScene", js_cocos2dx_CCBReader_createSceneWithNodeGraphFromFile, 2, JSPROP_READONLY | JSPROP_PERMANENT);
     

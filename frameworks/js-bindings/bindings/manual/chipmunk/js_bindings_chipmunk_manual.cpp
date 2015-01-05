@@ -413,7 +413,7 @@ bool JSPROXY_CCPhysicsSprite_spriteWithSpriteFrame__static(JSContext *cx, uint32
 	if (argc >= 1) {
 		do {
 			js_proxy_t *proxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			proxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::SpriteFrame*)(proxy ? proxy->ptr : NULL);
 			TEST_NATIVE_OBJECT(cx, arg0)
@@ -893,13 +893,13 @@ bool __jsb_cpSpace_addCollisionHandler(JSContext *cx, jsval *vp, jsval *argvp, c
 //	ok &= JS_ValueToObject(cx, *argvp++, &handler->jsthis );
 	handler->jsthis = (JSObject *)JS_THIS_OBJECT(cx, vp);
 	
-	handler->begin = !JSVAL_IS_NULL(*argvp) ? JSVAL_TO_OBJECT(*argvp) : NULL;
+	handler->begin = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
 	argvp++;
-	handler->pre = !JSVAL_IS_NULL(*argvp) ? JSVAL_TO_OBJECT(*argvp) : NULL;
+	handler->pre = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
 	argvp++;
-	handler->post = !JSVAL_IS_NULL(*argvp) ? JSVAL_TO_OBJECT(*argvp) : NULL;
+	handler->post = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
 	argvp++;
-	handler->separate = !JSVAL_IS_NULL(*argvp) ? JSVAL_TO_OBJECT(*argvp) : NULL;
+	handler->separate = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
 	argvp++;
 	
 	JSB_PRECONDITION(ok, "Error parsing arguments");

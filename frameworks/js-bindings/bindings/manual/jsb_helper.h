@@ -125,7 +125,7 @@ valOut = OBJECT_TO_JSVAL(jsobj); \
 #define JS_GET_UINT_WRAPPED(inVal, propName, out) \
 do { \
 if (inVal.isObject()) {\
-JSObject* jsobj = JSVAL_TO_OBJECT(inVal); \
+JSObject* jsobj = inVal.toObjectOrNull(); \
 jsval outVal; \
 JS_GetProperty(cx, jsobj, "__" propName, &outVal); \
 JS_ValueToECMAUint32(cx, outVal, &out); \

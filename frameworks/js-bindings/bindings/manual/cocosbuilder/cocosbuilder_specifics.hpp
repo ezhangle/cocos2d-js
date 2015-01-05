@@ -39,7 +39,7 @@ public:
         if(!JSVAL_IS_VOID(_jsCallback)  && !JSVAL_IS_VOID(_jsThisObj)) {
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
             
-            JS_CallFunctionValue(cx, JSVAL_TO_OBJECT(_jsThisObj), _jsCallback, 0, NULL, &retval);
+            JS_CallFunctionValue(cx, _jsThisObj.toObjectOrNull(), _jsCallback, 0, NULL, &retval);
         }
     }
     

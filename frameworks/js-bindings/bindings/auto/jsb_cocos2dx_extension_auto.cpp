@@ -197,7 +197,7 @@ bool js_cocos2dx_extension_Control_isTouchInside(JSContext *cx, uint32_t argc, j
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Touch*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -246,7 +246,7 @@ bool js_cocos2dx_extension_Control_getTouchLocation(JSContext *cx, uint32_t argc
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Touch*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -433,7 +433,7 @@ bool js_cocos2dx_extension_Scale9Sprite_updateWithSprite(JSContext *cx, uint32_t
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -668,7 +668,7 @@ bool js_cocos2dx_extension_Scale9Sprite_init(JSContext *cx, uint32_t argc, jsval
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -706,7 +706,7 @@ bool js_cocos2dx_extension_Scale9Sprite_init(JSContext *cx, uint32_t argc, jsval
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -779,7 +779,7 @@ bool js_cocos2dx_extension_Scale9Sprite_setSpriteFrame(JSContext *cx, uint32_t a
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::SpriteFrame*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1022,7 +1022,7 @@ bool js_cocos2dx_extension_Scale9Sprite_initWithSpriteFrame(JSContext *cx, uint3
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::SpriteFrame*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1042,7 +1042,7 @@ bool js_cocos2dx_extension_Scale9Sprite_initWithSpriteFrame(JSContext *cx, uint3
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::SpriteFrame*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1330,7 +1330,7 @@ bool js_cocos2dx_extension_Scale9Sprite_createWithSpriteFrame(JSContext *cx, uin
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::SpriteFrame*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1360,7 +1360,7 @@ bool js_cocos2dx_extension_Scale9Sprite_createWithSpriteFrame(JSContext *cx, uin
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::SpriteFrame*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1573,7 +1573,7 @@ bool js_cocos2dx_extension_ControlButton_setTitleLabelForState(JSContext *cx, ui
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1720,7 +1720,7 @@ bool js_cocos2dx_extension_ControlButton_initWithBackgroundSprite(JSContext *cx,
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1815,7 +1815,7 @@ bool js_cocos2dx_extension_ControlButton_setTitleLabel(JSContext *cx, uint32_t a
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -1899,7 +1899,7 @@ bool js_cocos2dx_extension_ControlButton_setBackgroundSprite(JSContext *cx, uint
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2172,7 +2172,7 @@ bool js_cocos2dx_extension_ControlButton_setBackgroundSpriteFrameForState(JSCont
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::SpriteFrame*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2201,7 +2201,7 @@ bool js_cocos2dx_extension_ControlButton_setBackgroundSpriteForState(JSContext *
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2250,7 +2250,7 @@ bool js_cocos2dx_extension_ControlButton_initWithLabelAndBackgroundSprite(JSCont
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2258,7 +2258,7 @@ bool js_cocos2dx_extension_ControlButton_initWithLabelAndBackgroundSprite(JSCont
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -2477,7 +2477,7 @@ bool js_cocos2dx_extension_ControlButton_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2521,7 +2521,7 @@ bool js_cocos2dx_extension_ControlButton_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2531,7 +2531,7 @@ bool js_cocos2dx_extension_ControlButton_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -2764,7 +2764,7 @@ bool js_cocos2dx_extension_ControlHuePicker_initWithTargetAndPos(JSContext *cx, 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2872,7 +2872,7 @@ bool js_cocos2dx_extension_ControlHuePicker_setBackground(JSContext *cx, uint32_
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2960,7 +2960,7 @@ bool js_cocos2dx_extension_ControlHuePicker_setSlider(JSContext *cx, uint32_t ar
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -2984,7 +2984,7 @@ bool js_cocos2dx_extension_ControlHuePicker_create(JSContext *cx, uint32_t argc,
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3148,7 +3148,7 @@ bool js_cocos2dx_extension_ControlSaturationBrightnessPicker_initWithTargetAndPo
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3318,7 +3318,7 @@ bool js_cocos2dx_extension_ControlSaturationBrightnessPicker_create(JSContext *c
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3520,7 +3520,7 @@ bool js_cocos2dx_extension_ControlColourPicker_hueSliderValueChanged(JSContext *
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Ref*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3572,7 +3572,7 @@ bool js_cocos2dx_extension_ControlColourPicker_setBackground(JSContext *cx, uint
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3599,7 +3599,7 @@ bool js_cocos2dx_extension_ControlColourPicker_setcolourPicker(JSContext *cx, ui
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::extension::ControlSaturationBrightnessPicker*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3627,7 +3627,7 @@ bool js_cocos2dx_extension_ControlColourPicker_colourSliderValueChanged(JSContex
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Ref*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -3655,7 +3655,7 @@ bool js_cocos2dx_extension_ControlColourPicker_setHuePicker(JSContext *cx, uint3
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::extension::ControlHuePicker*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4010,7 +4010,7 @@ bool js_cocos2dx_extension_ControlPotentiometer_setThumbSprite(JSContext *cx, ui
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4115,7 +4115,7 @@ bool js_cocos2dx_extension_ControlPotentiometer_setProgressTimer(JSContext *cx, 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::ProgressTimer*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4188,7 +4188,7 @@ bool js_cocos2dx_extension_ControlPotentiometer_initWithTrackSprite_ProgressTime
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4196,7 +4196,7 @@ bool js_cocos2dx_extension_ControlPotentiometer_initWithTrackSprite_ProgressTime
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::ProgressTimer*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -4204,7 +4204,7 @@ bool js_cocos2dx_extension_ControlPotentiometer_initWithTrackSprite_ProgressTime
 		do {
 			if (!argv[2].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+			JSObject *tmpObj = argv[2].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -4432,7 +4432,7 @@ bool js_cocos2dx_extension_ControlSlider_locationFromTouch(JSContext *cx, uint32
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Touch*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4461,7 +4461,7 @@ bool js_cocos2dx_extension_ControlSlider_setSelectedThumbSprite(JSContext *cx, u
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4488,7 +4488,7 @@ bool js_cocos2dx_extension_ControlSlider_setProgressSprite(JSContext *cx, uint32
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4566,7 +4566,7 @@ bool js_cocos2dx_extension_ControlSlider_setThumbSprite(JSContext *cx, uint32_t 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4736,7 +4736,7 @@ bool js_cocos2dx_extension_ControlSlider_initWithSprites(JSContext *cx, uint32_t
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4746,7 +4746,7 @@ bool js_cocos2dx_extension_ControlSlider_initWithSprites(JSContext *cx, uint32_t
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -4756,7 +4756,7 @@ bool js_cocos2dx_extension_ControlSlider_initWithSprites(JSContext *cx, uint32_t
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -4766,7 +4766,7 @@ bool js_cocos2dx_extension_ControlSlider_initWithSprites(JSContext *cx, uint32_t
 			do {
 				if (!argv[3].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[3]);
+				JSObject *tmpObj = argv[3].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg3 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg3, cx, false, "Invalid Native Object");
@@ -4786,7 +4786,7 @@ bool js_cocos2dx_extension_ControlSlider_initWithSprites(JSContext *cx, uint32_t
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4796,7 +4796,7 @@ bool js_cocos2dx_extension_ControlSlider_initWithSprites(JSContext *cx, uint32_t
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -4806,7 +4806,7 @@ bool js_cocos2dx_extension_ControlSlider_initWithSprites(JSContext *cx, uint32_t
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -4853,7 +4853,7 @@ bool js_cocos2dx_extension_ControlSlider_isTouchInside(JSContext *cx, uint32_t a
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Touch*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4947,7 +4947,7 @@ bool js_cocos2dx_extension_ControlSlider_setBackgroundSprite(JSContext *cx, uint
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -4992,7 +4992,7 @@ bool js_cocos2dx_extension_ControlSlider_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5002,7 +5002,7 @@ bool js_cocos2dx_extension_ControlSlider_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5012,7 +5012,7 @@ bool js_cocos2dx_extension_ControlSlider_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -5094,7 +5094,7 @@ bool js_cocos2dx_extension_ControlSlider_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5104,7 +5104,7 @@ bool js_cocos2dx_extension_ControlSlider_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5114,7 +5114,7 @@ bool js_cocos2dx_extension_ControlSlider_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -5124,7 +5124,7 @@ bool js_cocos2dx_extension_ControlSlider_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[3].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[3]);
+				JSObject *tmpObj = argv[3].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg3 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg3, cx, false, "Invalid Native Object");
@@ -5291,7 +5291,7 @@ bool js_cocos2dx_extension_ControlStepper_setMinusSprite(JSContext *cx, uint32_t
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5528,7 +5528,7 @@ bool js_cocos2dx_extension_ControlStepper_setPlusSprite(JSContext *cx, uint32_t 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5555,7 +5555,7 @@ bool js_cocos2dx_extension_ControlStepper_setMinusLabel(JSContext *cx, uint32_t 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Label*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5678,7 +5678,7 @@ bool js_cocos2dx_extension_ControlStepper_initWithMinusSpriteAndPlusSprite(JSCon
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5686,7 +5686,7 @@ bool js_cocos2dx_extension_ControlStepper_initWithMinusSpriteAndPlusSprite(JSCon
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -5732,7 +5732,7 @@ bool js_cocos2dx_extension_ControlStepper_setPlusLabel(JSContext *cx, uint32_t a
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Label*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5756,7 +5756,7 @@ bool js_cocos2dx_extension_ControlStepper_create(JSContext *cx, uint32_t argc, j
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -5764,7 +5764,7 @@ bool js_cocos2dx_extension_ControlStepper_create(JSContext *cx, uint32_t argc, j
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -6006,7 +6006,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6016,7 +6016,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -6026,7 +6026,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -6036,7 +6036,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[3].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[3]);
+				JSObject *tmpObj = argv[3].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg3 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg3, cx, false, "Invalid Native Object");
@@ -6046,7 +6046,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[4].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[4]);
+				JSObject *tmpObj = argv[4].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg4 = (cocos2d::Label*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg4, cx, false, "Invalid Native Object");
@@ -6056,7 +6056,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[5].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[5]);
+				JSObject *tmpObj = argv[5].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg5 = (cocos2d::Label*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg5, cx, false, "Invalid Native Object");
@@ -6076,7 +6076,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6086,7 +6086,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -6096,7 +6096,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -6106,7 +6106,7 @@ bool js_cocos2dx_extension_ControlSwitch_initWithMaskSprite(JSContext *cx, uint3
 			do {
 				if (!argv[3].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[3]);
+				JSObject *tmpObj = argv[3].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg3 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg3, cx, false, "Invalid Native Object");
@@ -6153,7 +6153,7 @@ bool js_cocos2dx_extension_ControlSwitch_locationFromTouch(JSContext *cx, uint32
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Touch*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6180,7 +6180,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6190,7 +6190,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -6200,7 +6200,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -6210,7 +6210,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[3].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[3]);
+				JSObject *tmpObj = argv[3].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg3 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg3, cx, false, "Invalid Native Object");
@@ -6237,7 +6237,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[0].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+				JSObject *tmpObj = argv[0].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg0 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6247,7 +6247,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -6257,7 +6257,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -6267,7 +6267,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[3].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[3]);
+				JSObject *tmpObj = argv[3].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg3 = (cocos2d::Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg3, cx, false, "Invalid Native Object");
@@ -6277,7 +6277,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[4].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[4]);
+				JSObject *tmpObj = argv[4].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg4 = (cocos2d::Label*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg4, cx, false, "Invalid Native Object");
@@ -6287,7 +6287,7 @@ bool js_cocos2dx_extension_ControlSwitch_create(JSContext *cx, uint32_t argc, js
 			do {
 				if (!argv[5].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[5]);
+				JSObject *tmpObj = argv[5].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg5 = (cocos2d::Label*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg5, cx, false, "Invalid Native Object");
@@ -6454,7 +6454,7 @@ bool js_cocos2dx_extension_ScrollView_setContainer(JSContext *cx, uint32_t argc,
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6689,7 +6689,7 @@ bool js_cocos2dx_extension_ScrollView_initWithViewSize(JSContext *cx, uint32_t a
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -6718,7 +6718,7 @@ bool js_cocos2dx_extension_ScrollView_pause(JSContext *cx, uint32_t argc, jsval 
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Ref*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -6900,7 +6900,7 @@ bool js_cocos2dx_extension_ScrollView_resume(JSContext *cx, uint32_t argc, jsval
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Ref*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -7038,7 +7038,7 @@ bool js_cocos2dx_extension_ScrollView_isNodeVisible(JSContext *cx, uint32_t argc
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -7159,7 +7159,7 @@ bool js_cocos2dx_extension_ScrollView_create(JSContext *cx, uint32_t argc, jsval
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -7558,7 +7558,7 @@ bool js_cocos2dx_extension_TableView_scrollViewDidZoom(JSContext *cx, uint32_t a
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::extension::ScrollView*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -7649,7 +7649,7 @@ bool js_cocos2dx_extension_TableView_initWithViewSize(JSContext *cx, uint32_t ar
 		do {
 			if (!argv[1].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+			JSObject *tmpObj = argv[1].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg1 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -7678,7 +7678,7 @@ bool js_cocos2dx_extension_TableView_scrollViewDidScroll(JSContext *cx, uint32_t
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::extension::ScrollView*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -8080,7 +8080,7 @@ bool js_cocos2dx_extension_AssetsManager_setDelegate(JSContext *cx, uint32_t arg
 		do {
 			if (!argv[0].isObject()) { ok = false; break; }
 			js_proxy_t *jsProxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			JSObject *tmpObj = argv[0].toObjectOrNull();
 			jsProxy = jsb_get_js_proxy(tmpObj);
 			arg0 = (cocos2d::extension::AssetsManagerDelegateProtocol*)(jsProxy ? jsProxy->ptr : NULL);
 			JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -8573,7 +8573,7 @@ bool js_cocos2dx_extension_EditBox_initWithSizeAndBackgroundSprite(JSContext *cx
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -8806,7 +8806,7 @@ bool js_cocos2dx_extension_EditBox_create(JSContext *cx, uint32_t argc, jsval *v
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -8835,7 +8835,7 @@ bool js_cocos2dx_extension_EditBox_create(JSContext *cx, uint32_t argc, jsval *v
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -8845,7 +8845,7 @@ bool js_cocos2dx_extension_EditBox_create(JSContext *cx, uint32_t argc, jsval *v
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -8874,7 +8874,7 @@ bool js_cocos2dx_extension_EditBox_create(JSContext *cx, uint32_t argc, jsval *v
 			do {
 				if (!argv[1].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[1]);
+				JSObject *tmpObj = argv[1].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg1 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -8884,7 +8884,7 @@ bool js_cocos2dx_extension_EditBox_create(JSContext *cx, uint32_t argc, jsval *v
 			do {
 				if (!argv[2].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[2]);
+				JSObject *tmpObj = argv[2].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg2 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg2, cx, false, "Invalid Native Object");
@@ -8894,7 +8894,7 @@ bool js_cocos2dx_extension_EditBox_create(JSContext *cx, uint32_t argc, jsval *v
 			do {
 				if (!argv[3].isObject()) { ok = false; break; }
 				js_proxy_t *jsProxy;
-				JSObject *tmpObj = JSVAL_TO_OBJECT(argv[3]);
+				JSObject *tmpObj = argv[3].toObjectOrNull();
 				jsProxy = jsb_get_js_proxy(tmpObj);
 				arg3 = (cocos2d::ui::Scale9Sprite*)(jsProxy ? jsProxy->ptr : NULL);
 				JSB_PRECONDITION2( arg3, cx, false, "Invalid Native Object");

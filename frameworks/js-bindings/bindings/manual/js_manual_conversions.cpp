@@ -605,7 +605,7 @@ bool jsvals_variadic_to_ccarray( JSContext *cx, jsval *vp, int argc, __Array** r
         else
         {
             js_proxy_t* p;
-            JSObject* obj = JSVAL_TO_OBJECT(*vp);
+            JSObject* obj = vp->toObjectOrNull();
             p = jsb_get_js_proxy(obj);
             if (p) {
                 pArray->addObject((Ref*)p->ptr);
@@ -627,7 +627,7 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
         jsval value = *vp;
         if (value.isObject())
         {
-            JSObject* jsobj = JSVAL_TO_OBJECT(value);
+            JSObject* jsobj = value.toObjectOrNull();
             CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
             
             if (!JS_IsArrayObject(cx, jsobj))
@@ -864,7 +864,7 @@ bool jsval_to_ccarray(JSContext* cx, jsval v, __Array** ret)
             if (value.isObject())
             {
                 js_proxy_t *proxy;
-                JSObject *tmp = JSVAL_TO_OBJECT(value);
+                JSObject *tmp = value.toObjectOrNull();
                 proxy = jsb_get_js_proxy(tmp);
                 cocos2d::Ref* cobj = (cocos2d::Ref *)(proxy ? proxy->ptr : NULL);
                 // Don't test it.
@@ -921,7 +921,7 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
 {
     if (v.isObject())
     {
-        JSObject* jsobj = JSVAL_TO_OBJECT(v);
+        JSObject* jsobj = v.toObjectOrNull();
         CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
         if (!JS_IsArrayObject(cx, jsobj))
         {
@@ -975,7 +975,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
         return true;
     }
     
-    JSObject* tmp = JSVAL_TO_OBJECT(v);
+    JSObject* tmp = v.toObjectOrNull();
     if (!tmp) {
         CCLOG("%s", "jsval_to_ccvaluemap: the jsval is not an object.");
         return false;
@@ -1007,7 +1007,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
         JS_GetPropertyById(cx, tmp, idp, &value);
         if (value.isObject())
         {
-            JSObject* jsobj = JSVAL_TO_OBJECT(value);
+            JSObject* jsobj = value.toObjectOrNull();
             CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
             if (!JS_IsArrayObject(cx, jsobj))
             {
@@ -1065,7 +1065,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
         return true;
     }
     
-    JSObject* tmp = JSVAL_TO_OBJECT(v);
+    JSObject* tmp = v.toObjectOrNull();
     if (!tmp) {
         CCLOG("%s", "jsval_to_ccvaluemap: the jsval is not an object.");
         return false;
@@ -1097,7 +1097,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
         JS_GetPropertyById(cx, tmp, idp, &value);
         if (value.isObject())
         {
-            JSObject* jsobj = JSVAL_TO_OBJECT(value);
+            JSObject* jsobj = value.toObjectOrNull();
             CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
             if (!JS_IsArrayObject(cx, jsobj))
             {
@@ -1162,7 +1162,7 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
         {
             if (value.isObject())
             {
-                JSObject* jsobj = JSVAL_TO_OBJECT(value);
+                JSObject* jsobj = value.toObjectOrNull();
                 CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
                 
                 if (!JS_IsArrayObject(cx, jsobj))
@@ -1503,7 +1503,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
         return true;
     }
     
-    JSObject* tmp = JSVAL_TO_OBJECT(v);
+    JSObject* tmp = v.toObjectOrNull();
     if (!tmp) {
         CCLOG("%s", "jsval_to_ccdictionary: the jsval is not an object.");
         return false;
@@ -1538,7 +1538,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
         if (value.isObject())
         {
             js_proxy_t *proxy;
-            tmp = JSVAL_TO_OBJECT(value);
+            tmp = value.toObjectOrNull();
             proxy = jsb_get_js_proxy(tmp);
             cocos2d::Ref* cobj = (cocos2d::Ref *)(proxy ? proxy->ptr : NULL);
             // Don't test it.

@@ -364,7 +364,7 @@ JS_BINDED_PROP_SET_IMPL(MinXmlHttpRequest, onreadystatechange)
     jsval callback = vp.get();
     if (callback != JSVAL_NULL)
     {
-        _onreadystateCallback = JSVAL_TO_OBJECT(callback);
+        _onreadystateCallback = callback.toObjectOrNull();
         AddNamedObjectRoot(cx, &_onreadystateCallback, "onreadystateCallback");
     }
     return true;

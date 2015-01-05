@@ -442,7 +442,7 @@ void register_jsb_socketio(JSContext *cx, JSObject *global) {
                                                 NULL, // no static properties
                                                 st_funcs);
     
-    JSObject* jsclassObj = JSVAL_TO_OBJECT(anonEvaluate(cx, global, "(function () { return SocketIO; })()"));
+    JSObject* jsclassObj = anonEvaluate(cx, global, "(function () { return SocketIO; })()").toObjectOrNull();
 
 }
 

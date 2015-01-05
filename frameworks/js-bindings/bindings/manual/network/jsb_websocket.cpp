@@ -192,7 +192,7 @@ bool js_cocos2dx_extension_WebSocket_send(JSContext *cx, uint32_t argc, jsval *v
                 uint8_t *bufdata = NULL;
                 uint32_t len = 0;
                 
-                JSObject* jsobj = JSVAL_TO_OBJECT(argv[0]);
+                JSObject* jsobj = argv[0].toObjectOrNull();
                 if (JS_IsArrayBufferObject(jsobj))
                 {
                     bufdata = JS_GetArrayBufferData(jsobj);
@@ -275,7 +275,7 @@ bool js_cocos2dx_extension_WebSocket_constructor(JSContext *cx, uint32_t argc, j
             else if (argv[1].isObject())
             {
                 bool ok = true;
-                JSObject* arg2 = JSVAL_TO_OBJECT(argv[1]);
+                JSObject* arg2 = argv[1].toObjectOrNull();
                 JSB_PRECONDITION(JS_IsArrayObject( cx, arg2 ),  "Object must be an array");
                 
                 uint32_t len = 0;
@@ -376,7 +376,7 @@ void register_jsb_websocket(JSContext *cx, JSObject *global) {
                                                 NULL, // no static properties
                                                 st_funcs);
     
-    JSObject* jsclassObj = JSVAL_TO_OBJECT(anonEvaluate(cx, global, "(function () { return WebSocket; })()"));
+    JSObject* jsclassObj = anonEvaluate(cx, global, "(function () { return WebSocket; })()").toObjectOrNull();
 
     JS_DefineProperty(cx, jsclassObj, "CONNECTING", INT_TO_JSVAL((int)WebSocket::State::CONNECTING)
                       , NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_READONLY);
