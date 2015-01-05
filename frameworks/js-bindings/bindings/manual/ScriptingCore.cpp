@@ -432,7 +432,7 @@ void ScriptingCore::string_report(jsval val) {
     if (val.isNull()) {
         LOGD("val : (val.isNull()");
         // return 1;
-    } else if ((JSVAL_IS_BOOLEAN(val)) &&
+    } else if ((val.isBoolean()) &&
                (false == (val.toBoolean()))) {
         LOGD("val : (return value is false");
         // return 1;
@@ -1129,7 +1129,7 @@ bool ScriptingCore::handleTouchEvent(void* nativeObj, cocos2d::EventTouch::Event
             {
                 ret = false;
             }
-            else if(JSVAL_IS_BOOLEAN(retval))
+            else if(retval.isBoolean())
             {
                 ret = retval.toBoolean();
             }
@@ -1173,7 +1173,7 @@ bool ScriptingCore::handleMouseEvent(void* nativeObj, cocos2d::EventMouse::Mouse
             {
                 ret = false;
             }
-            else if(JSVAL_IS_BOOLEAN(retval))
+            else if(retval.isBoolean())
             {
                 ret = retval.toBoolean();
             }
@@ -1201,7 +1201,7 @@ bool ScriptingCore::executeFunctionWithObjectData(void* nativeObj, const char *n
     if (retval.isNull()) {
         return false;
     }
-    else if (JSVAL_IS_BOOLEAN(retval)) {
+    else if (retval.isBoolean()) {
         return retval.toBoolean();
     }
     return false;

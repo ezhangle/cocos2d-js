@@ -664,7 +664,7 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
                 ret->push_back(Value(number));
             }
         }
-        else if (JSVAL_IS_BOOLEAN(value))
+        else if (value.isBoolean())
         {
             bool boolVal = JS::ToBoolean(JS::RootedValue(cx, value));
             ret->push_back(Value(boolVal));
@@ -903,7 +903,7 @@ bool jsval_to_ccarray(JSContext* cx, jsval v, __Array** ret)
                     //                    CCLOG("iterate array: value = %lf", number);
                 }
             }
-            else if (JSVAL_IS_BOOLEAN(value)) {
+            else if (value.isBoolean()) {
                 bool boolVal = JS::ToBoolean(value);
                 arr->addObject(Bool::create(boolVal));
                 // CCLOG("iterate object: value = %d", boolVal);
@@ -956,7 +956,7 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
             *ret = Value(number);
         }
     }
-    else if (JSVAL_IS_BOOLEAN(v))
+    else if (v.isBoolean())
     {
         bool boolVal = JS::ToBoolean(JS::RootedValue(cx, v));
         *ret = Value(boolVal);
@@ -1044,7 +1044,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
                 // CCLOG("iterate object: key = %s, value = %lf", keyWrapper.get().c_str(), number);
             }
         }
-        else if (JSVAL_IS_BOOLEAN(value))
+        else if (value.isBoolean())
         {
             bool boolVal = JS::ToBoolean(value);
             dict.insert(ValueMap::value_type(keyWrapper.get(), Value(boolVal)));
@@ -1132,7 +1132,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
                 dict.insert(ValueMapIntKey::value_type(keyVal, Value(number)));
             }
         }
-        else if (JSVAL_IS_BOOLEAN(value))
+        else if (value.isBoolean())
         {
             bool boolVal = JS::ToBoolean(value);
             dict.insert(ValueMapIntKey::value_type(keyVal, Value(boolVal)));
@@ -1199,7 +1199,7 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
                     ret->push_back(Value(number));
                 }
             }
-            else if (JSVAL_IS_BOOLEAN(value))
+            else if (value.isBoolean())
             {
                 bool boolVal = JS::ToBoolean(value);
                 ret->push_back(Value(boolVal));
@@ -1577,7 +1577,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
                 //                CCLOG("iterate object: key = %s, value = %lf", keyWrapper.get().c_str(), number);
             }
         }
-        else if (JSVAL_IS_BOOLEAN(value)) {
+        else if (value.isBoolean()) {
             bool boolVal = JS::ToBoolean(value);
             dict->setObject(Bool::create(boolVal), keyWrapper.get());
             // CCLOG("iterate object: key = %s, value = %d", keyWrapper.get().c_str(), boolVal);

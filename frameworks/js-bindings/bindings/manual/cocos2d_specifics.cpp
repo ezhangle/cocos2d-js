@@ -151,7 +151,7 @@ bool JSTouchDelegate::onTouchBegan(Touch *touch, Event *event)
     ScriptingCore::getInstance()->executeCustomTouchEvent(EventTouch::EventCode::BEGAN,
         touch, _obj, retval);
     
-    if(JSVAL_IS_BOOLEAN(retval))
+    if(retval.isBoolean())
     {
         bRet = retval.toBoolean();
     } 
