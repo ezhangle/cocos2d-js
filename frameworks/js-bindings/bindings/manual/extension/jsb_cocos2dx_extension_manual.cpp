@@ -1054,7 +1054,7 @@ void __JSDownloaderDelegator::onError(const cocos2d::extension::Downloader::Erro
         
         jsval succeed = BOOLEAN_TO_JSVAL(false);
         jsval retval;
-        JS_AddValueRoot(cx, &succeed);
+        AddValueRoot(cx, &succeed);
         JS_CallFunctionValue(cx, global, _jsCallback, 1, &succeed, &retval);
         JS_RemoveValueRoot(cx, &succeed);
         
@@ -1095,7 +1095,7 @@ void __JSDownloaderDelegator::onSuccess(const std::string &srcUrl, const std::st
     
     if (!JSVAL_IS_NULL(_jsCallback)) {
         jsval retval;
-        JS_AddValueRoot(cx, valArr);
+        AddValueRoot(cx, valArr);
         JS_CallFunctionValue(cx, global, _jsCallback, 2, valArr, &retval);
         JS_RemoveValueRoot(cx, valArr);
         

@@ -67,7 +67,7 @@ void JSStudioEventListenerWrapper::setJSCallbackThis(jsval jsThisObj)
     {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         m_bNeedUnroot = true;
-        m_bNeedUnroot &= JS_AddValueRoot(cx, &jsThisObj);
+        m_bNeedUnroot &= AddValueRoot(cx, &jsThisObj);
     }
 }
 
@@ -85,7 +85,7 @@ void JSStudioEventListenerWrapper::eventCallbackFunc(Ref* sender,int eventType)
         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
         valArr[1] = touchVal;
 
-        JS_AddValueRoot(cx, valArr);
+        AddValueRoot(cx, valArr);
 
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 

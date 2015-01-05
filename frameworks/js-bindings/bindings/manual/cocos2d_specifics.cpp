@@ -932,14 +932,14 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
                         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
                         valArr[1] = jsvalExtraData;
                         
-                        JS_AddValueRoot(cx, valArr);
+                        AddValueRoot(cx, valArr);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 2, valArr, &retval);
                         JS_RemoveValueRoot(cx, valArr);
                     }
                     else
                     {
                         jsval senderVal = OBJECT_TO_JSVAL(proxy->obj);
-                        JS_AddValueRoot(cx, &senderVal);
+                        AddValueRoot(cx, &senderVal);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
                         JS_RemoveValueRoot(cx, &senderVal);
                     }
@@ -1020,14 +1020,14 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
                         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
                         valArr[1] = jsvalExtraData;
                         
-                        JS_AddValueRoot(cx, valArr);
+                        AddValueRoot(cx, valArr);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 2, valArr, &retval);
                         JS_RemoveValueRoot(cx, valArr);
                     }
                     else
                     {
                         jsval senderVal = OBJECT_TO_JSVAL(proxy->obj);
-                        JS_AddValueRoot(cx, &senderVal);
+                        AddValueRoot(cx, &senderVal);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
                         JS_RemoveValueRoot(cx, &senderVal);
                     }
@@ -1354,7 +1354,7 @@ void JSScheduleWrapper::scheduleFunc(float dt)
 
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
 
-    bool ok = JS_AddValueRoot(cx, &data);
+    bool ok = AddValueRoot(cx, &data);
     if (!ok) {
         CCLOG("scheduleFunc: Root value fails.");
         return;
@@ -1380,7 +1380,7 @@ void JSScheduleWrapper::update(float dt)
     
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
     
-    bool ok = JS_AddValueRoot(cx, &data);
+    bool ok = AddValueRoot(cx, &data);
     if (!ok) {
         CCLOG("scheduleFunc: Root value fails.");
         return;

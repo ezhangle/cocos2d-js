@@ -585,7 +585,7 @@ public:
             valArr[3] = eventVal;
             valArr[4] = loopCountVal;
             
-            JS_AddValueRoot(cx, valArr);
+            AddValueRoot(cx, valArr);
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
             JS_CallFunctionValue(cx, thisObj, _jsCallback, 5, valArr, &retval);
             JS_RemoveValueRoot(cx, valArr);
