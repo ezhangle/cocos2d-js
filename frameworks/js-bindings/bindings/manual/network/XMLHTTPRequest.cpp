@@ -412,7 +412,7 @@ JS_BINDED_PROP_SET_IMPL(MinXmlHttpRequest, timeout)
 {
     jsval timeout_ms = vp.get();
     
-    _timeout = JSVAL_TO_INT(timeout_ms);
+    _timeout = timeout_ms.toInt32();
     //curl_easy_setopt(curlHandle, CURLOPT_CONNECTTIMEOUT_MS, timeout);
     return true;
     

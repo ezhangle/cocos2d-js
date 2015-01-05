@@ -779,7 +779,7 @@ bool js_cocos2dx_JSTouchDelegate_registerStandardDelegate(JSContext *cx, uint32_
         int priority = 1;
         if (argc == 2)
         {
-            priority = JSVAL_TO_INT(argv[1]);
+            priority = argv[1].toInt32();
         }
         
         touch->registerStandardDelegate(priority);
@@ -801,7 +801,7 @@ bool js_cocos2dx_JSTouchDelegate_registerTargetedDelegate(JSContext *cx, uint32_
         JSObject* jsobj = NULL;
 
         JSTouchDelegate *touch = new JSTouchDelegate();
-        touch->registerTargetedDelegate(JSVAL_TO_INT(argv[0]), JSVAL_TO_BOOLEAN(argv[1]));
+        touch->registerTargetedDelegate(argv[0].toInt32(), JSVAL_TO_BOOLEAN(argv[1]));
         
         jsobj = argv[2].toObjectOrNull();
         touch->setJSObject(jsobj);

@@ -364,7 +364,7 @@ bool js_get_BaseData_zOrder(JSContext *cx, JS::HandleObject obj, JS::HandleId id
 bool js_set_BaseData_zOrder(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->y = (int)JSVAL_TO_INT(vp.get());
+        cobj->y = (int)vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_zOrder : Invalid native object.");
@@ -546,7 +546,7 @@ bool js_get_BaseData_a(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS:
 bool js_set_BaseData_a(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->a = JSVAL_TO_INT(vp.get());
+        cobj->a = vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_a : Invalid native object.");
@@ -572,7 +572,7 @@ bool js_get_BaseData_r(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS:
 bool js_set_BaseData_r(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->r = JSVAL_TO_INT(vp.get());
+        cobj->r = vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_r : Invalid native object.");
@@ -598,7 +598,7 @@ bool js_get_BaseData_g(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS:
 bool js_set_BaseData_g(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->g = JSVAL_TO_INT(vp.get());
+        cobj->g = vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_g : Invalid native object.");
@@ -624,7 +624,7 @@ bool js_get_BaseData_b(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS:
 bool js_set_BaseData_b(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->b = JSVAL_TO_INT(vp.get());
+        cobj->b = vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_b : Invalid native object.");
@@ -836,7 +836,7 @@ bool js_get_MovementData_duration(JSContext *cx, JS::HandleObject obj, JS::Handl
 bool js_set_MovementData_duration(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::MovementData* cobj = (cocostudio::MovementData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->duration = JSVAL_TO_INT(vp.get());
+        cobj->duration = vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_MovementData_duration : Invalid native object.");
@@ -888,7 +888,7 @@ bool js_get_MovementData_durationTo(JSContext *cx, JS::HandleObject obj, JS::Han
 bool js_set_MovementData_durationTo(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::MovementData* cobj = (cocostudio::MovementData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->durationTo = JSVAL_TO_INT(vp.get());
+        cobj->durationTo = vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_MovementData_durationTo : Invalid native object.");
@@ -914,7 +914,7 @@ bool js_get_MovementData_durationTween(JSContext *cx, JS::HandleObject obj, JS::
 bool js_set_MovementData_durationTween(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::MovementData* cobj = (cocostudio::MovementData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->durationTween = JSVAL_TO_INT(vp.get());
+        cobj->durationTween = vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_MovementData_durationTween : Invalid native object.");
@@ -966,7 +966,7 @@ bool js_get_MovementData_tweenEasing(JSContext *cx, JS::HandleObject obj, JS::Ha
 bool js_set_MovementData_tweenEasing(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::MovementData* cobj = (cocostudio::MovementData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->tweenEasing = (cocos2d::tweenfunc::TweenType)JSVAL_TO_INT(vp.get());
+        cobj->tweenEasing = (cocos2d::tweenfunc::TweenType)vp.get().toInt32();
         return true;
     }
     JS_ReportError(cx, "js_set_MovementData_tweenEasing : Invalid native object.");

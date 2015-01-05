@@ -372,7 +372,7 @@ bool JSB_jsval_typedarray_to_dataptr(JSContext *cx, jsval vp, GLsizei *count, vo
 				case js::ArrayBufferView::TYPE_INT32:
 				case js::ArrayBufferView::TYPE_UINT32:
 				{
-					uint32_t e = JSVAL_TO_INT(valarg);
+					uint32_t e = valarg.toInt32();
 					((uint32_t*)data)[i] = e;
 					break;
 				}
@@ -486,7 +486,7 @@ bool jsval_to_long( JSContext *cx, jsval vp, long *r )
 #else
 	// compatibility check
 	assert( sizeof(int)==4);
-	long ret = JSVAL_TO_INT(vp);
+	long ret = vp.toInt32();
 #endif
 	
 	*r = ret;
@@ -1091,7 +1091,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
             continue; // ignore integer properties
         }
         
-        int keyVal = JSVAL_TO_INT(key);
+        int keyVal = key.toInt32();
         
         JS::RootedValue value(cx);
         JS_GetPropertyById(cx, tmp, idp, &value);
