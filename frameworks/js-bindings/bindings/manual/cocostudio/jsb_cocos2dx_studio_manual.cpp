@@ -73,7 +73,7 @@ void JSArmatureWrapper::setJSCallbackThis(jsval _jsThisObj)
 void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, cocostudio::MovementEventType movementType, const std::string& movementID)
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : _jsThisObj.toObjectOrNull();
+    JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
     js_proxy_t *proxy = js_get_or_create_proxy(cx, armature);
     jsval retval;
     if (_jsCallback != JSVAL_VOID)
@@ -100,7 +100,7 @@ void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, coc
 void JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc(float percent)
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : _jsThisObj.toObjectOrNull();
+    JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
     jsval retval;
     if (_jsCallback != JSVAL_VOID)
     {
@@ -121,7 +121,7 @@ void JSArmatureWrapper::frameCallbackFunc(cocostudio::Bone *bone, const std::str
     JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
     
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : _jsThisObj.toObjectOrNull();
+    JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
     js_proxy_t *proxy = js_get_or_create_proxy(cx, bone);
     jsval retval;
     if (_jsCallback != JSVAL_VOID)
@@ -736,7 +736,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
     cocostudio::AnimationData* cobj = (cocostudio::AnimationData*)JS_GetPrivate(obj);
     if (cobj) {
         jsval val = vp.get();
-        if (JSVAL_IS_NULL(val) || JSVAL_IS_VOID(val))
+        if (JSVAL_IS_NULL(val) || val.isUndefined())
         {
             return true;
         }

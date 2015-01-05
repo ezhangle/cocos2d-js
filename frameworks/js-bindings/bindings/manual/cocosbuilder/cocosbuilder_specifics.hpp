@@ -36,7 +36,7 @@ public:
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         jsval retval = JSVAL_NULL;
         
-        if(!JSVAL_IS_VOID(_jsCallback)  && !JSVAL_IS_VOID(_jsThisObj)) {
+        if(!_jsCallback.isUndefined() && !_jsThisObj.isUndefined()) {
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
             
             JS_CallFunctionValue(cx, _jsThisObj.toObjectOrNull(), _jsCallback, 0, NULL, &retval);

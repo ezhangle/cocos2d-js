@@ -74,7 +74,7 @@ void JSStudioEventListenerWrapper::setJSCallbackThis(jsval jsThisObj)
 void JSStudioEventListenerWrapper::eventCallbackFunc(Ref* sender,int eventType)
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-    JSObject *thisObj = JSVAL_IS_VOID(_jsThisObj) ? NULL : _jsThisObj.toObjectOrNull();
+    JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
     js_proxy_t *proxy = js_get_or_create_proxy(cx, sender);
     jsval retval;
     if (_jsCallback != JSVAL_VOID)

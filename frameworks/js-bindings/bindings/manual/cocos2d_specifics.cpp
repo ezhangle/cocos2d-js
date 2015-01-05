@@ -914,8 +914,8 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
             const jsval& jsvalCallback = tmpCobj->getJSCallbackFunc();
             const jsval& jsvalExtraData = tmpCobj->getJSExtraData();
             
-            bool hasExtraData = !JSVAL_IS_VOID(jsvalExtraData);
-            JSObject* thisObj = JSVAL_IS_VOID(jsvalThis) ? nullptr : jsvalThis.toObjectOrNull();
+            bool hasExtraData = !jsvalExtraData.isUndefined();
+            JSObject* thisObj = jsvalThis.isUndefined() ? nullptr : jsvalThis.toObjectOrNull();
             
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 
@@ -1002,8 +1002,8 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
             const jsval& jsvalCallback = tmpCobj->getJSCallbackFunc();
             const jsval& jsvalExtraData = tmpCobj->getJSExtraData();
             
-            bool hasExtraData = !JSVAL_IS_VOID(jsvalExtraData);
-            JSObject* thisObj = JSVAL_IS_VOID(jsvalThis) ? nullptr : jsvalThis.toObjectOrNull();
+            bool hasExtraData = !jsvalExtraData.isUndefined();
+            JSObject* thisObj = jsvalThis.isUndefined() ? nullptr : jsvalThis.toObjectOrNull();
             
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
             

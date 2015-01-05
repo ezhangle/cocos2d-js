@@ -970,7 +970,7 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
 
 bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
 {
-    if (JSVAL_IS_NULL(v) || JSVAL_IS_VOID(v))
+    if (JSVAL_IS_NULL(v) || v.isUndefined())
     {
         return true;
     }
@@ -1060,7 +1060,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
 
 bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* ret)
 {
-    if (JSVAL_IS_NULL(v) || JSVAL_IS_VOID(v))
+    if (JSVAL_IS_NULL(v) || v.isUndefined())
     {
         return true;
     }
@@ -1497,7 +1497,7 @@ jsval ccdictionary_to_jsval(JSContext* cx, __Dictionary* dict)
 
 bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
 {
-    if (JSVAL_IS_NULL(v) || JSVAL_IS_VOID(v))
+    if (JSVAL_IS_NULL(v) || v.isUndefined())
     {
         *ret = NULL;
         return true;
