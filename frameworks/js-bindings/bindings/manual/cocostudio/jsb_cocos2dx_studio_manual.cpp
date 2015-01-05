@@ -520,7 +520,7 @@ bool js_get_BaseData_isUseColorInfo(JSContext *cx, JS::HandleObject obj, JS::Han
 bool js_set_BaseData_isUseColorInfo(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->isUseColorInfo = JSVAL_TO_BOOLEAN(vp.get());
+        cobj->isUseColorInfo = vp.get().toBoolean();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_isUseColorInfo : Invalid native object.");
@@ -940,7 +940,7 @@ bool js_get_MovementData_loop(JSContext *cx, JS::HandleObject obj, JS::HandleId 
 bool js_set_MovementData_loop(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::MovementData* cobj = (cocostudio::MovementData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->loop = JSVAL_TO_BOOLEAN(vp.get());
+        cobj->loop = vp.get().toBoolean();
         return true;
     }
     JS_ReportError(cx, "js_get_MovementData_loop : Invalid native object.");

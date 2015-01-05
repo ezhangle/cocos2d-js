@@ -41,7 +41,7 @@ bool js_EventListenerTouchOneByOne_create(JSContext *cx, uint32_t argc, jsval *v
                 return false;
 
             CCASSERT(JSVAL_IS_BOOLEAN(jsret), "the return value of onTouchBegan isn't boolean");
-            return JSVAL_TO_BOOLEAN(jsret);
+            return jsret.toBoolean();
         };
         
         ret->onTouchMoved = [ret](Touch* touch, Event* event) {

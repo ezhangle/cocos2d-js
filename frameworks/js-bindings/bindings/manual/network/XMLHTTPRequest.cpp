@@ -542,7 +542,7 @@ JS_BINDED_PROP_SET_IMPL(MinXmlHttpRequest, withCredentials)
     jsval credential = vp.get();
     if (credential != JSVAL_NULL)
     {
-        _withCredentialsValue = JSVAL_TO_BOOLEAN(credential);
+        _withCredentialsValue = credential.toBoolean();
     }
     
     return true;

@@ -754,7 +754,7 @@ static cpBool myCollisionBegin(cpArbiter *arb, cpSpace *space, void *data)
 	JSB_PRECONDITION2(ok, handler->cx, cpFalse, "Error calling collision callback: begin");
 
 	if( JSVAL_IS_BOOLEAN(rval) ) {
-		bool ret = JSVAL_TO_BOOLEAN(rval);
+		bool ret = rval.toBoolean();
 		return (cpBool)ret;
 	}
 	return cpTrue;	
@@ -780,7 +780,7 @@ static cpBool myCollisionPre(cpArbiter *arb, cpSpace *space, void *data)
 	JSB_PRECONDITION2(ok, handler->cx, false, "Error calling collision callback: pre");
 	
 	if( JSVAL_IS_BOOLEAN(rval) ) {
-		bool ret = JSVAL_TO_BOOLEAN(rval);
+		bool ret = rval.toBoolean();
 		return (cpBool)ret;
 	}
 	return cpTrue;	

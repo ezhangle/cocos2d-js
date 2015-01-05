@@ -153,7 +153,7 @@ bool JSTouchDelegate::onTouchBegan(Touch *touch, Event *event)
     
     if(JSVAL_IS_BOOLEAN(retval))
     {
-        bRet = JSVAL_TO_BOOLEAN(retval);
+        bRet = retval.toBoolean();
     } 
 
     return bRet;
@@ -801,7 +801,7 @@ bool js_cocos2dx_JSTouchDelegate_registerTargetedDelegate(JSContext *cx, uint32_
         JSObject* jsobj = NULL;
 
         JSTouchDelegate *touch = new JSTouchDelegate();
-        touch->registerTargetedDelegate(argv[0].toInt32(), JSVAL_TO_BOOLEAN(argv[1]));
+        touch->registerTargetedDelegate(argv[0].toInt32(), argv[1].toBoolean());
         
         jsobj = argv[2].toObjectOrNull();
         touch->setJSObject(jsobj);

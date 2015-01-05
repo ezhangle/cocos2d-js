@@ -354,7 +354,7 @@ bool jsb_cocos2dx_spine_setDebugBones(JSContext *cx, uint32_t argc, jsval *vp)
     spine::Skeleton* cobj = (spine::Skeleton *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
 	if (argc == 1) {
-		bool enable = JSVAL_TO_BOOLEAN(argv[0]);
+		bool enable = argv[0].toBoolean();
 		cobj->debugBones = enable;
         
 		JS_SET_RVAL(cx, vp, JSVAL_NULL);
@@ -373,7 +373,7 @@ bool jsb_cocos2dx_spine_setDebugSolots(JSContext *cx, uint32_t argc, jsval *vp)
     spine::Skeleton* cobj = (spine::Skeleton *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
 	if (argc == 1) {
-		bool enable = JSVAL_TO_BOOLEAN(argv[0]);
+		bool enable = argv[0].toBoolean();
 		cobj->debugSlots = enable;
         
 		JS_SET_RVAL(cx, vp, JSVAL_NULL);

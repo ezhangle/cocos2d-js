@@ -11,7 +11,7 @@ static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
     JS::RootedValue initializing(cx);
     bool isNewValid = true;
     JSObject* global = ScriptingCore::getInstance()->getGlobalObject();
-	isNewValid = JS_GetProperty(cx, global, "initializing", &initializing) && JSVAL_TO_BOOLEAN(initializing);
+	isNewValid = JS_GetProperty(cx, global, "initializing", &initializing) && initializing.toBoolean();
 	if (isNewValid)
 	{
 		TypeTest<T> t;
