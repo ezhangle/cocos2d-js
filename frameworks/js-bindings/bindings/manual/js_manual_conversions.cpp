@@ -1397,7 +1397,7 @@ bool jsval_to_blendfunc(JSContext *cx, jsval vp, cocos2d::BlendFunc* ret)
 
 jsval ccarray_to_jsval(JSContext* cx, __Array *arr)
 {
-    JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
+    JSObject *jsretArr = JS_NewArrayObject(cx, 0);
     
     Ref* obj;
     int i = 0;
@@ -2297,7 +2297,7 @@ jsval ccvaluemapintkey_to_jsval(JSContext* cx, const cocos2d::ValueMapIntKey& v)
 
 jsval ccvaluevector_to_jsval(JSContext* cx, const cocos2d::ValueVector& v)
 {
-    JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
+    JSObject *jsretArr = JS_NewArrayObject(cx, 0);
     
     int i = 0;
     for (const auto& obj : v)
@@ -2348,7 +2348,7 @@ jsval ssize_to_jsval(JSContext *cx, ssize_t v)
 
 jsval std_vector_string_to_jsval( JSContext *cx, const std::vector<std::string>& v)
 {
-    JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
+    JSObject *jsretArr = JS_NewArrayObject(cx, 0);
     
     int i = 0;
     for (const std::string obj : v)
@@ -2366,7 +2366,7 @@ jsval std_vector_string_to_jsval( JSContext *cx, const std::vector<std::string>&
 
 jsval std_vector_int_to_jsval( JSContext *cx, const std::vector<int>& v)
 {
-    JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
+    JSObject *jsretArr = JS_NewArrayObject(cx, 0);
     
     int i = 0;
     for (const int obj : v)
@@ -2384,7 +2384,7 @@ jsval std_vector_int_to_jsval( JSContext *cx, const std::vector<int>& v)
 
 jsval matrix_to_jsval(JSContext *cx, const cocos2d::Mat4& v)
 {
-    /*JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
+    /*JSObject *jsretArr = JS_NewArrayObject(cx, 0);
     
     for (int i = 0; i < 16; i++) {
         JS::RootedValue arrElement(cx);

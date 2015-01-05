@@ -1268,7 +1268,7 @@ bool __jsb_cpArbiter_getBodies(JSContext *cx, jsval *vp, jsval *argvp, cpArbiter
 		valB = opaque_to_jsval(cx, bodyB);		
 	}
 	
-    JS::RootedObject jsobj(cx, JS_NewArrayObject(cx, 2, NULL));
+	JS::RootedObject jsobj(cx, JS_NewArrayObject(cx, 2));
 	JS_SetElement(cx, jsobj, 0, &valA);
 	JS_SetElement(cx, jsobj, 1, &valB);
 	
@@ -1324,7 +1324,7 @@ bool __jsb_cpArbiter_getShapes(JSContext *cx, jsval *vp, jsval *argvp, cpArbiter
 		valB = opaque_to_jsval(cx, shapeB);
 	}
 	
-    JS::RootedObject jsobj(cx, JS_NewArrayObject(cx, 2, NULL));
+	JS::RootedObject jsobj(cx, JS_NewArrayObject(cx, 2));
 	JS_SetElement(cx, jsobj, 0, &valA);
 	JS_SetElement(cx, jsobj, 1, &valB);
 	

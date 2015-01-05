@@ -1052,7 +1052,7 @@ bool ScriptingCore::handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::Eve
     
     std::string funcName = getTouchesFuncName(eventCode);
 
-    JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0, NULL);
+    JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
 
     JS_AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
@@ -1275,7 +1275,7 @@ int ScriptingCore::executeCustomTouchesEvent(EventTouch::EventCode eventType,
     jsval retval;
     std::string funcName = getTouchesFuncName(eventType);
 
-    JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0, NULL);
+    JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
     JS_AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
     for (auto& touch : touches)

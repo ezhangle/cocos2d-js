@@ -265,7 +265,7 @@ bool js_cocos2dx_studio_ColliderBody_getCalculatedVertexList(JSContext *cx, uint
     JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
     if (argc == 0) {
         const std::vector<cocos2d::Point>& ret = cobj->getCalculatedVertexList();
-        JS::RootedObject jsretArr(cx, JS_NewArrayObject(cx, 0, nullptr));
+        JS::RootedObject jsretArr(cx, JS_NewArrayObject(cx, 0));
         jsval jsret;
         //CCObject* obj;
         int i = 0;

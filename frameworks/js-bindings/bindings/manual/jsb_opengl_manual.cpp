@@ -347,7 +347,7 @@ bool JSB_glGetAttachedShaders(JSContext *cx, uint32_t argc, jsval *vp)
     GLsizei realShaderCount = 0;
     glGetAttachedShaders(arg0, length, &realShaderCount, buffer);
     
-    JSObject *jsobj = JS_NewArrayObject(cx, length, NULL);
+    JSObject *jsobj = JS_NewArrayObject(cx, length);
     JSB_PRECONDITION2(jsobj, cx, false, "Error creating JS Object");
 
     for( int i=0; i<length; i++) {
@@ -368,7 +368,7 @@ bool JSB_glGetSupportedExtensions(JSContext *cx, uint32_t argc, jsval *vp)
 
     const GLubyte *extensions = glGetString(GL_EXTENSIONS);
 
-    JSObject *jsobj = JS_NewArrayObject(cx, 0, NULL);
+    JSObject *jsobj = JS_NewArrayObject(cx, 0);
     JSB_PRECONDITION2(jsobj, cx, false, "Error creating JS Object");
 
     // copy, to be able to add '\0'

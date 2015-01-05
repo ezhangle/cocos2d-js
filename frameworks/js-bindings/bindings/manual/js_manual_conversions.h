@@ -272,7 +272,7 @@ js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj);
 template <class T>
 jsval ccvector_to_jsval(JSContext* cx, const cocos2d::Vector<T>& v)
 {
-    JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
+    JSObject *jsretArr = JS_NewArrayObject(cx, 0);
     
     int i = 0;
     for (const auto& obj : v)
