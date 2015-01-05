@@ -29,6 +29,7 @@
 #include "cocos2d_specifics.hpp"
 
 using namespace cocos2d::network;
+using namespace JS;
 
 /*
  [Constructor(in DOMString url, in optional DOMString protocols)]

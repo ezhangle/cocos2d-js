@@ -31,6 +31,8 @@
 #include "js_manual_conversions.h"
 
 USING_NS_CC_EXT;
+using namespace JS;
+
 // Function declarations
 void static freeSpaceChildren(cpSpace *space);
 

@@ -29,6 +29,7 @@
 #include "math/TransformUtils.h"
 
 USING_NS_CC;
+using namespace JS;
 
 // JSStringWrapper
 JSStringWrapper::JSStringWrapper()

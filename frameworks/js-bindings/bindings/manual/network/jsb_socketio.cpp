@@ -31,6 +31,7 @@
 #include "cocos2d_specifics.hpp"
 
 using namespace cocos2d::network;
+using namespace JS;
 
 class JSB_SIOEvent : public cocos2d::Object {
 public:

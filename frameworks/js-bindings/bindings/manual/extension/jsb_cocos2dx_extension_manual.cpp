@@ -28,7 +28,7 @@
 
 USING_NS_CC;
 USING_NS_CC_EXT;
-
+using namespace JS;
 
 class JSB_ScrollViewDelegate
 : public Ref

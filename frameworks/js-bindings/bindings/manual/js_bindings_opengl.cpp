@@ -22,6 +22,8 @@
 
 #include "js_bindings_opengl.h"
 
+using namespace JS;
+
 void GLNode::draw(cocos2d::Renderer *renderer, const cocos2d::kmMat4& transform, bool transformUpdated) {
     js_proxy_t* proxy = NULL;
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();

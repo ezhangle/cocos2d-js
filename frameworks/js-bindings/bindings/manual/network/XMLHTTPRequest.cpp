@@ -30,7 +30,7 @@
 #include <string>
 
 using namespace std;
-
+using namespace JS;
 
 //#pragma mark - MinXmlHttpRequest
 

@@ -2,6 +2,8 @@
 #include "cocos2d_specifics.hpp"
 #include "CocoStudio.h"
 
+using namespace JS;
+
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
     JS::RootedValue initializing(cx);

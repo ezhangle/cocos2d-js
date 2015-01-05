@@ -76,6 +76,7 @@
 #define BYTE_CODE_FILE_EXT ".jsc"
 
 using namespace cocos2d;
+using namespace JS;
 
 static std::string inData;
 static std::string outData;

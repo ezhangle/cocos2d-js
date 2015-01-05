@@ -29,6 +29,7 @@
 #include "jsb_event_dispatcher_manual.h"
 
 using namespace cocos2d;
+using namespace JS;
 
 schedFunc_proxy_t *_schedFunc_target_ht = NULL;
 schedTarget_proxy_t *_schedObj_target_ht = NULL;
