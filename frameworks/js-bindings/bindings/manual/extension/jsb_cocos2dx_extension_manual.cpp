@@ -1020,7 +1020,7 @@ __JSDownloaderDelegator::__JSDownloaderDelegator(JSContext *cx, JSObject *obj, c
     _downloader->setSuccessCallback( std::bind(&__JSDownloaderDelegator::onSuccess, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3) );
     
     JSContext *globalCx = ScriptingCore::getInstance()->getGlobalContext();
-    if (!JSVAL_IS_NULL(_jsCallback)) {
+    if (!_jsCallback.isNull()) {
         AddNamedValueRoot(globalCx, &_jsCallback, "JSB_DownloadDelegator_jsCallback");
     }
     
@@ -1046,7 +1046,7 @@ __JSDownloaderDelegator::~__JSDownloaderDelegator()
 
 void __JSDownloaderDelegator::onError(const cocos2d::extension::Downloader::Error &error)
 {
-    if (!JSVAL_IS_NULL(_jsCallback)) {
+    if (!_jsCallback.isNull()) {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         JSObject *global = ScriptingCore::getInstance()->getGlobalObject();
         
@@ -1093,7 +1093,7 @@ void __JSDownloaderDelegator::onSuccess(const std::string &srcUrl, const std::st
     
     image->release();
     
-    if (!JSVAL_IS_NULL(_jsCallback)) {
+    if (!_jsCallback.isNull()) {
         jsval retval;
         AddValueRoot(cx, valArr);
         JS_CallFunctionValue(cx, global, _jsCallback, 2, valArr, &retval);

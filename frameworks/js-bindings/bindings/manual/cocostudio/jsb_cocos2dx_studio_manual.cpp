@@ -736,7 +736,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
     cocostudio::AnimationData* cobj = (cocostudio::AnimationData*)JS_GetPrivate(obj);
     if (cobj) {
         jsval val = vp.get();
-        if (JSVAL_IS_NULL(val) || val.isUndefined())
+        if (val.isNull() || val.isUndefined())
         {
             return true;
         }

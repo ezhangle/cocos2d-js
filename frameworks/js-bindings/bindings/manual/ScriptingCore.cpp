@@ -429,8 +429,8 @@ ScriptingCore::ScriptingCore()
 }
 
 void ScriptingCore::string_report(jsval val) {
-    if (JSVAL_IS_NULL(val)) {
-        LOGD("val : (JSVAL_IS_NULL(val)");
+    if (val.isNull()) {
+        LOGD("val : (val.isNull()");
         // return 1;
     } else if ((JSVAL_IS_BOOLEAN(val)) &&
                (false == (val.toBoolean()))) {
@@ -1125,7 +1125,7 @@ bool ScriptingCore::handleTouchEvent(void* nativeObj, cocos2d::EventTouch::Event
         {
             jsval retval;
             executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), funcName.c_str(), 2, dataVal, &retval);
-            if(JSVAL_IS_NULL(retval))
+            if(retval.isNull())
             {
                 ret = false;
             }
@@ -1169,7 +1169,7 @@ bool ScriptingCore::handleMouseEvent(void* nativeObj, cocos2d::EventMouse::Mouse
         {
             jsval retval;
             executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), funcName.c_str(), 1, dataVal, &retval);
-            if(JSVAL_IS_NULL(retval))
+            if(retval.isNull())
             {
                 ret = false;
             }
@@ -1198,7 +1198,7 @@ bool ScriptingCore::executeFunctionWithObjectData(void* nativeObj, const char *n
     jsval dataVal = OBJECT_TO_JSVAL(obj);
 
     executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), name, 1, &dataVal, &retval);
-    if (JSVAL_IS_NULL(retval)) {
+    if (retval.isNull()) {
         return false;
     }
     else if (JSVAL_IS_BOOLEAN(retval)) {

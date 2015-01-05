@@ -893,13 +893,13 @@ bool __jsb_cpSpace_addCollisionHandler(JSContext *cx, jsval *vp, jsval *argvp, c
 //	ok &= JS_ValueToObject(cx, *argvp++, &handler->jsthis );
 	handler->jsthis = (JSObject *)JS_THIS_OBJECT(cx, vp);
 	
-	handler->begin = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
+	handler->begin = !argvp->isNull() ? argvp->toObjectOrNull() : NULL;
 	argvp++;
-	handler->pre = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
+	handler->pre = !argvp->isNull() ? argvp->toObjectOrNull() : NULL;
 	argvp++;
-	handler->post = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
+	handler->post = !argvp->isNull() ? argvp->toObjectOrNull() : NULL;
 	argvp++;
-	handler->separate = !JSVAL_IS_NULL(*argvp) ? argvp->toObjectOrNull() : NULL;
+	handler->separate = !argvp->isNull() ? argvp->toObjectOrNull() : NULL;
 	argvp++;
 	
 	JSB_PRECONDITION(ok, "Error parsing arguments");

@@ -187,7 +187,7 @@ CC_BINDING_DLL bool jsval_to_blendfunc(JSContext *cx, jsval vp, cocos2d::BlendFu
 template <class T>
 bool jsval_to_ccmap_string_key(JSContext *cx, jsval v, cocos2d::Map<std::string, T>* ret)
 {
-    if (JSVAL_IS_NULL(v) || v.isUndefined())
+    if (v.isNull() || v.isUndefined())
     {
         return true;
     }
