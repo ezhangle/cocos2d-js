@@ -866,8 +866,8 @@ JSCallbackWrapper::~JSCallbackWrapper()
 void JSCallbackWrapper::setJSCallbackFunc(jsval func) {
     _jsCallback = func;
     JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-	// Root the callback function.
-    JS_AddNamedValueRoot(cx, &_jsCallback, "JSCallbackWrapper_callback_func");
+    // Root the callback function.
+    AddNamedValueRoot(cx, &_jsCallback, "JSCallbackWrapper_callback_func");
 }
 
 void JSCallbackWrapper::setJSCallbackThis(jsval thisObj) {

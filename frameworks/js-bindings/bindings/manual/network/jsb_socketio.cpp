@@ -61,8 +61,8 @@ JSB_SIOEvent::~JSB_SIOEvent()
 void JSB_SIOEvent::setJSCallbackFunc(jsval func) {
     _jsCallback = func;
     JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-	// Root the callback function.
-    JS_AddNamedValueRoot(cx, &_jsCallback, "JSB_SIOEvent_callback_func");
+    // Root the callback function.
+    AddNamedValueRoot(cx, &_jsCallback, "JSB_SIOEvent_callback_func");
 }
 
 const jsval& JSB_SIOEvent::getJSCallbackFunc() const

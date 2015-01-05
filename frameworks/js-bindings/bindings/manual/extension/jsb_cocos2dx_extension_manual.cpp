@@ -1021,7 +1021,7 @@ __JSDownloaderDelegator::__JSDownloaderDelegator(JSContext *cx, JSObject *obj, c
     
     JSContext *globalCx = ScriptingCore::getInstance()->getGlobalContext();
     if (!JSVAL_IS_NULL(_jsCallback)) {
-        JS_AddNamedValueRoot(globalCx, &_jsCallback, "JSB_DownloadDelegator_jsCallback");
+        AddNamedValueRoot(globalCx, &_jsCallback, "JSB_DownloadDelegator_jsCallback");
     }
     
     long contentSize = _downloader->getContentSize(_url);
