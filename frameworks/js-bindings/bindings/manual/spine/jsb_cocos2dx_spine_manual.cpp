@@ -588,7 +588,7 @@ public:
             AddValueRoot(cx, valArr);
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
             JS_CallFunctionValue(cx, thisObj, _jsCallback, 5, valArr, &retval);
-            JS_RemoveValueRoot(cx, valArr);
+            RemoveValueRoot(cx, valArr);
         }
     }
 };

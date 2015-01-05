@@ -98,7 +98,7 @@ JSFunctionWrapper::JSFunctionWrapper(JSContext* cx, JSObject *jsthis, jsval fval
 
 JSFunctionWrapper::~JSFunctionWrapper()
 {
-    JS_RemoveValueRoot(this->_cx, &this->_fval);
+    RemoveValueRoot(this->_cx, &this->_fval);
     RemoveObjectRoot(this->_cx, &this->_jsthis);
 }
 

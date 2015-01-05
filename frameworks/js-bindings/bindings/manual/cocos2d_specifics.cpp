@@ -860,7 +860,7 @@ JSCallbackWrapper::JSCallbackWrapper()
 JSCallbackWrapper::~JSCallbackWrapper()
 {
     JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-    JS_RemoveValueRoot(cx, &_jsCallback);
+    RemoveValueRoot(cx, &_jsCallback);
 }
 
 void JSCallbackWrapper::setJSCallbackFunc(jsval func) {
@@ -934,14 +934,14 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
                         
                         AddValueRoot(cx, valArr);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 2, valArr, &retval);
-                        JS_RemoveValueRoot(cx, valArr);
+                        RemoveValueRoot(cx, valArr);
                     }
                     else
                     {
                         jsval senderVal = OBJECT_TO_JSVAL(proxy->obj);
                         AddValueRoot(cx, &senderVal);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
-                        JS_RemoveValueRoot(cx, &senderVal);
+                        RemoveValueRoot(cx, &senderVal);
                     }
                 }
             }
@@ -1022,14 +1022,14 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
                         
                         AddValueRoot(cx, valArr);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 2, valArr, &retval);
-                        JS_RemoveValueRoot(cx, valArr);
+                        RemoveValueRoot(cx, valArr);
                     }
                     else
                     {
                         jsval senderVal = OBJECT_TO_JSVAL(proxy->obj);
                         AddValueRoot(cx, &senderVal);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
-                        JS_RemoveValueRoot(cx, &senderVal);
+                        RemoveValueRoot(cx, &senderVal);
                     }
                 }
             }
@@ -1371,7 +1371,7 @@ void JSScheduleWrapper::scheduleFunc(float dt)
         }
     }
 
-    JS_RemoveValueRoot(cx, &data);
+    RemoveValueRoot(cx, &data);
 }
 
 void JSScheduleWrapper::update(float dt)
@@ -1388,7 +1388,7 @@ void JSScheduleWrapper::update(float dt)
     
     ScriptingCore::getInstance()->executeFunctionWithOwner(_jsThisObj, "update", 1, &data);
     
-    JS_RemoveValueRoot(cx, &data);
+    RemoveValueRoot(cx, &data);
 }
 
 Ref*  JSScheduleWrapper::getTarget()

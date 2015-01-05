@@ -55,7 +55,7 @@ JSB_SIOEvent::JSB_SIOEvent()
 JSB_SIOEvent::~JSB_SIOEvent()
 {
     JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-    JS_RemoveValueRoot(cx, &_jsCallback);
+    RemoveValueRoot(cx, &_jsCallback);
 }
 
 void JSB_SIOEvent::setJSCallbackFunc(jsval func) {

@@ -1056,9 +1056,9 @@ void __JSDownloaderDelegator::onError(const cocos2d::extension::Downloader::Erro
         jsval retval;
         AddValueRoot(cx, &succeed);
         JS_CallFunctionValue(cx, global, _jsCallback, 1, &succeed, &retval);
-        JS_RemoveValueRoot(cx, &succeed);
+        RemoveValueRoot(cx, &succeed);
         
-        JS_RemoveValueRoot(cx, &_jsCallback);
+        RemoveValueRoot(cx, &_jsCallback);
     }
     this->release();
 }
@@ -1097,9 +1097,9 @@ void __JSDownloaderDelegator::onSuccess(const std::string &srcUrl, const std::st
         jsval retval;
         AddValueRoot(cx, valArr);
         JS_CallFunctionValue(cx, global, _jsCallback, 2, valArr, &retval);
-        JS_RemoveValueRoot(cx, valArr);
+        RemoveValueRoot(cx, valArr);
         
-        JS_RemoveValueRoot(cx, &_jsCallback);
+        RemoveValueRoot(cx, &_jsCallback);
     }
     this->release();
 }

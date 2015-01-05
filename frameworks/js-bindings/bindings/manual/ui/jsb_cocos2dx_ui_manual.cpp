@@ -53,7 +53,7 @@ JSStudioEventListenerWrapper::~JSStudioEventListenerWrapper()
     if (m_bNeedUnroot)
     {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-        JS_RemoveValueRoot(cx, &_jsThisObj);
+        RemoveValueRoot(cx, &_jsThisObj);
     }
 }
 
@@ -90,7 +90,7 @@ void JSStudioEventListenerWrapper::eventCallbackFunc(Ref* sender,int eventType)
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 
         JS_CallFunctionValue(cx, thisObj, _jsCallback, 2, valArr, &retval);
-        JS_RemoveValueRoot(cx, valArr);
+        RemoveValueRoot(cx, valArr);
     }
 }
 

@@ -52,7 +52,7 @@ JSArmatureWrapper::~JSArmatureWrapper()
     if (m_bNeedUnroot)
     {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-        JS_RemoveValueRoot(cx, &_jsThisObj);
+        RemoveValueRoot(cx, &_jsThisObj);
     }
 }
 
@@ -93,7 +93,7 @@ void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, coc
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
         
         JS_CallFunctionValue(cx, thisObj, _jsCallback, 3, valArr, &retval);
-        JS_RemoveValueRoot(cx, valArr);
+        RemoveValueRoot(cx, valArr);
     }
 }
 
@@ -111,7 +111,7 @@ void JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc(float percent)
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
         
         JS_CallFunctionValue(cx, thisObj, _jsCallback, 1, &percentVal, &retval);
-        JS_RemoveValueRoot(cx, &percentVal);
+        RemoveValueRoot(cx, &percentVal);
     }
 }
 
@@ -139,7 +139,7 @@ void JSArmatureWrapper::frameCallbackFunc(cocostudio::Bone *bone, const std::str
         AddValueRoot(cx, valArr);
         
         JS_CallFunctionValue(cx, thisObj, _jsCallback, 4, valArr, &retval);
-        JS_RemoveValueRoot(cx, valArr);
+        RemoveValueRoot(cx, valArr);
     }
 }
 
