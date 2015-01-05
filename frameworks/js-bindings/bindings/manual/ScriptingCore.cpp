@@ -1632,7 +1632,7 @@ void ScriptingCore::enableDebugger(unsigned int port)
         
         _debugGlobal = NewGlobalObject(_cx, true);
         // Adds the debugger object to root, otherwise it may be collected by GC.
-        JS_AddObjectRoot(_cx, &_debugGlobal);
+        AddObjectRoot(_cx, &_debugGlobal);
         JS::RootedObject rootedDebugObj(_cx, _debugGlobal);
         JS_WrapObject(_cx, &rootedDebugObj);
         JSAutoCompartment ac(_cx, _debugGlobal);

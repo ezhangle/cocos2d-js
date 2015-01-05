@@ -53,7 +53,7 @@ static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
     
     JSObject *_tmp = JS_NewObject(cx, p->jsclass, p->proto, p->parentProto);
     js_proxy_t *pp = jsb_new_proxy(cobj, _tmp);
-    JS_AddObjectRoot(cx, &pp->obj);
+    AddObjectRoot(cx, &pp->obj);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
 
     return true;

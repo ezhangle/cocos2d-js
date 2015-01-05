@@ -107,7 +107,7 @@ inline js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj) {
 #ifdef DEBUG
         AddNamedObjectRoot(cx, &proxy->obj, typeid(*native_obj).name());
 #else
-        JS_AddObjectRoot(cx, &proxy->obj);
+        AddObjectRoot(cx, &proxy->obj);
 #endif
         return proxy;
     } else {
