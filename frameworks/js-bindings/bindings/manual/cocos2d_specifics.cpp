@@ -3723,7 +3723,7 @@ static bool jsval_to_string_vector(JSContext* cx, jsval v, std::vector<std::stri
             
             if (JSVAL_IS_STRING(elt))
             {
-                JSStringWrapper str(JSVAL_TO_STRING(elt));
+                JSStringWrapper str(elt.toString());
                 ret.push_back(str.get());
             }
         }
@@ -4149,7 +4149,7 @@ bool js_PlistParser_parse(JSContext *cx, unsigned argc, JS::Value *vp) {
         jsval strVal = std_string_to_jsval(cx, parsedStr);
         // create a new js obj of the parsed string
         JS::RootedValue outVal(cx);
-        ok = JS_ParseJSON(cx, JS_GetStringCharsZ(cx, JSVAL_TO_STRING(strVal)), static_cast<uint32_t>(parsedStr.size()), &outVal);
+        ok = JS_ParseJSON(cx, JS_GetStringCharsZ(cx, strVal.toString()), static_cast<uint32_t>(parsedStr.size()), &outVal);
         
         if (ok)
             JS_SET_RVAL(cx, vp, outVal);

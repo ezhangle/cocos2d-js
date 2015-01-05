@@ -796,7 +796,7 @@ bool ScriptingCore::executeScript(JSContext *cx, uint32_t argc, jsval *vp)
         JSStringWrapper path(str);
         bool res = false;
         if (argc == 2 && argv[1].isString()) {
-            JSString* globalName = JSVAL_TO_STRING(argv[1]);
+            JSString* globalName = argv[1].toString();
             JSStringWrapper name(globalName);
 //            JS::RootedObject* rootedGlobal = globals[name];
             JSObject* debugObj = ScriptingCore::getInstance()->getDebugGlobal();

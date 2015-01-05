@@ -761,7 +761,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
                 continue; // ignore integer properties
             }
             
-            JSStringWrapper keyWrapper(JSVAL_TO_STRING(key), cx);
+            JSStringWrapper keyWrapper(key.toString(), cx);
             
             JS::RootedValue value(cx);
             JS_GetPropertyById(cx, tmp, idp, &value);

@@ -596,7 +596,7 @@ JS_BINDED_PROP_GET_IMPL(MinXmlHttpRequest, response)
             JS::RootedValue outVal(cx);
             
             jsval strVal = std_string_to_jsval(cx, _data);
-            if (JS_ParseJSON(cx, JS_GetStringCharsZ(cx, JSVAL_TO_STRING(strVal)), _dataSize, &outVal))
+            if (JS_ParseJSON(cx, JS_GetStringCharsZ(cx, strVal.toString()), _dataSize, &outVal))
             {
                 vp.set(outVal);
                 return true;

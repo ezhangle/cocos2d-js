@@ -599,7 +599,7 @@ bool jsvals_variadic_to_ccarray( JSContext *cx, jsval *vp, int argc, __Array** r
         }
         else if (JSVAL_IS_STRING(*vp))
         {
-            JSStringWrapper str(JSVAL_TO_STRING(*vp), cx);
+            JSStringWrapper str(vp->toString(), cx);
             pArray->addObject(String::create(str.get()));
         }
         else
@@ -652,7 +652,7 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
         }
         else if (JSVAL_IS_STRING(value))
         {
-            JSStringWrapper valueWapper(JSVAL_TO_STRING(value), cx);
+            JSStringWrapper valueWapper(value.toString(), cx);
             ret->push_back(Value(valueWapper.get()));
         }
         else if (JSVAL_IS_NUMBER(value))
@@ -891,7 +891,7 @@ bool jsval_to_ccarray(JSContext* cx, jsval v, __Array** ret)
                 }
             }
             else if (JSVAL_IS_STRING(value)) {
-                JSStringWrapper valueWapper(JSVAL_TO_STRING(value), cx);
+                JSStringWrapper valueWapper(value.toString(), cx);
                 arr->addObject(String::create(valueWapper.get()));
                 //                CCLOG("iterate array: value = %s", valueWapper.get().c_str());
             }
@@ -945,7 +945,7 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
     }
     else if (JSVAL_IS_STRING(v))
     {
-        JSStringWrapper valueWapper(JSVAL_TO_STRING(v), cx);
+        JSStringWrapper valueWapper(v.toString(), cx);
         *ret = Value(valueWapper.get());
     }
     else if (JSVAL_IS_NUMBER(v))
@@ -1001,7 +1001,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
             continue; // ignore integer properties
         }
         
-        JSStringWrapper keyWrapper(JSVAL_TO_STRING(key), cx);
+        JSStringWrapper keyWrapper(key.toString(), cx);
         
         JS::RootedValue value(cx);
         JS_GetPropertyById(cx, tmp, idp, &value);
@@ -1031,7 +1031,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
         }
         else if (JSVAL_IS_STRING(value))
         {
-            JSStringWrapper valueWapper(JSVAL_TO_STRING(value), cx);
+            JSStringWrapper valueWapper(value.toString(), cx);
             dict.insert(ValueMap::value_type(keyWrapper.get(), Value(valueWapper.get())));
             //            CCLOG("iterate object: key = %s, value = %s", keyWrapper.get().c_str(), valueWapper.get().c_str());
         }
@@ -1121,7 +1121,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
         }
         else if (JSVAL_IS_STRING(value))
         {
-            JSStringWrapper valueWapper(JSVAL_TO_STRING(value), cx);
+            JSStringWrapper valueWapper(value.toString(), cx);
             dict.insert(ValueMapIntKey::value_type(keyVal, Value(valueWapper.get())));
         }
         else if (JSVAL_IS_NUMBER(value))
@@ -1187,7 +1187,7 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
             }
             else if (JSVAL_IS_STRING(value))
             {
-                JSStringWrapper valueWapper(JSVAL_TO_STRING(value), cx);
+                JSStringWrapper valueWapper(value.toString(), cx);
                 ret->push_back(Value(valueWapper.get()));
             }
             else if (JSVAL_IS_NUMBER(value))
@@ -1240,7 +1240,7 @@ bool jsval_to_std_vector_string( JSContext *cx, jsval vp, std::vector<std::strin
         {
             if (JSVAL_IS_STRING(value))
             {
-                JSStringWrapper valueWapper(JSVAL_TO_STRING(value), cx);
+                JSStringWrapper valueWapper(value.toString(), cx);
                 ret->push_back(valueWapper.get());
             }
             else
@@ -1528,7 +1528,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
             continue; // ignore integer properties
         }
         
-        JSStringWrapper keyWrapper(JSVAL_TO_STRING(key), cx);
+        JSStringWrapper keyWrapper(key.toString(), cx);
         if (!dict) {
             dict = __Dictionary::create();
         }
@@ -1565,7 +1565,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
             }
         }
         else if (JSVAL_IS_STRING(value)) {
-            JSStringWrapper valueWapper(JSVAL_TO_STRING(value), cx);
+            JSStringWrapper valueWapper(value.toString(), cx);
             dict->setObject(String::create(valueWapper.get()), keyWrapper.get());
             //            CCLOG("iterate object: key = %s, value = %s", keyWrapper.get().c_str(), valueWapper.get().c_str());
         }

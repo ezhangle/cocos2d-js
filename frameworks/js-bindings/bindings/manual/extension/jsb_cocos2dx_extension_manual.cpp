@@ -887,7 +887,7 @@ static bool js_cocos2dx_ext_AssetsManager_updateAssets(JSContext *cx, uint32_t a
                     continue; // ignore integer properties
                 }
                 
-                JSStringWrapper keyWrapper(JSVAL_TO_STRING(key), cx);
+                JSStringWrapper keyWrapper(key.toString(), cx);
                 std::string keystr = keyWrapper.get();
                 
                 JS::RootedValue value(cx);
