@@ -445,7 +445,7 @@ void ScriptingCore::string_report(jsval val) {
             JSStringWrapper wrapper(str);
             LOGD("val : return string =\n%s\n", wrapper.get());
         }
-    } else if (JSVAL_IS_NUMBER(val)) {
+    } else if (val.isNumber()) {
         double number;
         if (false ==
             JS::ToNumber(this->getGlobalContext(), JS::RootedValue(_cx, val), &number)) {

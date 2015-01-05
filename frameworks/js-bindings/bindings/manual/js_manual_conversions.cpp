@@ -590,7 +590,7 @@ bool jsvals_variadic_to_ccarray( JSContext *cx, jsval *vp, int argc, __Array** r
     {
         double num = 0.0;
         // optimization: JS::ToNumber is expensive. And can convert an string like "12" to a number
-        if ( JSVAL_IS_NUMBER(*vp)) {
+        if (vp->isNumber()) {
             ok &= JS::ToNumber(cx, JS::RootedValue(cx, *vp), &num );
             if (!ok) {
                 break;
@@ -655,7 +655,7 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
             JSStringWrapper valueWapper(value.toString(), cx);
             ret->push_back(Value(valueWapper.get()));
         }
-        else if (JSVAL_IS_NUMBER(value))
+        else if (value.isNumber())
         {
             double number = 0.0;
             bool ok = JS::ToNumber(cx, JS::RootedValue(cx, value), &number);
@@ -895,7 +895,7 @@ bool jsval_to_ccarray(JSContext* cx, jsval v, __Array** ret)
                 arr->addObject(String::create(valueWapper.get()));
                 //                CCLOG("iterate array: value = %s", valueWapper.get().c_str());
             }
-            else if (JSVAL_IS_NUMBER(value)) {
+            else if (value.isNumber()) {
                 double number = 0.0;
                 ok = JS::ToNumber(cx, value, &number);
                 if (ok) {
@@ -948,7 +948,7 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
         JSStringWrapper valueWapper(v.toString(), cx);
         *ret = Value(valueWapper.get());
     }
-    else if (JSVAL_IS_NUMBER(v))
+    else if (v.isNumber())
     {
         double number = 0.0;
         bool ok = JS::ToNumber(cx, JS::RootedValue(cx, v), &number);
@@ -1035,7 +1035,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
             dict.insert(ValueMap::value_type(keyWrapper.get(), Value(valueWapper.get())));
             //            CCLOG("iterate object: key = %s, value = %s", keyWrapper.get().c_str(), valueWapper.get().c_str());
         }
-        else if (JSVAL_IS_NUMBER(value))
+        else if (value.isNumber())
         {
             double number = 0.0;
             bool ok = JS::ToNumber(cx, value, &number);
@@ -1124,7 +1124,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
             JSStringWrapper valueWapper(value.toString(), cx);
             dict.insert(ValueMapIntKey::value_type(keyVal, Value(valueWapper.get())));
         }
-        else if (JSVAL_IS_NUMBER(value))
+        else if (value.isNumber())
         {
             double number = 0.0;
             bool ok = JS::ToNumber(cx, value, &number);
@@ -1190,7 +1190,7 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
                 JSStringWrapper valueWapper(value.toString(), cx);
                 ret->push_back(Value(valueWapper.get()));
             }
-            else if (JSVAL_IS_NUMBER(value))
+            else if (value.isNumber())
             {
                 double number = 0.0;
                 ok = JS::ToNumber(cx, value, &number);
@@ -1269,7 +1269,7 @@ bool jsval_to_std_vector_int( JSContext *cx, jsval vp, std::vector<int>* ret)
         JS::RootedValue value(cx);
         if (JS_GetElement(cx, jsobj, i, &value))
         {
-            if (JSVAL_IS_NUMBER(value))
+            if (value.isNumber())
             {
                 double number = 0.0;
                 ok = JS::ToNumber(cx, value, &number);
@@ -1309,7 +1309,7 @@ bool jsval_to_matrix(JSContext *cx, jsval vp, cocos2d::Mat4* ret)
         JS::RootedValue value(cx);
         if (JS_GetElement(cx, jsobj, i, &value))
         {
-            if (JSVAL_IS_NUMBER(value))
+            if (value.isNumber())
             {
                 double number = 0.0;
                 ok = JS::ToNumber(cx, value, &number);
@@ -1569,7 +1569,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
             dict->setObject(String::create(valueWapper.get()), keyWrapper.get());
             //            CCLOG("iterate object: key = %s, value = %s", keyWrapper.get().c_str(), valueWapper.get().c_str());
         }
-        else if (JSVAL_IS_NUMBER(value)) {
+        else if (value.isNumber()) {
             double number = 0.0;
             bool ok = JS::ToNumber(cx, value, &number);
             if (ok) {
