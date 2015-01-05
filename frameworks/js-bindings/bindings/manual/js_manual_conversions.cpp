@@ -378,7 +378,7 @@ bool JSB_jsval_typedarray_to_dataptr(JSContext *cx, jsval vp, GLsizei *count, vo
 				}
 				case js::ArrayBufferView::TYPE_FLOAT32:
 				{
-					double e = JSVAL_TO_DOUBLE(valarg);
+					double e = valarg.toDouble();
 					((GLfloat*)data)[i] = (GLfloat)e;
 					break;
 				}

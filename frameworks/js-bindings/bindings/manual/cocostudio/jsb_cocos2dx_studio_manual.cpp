@@ -312,7 +312,7 @@ bool js_get_BaseData_x(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS:
 bool js_set_BaseData_x(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->x = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->x = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_x : Invalid native object.");
@@ -338,7 +338,7 @@ bool js_get_BaseData_y(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS:
 bool js_set_BaseData_y(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->y = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->y = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_y : Invalid native object.");
@@ -390,7 +390,7 @@ bool js_get_BaseData_skewX(JSContext *cx, JS::HandleObject obj, JS::HandleId id,
 bool js_set_BaseData_skewX(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->skewX = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->skewX = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_skewX : Invalid native object.");
@@ -416,7 +416,7 @@ bool js_get_BaseData_skewY(JSContext *cx, JS::HandleObject obj, JS::HandleId id,
 bool js_set_BaseData_skewY(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->skewY = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->skewY = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_skewY : Invalid native object.");
@@ -442,7 +442,7 @@ bool js_get_BaseData_scaleX(JSContext *cx, JS::HandleObject obj, JS::HandleId id
 bool js_set_BaseData_scaleX(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->scaleX = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->scaleX = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_scaleX : Invalid native object.");
@@ -468,7 +468,7 @@ bool js_get_BaseData_scaleY(JSContext *cx, JS::HandleObject obj, JS::HandleId id
 bool js_set_BaseData_scaleY(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->scaleY = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->scaleY = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_scaleY : Invalid native object.");
@@ -494,7 +494,7 @@ bool js_get_BaseData_tweenRotate(JSContext *cx, JS::HandleObject obj, JS::Handle
 bool js_set_BaseData_tweenRotate(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::BaseData* cobj = (cocostudio::BaseData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->tweenRotate = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->tweenRotate = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_BaseData_tweenRotate : Invalid native object.");
@@ -862,7 +862,7 @@ bool js_get_MovementData_scale(JSContext *cx, JS::HandleObject obj, JS::HandleId
 bool js_set_MovementData_scale(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
     cocostudio::MovementData* cobj = (cocostudio::MovementData*)JS_GetPrivate(obj);
     if (cobj) {
-        cobj->scale = (float)JSVAL_TO_DOUBLE(vp.get());
+        cobj->scale = (float)vp.get().toDouble();
         return true;
     }
     JS_ReportError(cx, "js_set_MovementData_scale : Invalid native object.");

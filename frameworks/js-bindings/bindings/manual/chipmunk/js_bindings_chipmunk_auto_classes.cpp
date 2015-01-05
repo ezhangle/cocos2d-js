@@ -3163,7 +3163,7 @@ bool JSB_cpSpace_nearestPointQueryNearest(JSContext *cx, uint32_t argc, jsval *v
     }
     else
     {
-        maxDistance = JSVAL_TO_DOUBLE(argvp[1]);
+        maxDistance = argvp[1].toDouble();
     }
     ok &= jsval_to_uint32( cx, argvp[2], &layers );
     unsigned long temp;
@@ -4598,7 +4598,7 @@ static bool js_get_cpShape_bbl(JSContext *cx, JS::HandleObject obj, JS::HandleId
 static bool js_set_cpShape_bbl(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp){
     struct jsb_c_proxy_s *proxy = jsb_get_c_proxy_for_jsobject(obj);
 	cpShape* shape = (cpShape*) proxy->handle;
-    shape->bb.l = JSVAL_TO_DOUBLE(vp.get());
+    shape->bb.l = vp.get().toDouble();
     return true;
 }
 
@@ -4612,7 +4612,7 @@ static bool js_get_cpShape_bbb(JSContext *cx, JS::HandleObject obj, JS::HandleId
 static bool js_set_cpShape_bbb(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp){
     struct jsb_c_proxy_s *proxy = jsb_get_c_proxy_for_jsobject(obj);
 	cpShape* shape = (cpShape*) proxy->handle;
-    shape->bb.b = JSVAL_TO_DOUBLE(vp.get());
+    shape->bb.b = vp.get().toDouble();
     return true;
 }
 static bool js_get_cpShape_bbr(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS::MutableHandleValue vp) {
@@ -4625,7 +4625,7 @@ static bool js_get_cpShape_bbr(JSContext *cx, JS::HandleObject obj, JS::HandleId
 static bool js_set_cpShape_bbr(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp){
     struct jsb_c_proxy_s *proxy = jsb_get_c_proxy_for_jsobject(obj);
 	cpShape* shape = (cpShape*) proxy->handle;
-    shape->bb.r = JSVAL_TO_DOUBLE(vp.get());
+    shape->bb.r = vp.get().toDouble();
     return true;
 }
 
@@ -4639,7 +4639,7 @@ static bool js_get_cpShape_bbt(JSContext *cx, JS::HandleObject obj, JS::HandleId
 static bool js_set_cpShape_bbt(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp){
     struct jsb_c_proxy_s *proxy = jsb_get_c_proxy_for_jsobject(obj);
 	cpShape* shape = (cpShape*) proxy->handle;
-    shape->bb.t = JSVAL_TO_DOUBLE(vp.get());
+    shape->bb.t = vp.get().toDouble();
     return true;
 }
 
@@ -5178,7 +5178,7 @@ bool js_get_cpSegmentQueryInfo_t(JSContext *cx, JS::HandleObject obj, JS::Handle
 bool js_set_cpSegmentQueryInfo_t(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp){
     struct jsb_c_proxy_s *proxy = jsb_get_c_proxy_for_jsobject(obj);
 	cpSegmentQueryInfo* info = (cpSegmentQueryInfo*) proxy->handle;
-    info->t = JSVAL_TO_DOUBLE(vp.get());
+    info->t = vp.get().toDouble();
     return true;
 }
 
@@ -5291,7 +5291,7 @@ bool js_get_cpNearestPointQueryInfo_d(JSContext *cx, JS::HandleObject obj, JS::H
 bool js_set_cpNearestPointQueryInfo_d(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp){
     struct jsb_c_proxy_s *proxy = jsb_get_c_proxy_for_jsobject(obj);
 	cpNearestPointQueryInfo* info = (cpNearestPointQueryInfo*) proxy->handle;
-    info->d = JSVAL_TO_DOUBLE(vp.get());
+    info->d = vp.get().toDouble();
     return true;
 }
 
