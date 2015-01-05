@@ -757,7 +757,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
             if (key == JSVAL_VOID) {
                 break; // end of iteration
             }
-            if (!JSVAL_IS_STRING(key)) {
+            if (!key.isString()) {
                 continue; // ignore integer properties
             }
             

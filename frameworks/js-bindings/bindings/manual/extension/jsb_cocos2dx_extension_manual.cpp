@@ -883,7 +883,7 @@ static bool js_cocos2dx_ext_AssetsManager_updateAssets(JSContext *cx, uint32_t a
                     break; // end of iteration
                 }
                 
-                if (!JSVAL_IS_STRING(key)) {
+                if (!key.isString()) {
                     continue; // ignore integer properties
                 }
                 

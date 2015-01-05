@@ -179,7 +179,7 @@ bool js_cocos2dx_extension_WebSocket_send(JSContext *cx, uint32_t argc, jsval *v
 	if(argc == 1){
         do
         {
-            if (JSVAL_IS_STRING(argv[0]))
+            if (argv[0].isString())
             {
                 std::string data;
                 jsval_to_std_string(cx, argv[0], &data);
@@ -263,7 +263,7 @@ bool js_cocos2dx_extension_WebSocket_constructor(JSContext *cx, uint32_t argc, j
         {
             std::vector<std::string> protocols;
             
-            if (JSVAL_IS_STRING(argv[1]))
+            if (argv[1].isString())
             {
                 std::string protocol;
                 do {

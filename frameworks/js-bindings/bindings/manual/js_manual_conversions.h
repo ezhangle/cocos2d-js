@@ -212,7 +212,7 @@ bool jsval_to_ccmap_string_key(JSContext *cx, jsval v, cocos2d::Map<std::string,
             break; // end of iteration
         }
         
-        if (!JSVAL_IS_STRING(key)) {
+        if (!key.isString()) {
             continue; // ignore integer properties
         }
         

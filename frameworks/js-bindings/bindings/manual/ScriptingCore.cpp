@@ -436,7 +436,7 @@ void ScriptingCore::string_report(jsval val) {
                (false == (val.toBoolean()))) {
         LOGD("val : (return value is false");
         // return 1;
-    } else if (JSVAL_IS_STRING(val)) {
+    } else if (val.isString()) {
         JSContext* cx = this->getGlobalContext();
         JSString *str = JS::ToString(cx, JS::RootedValue(cx, val));
         if (NULL == str) {

@@ -3721,7 +3721,7 @@ static bool jsval_to_string_vector(JSContext* cx, jsval v, std::vector<std::stri
         JS::RootedValue elt(cx);
         if (JS_GetElement(cx, jsobj, i, &elt)) {
             
-            if (JSVAL_IS_STRING(elt))
+            if (elt.isString())
             {
                 JSStringWrapper str(elt.toString());
                 ret.push_back(str.get());
