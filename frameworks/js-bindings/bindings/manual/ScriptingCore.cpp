@@ -210,7 +210,7 @@ static std::string getMouseFuncName(EventMouse::MouseEventType eventType)
 }
 
 static void rootObject(JSContext *cx, JSObject *obj) {
-    JS_AddNamedObjectRoot(cx, &obj, "unnamed");
+    AddNamedObjectRoot(cx, &obj, "unnamed");
 }
 
 
@@ -844,7 +844,7 @@ bool ScriptingCore::addRootJS(JSContext *cx, uint32_t argc, jsval *vp)
     if (argc == 1) {
         JSObject *o = NULL;
         if (JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "o", &o) == true) {
-            if (JS_AddNamedObjectRoot(cx, &o, "from-js") == false) {
+            if (AddNamedObjectRoot(cx, &o, "from-js") == false) {
                 LOGD("something went wrong when setting an object to the root");
             }
         }
@@ -1054,7 +1054,7 @@ bool ScriptingCore::handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::Eve
 
     JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
 
-    JS_AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
+    AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
     
     for (const auto& touch : touches)
@@ -1276,7 +1276,7 @@ int ScriptingCore::executeCustomTouchesEvent(EventTouch::EventCode eventType,
     std::string funcName = getTouchesFuncName(eventType);
 
     JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
-    JS_AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
+    AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
     for (auto& touch : touches)
     {

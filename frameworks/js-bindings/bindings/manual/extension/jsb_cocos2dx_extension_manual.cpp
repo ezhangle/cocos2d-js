@@ -77,7 +77,7 @@ public:
         {
             _needUnroot = true;
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_AddNamedObjectRoot(cx, &_JSDelegate, "TableViewDelegate");
+            AddNamedObjectRoot(cx, &_JSDelegate, "TableViewDelegate");
         }
     }
 private:
@@ -175,7 +175,7 @@ public:
         {
             _needUnroot = true;
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_AddNamedObjectRoot(cx, &_JSDelegate, "TableViewDelegate");
+            AddNamedObjectRoot(cx, &_JSDelegate, "TableViewDelegate");
         }
     }
     
@@ -329,7 +329,7 @@ public:
         {
             _needUnroot = true;
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_AddNamedObjectRoot(cx, &_JSTableViewDataSource, "TableViewDataSource");
+            AddNamedObjectRoot(cx, &_JSTableViewDataSource, "TableViewDataSource");
         }
     }
     
@@ -627,7 +627,7 @@ public:
         {
             _needUnroot = true;
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_AddNamedObjectRoot(cx, &_JSDelegate, "TableViewDelegate");
+            AddNamedObjectRoot(cx, &_JSDelegate, "TableViewDelegate");
         }
     }
 private:
@@ -722,7 +722,7 @@ public:
         if (!p)
         {
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_AddNamedObjectRoot(cx, &_jsTarget, "JSB_ControlButtonTarget, target");
+            AddNamedObjectRoot(cx, &_jsTarget, "JSB_ControlButtonTarget, target");
             _needUnroot = true;
         }
     }
@@ -732,7 +732,7 @@ public:
         _jsFunc = jsFunc;
 
         JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-        JS_AddNamedObjectRoot(cx, &_jsFunc, "JSB_ControlButtonTarget, func");
+        AddNamedObjectRoot(cx, &_jsFunc, "JSB_ControlButtonTarget, func");
     }
     
     void setEventType(Control::EventType type)
@@ -1082,7 +1082,7 @@ void __JSDownloaderDelegator::onSuccess(const std::string &srcUrl, const std::st
         JSObject *obj = JS_NewObject(cx, classType->jsclass, classType->proto, classType->parentProto);
         // link the native object with the javascript object
         js_proxy_t* p = jsb_new_proxy(tex, obj);
-        JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::Texture2D");
+        AddNamedObjectRoot(cx, &p->obj, "cocos2d::Texture2D");
         valArr[1] = OBJECT_TO_JSVAL(p->obj);
     }
     else

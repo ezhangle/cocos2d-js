@@ -74,7 +74,7 @@ bool js_cocos2dx_GLNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
         // link the native object with the javascript object
         js_proxy_t *p = jsb_new_proxy(cobj, obj);
 
-        JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::GLNode");
+        AddNamedObjectRoot(cx, &p->obj, "cocos2d::GLNode");
 
         return true;
     }
@@ -91,7 +91,7 @@ static bool js_cocos2dx_GLNode_ctor(JSContext *cx, uint32_t argc, jsval *vp)
     GLNode *nobj = new GLNode();
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     nobj->autorelease();
-    JS_AddNamedObjectRoot(cx, &p->obj, "GLNode");
+    AddNamedObjectRoot(cx, &p->obj, "GLNode");
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
 }

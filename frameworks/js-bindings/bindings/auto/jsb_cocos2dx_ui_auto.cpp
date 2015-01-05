@@ -171,7 +171,7 @@ bool js_cocos2dx_ui_LayoutParameter_constructor(JSContext *cx, uint32_t argc, js
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LayoutParameter");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LayoutParameter");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -322,7 +322,7 @@ bool js_cocos2dx_ui_LinearLayoutParameter_constructor(JSContext *cx, uint32_t ar
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LinearLayoutParameter");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LinearLayoutParameter");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -546,7 +546,7 @@ bool js_cocos2dx_ui_RelativeLayoutParameter_constructor(JSContext *cx, uint32_t 
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RelativeLayoutParameter");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RelativeLayoutParameter");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -1936,7 +1936,7 @@ bool js_cocos2dx_ui_Widget_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Widget");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Widget");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -1958,7 +1958,7 @@ static bool js_cocos2d_ui_Widget_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Widget");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Widget");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -2771,7 +2771,7 @@ bool js_cocos2dx_ui_Layout_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Layout");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Layout");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -2793,7 +2793,7 @@ static bool js_cocos2d_ui_Layout_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Layout");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Layout");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -3651,7 +3651,7 @@ bool js_cocos2dx_ui_Button_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Button");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Button");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -3673,7 +3673,7 @@ static bool js_cocos2d_ui_Button_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Button");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Button");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -4179,7 +4179,7 @@ bool js_cocos2dx_ui_CheckBox_constructor(JSContext *cx, uint32_t argc, jsval *vp
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::CheckBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::CheckBox");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -4201,7 +4201,7 @@ static bool js_cocos2d_ui_CheckBox_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::CheckBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::CheckBox");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -4541,7 +4541,7 @@ bool js_cocos2dx_ui_ImageView_constructor(JSContext *cx, uint32_t argc, jsval *v
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ImageView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ImageView");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -4563,7 +4563,7 @@ static bool js_cocos2d_ui_ImageView_ctor(JSContext *cx, uint32_t argc, jsval *vp
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ImageView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ImageView");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -5195,7 +5195,7 @@ bool js_cocos2dx_ui_Text_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Text");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Text");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -5217,7 +5217,7 @@ static bool js_cocos2d_ui_Text_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Text");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Text");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -5500,7 +5500,7 @@ bool js_cocos2dx_ui_TextAtlas_constructor(JSContext *cx, uint32_t argc, jsval *v
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextAtlas");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextAtlas");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -5522,7 +5522,7 @@ static bool js_cocos2d_ui_TextAtlas_ctor(JSContext *cx, uint32_t argc, jsval *vp
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextAtlas");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextAtlas");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -5878,7 +5878,7 @@ bool js_cocos2dx_ui_LoadingBar_constructor(JSContext *cx, uint32_t argc, jsval *
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LoadingBar");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LoadingBar");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -5900,7 +5900,7 @@ static bool js_cocos2d_ui_LoadingBar_ctor(JSContext *cx, uint32_t argc, jsval *v
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LoadingBar");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::LoadingBar");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -6636,7 +6636,7 @@ bool js_cocos2dx_ui_ScrollView_constructor(JSContext *cx, uint32_t argc, jsval *
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ScrollView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ScrollView");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -6658,7 +6658,7 @@ static bool js_cocos2d_ui_ScrollView_ctor(JSContext *cx, uint32_t argc, jsval *v
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ScrollView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ScrollView");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -7178,7 +7178,7 @@ bool js_cocos2dx_ui_ListView_constructor(JSContext *cx, uint32_t argc, jsval *vp
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ListView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ListView");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -7200,7 +7200,7 @@ static bool js_cocos2d_ui_ListView_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ListView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::ListView");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -7701,7 +7701,7 @@ bool js_cocos2dx_ui_Slider_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Slider");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Slider");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -7723,7 +7723,7 @@ static bool js_cocos2d_ui_Slider_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Slider");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Slider");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -8598,7 +8598,7 @@ bool js_cocos2dx_ui_TextField_constructor(JSContext *cx, uint32_t argc, jsval *v
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextField");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextField");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -8620,7 +8620,7 @@ static bool js_cocos2d_ui_TextField_ctor(JSContext *cx, uint32_t argc, jsval *vp
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextField");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextField");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -8885,7 +8885,7 @@ bool js_cocos2dx_ui_TextBMFont_constructor(JSContext *cx, uint32_t argc, jsval *
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextBMFont");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextBMFont");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -8907,7 +8907,7 @@ static bool js_cocos2d_ui_TextBMFont_ctor(JSContext *cx, uint32_t argc, jsval *v
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextBMFont");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::TextBMFont");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -9344,7 +9344,7 @@ bool js_cocos2dx_ui_PageView_constructor(JSContext *cx, uint32_t argc, jsval *vp
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::PageView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::PageView");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -9366,7 +9366,7 @@ static bool js_cocos2d_ui_PageView_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::PageView");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::PageView");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -9684,7 +9684,7 @@ bool js_cocos2dx_ui_RichElement_constructor(JSContext *cx, uint32_t argc, jsval 
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElement");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElement");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -9705,7 +9705,7 @@ static bool js_cocos2d_ui_RichElement_ctor(JSContext *cx, uint32_t argc, jsval *
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElement");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElement");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -9856,7 +9856,7 @@ bool js_cocos2dx_ui_RichElementText_constructor(JSContext *cx, uint32_t argc, js
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementText");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementText");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -9878,7 +9878,7 @@ static bool js_cocos2d_ui_RichElementText_ctor(JSContext *cx, uint32_t argc, jsv
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementText");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementText");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -10024,7 +10024,7 @@ bool js_cocos2dx_ui_RichElementImage_constructor(JSContext *cx, uint32_t argc, j
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementImage");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementImage");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -10046,7 +10046,7 @@ static bool js_cocos2d_ui_RichElementImage_ctor(JSContext *cx, uint32_t argc, js
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementImage");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementImage");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -10206,7 +10206,7 @@ bool js_cocos2dx_ui_RichElementCustomNode_constructor(JSContext *cx, uint32_t ar
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementCustomNode");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementCustomNode");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -10228,7 +10228,7 @@ static bool js_cocos2d_ui_RichElementCustomNode_ctor(JSContext *cx, uint32_t arg
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementCustomNode");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichElementCustomNode");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -10509,7 +10509,7 @@ bool js_cocos2dx_ui_RichText_constructor(JSContext *cx, uint32_t argc, jsval *vp
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichText");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichText");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -10531,7 +10531,7 @@ static bool js_cocos2d_ui_RichText_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichText");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RichText");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -10690,7 +10690,7 @@ bool js_cocos2dx_ui_HBox_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::HBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::HBox");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -10712,7 +10712,7 @@ static bool js_cocos2d_ui_HBox_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::HBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::HBox");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -10865,7 +10865,7 @@ bool js_cocos2dx_ui_VBox_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::VBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::VBox");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -10887,7 +10887,7 @@ static bool js_cocos2d_ui_VBox_ctor(JSContext *cx, uint32_t argc, jsval *vp)
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::VBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::VBox");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
@@ -11040,7 +11040,7 @@ bool js_cocos2dx_ui_RelativeBox_constructor(JSContext *cx, uint32_t argc, jsval 
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RelativeBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RelativeBox");
     if (JS_HasProperty(cx, obj, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
@@ -11062,7 +11062,7 @@ static bool js_cocos2d_ui_RelativeBox_ctor(JSContext *cx, uint32_t argc, jsval *
         nobj->autorelease();
     }
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
-    JS_AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RelativeBox");
+    AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::RelativeBox");
     bool isFound = false;
     if (JS_HasProperty(cx, obj, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);

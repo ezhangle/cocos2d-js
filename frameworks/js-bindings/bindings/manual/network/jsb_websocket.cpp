@@ -310,7 +310,7 @@ bool js_cocos2dx_extension_WebSocket_constructor(JSContext *cx, uint32_t argc, j
         
         // link the native object with the javascript object
 		js_proxy_t *p = jsb_new_proxy(cobj, obj);
-        JS_AddNamedObjectRoot(cx, &p->obj, "WebSocket");
+        AddNamedObjectRoot(cx, &p->obj, "WebSocket");
         
         JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
 		return true;

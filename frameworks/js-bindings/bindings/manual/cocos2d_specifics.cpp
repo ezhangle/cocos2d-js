@@ -87,7 +87,7 @@ void JSTouchDelegate::setJSObject(JSObject *obj)
     if (!p)
     {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-        JS_AddNamedObjectRoot(cx, &_obj, "JSB_TouchDelegateTarget, target");
+        AddNamedObjectRoot(cx, &_obj, "JSB_TouchDelegateTarget, target");
         _needUnroot = true;
     }
 }
@@ -305,7 +305,7 @@ JSObject* bind_menu_item(JSContext *cx, T* nativeObj, jsval callback, jsval this
 
 		// bind nativeObj <-> JSObject
 		js_proxy_t *proxy = jsb_new_proxy(nativeObj, tmp);
-		JS_AddNamedObjectRoot(cx, &proxy->obj, typeid(*nativeObj).name());        
+		AddNamedObjectRoot(cx, &proxy->obj, typeid(*nativeObj).name());        
 		addCallBackAndThis(tmp, callback, thisObj);
 
 		return tmp;
@@ -1405,7 +1405,7 @@ void JSScheduleWrapper::setPureJSTarget(JSObject* pPureJSTarget)
     CCASSERT(_pPureJSTarget == NULL, "The pure js target has been set");
     JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
     _pPureJSTarget = pPureJSTarget;
-    JS_AddNamedObjectRoot(cx, &_pPureJSTarget, "Pure JS target");
+    AddNamedObjectRoot(cx, &_pPureJSTarget, "Pure JS target");
 }
 
 JSObject* JSScheduleWrapper::getPureJSTarget()
@@ -2545,7 +2545,7 @@ bool js_cocos2dx_ActionInterval_repeat(JSContext *cx, uint32_t argc, jsval *vp)
         jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
         // Rebind js obj with new action
         js_proxy_t* newProxy = jsb_new_proxy(action, obj);
-        JS_AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::Repeat");
+        AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::Repeat");
         
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
 		return true;
@@ -2569,7 +2569,7 @@ bool js_cocos2dx_ActionInterval_repeatForever(JSContext *cx, uint32_t argc, jsva
         jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
         // Rebind js obj with new action
         js_proxy_t* newProxy = jsb_new_proxy(action, obj);
-        JS_AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::RepeatForever");
+        AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::RepeatForever");
         
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
 		return true;
@@ -2604,7 +2604,7 @@ bool js_cocos2dx_ActionInterval_speed(JSContext *cx, uint32_t argc, jsval *vp)
         jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
         // Rebind js obj with new action
         js_proxy_t* newProxy = jsb_new_proxy(action, obj);
-        JS_AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::Speed");
+        AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::Speed");
         
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
 		return true;
@@ -2798,7 +2798,7 @@ bool js_cocos2dx_ActionInterval_easing(JSContext *cx, uint32_t argc, jsval *vp)
     jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
     // Rebind js obj with new action
     js_proxy_t* newProxy = jsb_new_proxy(currentAction, obj);
-    JS_AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::EaseAction");
+    AddNamedObjectRoot(cx, &newProxy->obj, "cocos2d::EaseAction");
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     return true;
 }

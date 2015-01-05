@@ -326,7 +326,7 @@ JS_BINDED_CONSTRUCTOR_IMPL(MinXmlHttpRequest)
     JS_SET_RVAL(cx, vp, out);
     p =jsb_new_proxy(req, obj);
     
-    JS_AddNamedObjectRoot(cx, &p->obj, "XMLHttpRequest");
+    AddNamedObjectRoot(cx, &p->obj, "XMLHttpRequest");
     return true;
 }
 
@@ -365,7 +365,7 @@ JS_BINDED_PROP_SET_IMPL(MinXmlHttpRequest, onreadystatechange)
     if (callback != JSVAL_NULL)
     {
         _onreadystateCallback = JSVAL_TO_OBJECT(callback);
-        JS_AddNamedObjectRoot(cx, &_onreadystateCallback, "onreadystateCallback");
+        AddNamedObjectRoot(cx, &_onreadystateCallback, "onreadystateCallback");
     }
     return true;
 }

@@ -92,7 +92,7 @@ JSFunctionWrapper::JSFunctionWrapper(JSContext* cx, JSObject *jsthis, jsval fval
 , _fval(fval)
 {
     JS_AddNamedValueRoot(cx, &this->_fval, "JSFunctionWrapper");
-    JS_AddNamedObjectRoot(cx, &this->_jsthis, "JSFunctionWrapper");
+    AddNamedObjectRoot(cx, &this->_jsthis, "JSFunctionWrapper");
 }
 
 JSFunctionWrapper::~JSFunctionWrapper()
