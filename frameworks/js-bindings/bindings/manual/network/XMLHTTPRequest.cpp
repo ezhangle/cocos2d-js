@@ -286,7 +286,7 @@ MinXmlHttpRequest::~MinXmlHttpRequest()
 {
     if (_onreadystateCallback != NULL)
     {
-        JS_RemoveObjectRoot(_cx, &_onreadystateCallback);
+        RemoveObjectRoot(_cx, &_onreadystateCallback);
     }
     
     if (_httpRequest)

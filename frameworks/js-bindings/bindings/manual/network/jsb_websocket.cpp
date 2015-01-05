@@ -130,7 +130,7 @@ public:
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), "onclose", 1, &args);
 
         js_proxy_t* jsproxy = jsb_get_js_proxy(p->obj);
-        JS_RemoveObjectRoot(cx, &jsproxy->obj);
+        RemoveObjectRoot(cx, &jsproxy->obj);
         jsb_remove_proxy(p, jsproxy);
         CC_SAFE_DELETE(ws);
     }

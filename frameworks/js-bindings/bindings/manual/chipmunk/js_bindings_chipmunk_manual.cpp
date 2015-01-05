@@ -849,14 +849,14 @@ void JSB_cpSpace_finalize(JSFreeOp *fop, JSObject *jsthis)
 
 				// unroot it
 				if( current->begin ) {
-					JS_RemoveObjectRoot(cx, &current->begin);
+					RemoveObjectRoot(cx, &current->begin);
                 }
 				if( current->pre )
-					JS_RemoveObjectRoot(cx, &current->pre);
+					RemoveObjectRoot(cx, &current->pre);
 				if( current->post )
-					JS_RemoveObjectRoot(cx, &current->post);
+					RemoveObjectRoot(cx, &current->post);
 				if( current->separate )
-					JS_RemoveObjectRoot(cx, &current->separate);
+					RemoveObjectRoot(cx, &current->separate);
 				
 				HASH_DEL(collision_handler_hash,current);  /* delete; users advances to next */
 				free(current);            /* optional- if you want to free  */
@@ -1002,13 +1002,13 @@ bool __jsb_cpSpace_removeCollisionHandler(JSContext *cx, jsval *vp, jsval *argvp
 		
 		// unroot it
 		if( hashElement->begin )
-			JS_RemoveObjectRoot(cx, &hashElement->begin);
+			RemoveObjectRoot(cx, &hashElement->begin);
 		if( hashElement->pre )
-			JS_RemoveObjectRoot(cx, &hashElement->pre);
+			RemoveObjectRoot(cx, &hashElement->pre);
 		if( hashElement->post )
-			JS_RemoveObjectRoot(cx, &hashElement->post);
+			RemoveObjectRoot(cx, &hashElement->post);
 		if( hashElement->separate )
-			JS_RemoveObjectRoot(cx, &hashElement->separate);
+			RemoveObjectRoot(cx, &hashElement->separate);
 		
 		HASH_DEL( collision_handler_hash, hashElement );
 		free( hashElement );
@@ -1176,7 +1176,7 @@ bool JSB_cpSpace_removeBody(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION(ok, "Error processing arguments");
 	
 	cpSpaceRemoveBody((cpSpace*)arg0 , (cpBody*)arg1  );
-	JS_RemoveObjectRoot(cx, &retproxy->jsobj);
+	RemoveObjectRoot(cx, &retproxy->jsobj);
 	
 	JS_SET_RVAL(cx, vp, JSVAL_VOID);
 	return true;
@@ -1199,7 +1199,7 @@ bool JSB_cpSpace_removeConstraint(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION(ok, "Error processing arguments");
 	
 	cpSpaceRemoveConstraint((cpSpace*)arg0 , (cpConstraint*)arg1  );
-	JS_RemoveObjectRoot(cx, &retproxy->jsobj);
+	RemoveObjectRoot(cx, &retproxy->jsobj);
 
 	JS_SET_RVAL(cx, vp, JSVAL_VOID);
 	return true;
@@ -1222,7 +1222,7 @@ bool JSB_cpSpace_removeShape(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION(ok, "Error processing arguments");
 	
 	cpSpaceRemoveShape((cpSpace*)arg0 , (cpShape*)arg1  );
-	JS_RemoveObjectRoot(cx, &retproxy->jsobj);
+	RemoveObjectRoot(cx, &retproxy->jsobj);
 	
 	JS_SET_RVAL(cx, vp, JSVAL_VOID);
 	return true;
@@ -1245,7 +1245,7 @@ bool JSB_cpSpace_removeStaticShape(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSB_PRECONDITION(ok, "Error processing arguments");
 	
 	cpSpaceRemoveStaticShape((cpSpace*)arg0 , (cpShape*)arg1  );
-	JS_RemoveObjectRoot(cx, &retproxy->jsobj);
+	RemoveObjectRoot(cx, &retproxy->jsobj);
 	
 	JS_SET_RVAL(cx, vp, JSVAL_VOID);
 	return true;
@@ -1703,7 +1703,7 @@ static void unroot_jsobject_from_handle(void *handle)
 	
 	    // HACK context from global
 	    JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-	    JS_RemoveObjectRoot(cx, &proxy->jsobj);
+	    RemoveObjectRoot(cx, &proxy->jsobj);
     }
 	
 }

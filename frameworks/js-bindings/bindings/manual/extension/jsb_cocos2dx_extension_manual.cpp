@@ -45,7 +45,7 @@ public:
         if (_needUnroot)
         {
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_RemoveObjectRoot(cx, &_JSDelegate);
+            RemoveObjectRoot(cx, &_JSDelegate);
         }
     }
     
@@ -131,7 +131,7 @@ public:
         if (_needUnroot)
         {
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_RemoveObjectRoot(cx, &_JSDelegate);
+            RemoveObjectRoot(cx, &_JSDelegate);
         }
     }
     
@@ -260,7 +260,7 @@ public:
         if (_needUnroot)
         {
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_RemoveObjectRoot(cx, &_JSTableViewDataSource);
+            RemoveObjectRoot(cx, &_JSTableViewDataSource);
         }
     }
     
@@ -573,7 +573,7 @@ public:
         if (_needUnroot)
         {
             JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-            JS_RemoveObjectRoot(cx, &_JSDelegate);
+            RemoveObjectRoot(cx, &_JSDelegate);
         }
     }
     
@@ -680,10 +680,10 @@ public:
         JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
         if (_needUnroot)
         {
-            JS_RemoveObjectRoot(cx, &_jsTarget);
+            RemoveObjectRoot(cx, &_jsTarget);
         }
         
-        JS_RemoveObjectRoot(cx, &_jsFunc);
+        RemoveObjectRoot(cx, &_jsFunc);
 
         for (auto iter = _jsNativeTargetMap.begin(); iter != _jsNativeTargetMap.end(); ++iter)
         {

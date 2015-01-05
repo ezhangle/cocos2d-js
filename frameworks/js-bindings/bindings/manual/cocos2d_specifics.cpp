@@ -132,7 +132,7 @@ void JSTouchDelegate::unregisterTouchDelegate()
     if (_needUnroot)
     {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-        JS_RemoveObjectRoot(cx, &_obj);
+        RemoveObjectRoot(cx, &_obj);
     }
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -1061,7 +1061,7 @@ JSScheduleWrapper::~JSScheduleWrapper()
 {
     if (_pPureJSTarget) {
         JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
-        JS_RemoveObjectRoot(cx, &_pPureJSTarget);
+        RemoveObjectRoot(cx, &_pPureJSTarget);
     }
 }
 
@@ -2542,7 +2542,7 @@ bool js_cocos2dx_ActionInterval_repeat(JSContext *cx, uint32_t argc, jsval *vp)
         
         cocos2d::Repeat* action = cocos2d::Repeat::create(cobj, timesInt);
         // Unbind current proxy binding
-        JS_RemoveObjectRoot(cx, &proxy->obj);
+        RemoveObjectRoot(cx, &proxy->obj);
         jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
         // Rebind js obj with new action
         js_proxy_t* newProxy = jsb_new_proxy(action, obj);
@@ -2566,7 +2566,7 @@ bool js_cocos2dx_ActionInterval_repeatForever(JSContext *cx, uint32_t argc, jsva
 	if (argc == 0) {
         cocos2d::RepeatForever* action = cocos2d::RepeatForever::create(cobj);
         // Unbind current proxy binding
-        JS_RemoveObjectRoot(cx, &proxy->obj);
+        RemoveObjectRoot(cx, &proxy->obj);
         jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
         // Rebind js obj with new action
         js_proxy_t* newProxy = jsb_new_proxy(action, obj);
@@ -2601,7 +2601,7 @@ bool js_cocos2dx_ActionInterval_speed(JSContext *cx, uint32_t argc, jsval *vp)
         
         cocos2d::Speed* action = cocos2d::Speed::create(cobj, speed);
         // Unbind current proxy binding
-        JS_RemoveObjectRoot(cx, &proxy->obj);
+        RemoveObjectRoot(cx, &proxy->obj);
         jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
         // Rebind js obj with new action
         js_proxy_t* newProxy = jsb_new_proxy(action, obj);
@@ -2795,7 +2795,7 @@ bool js_cocos2dx_ActionInterval_easing(JSContext *cx, uint32_t argc, jsval *vp)
     }
     
     // Unbind current proxy binding
-    JS_RemoveObjectRoot(cx, &proxy->obj);
+    RemoveObjectRoot(cx, &proxy->obj);
     jsb_remove_proxy(jsb_get_native_proxy(cobj), proxy);
     // Rebind js obj with new action
     js_proxy_t* newProxy = jsb_new_proxy(currentAction, obj);

@@ -99,7 +99,7 @@ JSFunctionWrapper::JSFunctionWrapper(JSContext* cx, JSObject *jsthis, jsval fval
 JSFunctionWrapper::~JSFunctionWrapper()
 {
     JS_RemoveValueRoot(this->_cx, &this->_fval);
-    JS_RemoveObjectRoot(this->_cx, &this->_jsthis);
+    RemoveObjectRoot(this->_cx, &this->_jsthis);
 }
 
 bool JSFunctionWrapper::invoke(unsigned int argc, jsval *argv, jsval &rval)

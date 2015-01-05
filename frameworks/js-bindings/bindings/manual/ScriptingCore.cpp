@@ -216,7 +216,7 @@ static void rootObject(JSContext *cx, JSObject *obj) {
 
 
 static void unRootObject(JSContext *cx, JSObject *obj) {
-    JS_RemoveObjectRoot(cx, &obj);
+    RemoveObjectRoot(cx, &obj);
 }
 
 void removeJSObject(JSContext* cx, void* nativeObj)
@@ -227,7 +227,7 @@ void removeJSObject(JSContext* cx, void* nativeObj)
     nproxy = jsb_get_native_proxy(nativeObj);
     if (nproxy) {
         jsproxy = jsb_get_js_proxy(nproxy->obj);
-        JS_RemoveObjectRoot(cx, &jsproxy->obj);
+        RemoveObjectRoot(cx, &jsproxy->obj);
         jsb_remove_proxy(nproxy, jsproxy);
     }
 }
@@ -491,7 +491,7 @@ void ScriptingCore::addRegisterCallback(sc_register_sth callback) {
 void ScriptingCore::removeAllRoots(JSContext *cx) {
     js_proxy_t *current, *tmp;
     HASH_ITER(hh, _js_native_global_ht, current, tmp) {
-        JS_RemoveObjectRoot(cx, &current->obj);
+        RemoveObjectRoot(cx, &current->obj);
         HASH_DEL(_js_native_global_ht, current);
         free(current);
     }
@@ -777,7 +777,7 @@ void ScriptingCore::removeScriptObjectByObject(Ref* pObj)
     if (nproxy) {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         jsproxy = jsb_get_js_proxy(nproxy->obj);
-        JS_RemoveObjectRoot(cx, &jsproxy->obj);
+        RemoveObjectRoot(cx, &jsproxy->obj);
         jsb_remove_proxy(nproxy, jsproxy);
     }
 }
@@ -859,7 +859,7 @@ bool ScriptingCore::removeRootJS(JSContext *cx, uint32_t argc, jsval *vp)
     if (argc == 1) {
         JSObject *o = NULL;
         if (JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "o", &o) == true) {
-            JS_RemoveObjectRoot(cx, &o);
+            RemoveObjectRoot(cx, &o);
         }
         return true;
     }
@@ -1089,7 +1089,7 @@ bool ScriptingCore::handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::Eve
         
     } while(false);
 
-    JS_RemoveObjectRoot(this->_cx, &jsretArr);
+    RemoveObjectRoot(this->_cx, &jsretArr);
 
     for (auto& touch : touches)
     {
@@ -1291,7 +1291,7 @@ int ScriptingCore::executeCustomTouchesEvent(EventTouch::EventCode eventType,
 
     jsval jsretArrVal = OBJECT_TO_JSVAL(jsretArr);
     executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), funcName.c_str(), 1, &jsretArrVal, &retval);
-    JS_RemoveObjectRoot(this->_cx, &jsretArr);
+    RemoveObjectRoot(this->_cx, &jsretArr);
 
     for (auto& touch : touches)
     {
