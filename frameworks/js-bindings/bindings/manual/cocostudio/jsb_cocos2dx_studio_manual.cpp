@@ -274,8 +274,9 @@ bool js_cocos2dx_studio_ColliderBody_getCalculatedVertexList(JSContext *cx, uint
         {
             JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
             if (!tmp) break;
-            bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(point.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-                JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(point.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+            JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+            bool ok = JS_DefineProperty(cx, tmpHandle, "x", point.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+                JS_DefineProperty(cx, tmpHandle, "y", point.y, JSPROP_ENUMERATE | JSPROP_PERMANENT);
             JS::RootedValue jsTmp(cx, OBJECT_TO_JSVAL(tmp));
             JS::HandleValue jsTmpHandle(jsTmp);
             if(!ok || !JS_SetElement(cx, jsretArrHandle, i, jsTmpHandle))

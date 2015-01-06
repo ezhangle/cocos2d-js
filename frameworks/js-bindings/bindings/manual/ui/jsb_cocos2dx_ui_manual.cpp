@@ -362,11 +362,12 @@ static bool js_cocos2dx_LayoutParameter_getMargin(JSContext *cx, uint32_t argc, 
     if (argc == 0) {
         JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
         if (!tmp) return false;
+        JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
         ui::Margin margin = cobj->getMargin();
-        bool ok = JS_DefineProperty(cx, tmp, "left", DOUBLE_TO_JSVAL(margin.left), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-            JS_DefineProperty(cx, tmp, "top", DOUBLE_TO_JSVAL(margin.top), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-            JS_DefineProperty(cx, tmp, "right", DOUBLE_TO_JSVAL(margin.right), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-            JS_DefineProperty(cx, tmp, "bottom", DOUBLE_TO_JSVAL(margin.bottom), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+        bool ok = JS_DefineProperty(cx, tmpHandle, "left", margin.left, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+            JS_DefineProperty(cx, tmpHandle, "top", margin.top, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+            JS_DefineProperty(cx, tmpHandle, "right", margin.right, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+            JS_DefineProperty(cx, tmpHandle, "bottom", margin.bottom, JSPROP_ENUMERATE | JSPROP_PERMANENT);
         if (ok) 
         {
             JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(tmp));

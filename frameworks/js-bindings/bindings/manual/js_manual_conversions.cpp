@@ -1684,8 +1684,9 @@ jsval ccpoint_to_jsval(JSContext* cx, const Point& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v.y, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1698,10 +1699,11 @@ jsval ccacceleration_to_jsval(JSContext* cx, const Acceleration& v)
     
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "z", DOUBLE_TO_JSVAL(v.z), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "timestamp", DOUBLE_TO_JSVAL(v.timestamp), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v.y, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "z", v.z, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "timestamp", v.timestamp, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1712,10 +1714,11 @@ jsval ccrect_to_jsval(JSContext* cx, const Rect& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.origin.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.origin.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "width", DOUBLE_TO_JSVAL(v.size.width), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "height", DOUBLE_TO_JSVAL(v.size.height), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.origin.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v.origin.y, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "width", v.size.width, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "height", v.size.height, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1726,8 +1729,9 @@ jsval ccsize_to_jsval(JSContext* cx, const Size& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "width", DOUBLE_TO_JSVAL(v.width), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "height", DOUBLE_TO_JSVAL(v.height), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "width", v.width, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "height", v.height, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1738,10 +1742,11 @@ jsval cccolor4b_to_jsval(JSContext* cx, const Color4B& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "r", INT_TO_JSVAL(v.r), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "g", INT_TO_JSVAL(v.g), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "b", INT_TO_JSVAL(v.b), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "a", INT_TO_JSVAL(v.a), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "r", v.r, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "g", v.g, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "b", v.b, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "a", v.a, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1751,10 +1756,11 @@ jsval cccolor4b_to_jsval(JSContext* cx, const Color4B& v)
 jsval cccolor4f_to_jsval(JSContext* cx, const Color4F& v) {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "r", INT_TO_JSVAL((int)(v.r * 255)), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "g", INT_TO_JSVAL((int)(v.g * 255)), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "b", INT_TO_JSVAL((int)(v.b * 255)), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "a", INT_TO_JSVAL((int)(v.a * 255)), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "r", (int)(v.r * 255), JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "g", (int)(v.g * 255), JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "b", (int)(v.b * 255), JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "a", (int)(v.a * 255), JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1764,9 +1770,10 @@ jsval cccolor4f_to_jsval(JSContext* cx, const Color4F& v) {
 jsval cccolor3b_to_jsval(JSContext* cx, const Color3B& v) {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "r", INT_TO_JSVAL(v.r), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "g", INT_TO_JSVAL(v.g), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "b", INT_TO_JSVAL(v.b), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "r", v.r, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "g", v.g, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "b", v.b, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1777,12 +1784,13 @@ jsval ccaffinetransform_to_jsval(JSContext* cx, const AffineTransform& t)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "a", DOUBLE_TO_JSVAL(t.a), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "b", DOUBLE_TO_JSVAL(t.b), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "c", DOUBLE_TO_JSVAL(t.c), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "d", DOUBLE_TO_JSVAL(t.d), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "tx", DOUBLE_TO_JSVAL(t.tx), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "ty", DOUBLE_TO_JSVAL(t.ty), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "a", t.a, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "b", t.b, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "c", t.c, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "d", t.d, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "tx", t.tx, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "ty", t.ty, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -1793,39 +1801,50 @@ jsval FontDefinition_to_jsval(JSContext* cx, const FontDefinition& t)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = true;
     
-    ok &= JS_DefineProperty(cx, tmp, "fontName", std_string_to_jsval(cx, t._fontName), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value fontName(std_string_to_jsval(cx, t._fontName));
+    JS::HandleValue fontNameHandle(JS::HandleValue::fromMarkedLocation(&fontName));
+    ok &= JS_DefineProperty(cx, tmpHandle, "fontName", fontNameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "fontSize", int32_to_jsval(cx, t._fontSize), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "fontSize", t._fontSize, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "textAlign", int32_to_jsval(cx, (int32_t)t._alignment), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "textAlign", (int32_t)t._alignment, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "verticalAlign", int32_to_jsval(cx, (int32_t)t._vertAlignment), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "verticalAlign", (int32_t)t._vertAlignment, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "fillStyle", cccolor3b_to_jsval(cx, t._fontFillColor), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value fontFillColor(cccolor3b_to_jsval(cx, t._fontFillColor));
+    JS::HandleValue fontFillColorHandle(JS::HandleValue::fromMarkedLocation(&fontFillColor));
+    ok &= JS_DefineProperty(cx, tmpHandle, "fillStyle", fontFillColorHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "boundingWidth", DOUBLE_TO_JSVAL(t._dimensions.width), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "boundingWidth", t._dimensions.width, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "boundingHeight", DOUBLE_TO_JSVAL(t._dimensions.height), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "boundingHeight", t._dimensions.height, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     // Shadow
-    ok &= JS_DefineProperty(cx, tmp, "shadowEnabled", BOOLEAN_TO_JSVAL(t._shadow._shadowEnabled), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value shadowEnabled(t._shadow._shadowEnabled);
+    JS::HandleValue shadowEnabledHandle(JS::HandleValue::fromMarkedLocation(&shadowEnabled));
+    ok &= JS_DefineProperty(cx, tmpHandle, "shadowEnabled", shadowEnabledHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "shadowOffsetX", DOUBLE_TO_JSVAL(t._shadow._shadowOffset.width), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "shadowOffsetX", t._shadow._shadowOffset.width, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "shadowOffsetY", DOUBLE_TO_JSVAL(t._shadow._shadowOffset.height), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "shadowOffsetY", t._shadow._shadowOffset.height, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "shadowBlur", DOUBLE_TO_JSVAL(t._shadow._shadowBlur), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "shadowBlur", t._shadow._shadowBlur, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "shadowOpacity", DOUBLE_TO_JSVAL(t._shadow._shadowOpacity), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "shadowOpacity", t._shadow._shadowOpacity, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     // Stroke
-    ok &= JS_DefineProperty(cx, tmp, "strokeEnabled", BOOLEAN_TO_JSVAL(t._stroke._strokeEnabled), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value strokeEnabled(t._stroke._strokeEnabled);
+    JS::HandleValue strokeEnabledHandle(JS::HandleValue::fromMarkedLocation(&strokeEnabled));
+    ok &= JS_DefineProperty(cx, tmpHandle, "strokeEnabled", strokeEnabledHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "strokeStyle", cccolor3b_to_jsval(cx, t._stroke._strokeColor), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value strokeColor(cccolor3b_to_jsval(cx, t._stroke._strokeColor));
+    JS::HandleValue strokeColorHandle(JS::HandleValue::fromMarkedLocation(&strokeColor));
+    ok &= JS_DefineProperty(cx, tmpHandle, "strokeStyle", strokeColorHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    ok &= JS_DefineProperty(cx, tmp, "lineWidth", DOUBLE_TO_JSVAL(t._stroke._strokeSize), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    ok &= JS_DefineProperty(cx, tmpHandle, "lineWidth", t._stroke._strokeSize, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
@@ -2148,9 +2167,10 @@ jsval CGPoint_to_jsval( JSContext *cx, cpVect p)
 	JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
 	if (!object)
 		return JSVAL_VOID;
+	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
     
-	if (!JS_DefineProperty(cx, object, "x", DOUBLE_TO_JSVAL(p.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-		!JS_DefineProperty(cx, object, "y", DOUBLE_TO_JSVAL(p.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
+	if (!JS_DefineProperty(cx, objectHandle, "x", p.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+		!JS_DefineProperty(cx, objectHandle, "y", p.y, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
 		return JSVAL_VOID;
 	
 	return OBJECT_TO_JSVAL(object);
@@ -2414,8 +2434,9 @@ jsval vector2_to_jsval(JSContext *cx, const cocos2d::Vec2& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v.y, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -2426,9 +2447,10 @@ jsval vector3_to_jsval(JSContext *cx, const cocos2d::Vec3& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "z", DOUBLE_TO_JSVAL(v.z), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v.y, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "z", v.z, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }
@@ -2439,8 +2461,9 @@ jsval blendfunc_to_jsval(JSContext *cx, const cocos2d::BlendFunc& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "src", uint32_to_jsval(cx, v.src), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "dst", uint32_to_jsval(cx, v.dst), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "src", v.src, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "dst", v.dst, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     if (ok) {
         return OBJECT_TO_JSVAL(tmp);
     }

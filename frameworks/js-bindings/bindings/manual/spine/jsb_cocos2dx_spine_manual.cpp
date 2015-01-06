@@ -32,10 +32,15 @@ jsval speventdata_to_jsval(JSContext* cx, spEventData& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
-    bool ok = JS_DefineProperty(cx, tmp, "name", c_string_to_jsval(cx, v.name), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "intValue", INT_TO_JSVAL(v.intValue), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "floatValue", DOUBLE_TO_JSVAL(v.floatValue), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "stringValue", c_string_to_jsval(cx, v.stringValue), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
+    JS::Value name(c_string_to_jsval(cx, v.name));
+    JS::HandleValue nameHandle(JS::HandleValue::fromMarkedLocation(&name));
+    JS::Value stringValue(c_string_to_jsval(cx, v.stringValue));
+    JS::HandleValue stringValueHandle(JS::HandleValue::fromMarkedLocation(&stringValue));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "name", nameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "intValue", v.intValue, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "floatValue", v.floatValue, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "stringValue", stringValueHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -48,11 +53,16 @@ jsval spevent_to_jsval(JSContext* cx, spEvent& v)
 {
     JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    bool ok = JS_DefineProperty(cx, tmp, "data", speventdata_to_jsval(cx, *v.data), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "intValue", INT_TO_JSVAL(v.intValue), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "floatValue", DOUBLE_TO_JSVAL(v.floatValue), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "stringValue", c_string_to_jsval(cx, v.stringValue), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value data(speventdata_to_jsval(cx, *v.data));
+    JS::HandleValue dataHandle(JS::HandleValue::fromMarkedLocation(&data));
+    JS::Value stringValue(c_string_to_jsval(cx, v.stringValue));
+    JS::HandleValue stringValueHandle(JS::HandleValue::fromMarkedLocation(&stringValue));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "data", dataHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "intValue", v.intValue, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "floatValue", v.floatValue, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "stringValue", stringValueHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -66,22 +76,26 @@ jsval spbonedata_to_jsval(JSContext* cx, const spBoneData* v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
     // root haven't parent
     jsval parentVal = JSVAL_NULL;
     if (strcmp(v->name, "root"))
         parentVal = spbonedata_to_jsval(cx, v->parent);
     
-    bool ok = JS_DefineProperty(cx, tmp, "name", c_string_to_jsval(cx, v->name), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "parent", parentVal, NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "length", DOUBLE_TO_JSVAL(v->length), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v->x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v->y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "rotation", DOUBLE_TO_JSVAL(v->rotation), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "scaleX", DOUBLE_TO_JSVAL(v->scaleX), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "scaleY", DOUBLE_TO_JSVAL(v->scaleY), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "inheritScale", INT_TO_JSVAL(v->inheritScale), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "inheritRotation", INT_TO_JSVAL(v->inheritRotation), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value name(c_string_to_jsval(cx, v->name));
+    JS::HandleValue nameHandle(JS::HandleValue::fromMarkedLocation(&name));
+    JS::HandleValue parentValHandle(JS::HandleValue::fromMarkedLocation(&parentVal));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "name", nameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "parent", parentValHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "length", v->length, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "x", v->x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v->y, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "rotation", v->rotation, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "scaleX", v->scaleX, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "scaleY", v->scaleY, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "inheritScale", v->inheritScale, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "inheritRotation", v->inheritRotation, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -95,28 +109,32 @@ jsval spbone_to_jsval(JSContext* cx, spBone& v)
 {
     JSObject* tmp =JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
     // root haven't parent
     jsval parentVal = JSVAL_NULL;
     if (strcmp(v.data->name, "root"))
         parentVal = spbone_to_jsval(cx, *v.parent);
     
-    bool ok = JS_DefineProperty(cx, tmp, "data", spbonedata_to_jsval(cx, v.data), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "parent", parentVal, NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "rotation", DOUBLE_TO_JSVAL(v.rotation), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "scaleX", DOUBLE_TO_JSVAL(v.scaleX), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "scaleY", DOUBLE_TO_JSVAL(v.scaleY), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "m00", DOUBLE_TO_JSVAL(v.m00), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "m01", DOUBLE_TO_JSVAL(v.m01), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "worldX", DOUBLE_TO_JSVAL(v.worldX), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "m10", DOUBLE_TO_JSVAL(v.m10), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "m11", DOUBLE_TO_JSVAL(v.m11), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "worldY", DOUBLE_TO_JSVAL(v.worldY), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "worldRotation", DOUBLE_TO_JSVAL(v.worldRotation), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "worldScaleX", DOUBLE_TO_JSVAL(v.worldScaleX), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "worldScaleY", DOUBLE_TO_JSVAL(v.worldScaleY), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value data(spbonedata_to_jsval(cx, v.data));
+    JS::HandleValue dataHandle(JS::HandleValue::fromMarkedLocation(&data));
+    JS::HandleValue parentValHandle(JS::HandleValue::fromMarkedLocation(&parentVal));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "data", dataHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "parent", parentValHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v.y, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "rotation", v.rotation, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "scaleX", v.scaleX, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "scaleY", v.scaleY, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "m00", v.m00, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "m01", v.m01, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "worldX", v.worldX, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "m10", v.m10, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "m11", v.m11, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "worldY", v.worldY, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "worldRotation", v.worldRotation, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "worldScaleX", v.worldScaleX, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "worldScaleY", v.worldScaleY, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -130,14 +148,15 @@ jsval spskeleton_to_jsval(JSContext* cx, spSkeleton& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "flipX", DOUBLE_TO_JSVAL(v.flipX), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "flipY", DOUBLE_TO_JSVAL(v.flipY), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "time", DOUBLE_TO_JSVAL(v.time), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "boneCount", INT_TO_JSVAL(v.boneCount), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "slotCount", INT_TO_JSVAL(v.slotCount), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "y", v.y, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "flipX", v.flipX, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "flipY", v.flipY, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "time", v.time, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "boneCount", v.boneCount, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "slotCount", v.slotCount, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -151,9 +170,12 @@ jsval spattachment_to_jsval(JSContext* cx, spAttachment& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    bool ok = JS_DefineProperty(cx, tmp, "name", c_string_to_jsval(cx, v.name), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "type", INT_TO_JSVAL(v.type), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value name(c_string_to_jsval(cx, v.name));
+    JS::HandleValue nameHandle(JS::HandleValue::fromMarkedLocation(&name));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "name", nameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "type", v.type, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -167,15 +189,22 @@ jsval spslotdata_to_jsval(JSContext* cx, spSlotData& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
 
-    bool ok = JS_DefineProperty(cx, tmp, "name", c_string_to_jsval(cx, v.name), NULL, NULL,  JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "attachmentName", c_string_to_jsval(cx, v.attachmentName), NULL, NULL,  JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "r", DOUBLE_TO_JSVAL(v.r), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "g", DOUBLE_TO_JSVAL(v.g), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "b", DOUBLE_TO_JSVAL(v.b), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "a", DOUBLE_TO_JSVAL(v.a), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "additiveBlending", INT_TO_JSVAL(v.additiveBlending), NULL, NULL,  JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "boneData", spbonedata_to_jsval(cx, v.boneData), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value name(c_string_to_jsval(cx, v.name));
+    JS::HandleValue nameHandle(JS::HandleValue::fromMarkedLocation(&name));
+    JS::Value attachmentName(c_string_to_jsval(cx, v.attachmentName));
+    JS::HandleValue attachmentNameHandle(JS::HandleValue::fromMarkedLocation(&attachmentName));
+    JS::Value boneData(spbonedata_to_jsval(cx, v.boneData));
+    JS::HandleValue boneDataHandle(JS::HandleValue::fromMarkedLocation(&boneData));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "name", nameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "attachmentName", attachmentNameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "r", v.r, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "g", v.g, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "b", v.b, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "a", v.a, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "additiveBlending", v.additiveBlending, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "boneData", boneDataHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -189,15 +218,24 @@ jsval spslot_to_jsval(JSContext* cx, spSlot& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    bool ok = JS_DefineProperty(cx, tmp, "r", DOUBLE_TO_JSVAL(v.r), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-     JS_DefineProperty(cx, tmp, "g", DOUBLE_TO_JSVAL(v.g), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-     JS_DefineProperty(cx, tmp, "b", DOUBLE_TO_JSVAL(v.b), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-     JS_DefineProperty(cx, tmp, "a", DOUBLE_TO_JSVAL(v.a), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-     JS_DefineProperty(cx, tmp, "bone", spbone_to_jsval(cx, *v.bone), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-     JS_DefineProperty(cx, tmp, "skeleton", spskeleton_to_jsval(cx, *v.skeleton), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-     JS_DefineProperty(cx, tmp, "attachment", spattachment_to_jsval(cx, *v.attachment), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-     JS_DefineProperty(cx, tmp, "data", spslotdata_to_jsval(cx, *v.data), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value bone(spbone_to_jsval(cx, *v.bone));
+    JS::HandleValue boneHandle(JS::HandleValue::fromMarkedLocation(&bone));
+    JS::Value skeleton(spskeleton_to_jsval(cx, *v.skeleton));
+    JS::HandleValue skeletonHandle(JS::HandleValue::fromMarkedLocation(&skeleton));
+    JS::Value attachment(spattachment_to_jsval(cx, *v.attachment));
+    JS::HandleValue attachmentHandle(JS::HandleValue::fromMarkedLocation(&attachment));
+    JS::Value slotdata(spslotdata_to_jsval(cx, *v.data));
+    JS::HandleValue slotdataHandle(JS::HandleValue::fromMarkedLocation(&slotdata));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "r", v.r, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "g", v.g, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "b", v.b, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "a", v.a, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "bone", boneHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "skeleton", skeletonHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "attachment", attachmentHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "data", slotdataHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
         
     if (ok)
     {
@@ -211,8 +249,9 @@ jsval sptimeline_to_jsval(JSContext* cx, spTimeline& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    bool ok = JS_DefineProperty(cx, tmp, "type", int32_to_jsval(cx, v.type), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    bool ok = JS_DefineProperty(cx, tmpHandle, "type", v.type, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -226,9 +265,10 @@ jsval spanimationstate_to_jsval(JSContext* cx, spAnimationState& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    bool ok = JS_DefineProperty(cx, tmp, "timeScale", DOUBLE_TO_JSVAL(v.timeScale), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "trackCount", DOUBLE_TO_JSVAL(v.trackCount), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    bool ok = JS_DefineProperty(cx, tmpHandle, "timeScale", v.timeScale, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "trackCount", v.trackCount, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -242,11 +282,16 @@ jsval spanimation_to_jsval(JSContext* cx, spAnimation& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    bool ok = JS_DefineProperty(cx, tmp, "duration", DOUBLE_TO_JSVAL(v.duration), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "timelineCount", INT_TO_JSVAL(v.timelineCount), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "name", c_string_to_jsval(cx, v.name), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "timelines", sptimeline_to_jsval(cx, **v.timelines), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::Value cStr(c_string_to_jsval(cx, v.name));
+    JS::Value sptimeline(sptimeline_to_jsval(cx, **v.timelines));
+    JS::HandleValue cStrHandle(JS::HandleValue::fromMarkedLocation(&cStr));
+    JS::HandleValue sptimelineHandle(JS::HandleValue::fromMarkedLocation(&sptimeline));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "duration", v.duration, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "timelineCount", v.timelineCount, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "name", cStrHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "timelines", sptimelineHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {
@@ -260,6 +305,7 @@ jsval sptrackentry_to_jsval(JSContext* cx, spTrackEntry& v)
 {
     JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
     if (!tmp) return JSVAL_NULL;
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
     jsval nextVal = JSVAL_NULL;
     if (v.next)
@@ -269,16 +315,20 @@ jsval sptrackentry_to_jsval(JSContext* cx, spTrackEntry& v)
     if (v.previous)
         previousVal = sptrackentry_to_jsval(cx, *v.previous);
     
-    bool ok = JS_DefineProperty(cx, tmp, "delay", DOUBLE_TO_JSVAL(v.delay), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "time", DOUBLE_TO_JSVAL(v.time), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "lastTime", DOUBLE_TO_JSVAL(v.lastTime), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "endTime", DOUBLE_TO_JSVAL(v.endTime), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "timeScale", DOUBLE_TO_JSVAL(v.timeScale), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "mixTime", DOUBLE_TO_JSVAL(v.mixTime), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "mixDuration", DOUBLE_TO_JSVAL(v.mixDuration), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "animation", spanimation_to_jsval(cx, *v.animation), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "next", nextVal, NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
-    JS_DefineProperty(cx, tmp, "previous", previousVal, NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleValue nextValHandle(JS::HandleValue::fromMarkedLocation(&nextVal));
+    JS::HandleValue previousValHandle(JS::HandleValue::fromMarkedLocation(&previousVal));
+    JS::Value spanimation(spanimation_to_jsval(cx, *v.animation));
+    JS::HandleValue spanimationHandle(JS::HandleValue::fromMarkedLocation(&spanimation));
+    bool ok = JS_DefineProperty(cx, tmpHandle, "delay", v.delay, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "time", v.time, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "lastTime", v.lastTime, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "endTime", v.endTime, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "timeScale", v.timeScale, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "mixTime", v.mixTime, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "mixDuration", v.mixDuration, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "animation", spanimationHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "next", nextValHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+    JS_DefineProperty(cx, tmpHandle, "previous", previousValHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     if (ok)
     {

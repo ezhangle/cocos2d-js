@@ -648,11 +648,12 @@ jsval cpBB_to_jsval(JSContext *cx, cpBB bb )
 	JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
 	if (!object)
 		return JSVAL_VOID;
+	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
 	
-	if (!JS_DefineProperty(cx, object, "l", DOUBLE_TO_JSVAL(bb.l), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-		!JS_DefineProperty(cx, object, "b", DOUBLE_TO_JSVAL(bb.b), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-		!JS_DefineProperty(cx, object, "r", DOUBLE_TO_JSVAL(bb.r), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-		!JS_DefineProperty(cx, object, "t", DOUBLE_TO_JSVAL(bb.t), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
+	if (!JS_DefineProperty(cx, objectHandle, "l", bb.l, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+		!JS_DefineProperty(cx, objectHandle, "b", bb.b, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+		!JS_DefineProperty(cx, objectHandle, "r", bb.r, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+		!JS_DefineProperty(cx, objectHandle, "t", bb.t, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
 		return JSVAL_VOID;
 	
 	return OBJECT_TO_JSVAL(object);

@@ -271,10 +271,13 @@ bool JSB_glGetActiveAttrib(JSContext *cx, uint32_t argc, jsval *vp)
 
     JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
     JSB_PRECONDITION2(ok, cx, false, "Error creating JS Object");
+    JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
 
-    if (!JS_DefineProperty(cx, object, "size", INT_TO_JSVAL(size), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-        !JS_DefineProperty(cx, object, "type", INT_TO_JSVAL(type), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-        !JS_DefineProperty(cx, object, "name", charptr_to_jsval(cx, buffer), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
+    JS::Value name(charptr_to_jsval(cx, buffer));
+    JS::HandleValue nameHandle(JS::HandleValue::fromMarkedLocation(&name));
+    if (!JS_DefineProperty(cx, objectHandle, "size", size, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+        !JS_DefineProperty(cx, objectHandle, "type", type, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+        !JS_DefineProperty(cx, objectHandle, "name", nameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
         return false;
 
     retval = OBJECT_TO_JSVAL(object);
@@ -315,10 +318,13 @@ bool JSB_glGetActiveUniform(JSContext *cx, uint32_t argc, jsval *vp)
 
     JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
     JSB_PRECONDITION2(ok, cx, false, "Error creating JS Object");
+    JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
 
-    if (!JS_DefineProperty(cx, object, "size", INT_TO_JSVAL(size), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-        !JS_DefineProperty(cx, object, "type", INT_TO_JSVAL(type), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
-        !JS_DefineProperty(cx, object, "name", charptr_to_jsval(cx, buffer), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
+    JS::Value name(charptr_to_jsval(cx, buffer));
+    JS::HandleValue nameHandle(JS::HandleValue::fromMarkedLocation(&name));
+    if (!JS_DefineProperty(cx, objectHandle, "size", size, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+        !JS_DefineProperty(cx, objectHandle, "type", type, JSPROP_ENUMERATE | JSPROP_PERMANENT) ||
+        !JS_DefineProperty(cx, objectHandle, "name", nameHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT) )
         return false;
 
     retval = OBJECT_TO_JSVAL(object);
