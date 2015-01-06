@@ -468,7 +468,10 @@ bool ScriptingCore::evalString(const char *string, jsval *outVal, const char *fi
     JSScript* script = JS_CompileScript(cx, JS::RootedObject(cx, global), string, strlen(string), JS::CompileOptions(cx));
     if (script)
     {
-        bool evaluatedOK = JS_ExecuteScript(cx, global, script, outVal);
+        JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+        JS::HandleScript scriptHandle(JS::HandleScript::fromMarkedLocation(&script));
+        JS::MutableHandleValue outValHandle(JS::MutableHandleValue::fromMarkedLocation(&outVal));
+        bool evaluatedOK = JS_ExecuteScript(cx, globalHandle, scriptHandle, outValHandle);
         if (false == evaluatedOK)
         {
             fprintf(stderr, "(evaluatedOK == false)\n");
@@ -695,7 +698,10 @@ bool ScriptingCore::runScript(const char *path, JSObject* global, JSContext* cx)
 	if (script) {
 		jsval rval;
 		JSAutoCompartment ac(cx, global);
-		evaluatedOK = JS_ExecuteScript(cx, global, script, &rval);
+		JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+		JS::HandleScript scriptHandle(JS::HandleScript::fromMarkedLocation(&script));
+		JS::MutableHandleValue rvalHandle(JS::MutableHandleValue::fromMarkedLocation(&rval));
+		evaluatedOK = JS_ExecuteScript(cx, globalHandle, scriptHandle, rvalHandle);
 		if (false == evaluatedOK) {
 			cocos2d::log("(evaluatedOK == JS_FALSE)");
 			JS_ReportPendingException(cx);
