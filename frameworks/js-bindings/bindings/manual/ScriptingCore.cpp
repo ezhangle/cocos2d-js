@@ -368,11 +368,12 @@ void registerDefaultClasses(JSContext* cx, JSObject* global) {
     // first, try to get the ns
     JS::RootedValue nsval(cx);
     JS::RootedObject ns(cx);
+    JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
     JS_GetProperty(cx, global, "cc", &nsval);
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, NULL, NULL);
         nsval = OBJECT_TO_JSVAL(ns);
-        JS_SetProperty(cx, global, "cc", nsval);
+        JS_SetProperty(cx, globalHandle, "cc", nsval);
     } else {
         JS_ValueToObject(cx, nsval, &ns);
     }
@@ -383,7 +384,7 @@ void registerDefaultClasses(JSContext* cx, JSObject* global) {
     JSObject *jsc = JS_NewObject(cx, NULL, NULL, NULL);
     JS::RootedValue jscVal(cx);
     jscVal = OBJECT_TO_JSVAL(jsc);
-    JS_SetProperty(cx, global, "__jsc__", jscVal);
+    JS_SetProperty(cx, globalHandle, "__jsc__", jscVal);
 
     JS_DefineFunction(cx, jsc, "garbageCollect", ScriptingCore::forceGC, 0, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );
     JS_DefineFunction(cx, jsc, "dumpRoot", ScriptingCore::dumpRoot, 0, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );

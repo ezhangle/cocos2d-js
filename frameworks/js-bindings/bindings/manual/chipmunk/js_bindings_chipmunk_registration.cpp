@@ -41,10 +41,11 @@ CC_BINDING_CHIPMUNK_DLL void jsb_register_chipmunk(JSContext* cx, JSObject *obje
 	// Chipmunk
 	//
 	JSObject *chipmunk = JS_NewObject(cx, NULL, NULL, NULL);
-    JS::RootedValue chipmunkVal(cx);
+	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
+	JS::RootedValue chipmunkVal(cx);
     
-    chipmunkVal = OBJECT_TO_JSVAL(chipmunk);
-	JS_SetProperty(cx, object, "cp", chipmunkVal);
+	chipmunkVal = OBJECT_TO_JSVAL(chipmunk);
+	JS_SetProperty(cx, objectHandle, "cp", chipmunkVal);
 	
 	JSB_cpBase_createClass(cx, chipmunk, "Base");  // manual base class registration
 #include "js_bindings_chipmunk_auto_classes_registration.h"
@@ -62,7 +63,7 @@ CC_BINDING_CHIPMUNK_DLL void jsb_register_chipmunk(JSContext* cx, JSObject *obje
 	JS_DefineFunction(cx, chipmunk, "momentForPoly", JSB_cpMomentForPoly, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE );
 	JS_DefineFunction(cx, chipmunk, "centroidForPoly", JSB_cpCentroidForPoly, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE );
 	JS_DefineFunction(cx, chipmunk, "recenterPoly", JSB_cpRecenterPoly, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE );
-    register_CCPhysicsSprite(cx, object);
-    register_CCPhysicsDebugNode(cx, object);
+	register_CCPhysicsSprite(cx, object);
+	register_CCPhysicsDebugNode(cx, object);
 }
 

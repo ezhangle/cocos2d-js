@@ -4405,12 +4405,13 @@ bool js_console_log(JSContext *cx, uint32_t argc, jsval *vp)
 
 void create_js_root_obj(JSContext* cx, JSObject* global, const std::string &name, JS::RootedObject *jsObj)
 {
-    JS::RootedValue nsval(cx);
+	JS::RootedValue nsval(cx);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	JS_GetProperty(cx, global, name.c_str(), &nsval);
 	if (nsval == JSVAL_VOID) {
 		*jsObj = JS_NewObject(cx, NULL, NULL, NULL);
 		nsval = OBJECT_TO_JSVAL(*jsObj);
-		JS_SetProperty(cx, global, name.c_str(), nsval);
+		JS_SetProperty(cx, globalHandle, name.c_str(), nsval);
 	} else {
 		JS_ValueToObject(cx, nsval, jsObj);
 	}

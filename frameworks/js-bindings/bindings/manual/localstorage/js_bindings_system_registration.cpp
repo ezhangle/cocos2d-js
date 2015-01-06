@@ -36,16 +36,18 @@ CC_BINDING_STORAGE_DLL void jsb_register_system(JSContext *_cx, JSObject *object
 	// sys
 	//
 	JSObject *sys = JS_NewObject(_cx, NULL, NULL, NULL);
-    JS::RootedValue systemVal(_cx);
-    systemVal = OBJECT_TO_JSVAL(sys);
-	JS_SetProperty(_cx, object, "sys", systemVal);
+	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
+	JS::HandleObject sysHandle(JS::HandleObject::fromMarkedLocation(&sys));
+	JS::RootedValue systemVal(_cx);
+	systemVal = OBJECT_TO_JSVAL(sys);
+	JS_SetProperty(_cx, objectHandle, "sys", systemVal);
 
 
 	// sys.localStorage
 	JSObject *ls = JS_NewObject(_cx, NULL, NULL, NULL);
 	JS::RootedValue lsVal(_cx);
-    lsVal = OBJECT_TO_JSVAL(ls);
-	JS_SetProperty(_cx, sys, "localStorage", lsVal);
+	lsVal = OBJECT_TO_JSVAL(ls);
+	JS_SetProperty(_cx, sysHandle, "localStorage", lsVal);
 
 	// sys.localStorage functions
 	JSObject *system = ls;
@@ -55,8 +57,8 @@ CC_BINDING_STORAGE_DLL void jsb_register_system(JSContext *_cx, JSObject *object
 	// Init DB with full path
 	//NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 	//NSString *fullpath = [path stringByAppendingPathComponent:@"jsb.sqlite"];
-    std::string strFilePath = cocos2d::FileUtils::getInstance()->getWritablePath();
-    strFilePath += "/jsb.sqlite";
+	std::string strFilePath = cocos2d::FileUtils::getInstance()->getWritablePath();
+	strFilePath += "/jsb.sqlite";
 	localStorageInit(strFilePath.c_str());
 	
 }

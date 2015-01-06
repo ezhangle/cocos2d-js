@@ -700,6 +700,7 @@ bool js_get_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
     if (cobj) {
         cocos2d::Map<std::string, cocostudio::MovementData*> dic = cobj->movementDataDic;
         JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+        JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
         
         for (auto iter = dic.begin(); iter != dic.end(); ++iter)
         {
@@ -719,7 +720,7 @@ bool js_get_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
             
             if (!key.empty())
             {
-                JS_SetProperty(cx, jsRet, key.c_str(), dictElement);
+                JS_SetProperty(cx, jsRetHandle, key.c_str(), dictElement);
             }
         }
         jsval ret = OBJECT_TO_JSVAL(jsRet);

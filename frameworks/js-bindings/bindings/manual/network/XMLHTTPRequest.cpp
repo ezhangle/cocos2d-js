@@ -341,7 +341,8 @@ JS_BINDED_PROP_GET_IMPL(MinXmlHttpRequest, onreadystatechange)
         JSString *tmpstr = JS_NewStringCopyZ(cx, "1");
         JS::RootedValue tmpval(cx);
         tmpval = STRING_TO_JSVAL(tmpstr);
-        JS_SetProperty(cx, _onreadystateCallback, "readyState", tmpval);
+        JS::HandleObject callbackHandle(JS::HandleObject::fromMarkedLocation(_onreadystateCallback.address()));
+        JS_SetProperty(cx, callbackHandle, "readyState", tmpval);
         
         jsval out = OBJECT_TO_JSVAL(_onreadystateCallback);
         vp.set(out);

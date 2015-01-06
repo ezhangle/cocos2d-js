@@ -581,13 +581,14 @@ void JSPROXY_CCPhysicsSprite_createClass(JSContext *cx, JSObject* globalObj)
 
 
 void register_CCPhysicsSprite(JSContext *cx, JSObject *obj) {
-    JS::RootedValue nsval(cx);
+	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
 	JS_GetProperty(cx, obj, "cc", &nsval);
 	if (nsval == JSVAL_VOID) {
 		ns = JS_NewObject(cx, NULL, NULL, NULL);
 		nsval = OBJECT_TO_JSVAL(ns);
-		JS_SetProperty(cx, obj, "cc", nsval);
+		JS_SetProperty(cx, objHandle, "cc", nsval);
 	} else {
 		JS_ValueToObject(cx, nsval, &ns);
 	}
@@ -598,11 +599,12 @@ void register_CCPhysicsSprite(JSContext *cx, JSObject *obj) {
 void register_CCPhysicsDebugNode(JSContext *cx, JSObject *obj) {
     JS::RootedValue nsval(cx);
     JS::RootedObject ns(cx);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_GetProperty(cx, obj, "cc", &nsval);
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, NULL, NULL);
         nsval = OBJECT_TO_JSVAL(ns);
-        JS_SetProperty(cx, obj, "cc", nsval);
+        JS_SetProperty(cx, objHandle, "cc", nsval);
     } else {
         JS_ValueToObject(cx, nsval, &ns);
     }

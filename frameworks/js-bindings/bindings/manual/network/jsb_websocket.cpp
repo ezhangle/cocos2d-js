@@ -70,9 +70,10 @@ public:
         
         JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
         JSObject* jsobj = JS_NewObject(cx, NULL, NULL, NULL);
+        JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
         JS::RootedValue vp(cx);
         vp = c_string_to_jsval(cx, "open");
-        JS_SetProperty(cx, jsobj, "type", vp);
+        JS_SetProperty(cx, jsobjHandle, "type", vp);
         
         jsval args = OBJECT_TO_JSVAL(jsobj);
         
@@ -88,9 +89,10 @@ public:
         
         JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
         JSObject* jsobj = JS_NewObject(cx, NULL, NULL, NULL);
+        JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
         JS::RootedValue vp(cx);
         vp = c_string_to_jsval(cx, "message");
-        JS_SetProperty(cx, jsobj, "type", vp);
+        JS_SetProperty(cx, jsobjHandle, "type", vp);
         
         jsval args = OBJECT_TO_JSVAL(jsobj);
         
@@ -101,13 +103,13 @@ public:
             memcpy((void*)bufdata, (void*)data.bytes, data.len);
             JS::RootedValue dataVal(cx);
             dataVal = OBJECT_TO_JSVAL(buffer);
-            JS_SetProperty(cx, jsobj, "data", dataVal);
+            JS_SetProperty(cx, jsobjHandle, "data", dataVal);
         }
         else
         {// data is string
             JS::RootedValue dataVal(cx);
             dataVal = c_string_to_jsval(cx, data.bytes);
-            JS_SetProperty(cx, jsobj, "data", dataVal);
+            JS_SetProperty(cx, jsobjHandle, "data", dataVal);
         }
 
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), "onmessage", 1, &args);
@@ -122,9 +124,10 @@ public:
         
         JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
         JSObject* jsobj = JS_NewObject(cx, NULL, NULL, NULL);
+        JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
         JS::RootedValue vp(cx);
         vp = c_string_to_jsval(cx, "close");
-        JS_SetProperty(cx, jsobj, "type", vp);
+        JS_SetProperty(cx, jsobjHandle, "type", vp);
         
         jsval args = OBJECT_TO_JSVAL(jsobj);
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), "onclose", 1, &args);
@@ -144,9 +147,10 @@ public:
         
         JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
         JSObject* jsobj = JS_NewObject(cx, NULL, NULL, NULL);
+        JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
         JS::RootedValue vp(cx);
         vp = c_string_to_jsval(cx, "error");
-        JS_SetProperty(cx, jsobj, "type", vp);
+        JS_SetProperty(cx, jsobjHandle, "type", vp);
         
         jsval args = OBJECT_TO_JSVAL(jsobj);
         

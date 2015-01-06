@@ -1453,6 +1453,7 @@ jsval ccarray_to_jsval(JSContext* cx, __Array *arr)
 jsval ccdictionary_to_jsval(JSContext* cx, __Dictionary* dict)
 {
     JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+    JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     DictElement* pElement = NULL;
     CCDICT_FOREACH(dict, pElement)
     {
@@ -1493,7 +1494,7 @@ jsval ccdictionary_to_jsval(JSContext* cx, __Dictionary* dict)
         const char* key = pElement->getStrKey();
         if (key && strlen(key) > 0)
         {
-            JS_SetProperty(cx, jsRet, key, dictElement);
+            JS_SetProperty(cx, jsRetHandle, key, dictElement);
         }
     }
     return OBJECT_TO_JSVAL(jsRet);
@@ -2228,6 +2229,7 @@ jsval ccvalue_to_jsval(JSContext* cx, const cocos2d::Value& v)
 jsval ccvaluemap_to_jsval(JSContext* cx, const cocos2d::ValueMap& v)
 {
     JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+    JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     
     for (auto iter = v.begin(); iter != v.end(); ++iter)
     {
@@ -2266,7 +2268,7 @@ jsval ccvaluemap_to_jsval(JSContext* cx, const cocos2d::ValueMap& v)
         
         if (!key.empty())
         {
-            JS_SetProperty(cx, jsRet, key.c_str(), dictElement);
+            JS_SetProperty(cx, jsRetHandle, key.c_str(), dictElement);
         }
     }
     return OBJECT_TO_JSVAL(jsRet);
@@ -2275,6 +2277,7 @@ jsval ccvaluemap_to_jsval(JSContext* cx, const cocos2d::ValueMap& v)
 jsval ccvaluemapintkey_to_jsval(JSContext* cx, const cocos2d::ValueMapIntKey& v)
 {
     JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+    JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     
     for (auto iter = v.begin(); iter != v.end(); ++iter)
     {
@@ -2315,7 +2318,7 @@ jsval ccvaluemapintkey_to_jsval(JSContext* cx, const cocos2d::ValueMapIntKey& v)
         
         if (!key.empty())
         {
-            JS_SetProperty(cx, jsRet, key.c_str(), dictElement);
+            JS_SetProperty(cx, jsRetHandle, key.c_str(), dictElement);
         }
     }
     return OBJECT_TO_JSVAL(jsRet);
