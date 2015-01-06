@@ -621,7 +621,6 @@ bool jsvals_variadic_to_ccarray( JSContext *cx, jsval *vp, int argc, __Array** r
 
 bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos2d::ValueVector* ret)
 {
-    
     for (int i = 0; i < argc; i++)
     {
         jsval value = *vp;
@@ -629,8 +628,8 @@ bool jsvals_variadic_to_ccvaluevector( JSContext *cx, jsval *vp, int argc, cocos
         {
             JSObject* jsobj = value.toObjectOrNull();
             CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
-            
-            if (!JS_IsArrayObject(cx, jsobj))
+            JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
+            if (!JS_IsArrayObject(cx, jsobjHandle))
             {
                 // It's a normal js object.
                 ValueMap dictVal;
@@ -865,6 +864,7 @@ bool jsval_to_ccarray(JSContext* cx, jsval v, __Array** ret)
             {
                 js_proxy_t *proxy;
                 JSObject *tmp = value.toObjectOrNull();
+                JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
                 proxy = jsb_get_js_proxy(tmp);
                 cocos2d::Ref* cobj = (cocos2d::Ref *)(proxy ? proxy->ptr : NULL);
                 // Don't test it.
@@ -873,7 +873,7 @@ bool jsval_to_ccarray(JSContext* cx, jsval v, __Array** ret)
                     // It's a native js object.
                     arr->addObject(cobj);
                 }
-                else if (!JS_IsArrayObject(cx, tmp)){
+                else if (!JS_IsArrayObject(cx, tmpHandle)){
                     // It's a normal js object.
                     __Dictionary* dictVal = NULL;
                     ok = jsval_to_ccdictionary(cx, value, &dictVal);
@@ -923,7 +923,8 @@ bool jsval_to_ccvalue(JSContext* cx, jsval v, cocos2d::Value* ret)
     {
         JSObject* jsobj = v.toObjectOrNull();
         CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
-        if (!JS_IsArrayObject(cx, jsobj))
+        JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
+        if (!JS_IsArrayObject(cx, jsobjHandle))
         {
             // It's a normal js object.
             ValueMap dictVal;
@@ -1009,7 +1010,8 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
         {
             JSObject* jsobj = value.toObjectOrNull();
             CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
-            if (!JS_IsArrayObject(cx, jsobj))
+            JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
+            if (!JS_IsArrayObject(cx, jsobjHandle))
             {
                 // It's a normal js object.
                 ValueMap dictVal;
@@ -1099,7 +1101,8 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
         {
             JSObject* jsobj = value.toObjectOrNull();
             CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
-            if (!JS_IsArrayObject(cx, jsobj))
+            JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
+            if (!JS_IsArrayObject(cx, jsobjHandle))
             {
                 // It's a normal js object.
                 ValueMap dictVal;
@@ -1164,8 +1167,8 @@ bool jsval_to_ccvaluevector(JSContext* cx, jsval v, cocos2d::ValueVector* ret)
             {
                 JSObject* jsobj = value.toObjectOrNull();
                 CCASSERT(jsb_get_js_proxy(jsobj) == nullptr, "Native object should be added!");
-                
-                if (!JS_IsArrayObject(cx, jsobj))
+                JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
+                if (!JS_IsArrayObject(cx, jsobjHandle))
                 {
                     // It's a normal js object.
                     ValueMap dictVal;
@@ -1505,6 +1508,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
     }
     
     JSObject* tmp = v.toObjectOrNull();
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     if (!tmp) {
         CCLOG("%s", "jsval_to_ccdictionary: the jsval is not an object.");
         return false;
@@ -1548,7 +1552,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
                 // It's a native <-> js glue object.
                 dict->setObject(cobj, keyWrapper.get());
             }
-            else if (!JS_IsArrayObject(cx, tmp)){
+            else if (!JS_IsArrayObject(cx, tmpHandle)){
                 // It's a normal js object.
                 __Dictionary* dictVal = NULL;
                 bool ok = jsval_to_ccdictionary(cx, value, &dictVal);

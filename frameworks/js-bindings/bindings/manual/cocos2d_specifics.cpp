@@ -375,10 +375,12 @@ bool js_cocos2dx_CCMenu_create(JSContext *cx, uint32_t argc, jsval *vp)
 
 bool js_cocos2dx_CCSequence_create(JSContext *cx, uint32_t argc, jsval *vp)
 {
-	jsval *argv = JS_ARGV(cx, vp);
-	if (argc > 0) {
-		Vector<FiniteTimeAction*> array;
-        if (argc == 1 && JS_IsArrayObject(cx, argv[0].toObjectOrNull())) {
+    jsval *argv = JS_ARGV(cx, vp);
+    if (argc > 0) {
+        Vector<FiniteTimeAction*> array;
+        JSObject* argvObj = argv[0].toObjectOrNull();
+        JS::HandleObject argvObjHandle(JS::HandleObject::fromMarkedLocation(&argvObj));
+        if (argc == 1 && JS_IsArrayObject(cx, argvObjHandle)) {
             bool ok = true;
             ok &= jsval_to_ccvector(cx, argv[0], &array);
             JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
@@ -419,10 +421,12 @@ bool js_cocos2dx_CCSequence_create(JSContext *cx, uint32_t argc, jsval *vp)
 
 bool js_cocos2dx_CCSpawn_create(JSContext *cx, uint32_t argc, jsval *vp)
 {
-	jsval *argv = JS_ARGV(cx, vp);
-	if (argc > 0) {
-		Vector<FiniteTimeAction*> array;
-        if (argc == 1 && JS_IsArrayObject(cx, argv[0].toObjectOrNull())) {
+    jsval *argv = JS_ARGV(cx, vp);
+    if (argc > 0) {
+        Vector<FiniteTimeAction*> array;
+        JSObject* argvObj = argv[0].toObjectOrNull();
+        JS::HandleObject argvObjHandle(JS::HandleObject::fromMarkedLocation(&argvObj));
+        if (argc == 1 && JS_IsArrayObject(cx, argvObjHandle)) {
             bool ok = true;
             ok &= jsval_to_ccvector(cx, argv[0], &array);
             JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");

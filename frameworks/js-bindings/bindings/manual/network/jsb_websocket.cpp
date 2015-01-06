@@ -276,7 +276,8 @@ bool js_cocos2dx_extension_WebSocket_constructor(JSContext *cx, uint32_t argc, j
             {
                 bool ok = true;
                 JSObject* arg2 = argv[1].toObjectOrNull();
-                JSB_PRECONDITION(JS_IsArrayObject( cx, arg2 ),  "Object must be an array");
+                JS::HandleObject arg2Handle(JS::HandleObject::fromMarkedLocation(&arg2));
+                JSB_PRECONDITION(JS_IsArrayObject(cx, arg2Handle), "Object must be an array");
                 
                 uint32_t len = 0;
                 JS_GetArrayLength(cx, arg2, &len);
