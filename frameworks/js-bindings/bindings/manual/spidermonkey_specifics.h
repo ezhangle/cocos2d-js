@@ -31,7 +31,7 @@
 
 typedef struct js_proxy {
 	void *ptr;
-	JSObject *obj;
+	JS::Heap<JSObject*> obj;
 	UT_hash_handle hh;
 } js_proxy_t;
 

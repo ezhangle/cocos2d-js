@@ -63,7 +63,7 @@ public:
     bool invoke(unsigned int argc, jsval *argv, jsval &rval);
 private:
     JSContext *_cx;
-    JSObject *_jsthis;
+    JS::Heap<JSObject*> _jsthis;
     jsval _fval;
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(JSFunctionWrapper);
