@@ -746,10 +746,11 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
         }
         JSObject* tmp = val.toObjectOrNull();
         JSB_PRECONDITION2(tmp, cx, false, "js_set_AnimationData_movementDataDic: the js value is not an object.");
+        JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
 
         cocos2d::Map<std::string, cocostudio::MovementData*> dict;
         
-        JSObject* it = JS_NewPropertyIterator(cx, tmp);
+        JSObject* it = JS_NewPropertyIterator(cx, tmpHandle);
         JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
         while (true)
         {

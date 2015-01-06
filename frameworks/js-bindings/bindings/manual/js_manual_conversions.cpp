@@ -981,8 +981,9 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
         CCLOG("%s", "jsval_to_ccvaluemap: the jsval is not an object.");
         return false;
     }
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    JSObject* it = JS_NewPropertyIterator(cx, tmp);
+    JSObject* it = JS_NewPropertyIterator(cx, tmpHandle);
     JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
     
     ValueMap& dict = *ret;
@@ -1073,8 +1074,9 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
         CCLOG("%s", "jsval_to_ccvaluemap: the jsval is not an object.");
         return false;
     }
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    JSObject* it = JS_NewPropertyIterator(cx, tmp);
+    JSObject* it = JS_NewPropertyIterator(cx, tmpHandle);
     JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
     
     ValueMapIntKey& dict = *ret;
@@ -1511,13 +1513,13 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
     }
     
     JSObject* tmp = v.toObjectOrNull();
-    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     if (!tmp) {
         CCLOG("%s", "jsval_to_ccdictionary: the jsval is not an object.");
         return false;
     }
+    JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
-    JSObject* it = JS_NewPropertyIterator(cx, tmp);
+    JSObject* it = JS_NewPropertyIterator(cx, tmpHandle);
     JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
     __Dictionary* dict = NULL;
     
