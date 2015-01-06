@@ -750,11 +750,12 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
         cocos2d::Map<std::string, cocostudio::MovementData*> dict;
         
         JSObject* it = JS_NewPropertyIterator(cx, tmp);
+        JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
         while (true)
         {
             jsid idp;
             jsval key;
-            if (! JS_NextProperty(cx, it, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+            if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
                 CCLOGERROR("js_set_AnimationData_movementDataDic : Error processing arguments.");
                 return false; // error
             }

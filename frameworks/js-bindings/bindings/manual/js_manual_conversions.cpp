@@ -983,6 +983,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
     }
     
     JSObject* it = JS_NewPropertyIterator(cx, tmp);
+    JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
     
     ValueMap& dict = *ret;
     
@@ -990,7 +991,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
     {
         jsid idp;
         jsval key;
-        if (! JS_NextProperty(cx, it, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+        if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
             return false; // error
         }
         
@@ -1074,6 +1075,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
     }
     
     JSObject* it = JS_NewPropertyIterator(cx, tmp);
+    JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
     
     ValueMapIntKey& dict = *ret;
     
@@ -1081,7 +1083,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
     {
         jsid idp;
         jsval key;
-        if (! JS_NextProperty(cx, it, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+        if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
             return false; // error
         }
         
@@ -1516,13 +1518,14 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
     }
     
     JSObject* it = JS_NewPropertyIterator(cx, tmp);
+    JS::HandleObject itHandle(JS::HandleObject::fromMarkedLocation(&it));
     __Dictionary* dict = NULL;
     
     while (true)
     {
         jsid idp;
         jsval key;
-        if (! JS_NextProperty(cx, it, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+        if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
             return false; // error
         }
         
