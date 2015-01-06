@@ -992,7 +992,8 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
     {
         jsid idp;
         jsval key;
-        if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+        JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
+        if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
             return false; // error
         }
         
@@ -1085,7 +1086,8 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
     {
         jsid idp;
         jsval key;
-        if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+        JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
+        if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
             return false; // error
         }
         
@@ -1527,7 +1529,8 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
     {
         jsid idp;
         jsval key;
-        if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+        JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
+        if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
             return false; // error
         }
         

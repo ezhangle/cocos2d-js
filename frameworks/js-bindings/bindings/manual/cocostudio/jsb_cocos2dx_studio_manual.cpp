@@ -756,7 +756,8 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
         {
             jsid idp;
             jsval key;
-            if (!JS_NextProperty(cx, itHandle, &idp) || ! JS_IdToValue(cx, idp, &key)) {
+            JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
+            if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
                 CCLOGERROR("js_set_AnimationData_movementDataDic : Error processing arguments.");
                 return false; // error
             }
