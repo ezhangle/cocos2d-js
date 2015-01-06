@@ -4409,7 +4409,7 @@ void create_js_root_obj(JSContext* cx, JSObject* global, const std::string &name
 	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	JS_GetProperty(cx, global, name.c_str(), &nsval);
 	if (nsval == JSVAL_VOID) {
-		*jsObj = JS_NewObject(cx, NULL, NULL, NULL);
+		*jsObj = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(*jsObj);
 		JS_SetProperty(cx, globalHandle, name.c_str(), nsval);
 	} else {

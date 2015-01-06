@@ -192,7 +192,8 @@ bool js_cocos2dx_SocketIO_connect(JSContext* cx, uint32_t argc, jsval* vp){
 				HASH_FIND_PTR(_native_js_global_ht, &ret, p);
 				if(!p) {
 					//previous connection not found, create a new one
-					JSObject *obj = JS_NewObject(cx, js_cocos2dx_socketio_class, js_cocos2dx_socketio_prototype, NULL);
+					JS::HandleObject dummy(JS::HandleObject::fromMarkedLocation(&js_cocos2dx_socketio_prototype));
+					JSObject *obj = JS_NewObject(cx, js_cocos2dx_socketio_class, dummy, JS::NullPtr());
 					p = jsb_new_proxy(ret, obj);
 					AddNamedObjectRoot(cx, &p->obj, "SocketIO");
 					siodelegate->setJSDelegate(p->obj);

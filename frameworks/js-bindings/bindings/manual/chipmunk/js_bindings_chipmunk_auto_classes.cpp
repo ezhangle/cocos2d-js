@@ -301,7 +301,8 @@ JSObject* JSB_cpGrooveJoint_object = NULL;
 bool JSB_cpGrooveJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==5, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpGrooveJoint_class, JSB_cpGrooveJoint_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpGrooveJoint_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpGrooveJoint_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; cpVect arg2; cpVect arg3; cpVect arg4; 
@@ -498,7 +499,8 @@ JSObject* JSB_cpSimpleMotor_object = NULL;
 bool JSB_cpSimpleMotor_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==3, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpSimpleMotor_class, JSB_cpSimpleMotor_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpSimpleMotor_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpSimpleMotor_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; double arg2; 
@@ -610,7 +612,8 @@ JSObject* JSB_cpPivotJoint_object = NULL;
 bool JSB_cpPivotJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==4 || argc==3, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpPivotJoint_class, JSB_cpPivotJoint_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpPivotJoint_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpPivotJoint_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; cpVect arg2; cpVect arg3; void *ret_val;
@@ -770,7 +773,8 @@ JSObject* JSB_cpPinJoint_object = NULL;
 bool JSB_cpPinJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==4, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpPinJoint_class, JSB_cpPinJoint_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpPinJoint_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpPinJoint_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; cpVect arg2; cpVect arg3; 
@@ -963,7 +967,8 @@ JSObject* JSB_cpSlideJoint_object = NULL;
 bool JSB_cpSlideJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==6, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpSlideJoint_class, JSB_cpSlideJoint_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpSlideJoint_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpSlideJoint_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; cpVect arg2; cpVect arg3; double arg4; double arg5; 
@@ -1195,7 +1200,8 @@ JSObject* JSB_cpGearJoint_object = NULL;
 bool JSB_cpGearJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==4, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpGearJoint_class, JSB_cpGearJoint_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpGearJoint_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpGearJoint_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; double arg2; double arg3; 
@@ -1345,7 +1351,8 @@ JSObject* JSB_cpDampedRotarySpring_object = NULL;
 bool JSB_cpDampedRotarySpring_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==5, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpDampedRotarySpring_class, JSB_cpDampedRotarySpring_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpDampedRotarySpring_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpDampedRotarySpring_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; double arg2; double arg3; double arg4; 
@@ -1533,7 +1540,8 @@ JSObject* JSB_cpDampedSpring_object = NULL;
 bool JSB_cpDampedSpring_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==7, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpDampedSpring_class, JSB_cpDampedSpring_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpDampedSpring_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpDampedSpring_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; cpVect arg2; cpVect arg3; double arg4; double arg5; double arg6; 
@@ -1803,7 +1811,8 @@ JSObject* JSB_cpRatchetJoint_object = NULL;
 bool JSB_cpRatchetJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==4, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpRatchetJoint_class, JSB_cpRatchetJoint_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpRatchetJoint_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpRatchetJoint_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; double arg2; double arg3; 
@@ -1990,7 +1999,8 @@ JSObject* JSB_cpRotaryLimitJoint_object = NULL;
 bool JSB_cpRotaryLimitJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==4, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpRotaryLimitJoint_class, JSB_cpRotaryLimitJoint_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpRotaryLimitJoint_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpRotaryLimitJoint_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpBody* arg1; double arg2; double arg3; 
@@ -2491,7 +2501,8 @@ JSObject* JSB_cpSpace_object = NULL;
 bool JSB_cpSpace_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==0, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpSpace_class, JSB_cpSpace_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpSpace_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpSpace_class, objHandle, JS::NullPtr());
 	void* 	ret_val = cpSpaceNew( );
 
 	jsb_set_jsobject_for_proxy(jsobj, ret_val);
@@ -3130,7 +3141,8 @@ bool JSB_cpSpace_segmentQueryFirst(JSContext *cx, uint32_t argc, jsval *vp){
 
     if(target)
     {
-        JSObject *jsobj = JS_NewObject(cx, JSB_cpSegmentQueryInfo_class, JSB_cpSegmentQueryInfo_object, NULL);
+	    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpSegmentQueryInfo_object));
+	    JSObject *jsobj = JS_NewObject(cx, JSB_cpSegmentQueryInfo_class, objHandle, JS::NullPtr());
 	    jsb_set_jsobject_for_proxy(jsobj, out);
 	    jsb_set_c_proxy_for_jsobject(jsobj, out, JSB_C_FLAG_CALL_FREE);
 	    JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(jsobj));
@@ -3176,7 +3188,8 @@ bool JSB_cpSpace_nearestPointQueryNearest(JSContext *cx, uint32_t argc, jsval *v
 
     if(target)
     {
-        JSObject *jsobj = JS_NewObject(cx, JSB_cpNearestPointQueryInfo_class, JSB_cpNearestPointQueryInfo_object, NULL);
+        JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpNearestPointQueryInfo_object));
+        JSObject *jsobj = JS_NewObject(cx, JSB_cpNearestPointQueryInfo_class, objHandle, JS::NullPtr());
         jsb_set_jsobject_for_proxy(jsobj, info);
         jsb_set_c_proxy_for_jsobject(jsobj, info, JSB_C_FLAG_CALL_FREE);
         JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(jsobj));    
@@ -4711,7 +4724,8 @@ JSObject* JSB_cpCircleShape_object = NULL;
 bool JSB_cpCircleShape_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==3, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpCircleShape_class, JSB_cpCircleShape_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpCircleShape_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpCircleShape_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; double arg1; cpVect arg2; 
@@ -4821,7 +4835,8 @@ JSObject* JSB_cpSegmentShape_object = NULL;
 bool JSB_cpSegmentShape_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==4, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpSegmentShape_class, JSB_cpSegmentShape_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpSegmentShape_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpSegmentShape_class, objHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* arg0; cpVect arg1; cpVect arg2; double arg3; 
@@ -5144,9 +5159,10 @@ bool js_get_cpSegmentQueryInfo_shape(JSContext *cx, JS::HandleObject obj, JS::Ha
     cpShape* shape = info->shape;
     
     if(shape){
-        JSObject *jsobj = JS_NewObject(cx, JSB_cpShape_class, JSB_cpShape_object, NULL);
+        JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpShape_object));
+        JSObject *jsobj = JS_NewObject(cx, JSB_cpShape_class, objHandle, JS::NullPtr());
         //jsb_set_jsobject_for_proxy(jsobj, shape);
-	    jsb_set_c_proxy_for_jsobject(jsobj, shape, JSB_C_FLAG_DO_NOT_CALL_FREE);
+        jsb_set_c_proxy_for_jsobject(jsobj, shape, JSB_C_FLAG_DO_NOT_CALL_FREE);
         vp.set(OBJECT_TO_JSVAL(jsobj));
     }else{
         vp.setNull();
@@ -5240,9 +5256,10 @@ bool js_get_cpNearestPointQueryInfo_shape(JSContext *cx, JS::HandleObject obj, J
     cpShape* shape = info->shape;
     
     if(shape){
-        JSObject *jsobj = JS_NewObject(cx, JSB_cpShape_class, JSB_cpShape_object, NULL);
+        JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpShape_object));
+        JSObject *jsobj = JS_NewObject(cx, JSB_cpShape_class, objHandle, JS::NullPtr());
         //jsb_set_jsobject_for_proxy(jsobj, shape);
-	    jsb_set_c_proxy_for_jsobject(jsobj, shape, JSB_C_FLAG_DO_NOT_CALL_FREE);
+        jsb_set_c_proxy_for_jsobject(jsobj, shape, JSB_C_FLAG_DO_NOT_CALL_FREE);
         vp.set(OBJECT_TO_JSVAL(jsobj));
     }else{
         vp.setNull();

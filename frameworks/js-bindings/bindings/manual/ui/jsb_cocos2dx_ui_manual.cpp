@@ -360,7 +360,7 @@ static bool js_cocos2dx_LayoutParameter_getMargin(JSContext *cx, uint32_t argc, 
     JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
 
     if (argc == 0) {
-        JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+        JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
         if (!tmp) return false;
         JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
         ui::Margin margin = cobj->getMargin();

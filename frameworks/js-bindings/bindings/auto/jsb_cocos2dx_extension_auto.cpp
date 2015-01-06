@@ -20,7 +20,7 @@ static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 		typeClass = typeMapIter->second;
 		CCASSERT(typeClass, "The value is null.");
 
-		JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
 		return true;
 	}
@@ -315,7 +315,9 @@ bool js_cocos2dx_extension_Control_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -1399,7 +1401,9 @@ bool js_cocos2dx_extension_Scale9Sprite_constructor(JSContext *cx, uint32_t argc
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -2596,7 +2600,9 @@ bool js_cocos2dx_extension_ControlButton_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -3024,7 +3030,9 @@ bool js_cocos2dx_extension_ControlHuePicker_constructor(JSContext *cx, uint32_t 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -3358,7 +3366,9 @@ bool js_cocos2dx_extension_ControlSaturationBrightnessPicker_constructor(JSConte
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -3729,7 +3739,9 @@ bool js_cocos2dx_extension_ControlColourPicker_constructor(JSContext *cx, uint32
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -4285,7 +4297,9 @@ bool js_cocos2dx_extension_ControlPotentiometer_constructor(JSContext *cx, uint3
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -5163,7 +5177,9 @@ bool js_cocos2dx_extension_ControlSlider_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -5803,7 +5819,9 @@ bool js_cocos2dx_extension_ControlStepper_constructor(JSContext *cx, uint32_t ar
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -6326,7 +6344,9 @@ bool js_cocos2dx_extension_ControlSwitch_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -7198,7 +7218,9 @@ bool js_cocos2dx_extension_ScrollView_constructor(JSContext *cx, uint32_t argc, 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -7410,7 +7432,9 @@ bool js_cocos2dx_extension_TableViewCell_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -7796,7 +7820,9 @@ bool js_cocos2dx_extension_TableView_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -8248,7 +8274,9 @@ bool js_cocos2dx_extension_AssetsManager_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -8933,7 +8961,9 @@ bool js_cocos2dx_extension_EditBox_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -9027,11 +9057,12 @@ CC_BINDING_EXTENSIONS_DLL void register_all_cocos2dx_extension(JSContext* cx, JS
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
 	JS_GetProperty(cx, obj, "cc", &nsval);
 	if (nsval == JSVAL_VOID) {
-		ns = JS_NewObject(cx, NULL, NULL, NULL);
+		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
-		JS_SetProperty(cx, obj, "cc", nsval);
+		JS_SetProperty(cx, objHandle, "cc", nsval);
 	} else {
 		JS_ValueToObject(cx, nsval, &ns);
 	}

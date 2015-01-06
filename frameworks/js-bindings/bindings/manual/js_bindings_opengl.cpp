@@ -71,7 +71,9 @@ bool js_cocos2dx_GLNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
         typeClass = typeMapIter->second;
         CCASSERT(typeClass, "The value is null.");
 
-        JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+        JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+        JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+        JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
         JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
         // link the native object with the javascript object
         js_proxy_t *p = jsb_new_proxy(cobj, obj);

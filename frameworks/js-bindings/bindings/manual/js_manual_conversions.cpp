@@ -208,16 +208,14 @@ jsval opaque_to_jsval( JSContext *cx, void *opaque )
 
 jsval c_class_to_jsval( JSContext *cx, void* handle, JSObject* object, JSClass *klass, const char* class_name)
 {
-	JSObject *jsobj;
-    
-	jsobj = jsb_get_jsobject_for_proxy(handle);
-	if( !jsobj ) {
-		jsobj = JS_NewObject(cx, klass, object, NULL);
+	JSObject *jsobj = jsb_get_jsobject_for_proxy(handle);
+	if(!jsobj) {
+		JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
+		jsobj = JS_NewObject(cx, klass, objectHandle, JS::NullPtr());
 		CCASSERT(jsobj, "Invalid object");
 		jsb_set_c_proxy_for_jsobject(jsobj, handle, JSB_C_FLAG_DO_NOT_CALL_FREE);
 		jsb_set_jsobject_for_proxy(jsobj, handle);
 	}
-    
 	return OBJECT_TO_JSVAL(jsobj);
 }
 
@@ -1458,7 +1456,7 @@ jsval ccarray_to_jsval(JSContext* cx, __Array *arr)
 
 jsval ccdictionary_to_jsval(JSContext* cx, __Dictionary* dict)
 {
-    JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* jsRet = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     DictElement* pElement = NULL;
     CCDICT_FOREACH(dict, pElement)
@@ -1691,7 +1689,7 @@ jsval c_string_to_jsval(JSContext* cx, const char* v, size_t length /* = -1 */)
 
 jsval ccpoint_to_jsval(JSContext* cx, const Point& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1706,7 +1704,7 @@ jsval ccacceleration_to_jsval(JSContext* cx, const Acceleration& v)
 {
     JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
     
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1721,7 +1719,7 @@ jsval ccacceleration_to_jsval(JSContext* cx, const Acceleration& v)
 
 jsval ccrect_to_jsval(JSContext* cx, const Rect& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.origin.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1736,7 +1734,7 @@ jsval ccrect_to_jsval(JSContext* cx, const Rect& v)
 
 jsval ccsize_to_jsval(JSContext* cx, const Size& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "width", v.width, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1749,7 +1747,7 @@ jsval ccsize_to_jsval(JSContext* cx, const Size& v)
 
 jsval cccolor4b_to_jsval(JSContext* cx, const Color4B& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "r", v.r, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1763,7 +1761,7 @@ jsval cccolor4b_to_jsval(JSContext* cx, const Color4B& v)
 }
 
 jsval cccolor4f_to_jsval(JSContext* cx, const Color4F& v) {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "r", (int)(v.r * 255), JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1777,7 +1775,7 @@ jsval cccolor4f_to_jsval(JSContext* cx, const Color4F& v) {
 }
 
 jsval cccolor3b_to_jsval(JSContext* cx, const Color3B& v) {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "r", v.r, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1791,7 +1789,7 @@ jsval cccolor3b_to_jsval(JSContext* cx, const Color3B& v) {
 
 jsval ccaffinetransform_to_jsval(JSContext* cx, const AffineTransform& t)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "a", t.a, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -1808,7 +1806,7 @@ jsval ccaffinetransform_to_jsval(JSContext* cx, const AffineTransform& t)
 
 jsval FontDefinition_to_jsval(JSContext* cx, const FontDefinition& t)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = true;
@@ -2173,7 +2171,7 @@ jsval CGPoint_to_jsval( JSContext *cx, cpVect p)
 	
 #ifdef JSB_COMPATIBLE_WITH_COCOS2D_HTML5_BASIC_TYPES
     
-	JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
+	JSObject *object = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 	if (!object)
 		return JSVAL_VOID;
 	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
@@ -2236,7 +2234,7 @@ jsval ccvalue_to_jsval(JSContext* cx, const cocos2d::Value& v)
 
 jsval ccvaluemap_to_jsval(JSContext* cx, const cocos2d::ValueMap& v)
 {
-    JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* jsRet = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     
     for (auto iter = v.begin(); iter != v.end(); ++iter)
@@ -2284,7 +2282,7 @@ jsval ccvaluemap_to_jsval(JSContext* cx, const cocos2d::ValueMap& v)
 
 jsval ccvaluemapintkey_to_jsval(JSContext* cx, const cocos2d::ValueMapIntKey& v)
 {
-    JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* jsRet = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     
     for (auto iter = v.begin(); iter != v.end(); ++iter)
@@ -2443,7 +2441,7 @@ jsval matrix_to_jsval(JSContext *cx, const cocos2d::Mat4& v)
 
 jsval vector2_to_jsval(JSContext *cx, const cocos2d::Vec2& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -2456,7 +2454,7 @@ jsval vector2_to_jsval(JSContext *cx, const cocos2d::Vec2& v)
 
 jsval vector3_to_jsval(JSContext *cx, const cocos2d::Vec3& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "x", v.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -2470,7 +2468,7 @@ jsval vector3_to_jsval(JSContext *cx, const cocos2d::Vec3& v)
 
 jsval blendfunc_to_jsval(JSContext *cx, const cocos2d::BlendFunc& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     bool ok = JS_DefineProperty(cx, tmpHandle, "src", v.src, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&

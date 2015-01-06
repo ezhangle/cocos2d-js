@@ -35,7 +35,7 @@ CC_BINDING_STORAGE_DLL void jsb_register_system(JSContext *_cx, JSObject *object
 	//
 	// sys
 	//
-	JSObject *sys = JS_NewObject(_cx, NULL, NULL, NULL);
+	JSObject *sys = JS_NewObject(_cx, NULL, JS::NullPtr(), JS::NullPtr());
 	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
 	JS::HandleObject sysHandle(JS::HandleObject::fromMarkedLocation(&sys));
 	JS::RootedValue systemVal(_cx);
@@ -44,7 +44,7 @@ CC_BINDING_STORAGE_DLL void jsb_register_system(JSContext *_cx, JSObject *object
 
 
 	// sys.localStorage
-	JSObject *ls = JS_NewObject(_cx, NULL, NULL, NULL);
+	JSObject *ls = JS_NewObject(_cx, NULL, JS::NullPtr(), JS::NullPtr());
 	JS::RootedValue lsVal(_cx);
 	lsVal = OBJECT_TO_JSVAL(ls);
 	JS_SetProperty(_cx, sysHandle, "localStorage", lsVal);

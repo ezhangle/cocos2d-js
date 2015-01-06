@@ -316,7 +316,9 @@ JS_BINDED_CONSTRUCTOR_IMPL(MinXmlHttpRequest)
     js_proxy_t *p;
     jsval out;
     
-    JSObject *obj = JS_NewObject(cx, &MinXmlHttpRequest::js_class, MinXmlHttpRequest::js_proto, MinXmlHttpRequest::js_parent);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&MinXmlHttpRequest::js_proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&MinXmlHttpRequest::js_parent));
+    JSObject *obj = JS_NewObject(cx, &MinXmlHttpRequest::js_class, protoHandle, parentHandle);
     
     if (obj) {
         JS_SetPrivate(obj, req);

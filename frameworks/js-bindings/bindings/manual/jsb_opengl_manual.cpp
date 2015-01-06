@@ -269,7 +269,7 @@ bool JSB_glGetActiveAttrib(JSContext *cx, uint32_t argc, jsval *vp)
 
     jsval retval = JSVAL_VOID;
 
-    JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
+    JSObject *object = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     JSB_PRECONDITION2(ok, cx, false, "Error creating JS Object");
     JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
 
@@ -316,7 +316,7 @@ bool JSB_glGetActiveUniform(JSContext *cx, uint32_t argc, jsval *vp)
     jsval retval = JSVAL_VOID;
 
 
-    JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
+    JSObject *object = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     JSB_PRECONDITION2(ok, cx, false, "Error creating JS Object");
     JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
 

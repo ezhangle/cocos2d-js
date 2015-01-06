@@ -371,7 +371,7 @@ void registerDefaultClasses(JSContext* cx, JSObject* global) {
     JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
     JS_GetProperty(cx, global, "cc", &nsval);
     if (nsval == JSVAL_VOID) {
-        ns = JS_NewObject(cx, NULL, NULL, NULL);
+        ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
         nsval = OBJECT_TO_JSVAL(ns);
         JS_SetProperty(cx, globalHandle, "cc", nsval);
     } else {
@@ -381,7 +381,7 @@ void registerDefaultClasses(JSContext* cx, JSObject* global) {
     //
     // Javascript controller (__jsc__)
     //
-    JSObject *jsc = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *jsc = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     JS::RootedValue jscVal(cx);
     jscVal = OBJECT_TO_JSVAL(jsc);
     JS_SetProperty(cx, globalHandle, "__jsc__", jscVal);
@@ -471,7 +471,7 @@ bool ScriptingCore::evalString(const char *string, jsval *outVal, const char *fi
     {
         JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
         JS::HandleScript scriptHandle(JS::HandleScript::fromMarkedLocation(&script));
-        JS::MutableHandleValue outValHandle(JS::MutableHandleValue::fromMarkedLocation(&outVal));
+        JS::MutableHandleValue outValHandle(JS::MutableHandleValue::fromMarkedLocation(outVal));
         bool evaluatedOK = JS_ExecuteScript(cx, globalHandle, scriptHandle, outValHandle);
         if (false == evaluatedOK)
         {

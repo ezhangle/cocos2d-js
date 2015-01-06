@@ -272,7 +272,7 @@ bool js_cocos2dx_studio_ColliderBody_getCalculatedVertexList(JSContext *cx, uint
         int i = 0;
         for(const auto& point : ret)
         {
-            JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+            JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
             if (!tmp) break;
             JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
             bool ok = JS_DefineProperty(cx, tmpHandle, "x", point.x, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
@@ -699,7 +699,7 @@ bool js_get_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
     cocostudio::AnimationData* cobj = (cocostudio::AnimationData*)JS_GetPrivate(obj);
     if (cobj) {
         cocos2d::Map<std::string, cocostudio::MovementData*> dic = cobj->movementDataDic;
-        JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
+        JSObject* jsRet = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
         JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
         
         for (auto iter = dic.begin(); iter != dic.end(); ++iter)

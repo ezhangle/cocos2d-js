@@ -20,7 +20,7 @@ static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 		typeClass = typeMapIter->second;
 		CCASSERT(typeClass, "The value is null.");
 
-		JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
 		return true;
 	}
@@ -339,7 +339,9 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::Skeleton");
 		}
@@ -369,7 +371,9 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::Skeleton");
 		}
@@ -393,7 +397,9 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::Skeleton");
 		}
@@ -419,7 +425,9 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::Skeleton");
 		}
@@ -445,7 +453,9 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::Skeleton");
 		}
@@ -474,7 +484,9 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::Skeleton");
 		}
@@ -809,7 +821,9 @@ bool js_cocos2dx_spine_SkeletonAnimation_constructor(JSContext *cx, uint32_t arg
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::SkeletonAnimation");
 		}
@@ -839,7 +853,9 @@ bool js_cocos2dx_spine_SkeletonAnimation_constructor(JSContext *cx, uint32_t arg
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::SkeletonAnimation");
 		}
@@ -863,7 +879,9 @@ bool js_cocos2dx_spine_SkeletonAnimation_constructor(JSContext *cx, uint32_t arg
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::SkeletonAnimation");
 		}
@@ -889,7 +907,9 @@ bool js_cocos2dx_spine_SkeletonAnimation_constructor(JSContext *cx, uint32_t arg
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::SkeletonAnimation");
 		}
@@ -918,7 +938,9 @@ bool js_cocos2dx_spine_SkeletonAnimation_constructor(JSContext *cx, uint32_t arg
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "spine::SkeletonAnimation");
 		}
@@ -1009,7 +1031,7 @@ void register_all_cocos2dx_spine(JSContext* cx, JSObject* obj) {
 	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
 	JS_GetProperty(cx, obj, "sp", &nsval);
 	if (nsval == JSVAL_VOID) {
-		ns = JS_NewObject(cx, NULL, NULL, NULL);
+		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
 		JS_SetProperty(cx, objHandle, "sp", nsval);
 	} else {

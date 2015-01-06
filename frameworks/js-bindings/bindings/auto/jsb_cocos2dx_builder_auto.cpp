@@ -20,7 +20,7 @@ static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 		typeClass = typeMapIter->second;
 		CCASSERT(typeClass, "The value is null.");
 
-		JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
 		return true;
 	}
@@ -891,7 +891,9 @@ bool js_cocos2dx_builder_CCBAnimationManager_constructor(JSContext *cx, uint32_t
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -1415,7 +1417,9 @@ bool js_cocos2dx_builder_CCBReader_constructor(JSContext *cx, uint32_t argc, jsv
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "cocosbuilder::CCBReader");
 		}
@@ -1445,7 +1449,9 @@ bool js_cocos2dx_builder_CCBReader_constructor(JSContext *cx, uint32_t argc, jsv
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "cocosbuilder::CCBReader");
 		}
@@ -1485,7 +1491,9 @@ bool js_cocos2dx_builder_CCBReader_constructor(JSContext *cx, uint32_t argc, jsv
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "cocosbuilder::CCBReader");
 		}
@@ -1535,7 +1543,9 @@ bool js_cocos2dx_builder_CCBReader_constructor(JSContext *cx, uint32_t argc, jsv
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "cocosbuilder::CCBReader");
 		}
@@ -1595,7 +1605,9 @@ bool js_cocos2dx_builder_CCBReader_constructor(JSContext *cx, uint32_t argc, jsv
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "cocosbuilder::CCBReader");
 		}
@@ -1615,7 +1627,9 @@ bool js_cocos2dx_builder_CCBReader_constructor(JSContext *cx, uint32_t argc, jsv
 			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 			typeClass = typeMapIter->second;
 			CCASSERT(typeClass, "The value is null.");
-			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+			JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+			obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 			js_proxy_t* p = jsb_new_proxy(cobj, obj);
 			AddNamedObjectRoot(cx, &p->obj, "cocosbuilder::CCBReader");
 		}
@@ -1718,7 +1732,7 @@ CC_BINDING_BUILDER_DLL void register_all_cocos2dx_builder(JSContext* cx, JSObjec
 	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
 	JS_GetProperty(cx, obj, "cc", &nsval);
 	if (nsval == JSVAL_VOID) {
-		ns = JS_NewObject(cx, NULL, NULL, NULL);
+		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
 		JS_SetProperty(cx, objHandle, "cc", nsval);
 	} else {

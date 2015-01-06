@@ -102,7 +102,9 @@ inline js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj) {
         
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
         
-        JSObject* js_obj = JS_NewObject(cx, typeProxy->jsclass, typeProxy->proto, typeProxy->parentProto);
+        JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeProxy->proto));
+        JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeProxy->parentProto));
+        JSObject* js_obj = JS_NewObject(cx, typeProxy->jsclass, protoHandle, parentHandle);
         proxy = jsb_new_proxy(native_obj, js_obj);
 #ifdef DEBUG
         AddNamedObjectRoot(cx, &proxy->obj, typeid(*native_obj).name());

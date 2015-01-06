@@ -40,7 +40,7 @@ CC_BINDING_CHIPMUNK_DLL void jsb_register_chipmunk(JSContext* cx, JSObject *obje
 	//
 	// Chipmunk
 	//
-	JSObject *chipmunk = JS_NewObject(cx, NULL, NULL, NULL);
+	JSObject *chipmunk = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
 	JS::RootedValue chipmunkVal(cx);
     

@@ -30,7 +30,7 @@ using namespace spine;
 
 jsval speventdata_to_jsval(JSContext* cx, spEventData& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     JS::Value name(c_string_to_jsval(cx, v.name));
@@ -51,7 +51,7 @@ jsval speventdata_to_jsval(JSContext* cx, spEventData& v)
 
 jsval spevent_to_jsval(JSContext* cx, spEvent& v)
 {
-    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject *tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -74,7 +74,7 @@ jsval spevent_to_jsval(JSContext* cx, spEvent& v)
 
 jsval spbonedata_to_jsval(JSContext* cx, const spBoneData* v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -107,7 +107,7 @@ jsval spbonedata_to_jsval(JSContext* cx, const spBoneData* v)
 
 jsval spbone_to_jsval(JSContext* cx, spBone& v)
 {
-    JSObject* tmp =JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp =JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -146,7 +146,7 @@ jsval spbone_to_jsval(JSContext* cx, spBone& v)
 
 jsval spskeleton_to_jsval(JSContext* cx, spSkeleton& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -168,7 +168,7 @@ jsval spskeleton_to_jsval(JSContext* cx, spSkeleton& v)
 
 jsval spattachment_to_jsval(JSContext* cx, spAttachment& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -187,7 +187,7 @@ jsval spattachment_to_jsval(JSContext* cx, spAttachment& v)
 
 jsval spslotdata_to_jsval(JSContext* cx, spSlotData& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
 
@@ -216,7 +216,7 @@ jsval spslotdata_to_jsval(JSContext* cx, spSlotData& v)
 
 jsval spslot_to_jsval(JSContext* cx, spSlot& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -247,7 +247,7 @@ jsval spslot_to_jsval(JSContext* cx, spSlot& v)
 
 jsval sptimeline_to_jsval(JSContext* cx, spTimeline& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -263,7 +263,7 @@ jsval sptimeline_to_jsval(JSContext* cx, spTimeline& v)
 
 jsval spanimationstate_to_jsval(JSContext* cx, spAnimationState& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -280,7 +280,7 @@ jsval spanimationstate_to_jsval(JSContext* cx, spAnimationState& v)
 
 jsval spanimation_to_jsval(JSContext* cx, spAnimation& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     
@@ -303,7 +303,7 @@ jsval spanimation_to_jsval(JSContext* cx, spAnimation& v)
 
 jsval sptrackentry_to_jsval(JSContext* cx, spTrackEntry& v)
 {
-    JSObject* tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    JSObject* tmp = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     if (!tmp) return JSVAL_NULL;
     JS::HandleObject tmpHandle(JS::HandleObject::fromMarkedLocation(&tmp));
     

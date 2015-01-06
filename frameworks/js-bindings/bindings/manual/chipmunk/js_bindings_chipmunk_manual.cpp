@@ -204,7 +204,9 @@ bool JSB_CCPhysicsDebugNode_debugNodeForCPSpace__static(JSContext *cx, uint32_t 
             typeClass = typeMapIter->second;
             CCASSERT(typeClass, "The value is null.");
             
-            JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+            JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+            JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+            JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
             jsret = OBJECT_TO_JSVAL(obj);
             js_proxy_t *p = jsb_new_proxy(ret, obj);
             AddNamedObjectRoot(cx, &p->obj, "CCDebugNode");
@@ -274,7 +276,9 @@ bool JSB_CCPhysicsDebugNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -362,8 +366,10 @@ bool JSPROXY_CCPhysicsSprite_spriteWithFile_rect__static(JSContext *cx, uint32_t
                 typeClass = typeMapIter->second;
                 CCASSERT(typeClass, "The value is null.");
                 
-                JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-				jsret = OBJECT_TO_JSVAL(obj);
+                JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+                JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+                JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+                jsret = OBJECT_TO_JSVAL(obj);
                 js_proxy_t *p = jsb_new_proxy(ret, obj);
                 AddNamedObjectRoot(cx, &p->obj, "CCPhysicsSprite");
 			} else {
@@ -390,8 +396,10 @@ bool JSPROXY_CCPhysicsSprite_spriteWithFile_rect__static(JSContext *cx, uint32_t
                 CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
                 typeClass = typeMapIter->second;
                 CCASSERT(typeClass, "The value is null.");
-                JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-				jsret = OBJECT_TO_JSVAL(obj);
+                JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+                JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+                JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+                jsret = OBJECT_TO_JSVAL(obj);
                 js_proxy_t *p = jsb_new_proxy(ret, obj);
                 AddNamedObjectRoot(cx, &p->obj, "CCPhysicsSprite");
 			} else {
@@ -431,7 +439,9 @@ bool JSPROXY_CCPhysicsSprite_spriteWithSpriteFrame__static(JSContext *cx, uint32
             CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
             typeClass = typeMapIter->second;
             CCASSERT(typeClass, "The value is null.");
-            JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+            JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+            JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+            JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
             jsret = OBJECT_TO_JSVAL(obj);
             js_proxy_t *p = jsb_new_proxy(ret, obj);
             AddNamedObjectRoot(cx, &p->obj, "CCPhysicsSprite");
@@ -465,7 +475,9 @@ bool JSPROXY_CCPhysicsSprite_spriteWithSpriteFrameName__static(JSContext *cx, ui
                 CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
                 typeClass = typeMapIter->second;
                 CCASSERT(typeClass, "The value is null.");
-                JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+                JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+                JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+                JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
                 jsret = OBJECT_TO_JSVAL(obj);
                 js_proxy_t *p = jsb_new_proxy(ret, obj);
                 AddNamedObjectRoot(cx, &p->obj, "CCPhysicsSprite");
@@ -496,7 +508,9 @@ bool JSPROXY_CCPhysicsSprite_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
-    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
+    JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -586,7 +600,7 @@ void register_CCPhysicsSprite(JSContext *cx, JSObject *obj) {
 	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
 	JS_GetProperty(cx, obj, "cc", &nsval);
 	if (nsval == JSVAL_VOID) {
-		ns = JS_NewObject(cx, NULL, NULL, NULL);
+		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
 		JS_SetProperty(cx, objHandle, "cc", nsval);
 	} else {
@@ -602,7 +616,7 @@ void register_CCPhysicsDebugNode(JSContext *cx, JSObject *obj) {
     JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_GetProperty(cx, obj, "cc", &nsval);
     if (nsval == JSVAL_VOID) {
-        ns = JS_NewObject(cx, NULL, NULL, NULL);
+        ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
         nsval = OBJECT_TO_JSVAL(ns);
         JS_SetProperty(cx, objHandle, "cc", nsval);
     } else {
@@ -647,7 +661,7 @@ bool jsval_to_cpBB( JSContext *cx, jsval vp, cpBB *ret )
 
 jsval cpBB_to_jsval(JSContext *cx, cpBB bb )
 {
-	JSObject *object = JS_NewObject(cx, NULL, NULL, NULL );
+	JSObject *object = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 	if (!object)
 		return JSVAL_VOID;
 	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&object));
@@ -1379,8 +1393,9 @@ bool JSB_cpArbiter_getShapes(JSContext *cx, uint32_t argc, jsval *vp)
 bool JSB_cpBody_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==2, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpBody_class, JSB_cpBody_object, NULL);
-    JS::CallArgs argvp = JS::CallArgsFromVp(argc, vp);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpBody_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpBody_class, objHandle, JS::NullPtr());
+	JS::CallArgs argvp = JS::CallArgsFromVp(argc, vp);
 	bool ok = true;
 	double m; double i;
 	
@@ -1572,8 +1587,8 @@ JSObject* JSB_cpBase_object = NULL;
 bool JSB_cpBase_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2( argc==1, cx, false, "Invalid arguments. Expecting 1");
-	
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpBase_class, JSB_cpBase_object, NULL);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpBase_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpBase_class, objHandle, JS::NullPtr());
 	
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
@@ -1669,7 +1684,8 @@ void JSB_cpBase_createClass(JSContext *cx, JSObject* globalObj, const char* name
 bool JSB_cpPolyShape_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSB_PRECONDITION2(argc==3, cx, false, "Invalid number of arguments");
-	JSObject *jsobj = JS_NewObject(cx, JSB_cpPolyShape_class, JSB_cpPolyShape_object, NULL);
+	JS::HandleObject objectHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpPolyShape_object));
+	JSObject *jsobj = JS_NewObject(cx, JSB_cpPolyShape_class, objectHandle, JS::NullPtr());
 	jsval *argvp = JS_ARGV(cx,vp);
 	bool ok = true;
 	cpBody* body; cpVect *verts; cpVect offset;
