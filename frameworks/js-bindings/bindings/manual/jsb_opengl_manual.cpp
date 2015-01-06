@@ -349,10 +349,12 @@ bool JSB_glGetAttachedShaders(JSContext *cx, uint32_t argc, jsval *vp)
     
     JSObject *jsobj = JS_NewArrayObject(cx, length);
     JSB_PRECONDITION2(jsobj, cx, false, "Error creating JS Object");
+    JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
 
     for( int i=0; i<length; i++) {
         JS::RootedValue e(cx, INT_TO_JSVAL(buffer[i]));
-        JS_SetElement(cx, jsobj, i, &e );
+        JS::HandleValue eHandle(e);
+        JS_SetElement(cx, jsobjHandle, i, eHandle);
     }
 
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(jsobj));
@@ -370,6 +372,7 @@ bool JSB_glGetSupportedExtensions(JSContext *cx, uint32_t argc, jsval *vp)
 
     JSObject *jsobj = JS_NewArrayObject(cx, 0);
     JSB_PRECONDITION2(jsobj, cx, false, "Error creating JS Object");
+    JS::HandleObject jsobjHandle(JS::HandleObject::fromMarkedLocation(&jsobj));
 
     // copy, to be able to add '\0'
     size_t len = strlen((char*)extensions);
@@ -383,7 +386,8 @@ bool JSB_glGetSupportedExtensions(JSContext *cx, uint32_t argc, jsval *vp)
             copy[i] = 0;
 
             JS::RootedValue str(cx, charptr_to_jsval(cx, (const char*)&copy[start_extension]));
-            JS_SetElement(cx, jsobj, element++, &str );
+            JS::HandleValue strHandle(str);
+            JS_SetElement(cx, jsobjHandle, element++, strHandle);
 
             start_extension = i+1;
 

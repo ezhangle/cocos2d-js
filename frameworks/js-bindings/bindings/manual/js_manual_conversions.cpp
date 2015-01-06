@@ -1399,7 +1399,7 @@ bool jsval_to_blendfunc(JSContext *cx, jsval vp, cocos2d::BlendFunc* ret)
 jsval ccarray_to_jsval(JSContext* cx, __Array *arr)
 {
     JSObject *jsretArr = JS_NewArrayObject(cx, 0);
-    
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
     Ref* obj;
     int i = 0;
     CCARRAY_FOREACH(arr, obj)
@@ -1438,7 +1438,8 @@ jsval ccarray_to_jsval(JSContext* cx, __Array *arr)
                 CCASSERT(false, "the type isn't suppored.");
             }
         }
-        if (!JS_SetElement(cx, jsretArr, i, &arrElement)) {
+        JS::HandleValue arrElementHandle(arrElement);
+        if (!JS_SetElement(cx, jsretArrHandle, i, arrElementHandle)) {
             break;
         }
         ++i;
@@ -2299,7 +2300,7 @@ jsval ccvaluemapintkey_to_jsval(JSContext* cx, const cocos2d::ValueMapIntKey& v)
 jsval ccvaluevector_to_jsval(JSContext* cx, const cocos2d::ValueVector& v)
 {
     JSObject *jsretArr = JS_NewArrayObject(cx, 0);
-    
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
     int i = 0;
     for (const auto& obj : v)
     {
@@ -2332,8 +2333,8 @@ jsval ccvaluevector_to_jsval(JSContext* cx, const cocos2d::ValueVector& v)
             default:
                 break;
         }
-
-        if (!JS_SetElement(cx, jsretArr, i, &arrElement)) {
+        JS::HandleValue arrElementHandle(arrElement);
+        if (!JS_SetElement(cx, jsretArrHandle, i, arrElementHandle)) {
             break;
         }
         ++i;
@@ -2350,14 +2351,14 @@ jsval ssize_to_jsval(JSContext *cx, ssize_t v)
 jsval std_vector_string_to_jsval( JSContext *cx, const std::vector<std::string>& v)
 {
     JSObject *jsretArr = JS_NewArrayObject(cx, 0);
-    
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
     int i = 0;
     for (const std::string obj : v)
     {
         JS::RootedValue arrElement(cx);
         arrElement = std_string_to_jsval(cx, obj);
-        
-        if (!JS_SetElement(cx, jsretArr, i, &arrElement)) {
+        JS::HandleValue arrElementHandle(arrElement);
+        if (!JS_SetElement(cx, jsretArrHandle, i, arrElementHandle)) {
             break;
         }
         ++i;
@@ -2368,14 +2369,15 @@ jsval std_vector_string_to_jsval( JSContext *cx, const std::vector<std::string>&
 jsval std_vector_int_to_jsval( JSContext *cx, const std::vector<int>& v)
 {
     JSObject *jsretArr = JS_NewArrayObject(cx, 0);
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
     
     int i = 0;
     for (const int obj : v)
     {
         JS::RootedValue arrElement(cx);
         arrElement = int32_to_jsval(cx, obj);
-        
-        if (!JS_SetElement(cx, jsretArr, i, &arrElement)) {
+        JS::HandleValue arrElementHandle(arrElement);
+        if (!JS_SetElement(cx, jsretArrHandle, i, arrElementHandle)) {
             break;
         }
         ++i;

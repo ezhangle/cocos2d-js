@@ -1260,8 +1260,8 @@ bool __jsb_cpArbiter_getBodies(JSContext *cx, jsval *vp, jsval *argvp, cpArbiter
 	cpBody *bodyB;
 	cpArbiterGetBodies(arbiter, &bodyA, &bodyB);
 	
-    JS::RootedValue valA(cx);
-    JS::RootedValue valB(cx);
+	JS::RootedValue valA(cx);
+	JS::RootedValue valB(cx);
 	if( is_oo ) {
 		valA = c_class_to_jsval(cx, bodyA, JSB_cpBody_object, JSB_cpBody_class, "cpArbiter");
 		valB = c_class_to_jsval(cx, bodyB, JSB_cpBody_object, JSB_cpBody_class, "cpArbiter");
@@ -1271,8 +1271,11 @@ bool __jsb_cpArbiter_getBodies(JSContext *cx, jsval *vp, jsval *argvp, cpArbiter
 	}
 	
 	JS::RootedObject jsobj(cx, JS_NewArrayObject(cx, 2));
-	JS_SetElement(cx, jsobj, 0, &valA);
-	JS_SetElement(cx, jsobj, 1, &valB);
+	JS::HandleObject jsobjHandle(jsobj);
+	JS::HandleValue valAHandle(valA);
+	JS::HandleValue valBHandle(valB);
+	JS_SetElement(cx, jsobjHandle, 0, valAHandle);
+	JS_SetElement(cx, jsobjHandle, 1, valBHandle);
 	
 	JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(jsobj));
 	
@@ -1316,8 +1319,8 @@ bool __jsb_cpArbiter_getShapes(JSContext *cx, jsval *vp, jsval *argvp, cpArbiter
 	cpShape *shapeB;
 	cpArbiterGetShapes(arbiter, &shapeA, &shapeB);
 
-    JS::RootedValue valA(cx);
-    JS::RootedValue valB(cx);
+	JS::RootedValue valA(cx);
+	JS::RootedValue valB(cx);
 	if( is_oo ) {
 		valA = c_class_to_jsval(cx, shapeA, JSB_cpShape_object, JSB_cpShape_class, "cpShape");
 		valB = c_class_to_jsval(cx, shapeB, JSB_cpShape_object, JSB_cpShape_class, "cpShape");
@@ -1327,8 +1330,11 @@ bool __jsb_cpArbiter_getShapes(JSContext *cx, jsval *vp, jsval *argvp, cpArbiter
 	}
 	
 	JS::RootedObject jsobj(cx, JS_NewArrayObject(cx, 2));
-	JS_SetElement(cx, jsobj, 0, &valA);
-	JS_SetElement(cx, jsobj, 1, &valB);
+	JS::HandleObject jsobjHandle(jsobj);
+	JS::HandleValue valAHandle(valA);
+	JS::HandleValue valBHandle(valB);
+	JS_SetElement(cx, jsobjHandle, 0, valAHandle);
+	JS_SetElement(cx, jsobjHandle, 1, valBHandle);
 	
 	JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(jsobj));
 	

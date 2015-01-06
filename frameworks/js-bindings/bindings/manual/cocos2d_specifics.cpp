@@ -210,13 +210,14 @@ void JSTouchDelegate::onTouchesCancelled(const std::vector<Touch*>& touches, Eve
 
 // cc.EventTouch#getTouches
 bool js_cocos2dx_EventTouch_getTouches(JSContext *cx, uint32_t argc, jsval *vp) {
-    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
 	js_proxy_t *proxy = jsb_get_js_proxy(obj);
 	cocos2d::EventTouch* cobj = (cocos2d::EventTouch *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_EventTouch_getTouches : Invalid Native Object");
 	if (argc == 0) {
 		const std::vector<cocos2d::Touch*>& ret = cobj->getTouches();
         JSObject *jsretArr = JS_NewArrayObject(cx, 0);
+        JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
         
         int i = 0;
         for (cocos2d::Touch* touchObj : ret)
@@ -228,7 +229,8 @@ bool js_cocos2dx_EventTouch_getTouches(JSContext *cx, uint32_t argc, jsval *vp) 
             if (jsproxy) {
                 arrElement = OBJECT_TO_JSVAL(jsproxy->obj);
             }
-            if (!JS_SetElement(cx, jsretArr, i, &arrElement)) {
+            JS::HandleValue arrElementHandle(arrElement);
+            if (!JS_SetElement(cx, jsretArrHandle, i, arrElementHandle)) {
                 break;
             }
             ++i;
@@ -3736,11 +3738,13 @@ static bool jsval_to_string_vector(JSContext* cx, jsval v, std::vector<std::stri
 static jsval string_vector_to_jsval(JSContext* cx, const std::vector<std::string>& arr) {
     
     JS::RootedObject jsretArr(cx, JS_NewArrayObject(cx, 0));
+    JS::HandleObject jsretArrHandle(jsretArr);
     
     int i = 0;
     for(std::vector<std::string>::const_iterator iter = arr.begin(); iter != arr.end(); ++iter, ++i) {
         JS::RootedValue arrElement(cx, std_string_to_jsval(cx, *iter));
-        if(!JS_SetElement(cx, jsretArr, i, &arrElement)) {
+        JS::HandleValue arrElementHandle(arrElement);
+        if(!JS_SetElement(cx, jsretArrHandle, i, arrElementHandle)) {
             break;
         }
     }
@@ -4068,13 +4072,15 @@ bool js_cocos2dx_SpriteBatchNode_getDescendants(JSContext *cx, uint32_t argc, js
     std::vector<Sprite*> ret = cobj->getDescendants();
 		
     JS::RootedObject jsretArr(cx, JS_NewArrayObject(cx, 0));
-		size_t vSize = ret.size();
+    JS::HandleObject jsretArrHandle(jsretArr);
+    size_t vSize = ret.size();
     JS::RootedValue jsret(cx);
+    JS::HandleValue jsretHandle(jsret);
 		for (size_t i = 0; i < vSize; i++)
 		{
 			proxy = js_get_or_create_proxy<cocos2d::Sprite>(cx, ret[i]);
 			jsret = OBJECT_TO_JSVAL(proxy->obj);
-			JS_SetElement(cx, jsretArr, static_cast<uint32_t>(i), &jsret);
+			JS_SetElement(cx, jsretArrHandle, static_cast<uint32_t>(i), jsretHandle);
 		}
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(jsretArr));
 		return true;

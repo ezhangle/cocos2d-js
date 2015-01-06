@@ -1054,6 +1054,7 @@ bool ScriptingCore::handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::Eve
     std::string funcName = getTouchesFuncName(eventCode);
 
     JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
 
     AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
@@ -1061,7 +1062,8 @@ bool ScriptingCore::handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::Eve
     for (const auto& touch : touches)
     {
         JS::RootedValue jsret(_cx, getJSObject(this->_cx, touch));
-        if (!JS_SetElement(this->_cx, jsretArr, count, &jsret))
+        JS::HandleValue jsretHandle(jsret);
+        if (!JS_SetElement(this->_cx, jsretArrHandle, count, jsretHandle))
         {
             break;
         }
@@ -1277,13 +1279,15 @@ int ScriptingCore::executeCustomTouchesEvent(EventTouch::EventCode eventType,
     std::string funcName = getTouchesFuncName(eventType);
 
     JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
     AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
     for (auto& touch : touches)
     {
         jsval jsret = getJSObject(this->_cx, touch);
         JS::RootedValue jsval(_cx, jsret);
-        if (!JS_SetElement(this->_cx, jsretArr, count, &jsval)) {
+        JS::HandleValue jsvalHandle(jsval);
+        if (!JS_SetElement(this->_cx, jsretArrHandle, count, jsvalHandle)) {
             break;
         }
         ++count;

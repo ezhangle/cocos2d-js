@@ -266,6 +266,7 @@ bool js_cocos2dx_studio_ColliderBody_getCalculatedVertexList(JSContext *cx, uint
     if (argc == 0) {
         const std::vector<cocos2d::Point>& ret = cobj->getCalculatedVertexList();
         JS::RootedObject jsretArr(cx, JS_NewArrayObject(cx, 0));
+        JS::HandleObject jsretArrHandle(jsretArr);
         jsval jsret;
         //CCObject* obj;
         int i = 0;
@@ -276,7 +277,8 @@ bool js_cocos2dx_studio_ColliderBody_getCalculatedVertexList(JSContext *cx, uint
             bool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(point.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
                 JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(point.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
             JS::RootedValue jsTmp(cx, OBJECT_TO_JSVAL(tmp));
-            if(!ok || !JS_SetElement(cx, jsretArr, i, &jsTmp))
+            JS::HandleValue jsTmpHandle(jsTmp);
+            if(!ok || !JS_SetElement(cx, jsretArrHandle, i, jsTmpHandle))
             {
                 break;
             }
