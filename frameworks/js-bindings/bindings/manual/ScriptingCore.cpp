@@ -1223,12 +1223,13 @@ bool ScriptingCore::executeFunctionWithOwner(jsval owner, const char *name, uint
     JSContext* cx = this->_cx;
     JS::RootedValue temp_retval(cx);
     JSObject* obj = owner.toObjectOrNull();
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     
     do
     {
         JSAutoCompartment ac(cx, obj);
         
-        if (JS_HasProperty(cx, obj, name, &hasAction) && hasAction) {
+        if (JS_HasProperty(cx, objHandle, name, &hasAction) && hasAction) {
             if (!JS_GetProperty(cx, obj, name, &temp_retval)) {
                 break;
             }

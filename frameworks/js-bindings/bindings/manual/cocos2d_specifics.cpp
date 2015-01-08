@@ -1672,6 +1672,7 @@ bool js_cocos2dx_CCNode_scheduleUpdateWithPriority(JSContext *cx, uint32_t argc,
 	jsval *argv = JS_ARGV(cx, vp);
 	bool ok = true;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
 	js_proxy_t *proxy = jsb_get_js_proxy(obj);
 	cocos2d::Node* cobj = (cocos2d::Node *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
@@ -1681,7 +1682,7 @@ bool js_cocos2dx_CCNode_scheduleUpdateWithPriority(JSContext *cx, uint32_t argc,
 		JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
         
         bool isFoundUpdate = false;
-        ok = JS_HasProperty(cx, obj, "update", &isFoundUpdate);
+        ok = JS_HasProperty(cx, objHandle, "update", &isFoundUpdate);
         JS::RootedValue jsUpdateFunc(cx);
         if (ok && isFoundUpdate) {
             ok = JS_GetProperty(cx, obj, "update", &jsUpdateFunc);
@@ -1775,13 +1776,14 @@ bool js_cocos2dx_CCNode_scheduleUpdate(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	bool ok = true;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
 	js_proxy_t *proxy = jsb_get_js_proxy(obj);
 	cocos2d::Node* cobj = (cocos2d::Node *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
 	if (argc == 0) {
         
         bool isFoundUpdate = false;
-        ok = JS_HasProperty(cx, obj, "update", &isFoundUpdate);
+        ok = JS_HasProperty(cx, objHandle, "update", &isFoundUpdate);
         JS::RootedValue jsUpdateFunc(cx);
         if (ok && isFoundUpdate) {
             ok = JS_GetProperty(cx, obj, "update", &jsUpdateFunc);
@@ -1881,11 +1883,12 @@ bool js_CCScheduler_scheduleUpdateForTarget(JSContext *cx, uint32_t argc, jsval 
         JSScheduleWrapper *tmpCObj = NULL;
         
         JSObject *tmpObj = argv[0].toObjectOrNull();
+        JS::HandleObject tmpObjHandle(JS::HandleObject::fromMarkedLocation(&tmpObj));
         proxy = jsb_get_js_proxy(tmpObj);
         bool isPureJSTarget = proxy ? false : true;
         
         bool isFoundUpdate = false;
-        ok = JS_HasProperty(cx, tmpObj, "update", &isFoundUpdate);
+        ok = JS_HasProperty(cx, tmpObjHandle, "update", &isFoundUpdate);
         JS::RootedValue jsUpdateFunc(cx);
         if (ok && isFoundUpdate) {
             ok = JS_GetProperty(cx, tmpObj, "update", &jsUpdateFunc);

@@ -279,11 +279,12 @@ bool JSB_CCPhysicsDebugNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "PhysicsDebugNode");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -513,11 +514,12 @@ bool JSPROXY_CCPhysicsSprite_constructor(JSContext *cx, uint32_t argc, jsval *vp
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::PhysicsSprite");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -525,7 +527,8 @@ bool JSPROXY_CCPhysicsSprite_constructor(JSContext *cx, uint32_t argc, jsval *vp
 static bool JSPROXY_CCPhysicsSprite_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     PhysicsSprite *nobj = new PhysicsSprite();
     if (nobj) {
         nobj->autorelease();
@@ -533,7 +536,7 @@ static bool JSPROXY_CCPhysicsSprite_ctor(JSContext *cx, uint32_t argc, jsval *vp
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::SpriteFrame");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;

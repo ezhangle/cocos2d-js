@@ -318,11 +318,12 @@ bool js_cocos2dx_extension_Control_constructor(JSContext *cx, uint32_t argc, jsv
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::Control");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -1405,11 +1406,12 @@ bool js_cocos2dx_extension_Scale9Sprite_constructor(JSContext *cx, uint32_t argc
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Scale9Sprite");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -1424,7 +1426,8 @@ void js_cocos2d_ui_Scale9Sprite_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ui_Scale9Sprite_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ui::Scale9Sprite *nobj = new (std::nothrow) cocos2d::ui::Scale9Sprite();
     if (nobj) {
         nobj->autorelease();
@@ -1432,7 +1435,7 @@ static bool js_cocos2d_ui_Scale9Sprite_ctor(JSContext *cx, uint32_t argc, jsval 
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::Scale9Sprite");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -2605,11 +2608,12 @@ bool js_cocos2dx_extension_ControlButton_constructor(JSContext *cx, uint32_t arg
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlButton");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -2624,7 +2628,8 @@ void js_cocos2d_extension_ControlButton_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_extension_ControlButton_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::ControlButton *nobj = new (std::nothrow) cocos2d::extension::ControlButton();
     if (nobj) {
         nobj->autorelease();
@@ -2632,7 +2637,7 @@ static bool js_cocos2d_extension_ControlButton_ctor(JSContext *cx, uint32_t argc
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlButton");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -3036,11 +3041,12 @@ bool js_cocos2dx_extension_ControlHuePicker_constructor(JSContext *cx, uint32_t 
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlHuePicker");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -3373,11 +3379,12 @@ bool js_cocos2dx_extension_ControlSaturationBrightnessPicker_constructor(JSConte
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlSaturationBrightnessPicker");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -3747,11 +3754,12 @@ bool js_cocos2dx_extension_ControlColourPicker_constructor(JSContext *cx, uint32
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlColourPicker");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -3766,7 +3774,8 @@ void js_cocos2d_extension_ControlColourPicker_finalize(JSFreeOp *fop, JSObject *
 static bool js_cocos2d_extension_ControlColourPicker_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::ControlColourPicker *nobj = new (std::nothrow) cocos2d::extension::ControlColourPicker();
     if (nobj) {
         nobj->autorelease();
@@ -3774,7 +3783,7 @@ static bool js_cocos2d_extension_ControlColourPicker_ctor(JSContext *cx, uint32_
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlColourPicker");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -4306,11 +4315,12 @@ bool js_cocos2dx_extension_ControlPotentiometer_constructor(JSContext *cx, uint3
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlPotentiometer");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -4325,7 +4335,8 @@ void js_cocos2d_extension_ControlPotentiometer_finalize(JSFreeOp *fop, JSObject 
 static bool js_cocos2d_extension_ControlPotentiometer_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::ControlPotentiometer *nobj = new (std::nothrow) cocos2d::extension::ControlPotentiometer();
     if (nobj) {
         nobj->autorelease();
@@ -4333,7 +4344,7 @@ static bool js_cocos2d_extension_ControlPotentiometer_ctor(JSContext *cx, uint32
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlPotentiometer");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -5187,11 +5198,12 @@ bool js_cocos2dx_extension_ControlSlider_constructor(JSContext *cx, uint32_t arg
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlSlider");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -5206,7 +5218,8 @@ void js_cocos2d_extension_ControlSlider_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_extension_ControlSlider_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::ControlSlider *nobj = new (std::nothrow) cocos2d::extension::ControlSlider();
     if (nobj) {
         nobj->autorelease();
@@ -5214,7 +5227,7 @@ static bool js_cocos2d_extension_ControlSlider_ctor(JSContext *cx, uint32_t argc
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlSlider");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -5830,11 +5843,12 @@ bool js_cocos2dx_extension_ControlStepper_constructor(JSContext *cx, uint32_t ar
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlStepper");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -5849,7 +5863,8 @@ void js_cocos2d_extension_ControlStepper_finalize(JSFreeOp *fop, JSObject *obj) 
 static bool js_cocos2d_extension_ControlStepper_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::ControlStepper *nobj = new (std::nothrow) cocos2d::extension::ControlStepper();
     if (nobj) {
         nobj->autorelease();
@@ -5857,7 +5872,7 @@ static bool js_cocos2d_extension_ControlStepper_ctor(JSContext *cx, uint32_t arg
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlStepper");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -6356,11 +6371,12 @@ bool js_cocos2dx_extension_ControlSwitch_constructor(JSContext *cx, uint32_t arg
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlSwitch");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -6375,7 +6391,8 @@ void js_cocos2d_extension_ControlSwitch_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_extension_ControlSwitch_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::ControlSwitch *nobj = new (std::nothrow) cocos2d::extension::ControlSwitch();
     if (nobj) {
         nobj->autorelease();
@@ -6383,7 +6400,7 @@ static bool js_cocos2d_extension_ControlSwitch_ctor(JSContext *cx, uint32_t argc
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ControlSwitch");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -7231,11 +7248,12 @@ bool js_cocos2dx_extension_ScrollView_constructor(JSContext *cx, uint32_t argc, 
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ScrollView");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -7250,7 +7268,8 @@ void js_cocos2d_extension_ScrollView_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_extension_ScrollView_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::ScrollView *nobj = new (std::nothrow) cocos2d::extension::ScrollView();
     if (nobj) {
         nobj->autorelease();
@@ -7258,7 +7277,7 @@ static bool js_cocos2d_extension_ScrollView_ctor(JSContext *cx, uint32_t argc, j
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::ScrollView");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -7446,11 +7465,12 @@ bool js_cocos2dx_extension_TableViewCell_constructor(JSContext *cx, uint32_t arg
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::TableViewCell");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -7465,7 +7485,8 @@ void js_cocos2d_extension_TableViewCell_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_extension_TableViewCell_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::TableViewCell *nobj = new (std::nothrow) cocos2d::extension::TableViewCell();
     if (nobj) {
         nobj->autorelease();
@@ -7473,7 +7494,7 @@ static bool js_cocos2d_extension_TableViewCell_ctor(JSContext *cx, uint32_t argc
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::TableViewCell");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -7835,11 +7856,12 @@ bool js_cocos2dx_extension_TableView_constructor(JSContext *cx, uint32_t argc, j
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::TableView");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -7854,7 +7876,8 @@ void js_cocos2d_extension_TableView_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_extension_TableView_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::extension::TableView *nobj = new (std::nothrow) cocos2d::extension::TableView();
     if (nobj) {
         nobj->autorelease();
@@ -7862,7 +7885,7 @@ static bool js_cocos2d_extension_TableView_ctor(JSContext *cx, uint32_t argc, js
     js_proxy_t* p = jsb_new_proxy(nobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::TableView");
     bool isFound = false;
-    if (JS_HasProperty(cx, obj, "_ctor", &isFound))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &isFound))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     JS_SET_RVAL(cx, vp, JSVAL_VOID);
     return true;
@@ -8290,11 +8313,12 @@ bool js_cocos2dx_extension_AssetsManager_constructor(JSContext *cx, uint32_t arg
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::extension::AssetsManager");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }
@@ -8978,11 +9002,12 @@ bool js_cocos2dx_extension_EditBox_constructor(JSContext *cx, uint32_t argc, jsv
     JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
     JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
     AddNamedObjectRoot(cx, &p->obj, "cocos2d::ui::EditBox");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok))
+    if (JS_HasProperty(cx, objHandle, "_ctor", &ok))
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", argc, argv);
     return true;
 }

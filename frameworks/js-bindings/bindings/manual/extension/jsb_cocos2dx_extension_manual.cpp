@@ -347,8 +347,8 @@ private:
         
         JSObject* obj = _JSTableViewDataSource;
         JSAutoCompartment ac(cx, obj);
-        
-        if (JS_HasProperty(cx, obj, jsFunctionName.c_str(), &hasAction) && hasAction)
+        JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+        if (JS_HasProperty(cx, objHandle, jsFunctionName.c_str(), &hasAction) && hasAction)
         {
             if(!JS_GetProperty(cx, obj, jsFunctionName.c_str(), &temp_retval))
             {
@@ -380,8 +380,8 @@ private:
         
         JSObject* obj = _JSTableViewDataSource;
         JSAutoCompartment ac(cx, obj);
-        
-        if (JS_HasProperty(cx, obj, jsFunctionName.c_str(), &hasAction) && hasAction)
+        JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));   
+        if (JS_HasProperty(cx, objHandle, jsFunctionName.c_str(), &hasAction) && hasAction)
         {
             if(!JS_GetProperty(cx, obj, jsFunctionName.c_str(), &temp_retval))
             {

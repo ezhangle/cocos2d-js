@@ -34,8 +34,8 @@ void GLNode::draw(cocos2d::Renderer *renderer, const cocos2d::kmMat4& transform,
         if (jsObj) {
             bool found = false;
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-            
-            JS_HasProperty(cx, jsObj, "draw", &found);
+            JS::HandleObject jsObjHandle(JS::HandleObject::fromMarkedLocation(&jsObj));
+            JS_HasProperty(cx, jsObjHandle, "draw", &found);
             if (found == true) {
                 JS::RootedValue rval(cx);
                 JS::RootedValue fval(cx);
