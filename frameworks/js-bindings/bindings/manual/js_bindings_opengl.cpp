@@ -144,10 +144,11 @@ void js_register_cocos2dx_GLNode(JSContext *cx, JSObject *global) {
         JS_FN("create", js_cocos2dx_GLNode_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
-
+    JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+    JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
     js_cocos2dx_GLNode_prototype = JS_InitClass(
-        cx, global,
-        jsb_cocos2d_Node_prototype,
+        cx, globalHandle,
+        prototypeHandle,
         js_cocos2dx_GLNode_class,
         js_cocos2dx_GLNode_constructor, 0, // constructor
         properties,

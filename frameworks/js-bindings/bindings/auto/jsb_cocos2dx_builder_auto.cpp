@@ -969,10 +969,10 @@ void js_register_cocos2dx_builder_CCBAnimationManager(JSContext *cx, JSObject *g
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocosbuilder_CCBAnimationManager_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocosbuilder_CCBAnimationManager_class,
 		js_cocos2dx_builder_CCBAnimationManager_constructor, 0, // constructor
 		properties,
@@ -1696,10 +1696,10 @@ void js_register_cocos2dx_builder_CCBReader(JSContext *cx, JSObject *global) {
 		JS_FN("setResolutionScale", js_cocos2dx_builder_CCBReader_setResolutionScale, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocosbuilder_CCBReader_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocosbuilder_CCBReader_class,
 		js_cocos2dx_builder_CCBReader_constructor, 0, // constructor
 		properties,

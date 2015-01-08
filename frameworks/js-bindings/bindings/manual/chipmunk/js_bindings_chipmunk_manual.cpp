@@ -288,7 +288,7 @@ bool JSB_CCPhysicsDebugNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     return true;
 }
 
-void JSB_CCPhysicsDebugNode_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_CCPhysicsDebugNode_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_CCPhysicsDebugNode_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_CCPhysicsDebugNode_class->name = name;
@@ -324,7 +324,9 @@ void JSB_CCPhysicsDebugNode_createClass(JSContext *cx, JSObject* globalObj, cons
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
 
-    JSB_CCPhysicsDebugNode_object = JS_InitClass(cx, globalObj, typeClass->proto, JSB_CCPhysicsDebugNode_class, JSB_CCPhysicsDebugNode_constructor, 0,properties,funcs,NULL,st_funcs);
+    JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+    JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JSB_CCPhysicsDebugNode_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_CCPhysicsDebugNode_class, JSB_CCPhysicsDebugNode_constructor, 0,properties,funcs,NULL,st_funcs);
 
     TypeTest<PhysicsDebugNode> t;
     js_type_class_t *p;
@@ -537,7 +539,7 @@ static bool JSPROXY_CCPhysicsSprite_ctor(JSContext *cx, uint32_t argc, jsval *vp
     return true;
 }
 
-void JSPROXY_CCPhysicsSprite_createClass(JSContext *cx, JSObject* globalObj)
+void JSPROXY_CCPhysicsSprite_createClass(JSContext *cx, JSObject* global)
 {
 	JSPROXY_CCPhysicsSprite_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSPROXY_CCPhysicsSprite_class->name = "PhysicsSprite";
@@ -571,26 +573,27 @@ void JSPROXY_CCPhysicsSprite_createClass(JSContext *cx, JSObject* globalObj)
 	};
 
     TypeTest<cocos2d::Sprite> t1;
-	js_type_class_t *typeClass = nullptr;
+    js_type_class_t *typeClass = nullptr;
     std::string typeName = t1.s_name();
-	auto typeMapIter = _js_global_type_map.find(typeName);
-	CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
-	typeClass = typeMapIter->second;
-	CCASSERT(typeClass, "The value is null.");
-
-	JSPROXY_CCPhysicsSprite_object = JS_InitClass(cx, globalObj, typeClass->proto, JSPROXY_CCPhysicsSprite_class,/* dummy_constructor<PhysicsSprite>*/JSPROXY_CCPhysicsSprite_constructor, 0,properties,funcs,NULL,st_funcs);
+    auto typeMapIter = _js_global_type_map.find(typeName);
+    CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
+    typeClass = typeMapIter->second;
+    CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+    JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JSPROXY_CCPhysicsSprite_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSPROXY_CCPhysicsSprite_class,/* dummy_constructor<PhysicsSprite>*/JSPROXY_CCPhysicsSprite_constructor, 0,properties,funcs,NULL,st_funcs);
 
     TypeTest<PhysicsSprite> t;
-	js_type_class_t *p;
-	typeName = t.s_name();
-	if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
+    js_type_class_t *p;
+    typeName = t.s_name();
+    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
     {
-		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
-		p->jsclass = JSPROXY_CCPhysicsSprite_class;
-		p->proto = JSPROXY_CCPhysicsSprite_object;
-		p->parentProto = typeClass->proto;
+        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+        p->jsclass = JSPROXY_CCPhysicsSprite_class;
+        p->proto = JSPROXY_CCPhysicsSprite_object;
+        p->parentProto = typeClass->proto;
         _js_global_type_map.insert(std::make_pair(typeName, p));
-	}
+    }
 }
 
 
@@ -1648,7 +1651,7 @@ bool JSB_cpBase_setHandle(JSContext *cx, uint32_t argc, jsval *vp)
 }
 
 
-void JSB_cpBase_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpBase_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpBase_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpBase_class->name = name;
@@ -1673,8 +1676,8 @@ void JSB_cpBase_createClass(JSContext *cx, JSObject* globalObj, const char* name
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-	
-	JSB_cpBase_object = JS_InitClass(cx, globalObj, NULL, JSB_cpBase_class, JSB_cpBase_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));	
+	JSB_cpBase_object = JS_InitClass(cx, globalHandle, JS::NullPtr(), JSB_cpBase_class, JSB_cpBase_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }

@@ -371,10 +371,10 @@ void register_jsb_websocket(JSContext *cx, JSObject *global) {
     static JSFunctionSpec st_funcs[] = {
         JS_FS_END
     };
-    
+    JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
     js_cocos2dx_websocket_prototype = JS_InitClass(
-                                                cx, global,
-                                                NULL,
+                                                cx, globalHandle,
+                                                JS::NullPtr(),
                                                 js_cocos2dx_websocket_class,
                                                 js_cocos2dx_extension_WebSocket_constructor, 0, // constructor
                                                 properties,

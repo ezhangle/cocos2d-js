@@ -545,10 +545,11 @@ void js_register_cocos2dx_spine_Skeleton(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_spine_Skeleton_createWithFile, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_spine_Skeleton_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_spine_Skeleton_class,
 		js_cocos2dx_spine_Skeleton_constructor, 0, // constructor
 		properties,
@@ -995,10 +996,11 @@ void js_register_cocos2dx_spine_SkeletonAnimation(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_spine_SkeletonAnimation_createWithFile, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_spine_Skeleton_prototype));
 	jsb_spine_SkeletonAnimation_prototype = JS_InitClass(
-		cx, global,
-		jsb_spine_Skeleton_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_spine_SkeletonAnimation_class,
 		js_cocos2dx_spine_SkeletonAnimation_constructor, 0, // constructor
 		properties,

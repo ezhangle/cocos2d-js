@@ -460,9 +460,10 @@ void js_register_cocos2dx_Configuration(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Configuration_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Configuration_class,
 		empty_constructor, 0,
 		properties,
@@ -1251,10 +1252,10 @@ void js_register_cocos2dx_Texture2D(JSContext *cx, JSObject *global) {
 		JS_FN("getDefaultAlphaPixelFormat", js_cocos2dx_Texture2D_getDefaultAlphaPixelFormat, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Texture2D_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Texture2D_class,
 		js_cocos2dx_Texture2D_constructor, 0, // constructor
 		properties,
@@ -1509,10 +1510,10 @@ void js_register_cocos2dx_Touch(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Touch_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Touch_class,
 		js_cocos2dx_Touch_constructor, 0, // constructor
 		properties,
@@ -1678,10 +1679,10 @@ void js_register_cocos2dx_Event(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Event_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Event_class,
 		js_cocos2dx_Event_constructor, 0, // constructor
 		properties,
@@ -1807,10 +1808,11 @@ void js_register_cocos2dx_EventTouch(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Event_prototype));
 	jsb_cocos2d_EventTouch_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Event_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventTouch_class,
 		js_cocos2dx_EventTouch_constructor, 0, // constructor
 		properties,
@@ -1902,10 +1904,11 @@ void js_register_cocos2dx_EventKeyboard(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Event_prototype));
 	jsb_cocos2d_EventKeyboard_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Event_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventKeyboard_class,
 		js_cocos2dx_EventKeyboard_constructor, 0, // constructor
 		properties,
@@ -5334,10 +5337,10 @@ void js_register_cocos2dx_Node(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Node_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Node_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Node_class,
 		js_cocos2dx_Node_constructor, 0, // constructor
 		properties,
@@ -5441,10 +5444,11 @@ void js_register_cocos2dx___NodeRGBA(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d___NodeRGBA_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d___NodeRGBA_class,
 		js_cocos2dx___NodeRGBA_constructor, 0, // constructor
 		properties,
@@ -5666,10 +5670,11 @@ void js_register_cocos2dx_Scene(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Scene_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_Scene_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_Scene_class,
 		js_cocos2dx_Scene_constructor, 0, // constructor
 		properties,
@@ -6289,10 +6294,10 @@ void js_register_cocos2dx_GLView(JSContext *cx, JSObject *global) {
 		JS_FN("getGLContextAttrs", js_cocos2dx_GLView_getGLContextAttrs, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_GLView_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_GLView_class,
 		empty_constructor, 0,
 		properties,
@@ -7630,10 +7635,10 @@ void js_register_cocos2dx_Director(JSContext *cx, JSObject *global) {
 		JS_FN("getInstance", js_cocos2dx_Director_getInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Director_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Director_class,
 		empty_constructor, 0,
 		properties,
@@ -7790,10 +7795,10 @@ void js_register_cocos2dx_Scheduler(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Scheduler_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Scheduler_class,
 		js_cocos2dx_Scheduler_constructor, 0, // constructor
 		properties,
@@ -8442,10 +8447,10 @@ void js_register_cocos2dx_FileUtils(JSContext *cx, JSObject *global) {
 		JS_FN("getInstance", js_cocos2dx_FileUtils_getInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_FileUtils_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_FileUtils_class,
 		empty_constructor, 0,
 		properties,
@@ -8938,10 +8943,11 @@ void js_register_cocos2dx_Camera(JSContext *cx, JSObject *global) {
 		JS_FN("getVisitingCamera", js_cocos2dx_Camera_getVisitingCamera, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_Camera_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_Camera_class,
 		js_cocos2dx_Camera_constructor, 0, // constructor
 		properties,
@@ -9081,10 +9087,10 @@ void js_register_cocos2dx_EventListener(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_EventListener_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_EventListener_class,
 		empty_constructor, 0,
 		properties,
@@ -9605,10 +9611,10 @@ void js_register_cocos2dx_EventDispatcher(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_EventDispatcher_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_EventDispatcher_class,
 		js_cocos2dx_EventDispatcher_constructor, 0, // constructor
 		properties,
@@ -9752,10 +9758,11 @@ void js_register_cocos2dx_EventListenerTouchOneByOne(JSContext *cx, JSObject *gl
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EventListener_prototype));
 	jsb_cocos2d_EventListenerTouchOneByOne_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EventListener_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventListenerTouchOneByOne_class,
 		js_cocos2dx_EventListenerTouchOneByOne_constructor, 0, // constructor
 		properties,
@@ -9860,10 +9867,11 @@ void js_register_cocos2dx_EventListenerTouchAllAtOnce(JSContext *cx, JSObject *g
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EventListener_prototype));
 	jsb_cocos2d_EventListenerTouchAllAtOnce_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EventListener_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventListenerTouchAllAtOnce_class,
 		js_cocos2dx_EventListenerTouchAllAtOnce_constructor, 0, // constructor
 		properties,
@@ -9968,10 +9976,11 @@ void js_register_cocos2dx_EventListenerKeyboard(JSContext *cx, JSObject *global)
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EventListener_prototype));
 	jsb_cocos2d_EventListenerKeyboard_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EventListener_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventListenerKeyboard_class,
 		js_cocos2dx_EventListenerKeyboard_constructor, 0, // constructor
 		properties,
@@ -10344,10 +10353,11 @@ void js_register_cocos2dx_EventMouse(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Event_prototype));
 	jsb_cocos2d_EventMouse_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Event_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventMouse_class,
 		js_cocos2dx_EventMouse_constructor, 0, // constructor
 		properties,
@@ -10452,10 +10462,11 @@ void js_register_cocos2dx_EventListenerMouse(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EventListener_prototype));
 	jsb_cocos2d_EventListenerMouse_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EventListener_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventListenerMouse_class,
 		js_cocos2dx_EventListenerMouse_constructor, 0, // constructor
 		properties,
@@ -10503,6 +10514,8 @@ bool js_cocos2dx_EventAcceleration_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -10543,10 +10556,11 @@ void js_register_cocos2dx_EventAcceleration(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Event_prototype));
 	jsb_cocos2d_EventAcceleration_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Event_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventAcceleration_class,
 		js_cocos2dx_EventAcceleration_constructor, 0, // constructor
 		properties,
@@ -10680,6 +10694,8 @@ bool js_cocos2dx_EventListenerAcceleration_constructor(JSContext *cx, uint32_t a
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -10724,10 +10740,11 @@ void js_register_cocos2dx_EventListenerAcceleration(JSContext *cx, JSObject *glo
 		JS_FN("create", js_cocos2dx_EventListenerAcceleration_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EventListener_prototype));
 	jsb_cocos2d_EventListenerAcceleration_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EventListener_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventListenerAcceleration_class,
 		js_cocos2dx_EventListenerAcceleration_constructor, 0, // constructor
 		properties,
@@ -10792,6 +10809,8 @@ bool js_cocos2dx_EventCustom_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -10833,10 +10852,11 @@ void js_register_cocos2dx_EventCustom(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Event_prototype));
 	jsb_cocos2d_EventCustom_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Event_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventCustom_class,
 		js_cocos2dx_EventCustom_constructor, 0, // constructor
 		properties,
@@ -10928,6 +10948,8 @@ bool js_cocos2dx_EventListenerCustom_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -10971,10 +10993,11 @@ void js_register_cocos2dx_EventListenerCustom(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EventListenerCustom_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EventListener_prototype));
 	jsb_cocos2d_EventListenerCustom_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EventListener_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_EventListenerCustom_class,
 		js_cocos2dx_EventListenerCustom_constructor, 0, // constructor
 		properties,
@@ -11038,6 +11061,8 @@ bool js_cocos2dx_EventFocus_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -11570,7 +11595,7 @@ void js_register_cocos2dx_Action(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_Action_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Action_class,
 		empty_constructor, 0,
 		properties,
@@ -12878,7 +12903,7 @@ void js_register_cocos2dx_SpriteFrame(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_SpriteFrame_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_SpriteFrame_class,
 		js_cocos2dx_SpriteFrame_constructor, 0, // constructor
 		properties,
@@ -13211,7 +13236,7 @@ void js_register_cocos2dx_AnimationFrame(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_AnimationFrame_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_AnimationFrame_class,
 		js_cocos2dx_AnimationFrame_constructor, 0, // constructor
 		properties,
@@ -13829,7 +13854,7 @@ void js_register_cocos2dx_Animation(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_Animation_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Animation_class,
 		js_cocos2dx_Animation_constructor, 0, // constructor
 		properties,
@@ -19085,7 +19110,7 @@ void js_register_cocos2dx_ActionManager(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_ActionManager_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_ActionManager_class,
 		js_cocos2dx_ActionManager_constructor, 0, // constructor
 		properties,
@@ -37574,7 +37599,7 @@ void js_register_cocos2dx_TransitionEaseScene(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_TransitionEaseScene_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TransitionEaseScene_class,
 		empty_constructor, 0,
 		properties,
@@ -53998,7 +54023,7 @@ void js_register_cocos2dx_GridBase(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_GridBase_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_GridBase_class,
 		dummy_constructor<cocos2d::GridBase>, 0, // no constructor
 		properties,
@@ -55102,7 +55127,7 @@ void js_register_cocos2dx_GLProgram(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_GLProgram_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_GLProgram_class,
 		js_cocos2dx_GLProgram_constructor, 0, // constructor
 		properties,
@@ -55316,7 +55341,7 @@ void js_register_cocos2dx_GLProgramCache(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_GLProgramCache_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_GLProgramCache_class,
 		js_cocos2dx_GLProgramCache_constructor, 0, // constructor
 		properties,
@@ -55734,7 +55759,7 @@ void js_register_cocos2dx_TextureCache(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_TextureCache_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TextureCache_class,
 		js_cocos2dx_TextureCache_constructor, 0, // constructor
 		properties,
@@ -55862,7 +55887,7 @@ void js_register_cocos2dx_Device(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_Device_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Device_class,
 		dummy_constructor<cocos2d::Device>, 0, // no constructor
 		properties,
@@ -55946,7 +55971,7 @@ void js_register_cocos2dx_SAXParser(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_SAXParser_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_SAXParser_class,
 		empty_constructor, 0,
 		properties,
@@ -56066,7 +56091,7 @@ void js_register_cocos2dx_Application(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_Application_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Application_class,
 		empty_constructor, 0,
 		properties,
@@ -56331,7 +56356,7 @@ void js_register_cocos2dx_AnimationCache(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_AnimationCache_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_AnimationCache_class,
 		js_cocos2dx_AnimationCache_constructor, 0, // constructor
 		properties,
@@ -56719,7 +56744,7 @@ void js_register_cocos2dx_SpriteFrameCache(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_SpriteFrameCache_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_SpriteFrameCache_class,
 		empty_constructor, 0,
 		properties,
@@ -57701,7 +57726,7 @@ void js_register_cocos2dx_TMXObjectGroup(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_TMXObjectGroup_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXObjectGroup_class,
 		js_cocos2dx_TMXObjectGroup_constructor, 0, // constructor
 		properties,
@@ -57827,7 +57852,7 @@ void js_register_cocos2dx_TMXLayerInfo(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_TMXLayerInfo_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXLayerInfo_class,
 		js_cocos2dx_TMXLayerInfo_constructor, 0, // constructor
 		properties,
@@ -57937,7 +57962,7 @@ void js_register_cocos2dx_TMXTilesetInfo(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_TMXTilesetInfo_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXTilesetInfo_class,
 		js_cocos2dx_TMXTilesetInfo_constructor, 0, // constructor
 		properties,
@@ -58805,7 +58830,7 @@ void js_register_cocos2dx_TMXMapInfo(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_TMXMapInfo_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXMapInfo_class,
 		js_cocos2dx_TMXMapInfo_constructor, 0, // constructor
 		properties,
@@ -60631,7 +60656,7 @@ void js_register_cocos2dx_Component(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_Component_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Component_class,
 		js_cocos2dx_Component_constructor, 0, // constructor
 		properties,
@@ -60855,7 +60880,7 @@ void js_register_cocos2dx_ComponentContainer(JSContext *cx, JSObject *global) {
 
 	jsb_cocos2d_ComponentContainer_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_ComponentContainer_class,
 		empty_constructor, 0,
 		properties,
@@ -61427,7 +61452,7 @@ void js_register_cocos2dx_SimpleAudioEngine(JSContext *cx, JSObject *global) {
 
 	jsb_CocosDenshion_SimpleAudioEngine_prototype = JS_InitClass(
 		cx, global,
-		NULL, // parent proto
+		JS::NullPtr(), // parent proto
 		jsb_CocosDenshion_SimpleAudioEngine_class,
 		empty_constructor, 0,
 		properties,

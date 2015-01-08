@@ -892,7 +892,7 @@ void MinXmlHttpRequest::_js_register(JSContext *cx, JSObject *global)
     };
     
     MinXmlHttpRequest::js_parent = NULL;
-    MinXmlHttpRequest::js_proto = JS_InitClass(cx, global, NULL, &MinXmlHttpRequest::js_class , MinXmlHttpRequest::_js_constructor, 0, props, funcs, NULL, NULL);
-    
+    JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+    MinXmlHttpRequest::js_proto = JS_InitClass(cx, globalHandle, JS::NullPtr(), &MinXmlHttpRequest::js_class , MinXmlHttpRequest::_js_constructor, 0, props, funcs, NULL, NULL);
 }
 

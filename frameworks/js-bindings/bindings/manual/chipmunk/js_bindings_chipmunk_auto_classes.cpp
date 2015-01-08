@@ -248,7 +248,7 @@ bool JSB_cpConstraint_setMaxForce(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpConstraint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpConstraint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpConstraint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpConstraint_class->name = name;
@@ -283,8 +283,9 @@ void JSB_cpConstraint_createClass(JSContext *cx, JSObject* globalObj, const char
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpConstraint_object = JS_InitClass(cx, globalObj, JSB_cpBase_object, JSB_cpConstraint_class, JSB_cpConstraint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpBase_object));
+	JSB_cpConstraint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpConstraint_class, JSB_cpConstraint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -452,7 +453,7 @@ bool JSB_cpGrooveJoint_setGrooveB(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpGrooveJoint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpGrooveJoint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpGrooveJoint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpGrooveJoint_class->name = name;
@@ -481,8 +482,9 @@ void JSB_cpGrooveJoint_createClass(JSContext *cx, JSObject* globalObj, const cha
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpGrooveJoint_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpGrooveJoint_class, JSB_cpGrooveJoint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpGrooveJoint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpGrooveJoint_class, JSB_cpGrooveJoint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -569,7 +571,7 @@ bool JSB_cpSimpleMotor_setRate(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpSimpleMotor_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpSimpleMotor_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpSimpleMotor_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpSimpleMotor_class->name = name;
@@ -594,8 +596,9 @@ void JSB_cpSimpleMotor_createClass(JSContext *cx, JSObject* globalObj, const cha
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpSimpleMotor_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpSimpleMotor_class, JSB_cpSimpleMotor_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpSimpleMotor_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpSimpleMotor_class, JSB_cpSimpleMotor_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -728,7 +731,7 @@ bool JSB_cpPivotJoint_setAnchr2(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpPivotJoint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpPivotJoint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpPivotJoint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpPivotJoint_class->name = name;
@@ -755,8 +758,9 @@ void JSB_cpPivotJoint_createClass(JSContext *cx, JSObject* globalObj, const char
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpPivotJoint_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpPivotJoint_class, JSB_cpPivotJoint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpPivotJoint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpPivotJoint_class, JSB_cpPivotJoint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -920,7 +924,7 @@ bool JSB_cpPinJoint_setDist(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpPinJoint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpPinJoint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpPinJoint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpPinJoint_class->name = name;
@@ -949,8 +953,9 @@ void JSB_cpPinJoint_createClass(JSContext *cx, JSObject* globalObj, const char* 
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpPinJoint_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpPinJoint_class, JSB_cpPinJoint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpPinJoint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpPinJoint_class, JSB_cpPinJoint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -1151,7 +1156,7 @@ bool JSB_cpSlideJoint_setMin(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpSlideJoint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpSlideJoint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpSlideJoint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpSlideJoint_class->name = name;
@@ -1182,8 +1187,9 @@ void JSB_cpSlideJoint_createClass(JSContext *cx, JSObject* globalObj, const char
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpSlideJoint_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpSlideJoint_class, JSB_cpSlideJoint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpSlideJoint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpSlideJoint_class, JSB_cpSlideJoint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -1306,7 +1312,7 @@ bool JSB_cpGearJoint_setRatio(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpGearJoint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpGearJoint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpGearJoint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpGearJoint_class->name = name;
@@ -1333,8 +1339,9 @@ void JSB_cpGearJoint_createClass(JSContext *cx, JSObject* globalObj, const char*
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpGearJoint_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpGearJoint_class, JSB_cpGearJoint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpGearJoint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpGearJoint_class, JSB_cpGearJoint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -1493,7 +1500,7 @@ bool JSB_cpDampedRotarySpring_setStiffness(JSContext *cx, uint32_t argc, jsval *
 	return true;
 }
 
-void JSB_cpDampedRotarySpring_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpDampedRotarySpring_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpDampedRotarySpring_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpDampedRotarySpring_class->name = name;
@@ -1522,8 +1529,9 @@ void JSB_cpDampedRotarySpring_createClass(JSContext *cx, JSObject* globalObj, co
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpDampedRotarySpring_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpDampedRotarySpring_class, JSB_cpDampedRotarySpring_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpDampedRotarySpring_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpDampedRotarySpring_class, JSB_cpDampedRotarySpring_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -1760,7 +1768,7 @@ bool JSB_cpDampedSpring_setStiffness(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpDampedSpring_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpDampedSpring_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpDampedSpring_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpDampedSpring_class->name = name;
@@ -1793,8 +1801,9 @@ void JSB_cpDampedSpring_createClass(JSContext *cx, JSObject* globalObj, const ch
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpDampedSpring_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpDampedSpring_class, JSB_cpDampedSpring_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpDampedSpring_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpDampedSpring_class, JSB_cpDampedSpring_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -1952,7 +1961,7 @@ bool JSB_cpRatchetJoint_setRatchet(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpRatchetJoint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpRatchetJoint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpRatchetJoint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpRatchetJoint_class->name = name;
@@ -1981,8 +1990,9 @@ void JSB_cpRatchetJoint_createClass(JSContext *cx, JSObject* globalObj, const ch
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpRatchetJoint_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpRatchetJoint_class, JSB_cpRatchetJoint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpRatchetJoint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpRatchetJoint_class, JSB_cpRatchetJoint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -2105,7 +2115,7 @@ bool JSB_cpRotaryLimitJoint_setMin(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpRotaryLimitJoint_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpRotaryLimitJoint_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpRotaryLimitJoint_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpRotaryLimitJoint_class->name = name;
@@ -2132,8 +2142,9 @@ void JSB_cpRotaryLimitJoint_createClass(JSContext *cx, JSObject* globalObj, cons
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpRotaryLimitJoint_object = JS_InitClass(cx, globalObj, JSB_cpConstraint_object, JSB_cpRotaryLimitJoint_class, JSB_cpRotaryLimitJoint_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpConstraint_object));
+	JSB_cpRotaryLimitJoint_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpRotaryLimitJoint_class, JSB_cpRotaryLimitJoint_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -2443,7 +2454,7 @@ bool JSB_cpArbiter_totalKE(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpArbiter_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpArbiter_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpArbiter_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpArbiter_class->name = name;
@@ -2483,8 +2494,9 @@ void JSB_cpArbiter_createClass(JSContext *cx, JSObject* globalObj, const char* n
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpArbiter_object = JS_InitClass(cx, globalObj, JSB_cpBase_object, JSB_cpArbiter_class, JSB_cpArbiter_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpBase_object));
+	JSB_cpArbiter_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpArbiter_class, JSB_cpArbiter_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -3202,7 +3214,7 @@ bool JSB_cpSpace_nearestPointQueryNearest(JSContext *cx, uint32_t argc, jsval *v
     return true;
 }
 
-void JSB_cpSpace_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpSpace_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpSpace_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpSpace_class->name = name;
@@ -3270,8 +3282,9 @@ void JSB_cpSpace_createClass(JSContext *cx, JSObject* globalObj, const char* nam
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpSpace_object = JS_InitClass(cx, globalObj, JSB_cpBase_object, JSB_cpSpace_class, JSB_cpSpace_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpBase_object));
+	JSB_cpSpace_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpSpace_class, JSB_cpSpace_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -4074,7 +4087,7 @@ bool JSB_cpBody_world2Local(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpBody_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpBody_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpBody_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpBody_class->name = name;
@@ -4141,8 +4154,9 @@ void JSB_cpBody_createClass(JSContext *cx, JSObject* globalObj, const char* name
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpBody_object = JS_InitClass(cx, globalObj, JSB_cpBase_object, JSB_cpBody_class, JSB_cpBody_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpBase_object));
+	JSB_cpBody_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpBody_class, JSB_cpBody_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -4656,7 +4670,7 @@ static bool js_set_cpShape_bbt(JSContext *cx, JS::HandleObject obj, JS::HandleId
     return true;
 }
 
-void JSB_cpShape_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpShape_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpShape_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpShape_class->name = name;
@@ -4706,8 +4720,9 @@ void JSB_cpShape_createClass(JSContext *cx, JSObject* globalObj, const char* nam
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpShape_object = JS_InitClass(cx, globalObj, JSB_cpBase_object, JSB_cpShape_class, JSB_cpShape_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpBase_object));
+	JSB_cpShape_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpShape_class, JSB_cpShape_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -4792,7 +4807,7 @@ bool JSB_cpCircleShape_getRadius(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpCircleShape_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpCircleShape_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpCircleShape_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpCircleShape_class->name = name;
@@ -4817,8 +4832,9 @@ void JSB_cpCircleShape_createClass(JSContext *cx, JSObject* globalObj, const cha
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpCircleShape_object = JS_InitClass(cx, globalObj, JSB_cpShape_object, JSB_cpCircleShape_class, JSB_cpCircleShape_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpShape_object));
+	JSB_cpCircleShape_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpCircleShape_class, JSB_cpCircleShape_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -4961,7 +4977,7 @@ bool JSB_cpSegmentShape_setNeighbors(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpSegmentShape_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpSegmentShape_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpSegmentShape_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpSegmentShape_class->name = name;
@@ -4989,8 +5005,9 @@ void JSB_cpSegmentShape_createClass(JSContext *cx, JSObject* globalObj, const ch
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpSegmentShape_object = JS_InitClass(cx, globalObj, JSB_cpShape_object, JSB_cpSegmentShape_class, JSB_cpSegmentShape_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpShape_object));
+	JSB_cpSegmentShape_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpSegmentShape_class, JSB_cpSegmentShape_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -5058,7 +5075,7 @@ bool JSB_cpPolyShape_getVert(JSContext *cx, uint32_t argc, jsval *vp) {
 	return true;
 }
 
-void JSB_cpPolyShape_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpPolyShape_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpPolyShape_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpPolyShape_class->name = name;
@@ -5083,8 +5100,9 @@ void JSB_cpPolyShape_createClass(JSContext *cx, JSObject* globalObj, const char*
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpPolyShape_object = JS_InitClass(cx, globalObj, JSB_cpShape_object, JSB_cpPolyShape_class, JSB_cpPolyShape_constructor,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&JSB_cpShape_object));
+	JSB_cpPolyShape_object = JS_InitClass(cx, globalHandle, prototypeHandle, JSB_cpPolyShape_class, JSB_cpPolyShape_constructor,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -5215,7 +5233,7 @@ bool js_set_cpSegmentQueryInfo_n(JSContext *cx, JS::HandleObject obj, JS::Handle
     return true;
 }
 
-void JSB_cpSegmentQueryInfo_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpSegmentQueryInfo_createClass(JSContext *cx, JSObject* global, const char* name)
 {
 	JSB_cpSegmentQueryInfo_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpSegmentQueryInfo_class->name = name;
@@ -5243,8 +5261,8 @@ void JSB_cpSegmentQueryInfo_createClass(JSContext *cx, JSObject* globalObj, cons
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpSegmentQueryInfo_object = JS_InitClass(cx, globalObj, NULL, JSB_cpSegmentQueryInfo_class, NULL,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JSB_cpSegmentQueryInfo_object = JS_InitClass(cx, globalHandle, JS::NullPtr(), JSB_cpSegmentQueryInfo_class, NULL,0,properties,funcs,NULL,st_funcs);
 //	bool found;
 //	JS_SetPropertyAttributes(cx, globalObj, name, JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 }
@@ -5331,7 +5349,7 @@ void JSB_cpNearestPointQueryInfo_finalize(JSFreeOp *fop, JSObject *jsthis)
 	}
 }
 
-void JSB_cpNearestPointQueryInfo_createClass(JSContext *cx, JSObject* globalObj, const char* name )
+void JSB_cpNearestPointQueryInfo_createClass(JSContext *cx, JSObject* global, const char* name)
 {
     JSB_cpNearestPointQueryInfo_class = (JSClass *)calloc(1, sizeof(JSClass));
 	JSB_cpNearestPointQueryInfo_class->name = name;
@@ -5357,7 +5375,7 @@ void JSB_cpNearestPointQueryInfo_createClass(JSContext *cx, JSObject* globalObj,
 	static JSFunctionSpec st_funcs[] = {
 		JS_FS_END
 	};
-
-	JSB_cpNearestPointQueryInfo_object = JS_InitClass(cx, globalObj, NULL, JSB_cpNearestPointQueryInfo_class, NULL,0,properties,funcs,NULL,st_funcs);
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JSB_cpNearestPointQueryInfo_object = JS_InitClass(cx, globalHandle, JS::NullPtr(), JSB_cpNearestPointQueryInfo_class, NULL,0,properties,funcs,NULL,st_funcs);
 }
 #endif // JSB_INCLUDE_CHIPMUNK

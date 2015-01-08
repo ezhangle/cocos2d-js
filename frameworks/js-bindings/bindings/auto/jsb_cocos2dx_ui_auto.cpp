@@ -217,10 +217,10 @@ void js_register_cocos2dx_ui_LayoutParameter(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ui_LayoutParameter_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_ui_LayoutParameter_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_ui_LayoutParameter_class,
 		js_cocos2dx_ui_LayoutParameter_constructor, 0, // constructor
 		properties,
@@ -369,10 +369,11 @@ void js_register_cocos2dx_ui_LinearLayoutParameter(JSContext *cx, JSObject *glob
 		JS_FN("create", js_cocos2dx_ui_LinearLayoutParameter_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_LayoutParameter_prototype));
 	jsb_cocos2d_ui_LinearLayoutParameter_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_LayoutParameter_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_LinearLayoutParameter_class,
 		js_cocos2dx_ui_LinearLayoutParameter_constructor, 0, // constructor
 		properties,
@@ -599,10 +600,11 @@ void js_register_cocos2dx_ui_RelativeLayoutParameter(JSContext *cx, JSObject *gl
 		JS_FN("create", js_cocos2dx_ui_RelativeLayoutParameter_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_LayoutParameter_prototype));
 	jsb_cocos2d_ui_RelativeLayoutParameter_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_LayoutParameter_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_RelativeLayoutParameter_class,
 		js_cocos2dx_ui_RelativeLayoutParameter_constructor, 0, // constructor
 		properties,
@@ -2063,10 +2065,11 @@ void js_register_cocos2dx_ui_Widget(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ui_Widget_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ProtectedNode_prototype));
 	jsb_cocos2d_ui_Widget_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ProtectedNode_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_Widget_class,
 		js_cocos2dx_ui_Widget_constructor, 0, // constructor
 		properties,
@@ -2873,10 +2876,11 @@ void js_register_cocos2dx_ui_Layout(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_Layout_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_Layout_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_Layout_class,
 		js_cocos2dx_ui_Layout_constructor, 0, // constructor
 		properties,
@@ -3748,10 +3752,11 @@ void js_register_cocos2dx_ui_Button(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_Button_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_Button_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_Button_class,
 		js_cocos2dx_ui_Button_constructor, 0, // constructor
 		properties,
@@ -4261,10 +4266,11 @@ void js_register_cocos2dx_ui_CheckBox(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_CheckBox_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_CheckBox_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_CheckBox_class,
 		js_cocos2dx_ui_CheckBox_constructor, 0, // constructor
 		properties,
@@ -4623,10 +4629,11 @@ void js_register_cocos2dx_ui_ImageView(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_ImageView_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_ImageView_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_ImageView_class,
 		js_cocos2dx_ui_ImageView_constructor, 0, // constructor
 		properties,
@@ -5295,10 +5302,11 @@ void js_register_cocos2dx_ui_Text(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_Text_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_Text_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_Text_class,
 		js_cocos2dx_ui_Text_constructor, 0, // constructor
 		properties,
@@ -5584,10 +5592,11 @@ void js_register_cocos2dx_ui_TextAtlas(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_TextAtlas_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_TextAtlas_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_TextAtlas_class,
 		js_cocos2dx_ui_TextAtlas_constructor, 0, // constructor
 		properties,
@@ -5968,10 +5977,11 @@ void js_register_cocos2dx_ui_LoadingBar(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_LoadingBar_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_LoadingBar_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_LoadingBar_class,
 		js_cocos2dx_ui_LoadingBar_constructor, 0, // constructor
 		properties,
@@ -6750,10 +6760,11 @@ void js_register_cocos2dx_ui_ScrollView(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_ScrollView_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Layout_prototype));
 	jsb_cocos2d_ui_ScrollView_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Layout_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_ScrollView_class,
 		js_cocos2dx_ui_ScrollView_constructor, 0, // constructor
 		properties,
@@ -7281,10 +7292,11 @@ void js_register_cocos2dx_ui_ListView(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_ListView_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_ScrollView_prototype));
 	jsb_cocos2d_ui_ListView_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_ScrollView_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_ListView_class,
 		js_cocos2dx_ui_ListView_constructor, 0, // constructor
 		properties,
@@ -7803,10 +7815,11 @@ void js_register_cocos2dx_ui_Slider(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_Slider_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_Slider_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_Slider_class,
 		js_cocos2dx_ui_Slider_constructor, 0, // constructor
 		properties,
@@ -8724,10 +8737,11 @@ void js_register_cocos2dx_ui_TextField(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_TextField_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_TextField_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_TextField_class,
 		js_cocos2dx_ui_TextField_constructor, 0, // constructor
 		properties,
@@ -8980,10 +8994,11 @@ void js_register_cocos2dx_ui_TextBMFont(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_TextBMFont_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_TextBMFont_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_TextBMFont_class,
 		js_cocos2dx_ui_TextBMFont_constructor, 0, // constructor
 		properties,
@@ -9451,10 +9466,11 @@ void js_register_cocos2dx_ui_PageView(JSContext *cx, JSObject *global) {
 		JS_FN("createInstance", js_cocos2dx_ui_PageView_createInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Layout_prototype));
 	jsb_cocos2d_ui_PageView_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Layout_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_PageView_class,
 		js_cocos2dx_ui_PageView_constructor, 0, // constructor
 		properties,
@@ -9642,10 +9658,10 @@ void js_register_cocos2dx_ui_Helper(JSContext *cx, JSObject *global) {
 		JS_FN("seekWidgetByName", js_cocos2dx_ui_Helper_seekWidgetByName, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_ui_Helper_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_ui_Helper_class,
 		empty_constructor, 0,
 		properties,
@@ -9716,6 +9732,8 @@ bool js_cocos2dx_ui_RichElement_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -9773,10 +9791,10 @@ void js_register_cocos2dx_ui_RichElement(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_ui_RichElement_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocos2d_ui_RichElement_class,
 		js_cocos2dx_ui_RichElement_constructor, 0, // constructor
 		properties,
@@ -9888,6 +9906,8 @@ bool js_cocos2dx_ui_RichElementText_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -9950,9 +9970,11 @@ void js_register_cocos2dx_ui_RichElementText(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_RichElement_prototype));
 	jsb_cocos2d_ui_RichElementText_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_RichElement_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_RichElementText_class,
 		js_cocos2dx_ui_RichElementText_constructor, 0, // constructor
 		properties,
@@ -10056,6 +10078,8 @@ bool js_cocos2dx_ui_RichElementImage_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
@@ -10118,9 +10142,11 @@ void js_register_cocos2dx_ui_RichElementImage(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_RichElement_prototype));
 	jsb_cocos2d_ui_RichElementImage_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_RichElement_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_RichElementImage_class,
 		js_cocos2dx_ui_RichElementImage_constructor, 0, // constructor
 		properties,
@@ -10238,6 +10264,8 @@ bool js_cocos2dx_ui_RichElementCustomNode_constructor(JSContext *cx, uint32_t ar
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object

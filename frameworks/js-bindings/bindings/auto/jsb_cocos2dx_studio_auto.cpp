@@ -501,10 +501,10 @@ void js_register_cocos2dx_studio_ActionObject(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_ActionObject_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_ActionObject_class,
 		js_cocos2dx_studio_ActionObject_constructor, 0, // constructor
 		properties,
@@ -758,10 +758,10 @@ void js_register_cocos2dx_studio_ActionManagerEx(JSContext *cx, JSObject *global
 		JS_FN("getInstance", js_cocos2dx_studio_ActionManagerEx_getInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_ActionManagerEx_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_ActionManagerEx_class,
 		empty_constructor, 0,
 		properties,
@@ -909,10 +909,10 @@ void js_register_cocos2dx_studio_BaseData(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_BaseData_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_BaseData_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_BaseData_class,
 		js_cocos2dx_studio_BaseData_constructor, 0, // constructor
 		properties,
@@ -1079,10 +1079,10 @@ void js_register_cocos2dx_studio_MovementData(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_MovementData_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_MovementData_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_MovementData_class,
 		js_cocos2dx_studio_MovementData_constructor, 0, // constructor
 		properties,
@@ -1267,10 +1267,10 @@ void js_register_cocos2dx_studio_AnimationData(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_studio_AnimationData_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_AnimationData_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_AnimationData_class,
 		js_cocos2dx_studio_AnimationData_constructor, 0, // constructor
 		properties,
@@ -1662,10 +1662,10 @@ void js_register_cocos2dx_studio_ProcessBase(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_ProcessBase_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_ProcessBase_class,
 		js_cocos2dx_studio_ProcessBase_constructor, 0, // constructor
 		properties,
@@ -1948,10 +1948,11 @@ void js_register_cocos2dx_studio_Tween(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_Tween_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_ProcessBase_prototype));
 	jsb_cocostudio_Tween_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocostudio_ProcessBase_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_Tween_class,
 		js_cocos2dx_studio_Tween_constructor, 0, // constructor
 		properties,
@@ -2009,10 +2010,10 @@ void js_register_cocos2dx_studio_ColliderFilter(JSContext *cx, JSObject *global)
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_ColliderFilter_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_ColliderFilter_class,
 		empty_constructor, 0,
 		properties,
@@ -2070,10 +2071,10 @@ void js_register_cocos2dx_studio_ColliderBody(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_ColliderBody_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_ColliderBody_class,
 		empty_constructor, 0,
 		properties,
@@ -2377,10 +2378,10 @@ void js_register_cocos2dx_studio_ColliderDetector(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_studio_ColliderDetector_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_ColliderDetector_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_ColliderDetector_class,
 		empty_constructor, 0,
 		properties,
@@ -2638,10 +2639,10 @@ void js_register_cocos2dx_studio_DecorativeDisplay(JSContext *cx, JSObject *glob
 		JS_FN("create", js_cocos2dx_studio_DecorativeDisplay_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_DecorativeDisplay_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_DecorativeDisplay_class,
 		empty_constructor, 0,
 		properties,
@@ -3300,10 +3301,10 @@ void js_register_cocos2dx_studio_DisplayManager(JSContext *cx, JSObject *global)
 		JS_FN("create", js_cocos2dx_studio_DisplayManager_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_DisplayManager_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_DisplayManager_class,
 		js_cocos2dx_studio_DisplayManager_constructor, 0, // constructor
 		properties,
@@ -4199,10 +4200,11 @@ void js_register_cocos2dx_studio_Bone(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_Bone_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocostudio_Bone_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_Bone_class,
 		js_cocos2dx_studio_Bone_constructor, 0, // constructor
 		properties,
@@ -4284,10 +4286,11 @@ void js_register_cocos2dx_studio_BatchNode(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_BatchNode_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocostudio_BatchNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_BatchNode_class,
 		empty_constructor, 0,
 		properties,
@@ -4850,10 +4853,11 @@ void js_register_cocos2dx_studio_ArmatureAnimation(JSContext *cx, JSObject *glob
 		JS_FN("create", js_cocos2dx_studio_ArmatureAnimation_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_ProcessBase_prototype));
 	jsb_cocostudio_ArmatureAnimation_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocostudio_ProcessBase_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_ArmatureAnimation_class,
 		js_cocos2dx_studio_ArmatureAnimation_constructor, 0, // constructor
 		properties,
@@ -5417,10 +5421,10 @@ void js_register_cocos2dx_studio_ArmatureDataManager(JSContext *cx, JSObject *gl
 		JS_FN("getInstance", js_cocos2dx_studio_ArmatureDataManager_getInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_ArmatureDataManager_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_ArmatureDataManager_class,
 		empty_constructor, 0,
 		properties,
@@ -6180,10 +6184,11 @@ void js_register_cocos2dx_studio_Armature(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_Armature_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocostudio_Armature_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_Armature_class,
 		js_cocos2dx_studio_Armature_constructor, 0, // constructor
 		properties,
@@ -6448,10 +6453,11 @@ void js_register_cocos2dx_studio_Skin(JSContext *cx, JSObject *global) {
 		JS_FN("createWithSpriteFrameName", js_cocos2dx_studio_Skin_createWithSpriteFrameName, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Sprite_prototype));
 	jsb_cocostudio_Skin_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Sprite_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_Skin_class,
 		js_cocos2dx_studio_Skin_constructor, 0, // constructor
 		properties,
@@ -6788,10 +6794,11 @@ void js_register_cocos2dx_studio_ComAttribute(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_ComAttribute_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Component_prototype));
 	jsb_cocostudio_ComAttribute_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Component_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_ComAttribute_class,
 		empty_constructor, 0,
 		properties,
@@ -7436,10 +7443,11 @@ void js_register_cocos2dx_studio_ComAudio(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_ComAudio_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Component_prototype));
 	jsb_cocostudio_ComAudio_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Component_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_ComAudio_class,
 		empty_constructor, 0,
 		properties,
@@ -7692,10 +7700,10 @@ void js_register_cocos2dx_studio_InputDelegate(JSContext *cx, JSObject *global) 
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_InputDelegate_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_InputDelegate_class,
 		empty_constructor, 0,
 		properties,
@@ -7822,10 +7830,11 @@ void js_register_cocos2dx_studio_ComController(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_studio_ComController_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Component_prototype));
 	jsb_cocostudio_ComController_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Component_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_ComController_class,
 		js_cocos2dx_studio_ComController_constructor, 0, // constructor
 		properties,
@@ -7994,10 +8003,11 @@ void js_register_cocos2dx_studio_ComRender(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_studio_ComRender_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Component_prototype));
 	jsb_cocostudio_ComRender_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Component_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocostudio_ComRender_class,
 		empty_constructor, 0,
 		properties,
@@ -8212,10 +8222,10 @@ void js_register_cocos2dx_studio_GUIReader(JSContext *cx, JSObject *global) {
 		JS_FN("getInstance", js_cocos2dx_studio_GUIReader_getInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_GUIReader_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_GUIReader_class,
 		empty_constructor, 0,
 		properties,
@@ -8419,10 +8429,10 @@ void js_register_cocos2dx_studio_SceneReader(JSContext *cx, JSObject *global) {
 		JS_FN("getInstance", js_cocos2dx_studio_SceneReader_getInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocostudio_SceneReader_prototype = JS_InitClass(
-		cx, global,
-		NULL, // parent proto
+		cx, globalHandle,
+		JS::NullPtr(), // parent proto
 		jsb_cocostudio_SceneReader_class,
 		empty_constructor, 0,
 		properties,
@@ -8454,7 +8464,7 @@ CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio(JSContext* cx, JSObject*
 	JS::RootedObject ns(cx);
 	JS_GetProperty(cx, obj, "ccs", &nsval);
 	if (nsval == JSVAL_VOID) {
-		ns = JS_NewObject(cx, NULL, NULL, NULL);
+		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
 		JS_SetProperty(cx, obj, "ccs", nsval);
 	} else {

@@ -414,28 +414,28 @@ void register_jsb_socketio(JSContext *cx, JSObject *global) {
     js_cocos2dx_socketio_class->finalize = js_cocos2dx_SocketIO_finalize;
     js_cocos2dx_socketio_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
-	static JSPropertySpec properties[] = {
-		JS_BINDED_PROP_DEF_ACCESSOR(SIOClient, tag),
-		{0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+    static JSPropertySpec properties[] = {
+        JS_BINDED_PROP_DEF_ACCESSOR(SIOClient, tag),
+        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
     };
 
-	static JSFunctionSpec funcs[] = {
-		JS_FN("send", js_cocos2dx_SocketIO_send, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("emit", js_cocos2dx_SocketIO_emit, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("disconnect", js_cocos2dx_SocketIO_disconnect, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("on", js_cocos2dx_SocketIO_on, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+    static JSFunctionSpec funcs[] = {
+        JS_FN("send", js_cocos2dx_SocketIO_send, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("emit", js_cocos2dx_SocketIO_emit, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("disconnect", js_cocos2dx_SocketIO_disconnect, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("on", js_cocos2dx_SocketIO_on, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
     
     static JSFunctionSpec st_funcs[] = {
-		JS_FN("connect", js_cocos2dx_SocketIO_connect, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("close", js_cocos2dx_SocketIO_close, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("connect", js_cocos2dx_SocketIO_connect, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("close", js_cocos2dx_SocketIO_close, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
-
-	js_cocos2dx_socketio_prototype = JS_InitClass(
-												cx, global,
-                                                NULL,
+    JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+    js_cocos2dx_socketio_prototype = JS_InitClass(
+                                                cx, globalHandle,
+                                                JS::NullPtr(),
                                                 js_cocos2dx_socketio_class,
                                                 js_cocos2dx_SocketIO_constructor, 0, // constructor
                                                 properties,

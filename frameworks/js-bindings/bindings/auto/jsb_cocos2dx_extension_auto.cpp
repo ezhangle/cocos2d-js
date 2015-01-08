@@ -372,10 +372,11 @@ void js_register_cocos2dx_extension_Control(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_extension_Control_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Layer_prototype));
 	jsb_cocos2d_extension_Control_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Layer_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_Control_class,
 		js_cocos2dx_extension_Control_constructor, 0, // constructor
 		properties,
@@ -1494,10 +1495,11 @@ void js_register_cocos2dx_extension_Scale9Sprite(JSContext *cx, JSObject *global
 		JS_FN("createWithSpriteFrame", js_cocos2dx_extension_Scale9Sprite_createWithSpriteFrame, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_ui_Scale9Sprite_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_Scale9Sprite_class,
 		js_cocos2dx_extension_Scale9Sprite_constructor, 0, // constructor
 		properties,
@@ -2704,10 +2706,11 @@ void js_register_cocos2dx_extension_ControlButton(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_extension_ControlButton_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlButton_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlButton_class,
 		js_cocos2dx_extension_ControlButton_constructor, 0, // constructor
 		properties,
@@ -3086,10 +3089,11 @@ void js_register_cocos2dx_extension_ControlHuePicker(JSContext *cx, JSObject *gl
 		JS_FN("create", js_cocos2dx_extension_ControlHuePicker_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlHuePicker_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlHuePicker_class,
 		js_cocos2dx_extension_ControlHuePicker_constructor, 0, // constructor
 		properties,
@@ -3420,10 +3424,11 @@ void js_register_cocos2dx_extension_ControlSaturationBrightnessPicker(JSContext 
 		JS_FN("create", js_cocos2dx_extension_ControlSaturationBrightnessPicker_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlSaturationBrightnessPicker_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlSaturationBrightnessPicker_class,
 		js_cocos2dx_extension_ControlSaturationBrightnessPicker_constructor, 0, // constructor
 		properties,
@@ -3811,10 +3816,11 @@ void js_register_cocos2dx_extension_ControlColourPicker(JSContext *cx, JSObject 
 		JS_FN("create", js_cocos2dx_extension_ControlColourPicker_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlColourPicker_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlColourPicker_class,
 		js_cocos2dx_extension_ControlColourPicker_constructor, 0, // constructor
 		properties,
@@ -4377,10 +4383,11 @@ void js_register_cocos2dx_extension_ControlPotentiometer(JSContext *cx, JSObject
 		JS_FN("create", js_cocos2dx_extension_ControlPotentiometer_create, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlPotentiometer_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlPotentiometer_class,
 		js_cocos2dx_extension_ControlPotentiometer_constructor, 0, // constructor
 		properties,
@@ -5262,10 +5269,11 @@ void js_register_cocos2dx_extension_ControlSlider(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_extension_ControlSlider_create, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlSlider_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlSlider_class,
 		js_cocos2dx_extension_ControlSlider_constructor, 0, // constructor
 		properties,
@@ -5902,10 +5910,11 @@ void js_register_cocos2dx_extension_ControlStepper(JSContext *cx, JSObject *glob
 		JS_FN("create", js_cocos2dx_extension_ControlStepper_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlStepper_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlStepper_class,
 		js_cocos2dx_extension_ControlStepper_constructor, 0, // constructor
 		properties,
@@ -6412,10 +6421,11 @@ void js_register_cocos2dx_extension_ControlSwitch(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_extension_ControlSwitch_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
 	jsb_cocos2d_extension_ControlSwitch_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_Control_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ControlSwitch_class,
 		js_cocos2dx_extension_ControlSwitch_constructor, 0, // constructor
 		properties,
@@ -7312,10 +7322,11 @@ void js_register_cocos2dx_extension_ScrollView(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_extension_ScrollView_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Layer_prototype));
 	jsb_cocos2d_extension_ScrollView_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Layer_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_ScrollView_class,
 		js_cocos2dx_extension_ScrollView_constructor, 0, // constructor
 		properties,
@@ -7497,10 +7508,11 @@ void js_register_cocos2dx_extension_TableViewCell(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_extension_TableViewCell_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_extension_TableViewCell_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_TableViewCell_class,
 		js_cocos2dx_extension_TableViewCell_constructor, 0, // constructor
 		properties,
@@ -7891,10 +7903,11 @@ void js_register_cocos2dx_extension_TableView(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_ScrollView_prototype));
 	jsb_cocos2d_extension_TableView_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_extension_ScrollView_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_TableView_class,
 		js_cocos2dx_extension_TableView_constructor, 0, // constructor
 		properties,
@@ -8333,10 +8346,11 @@ void js_register_cocos2dx_extension_AssetsManager(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_extension_AssetsManager_create, 6, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_extension_AssetsManager_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_extension_AssetsManager_class,
 		js_cocos2dx_extension_AssetsManager_constructor, 0, // constructor
 		properties,
@@ -9024,10 +9038,11 @@ void js_register_cocos2dx_extension_EditBox(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_extension_EditBox_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject prototypeHandle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ui_Widget_prototype));
 	jsb_cocos2d_ui_EditBox_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ui_Widget_prototype,
+		cx, globalHandle,
+		prototypeHandle,
 		jsb_cocos2d_ui_EditBox_class,
 		js_cocos2dx_extension_EditBox_constructor, 0, // constructor
 		properties,
