@@ -210,12 +210,12 @@ static std::string getMouseFuncName(EventMouse::MouseEventType eventType)
     return funcName;
 }
 
-static void rootObject(JSContext *cx, JSObject *obj) {
+static void rootObject(JSContext *cx, JS::Heap<JSObject*> obj) {
     AddNamedObjectRoot(cx, &obj, "unnamed");
 }
 
 
-static void unRootObject(JSContext *cx, JSObject *obj) {
+static void unRootObject(JSContext *cx, JS::Heap<JSObject*> obj) {
     RemoveObjectRoot(cx, &obj);
 }
 
@@ -851,7 +851,7 @@ bool ScriptingCore::dumpRoot(JSContext *cx, uint32_t argc, jsval *vp)
 bool ScriptingCore::addRootJS(JSContext *cx, uint32_t argc, jsval *vp)
 {
     if (argc == 1) {
-        JSObject *o = NULL;
+        JS::Heap<JSObject*> o;
         if (JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "o", &o) == true) {
             if (AddNamedObjectRoot(cx, &o, "from-js") == false) {
                 LOGD("something went wrong when setting an object to the root");
@@ -1062,8 +1062,8 @@ bool ScriptingCore::handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::Eve
     
     std::string funcName = getTouchesFuncName(eventCode);
 
-    JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
-    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
+    JS::Heap<JSObject*> jsretArr(JS_NewArrayObject(this->_cx, 0));
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(jsretArr.address()));
 
     AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
@@ -1071,8 +1071,7 @@ bool ScriptingCore::handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::Eve
     for (const auto& touch : touches)
     {
         JS::RootedValue jsret(_cx, getJSObject(this->_cx, touch));
-        JS::HandleValue jsretHandle(jsret);
-        if (!JS_SetElement(this->_cx, jsretArrHandle, count, jsretHandle))
+        if (!JS_SetElement(this->_cx, jsretArrHandle, count, jsret))
         {
             break;
         }
@@ -1288,8 +1287,8 @@ int ScriptingCore::executeCustomTouchesEvent(EventTouch::EventCode eventType,
     jsval retval;
     std::string funcName = getTouchesFuncName(eventType);
 
-    JSObject *jsretArr = JS_NewArrayObject(this->_cx, 0);
-    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
+    JS::Heap<JSObject*> jsretArr(JS_NewArrayObject(this->_cx, 0));
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(jsretArr.address()));
     AddNamedObjectRoot(this->_cx, &jsretArr, "touchArray");
     int count = 0;
     for (auto& touch : touches)

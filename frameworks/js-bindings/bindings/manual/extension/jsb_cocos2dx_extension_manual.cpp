@@ -81,7 +81,7 @@ public:
         }
     }
 private:
-    JSObject* _JSDelegate;
+    JS::Heap<JSObject*> _JSDelegate;
     bool _needUnroot;
 };
 
@@ -205,7 +205,7 @@ private:
         ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), jsFunctionName.c_str(), 2, args, NULL);
     }
     
-    JSObject* _JSDelegate;
+    JS::Heap<JSObject*> _JSDelegate;
     bool _needUnroot;
 };
 
@@ -401,7 +401,7 @@ private:
     }
     
 private:
-    JSObject* _JSTableViewDataSource;
+    JS::Heap<JSObject*> _JSTableViewDataSource;
     bool _needUnroot;
 };
 
@@ -742,10 +742,10 @@ public:
 public:
     
     static std::multimap<JSObject*, JSB_ControlButtonTarget*> _jsNativeTargetMap;
-    JSObject* _jsFunc;
+    JS::Heap<JSObject*> _jsFunc;
     Control::EventType _type;
 private:
-    JSObject* _jsTarget;
+    JS::Heap<JSObject*> _jsTarget;
     bool _needUnroot;
 };
 

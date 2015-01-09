@@ -41,8 +41,8 @@ public:
 	const jsval& getJSCallbackFunc() const;
 	
 private:
-	jsval _jsCallback;
-    jsval _extraData;
+    JS::Heap<JS::Value> _jsCallback;
+    JS::Heap<JS::Value> _extraData;
 
 };
 

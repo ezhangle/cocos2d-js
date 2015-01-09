@@ -64,7 +64,7 @@ public:
 private:
     JSContext *_cx;
     JS::Heap<JSObject*> _jsthis;
-    jsval _fval;
+    JS::Heap<JS::Value> _fval;
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(JSFunctionWrapper);
 };
@@ -273,7 +273,8 @@ template <class T>
 jsval ccvector_to_jsval(JSContext* cx, const cocos2d::Vector<T>& v)
 {
     JSObject *jsretArr = JS_NewArrayObject(cx, 0);
-    
+    JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
+
     int i = 0;
     for (const auto& obj : v)
     {
@@ -285,7 +286,7 @@ jsval ccvector_to_jsval(JSContext* cx, const cocos2d::Vector<T>& v)
             arrElement = OBJECT_TO_JSVAL(jsproxy->obj);
         }
 
-        if (!JS_SetElement(cx, jsretArr, i, &arrElement)) {
+        if (!JS_SetElement(cx, jsretArrHandle, i, arrElement)) {
             break;
         }
         ++i;
@@ -296,7 +297,7 @@ jsval ccvector_to_jsval(JSContext* cx, const cocos2d::Vector<T>& v)
 template <class T>
 jsval ccmap_string_key_to_jsval(JSContext* cx, const cocos2d::Map<std::string, T>& v)
 {
-    JSObject* jsRet = JS_NewObject(cx, NULL, JS::NullPtr(), NULL);
+    JSObject* jsRet = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
     JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     for (auto iter = v.begin(); iter != v.end(); ++iter)
     {

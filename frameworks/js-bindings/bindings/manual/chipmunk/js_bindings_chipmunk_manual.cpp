@@ -724,15 +724,15 @@ bool jsval_to_array_of_cpvect( JSContext *cx, jsval vp, cpVect**verts, int *numV
 #pragma mark - Collision Handler
 
 struct collision_handler {
-	cpCollisionType		typeA;
-	cpCollisionType		typeB;
+	cpCollisionType     typeA;
+	cpCollisionType     typeB;
 	
-	JSObject			*begin;
-	JSObject			*pre;
-	JSObject			*post;
-	JSObject			*separate;
-	JSObject			*jsthis;
-	JSContext			*cx;
+	JS::Heap<JSObject*> begin;
+	JS::Heap<JSObject*> pre;
+	JS::Heap<JSObject*> post;
+	JS::Heap<JSObject*> separate;
+	JS::Heap<JSObject*> jsthis;
+	JSContext           *cx;
 
 	// "owner" of the collision handler
 	// Needed when the space goes out of scope, it will remove all the allocated collision handlers for him.
