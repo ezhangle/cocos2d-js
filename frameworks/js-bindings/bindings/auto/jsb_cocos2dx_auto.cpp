@@ -8,10 +8,11 @@ using namespace JS;
 
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
-    JS::RootedValue initializing(cx);
-    bool isNewValid = true;
-    JSObject* global = ScriptingCore::getInstance()->getGlobalObject();
-	isNewValid = JS_GetProperty(cx, global, "initializing", &initializing) && initializing.toBoolean();
+	JS::RootedValue initializing(cx);
+	bool isNewValid = true;
+	JSObject* global = ScriptingCore::getInstance()->getGlobalObject();
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	isNewValid = JS_GetProperty(cx, globalHandle, "initializing", &initializing) && initializing.toBoolean();
 	if (isNewValid)
 	{
 		TypeTest<T> t;
@@ -21,7 +22,8 @@ static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 		CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
 		typeClass = typeMapIter->second;
 		CCASSERT(typeClass, "The value is null.");
-
+		JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+		JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
 		JSObject *_tmp = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
 		return true;
@@ -13899,9 +13901,9 @@ void js_register_cocos2dx_Animation(JSContext *cx, JSObject *global) {
 		JS_FN("createWithSpriteFrames", js_cocos2dx_Animation_createWithSpriteFrames, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Animation_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Animation_class,
 		js_cocos2dx_Animation_constructor, 0, // constructor
@@ -14041,10 +14043,11 @@ void js_register_cocos2dx_ActionInterval(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FiniteTimeAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FiniteTimeAction_prototype));
 	jsb_cocos2d_ActionInterval_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FiniteTimeAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FiniteTimeAction_prototype_handle,
 		jsb_cocos2d_ActionInterval_class,
 		empty_constructor, 0,
 		properties,
@@ -14127,7 +14130,10 @@ bool js_cocos2dx_Sequence_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -14168,10 +14174,11 @@ void js_register_cocos2dx_Sequence(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_Sequence_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_Sequence_class,
 		js_cocos2dx_Sequence_constructor, 0, // constructor
 		properties,
@@ -14332,7 +14339,10 @@ bool js_cocos2dx_Repeat_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -14378,10 +14388,11 @@ void js_register_cocos2dx_Repeat(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Repeat_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_Repeat_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_Repeat_class,
 		js_cocos2dx_Repeat_constructor, 0, // constructor
 		properties,
@@ -14538,7 +14549,10 @@ bool js_cocos2dx_RepeatForever_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -14584,10 +14598,11 @@ void js_register_cocos2dx_RepeatForever(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_RepeatForever_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_RepeatForever_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_RepeatForever_class,
 		js_cocos2dx_RepeatForever_constructor, 0, // constructor
 		properties,
@@ -14670,7 +14685,10 @@ bool js_cocos2dx_Spawn_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -14711,10 +14729,11 @@ void js_register_cocos2dx_Spawn(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_Spawn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_Spawn_class,
 		js_cocos2dx_Spawn_constructor, 0, // constructor
 		properties,
@@ -14887,7 +14906,10 @@ bool js_cocos2dx_RotateTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -14931,10 +14953,11 @@ void js_register_cocos2dx_RotateTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_RotateTo_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_RotateTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_RotateTo_class,
 		js_cocos2dx_RotateTo_constructor, 0, // constructor
 		properties,
@@ -15123,7 +15146,10 @@ bool js_cocos2dx_RotateBy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -15167,10 +15193,11 @@ void js_register_cocos2dx_RotateBy(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_RotateBy_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_RotateBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_RotateBy_class,
 		js_cocos2dx_RotateBy_constructor, 0, // constructor
 		properties,
@@ -15266,7 +15293,10 @@ bool js_cocos2dx_MoveBy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -15310,10 +15340,11 @@ void js_register_cocos2dx_MoveBy(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_MoveBy_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_MoveBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_MoveBy_class,
 		js_cocos2dx_MoveBy_constructor, 0, // constructor
 		properties,
@@ -15409,7 +15440,10 @@ bool js_cocos2dx_MoveTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -15453,10 +15487,11 @@ void js_register_cocos2dx_MoveTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_MoveTo_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_MoveBy_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_MoveBy_prototype));
 	jsb_cocos2d_MoveTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_MoveBy_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_MoveBy_prototype_handle,
 		jsb_cocos2d_MoveTo_class,
 		js_cocos2dx_MoveTo_constructor, 0, // constructor
 		properties,
@@ -15556,7 +15591,10 @@ bool js_cocos2dx_SkewTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -15600,10 +15638,11 @@ void js_register_cocos2dx_SkewTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_SkewTo_create, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_SkewTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_SkewTo_class,
 		js_cocos2dx_SkewTo_constructor, 0, // constructor
 		properties,
@@ -15703,7 +15742,10 @@ bool js_cocos2dx_SkewBy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -15747,10 +15789,11 @@ void js_register_cocos2dx_SkewBy(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_SkewBy_create, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_SkewTo_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_SkewTo_prototype));
 	jsb_cocos2d_SkewBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_SkewTo_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_SkewTo_prototype_handle,
 		jsb_cocos2d_SkewBy_class,
 		js_cocos2dx_SkewBy_constructor, 0, // constructor
 		properties,
@@ -15854,7 +15897,10 @@ bool js_cocos2dx_JumpBy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -15898,10 +15944,11 @@ void js_register_cocos2dx_JumpBy(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_JumpBy_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_JumpBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_JumpBy_class,
 		js_cocos2dx_JumpBy_constructor, 0, // constructor
 		properties,
@@ -15977,7 +16024,10 @@ bool js_cocos2dx_JumpTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -16020,10 +16070,11 @@ void js_register_cocos2dx_JumpTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_JumpTo_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_JumpBy_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_JumpBy_prototype));
 	jsb_cocos2d_JumpTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_JumpBy_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_JumpBy_prototype_handle,
 		jsb_cocos2d_JumpTo_class,
 		js_cocos2dx_JumpTo_constructor, 0, // constructor
 		properties,
@@ -16068,7 +16119,10 @@ bool js_cocos2dx_BezierBy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -16108,10 +16162,11 @@ void js_register_cocos2dx_BezierBy(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_BezierBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_BezierBy_class,
 		js_cocos2dx_BezierBy_constructor, 0, // constructor
 		properties,
@@ -16156,7 +16211,10 @@ bool js_cocos2dx_BezierTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -16196,10 +16254,11 @@ void js_register_cocos2dx_BezierTo(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_BezierBy_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_BezierBy_prototype));
 	jsb_cocos2d_BezierTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_BezierBy_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_BezierBy_prototype_handle,
 		jsb_cocos2d_BezierTo_class,
 		js_cocos2dx_BezierTo_constructor, 0, // constructor
 		properties,
@@ -16400,7 +16459,10 @@ bool js_cocos2dx_ScaleTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -16444,10 +16506,11 @@ void js_register_cocos2dx_ScaleTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ScaleTo_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_ScaleTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_ScaleTo_class,
 		js_cocos2dx_ScaleTo_constructor, 0, // constructor
 		properties,
@@ -16577,7 +16640,10 @@ bool js_cocos2dx_ScaleBy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -16620,10 +16686,11 @@ void js_register_cocos2dx_ScaleBy(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ScaleBy_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ScaleTo_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ScaleTo_prototype));
 	jsb_cocos2d_ScaleBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ScaleTo_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ScaleTo_prototype_handle,
 		jsb_cocos2d_ScaleBy_class,
 		js_cocos2dx_ScaleBy_constructor, 0, // constructor
 		properties,
@@ -16719,7 +16786,10 @@ bool js_cocos2dx_Blink_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -16763,10 +16833,11 @@ void js_register_cocos2dx_Blink(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Blink_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_Blink_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_Blink_class,
 		js_cocos2dx_Blink_constructor, 0, // constructor
 		properties,
@@ -16862,7 +16933,10 @@ bool js_cocos2dx_FadeTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -16906,10 +16980,11 @@ void js_register_cocos2dx_FadeTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FadeTo_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_FadeTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_FadeTo_class,
 		js_cocos2dx_FadeTo_constructor, 0, // constructor
 		properties,
@@ -17006,7 +17081,10 @@ bool js_cocos2dx_FadeIn_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -17050,10 +17128,11 @@ void js_register_cocos2dx_FadeIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FadeIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FadeTo_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FadeTo_prototype));
 	jsb_cocos2d_FadeIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FadeTo_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FadeTo_prototype_handle,
 		jsb_cocos2d_FadeIn_class,
 		js_cocos2dx_FadeIn_constructor, 0, // constructor
 		properties,
@@ -17150,7 +17229,10 @@ bool js_cocos2dx_FadeOut_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -17194,10 +17276,11 @@ void js_register_cocos2dx_FadeOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FadeOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FadeTo_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FadeTo_prototype));
 	jsb_cocos2d_FadeOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FadeTo_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FadeTo_prototype_handle,
 		jsb_cocos2d_FadeOut_class,
 		js_cocos2dx_FadeOut_constructor, 0, // constructor
 		properties,
@@ -17301,7 +17384,10 @@ bool js_cocos2dx_TintTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -17345,10 +17431,11 @@ void js_register_cocos2dx_TintTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TintTo_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_TintTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_TintTo_class,
 		js_cocos2dx_TintTo_constructor, 0, // constructor
 		properties,
@@ -17452,7 +17539,10 @@ bool js_cocos2dx_TintBy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -17496,10 +17586,11 @@ void js_register_cocos2dx_TintBy(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TintBy_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_TintBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_TintBy_class,
 		js_cocos2dx_TintBy_constructor, 0, // constructor
 		properties,
@@ -17569,7 +17660,10 @@ bool js_cocos2dx_DelayTime_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -17612,10 +17706,11 @@ void js_register_cocos2dx_DelayTime(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_DelayTime_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_DelayTime_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_DelayTime_class,
 		js_cocos2dx_DelayTime_constructor, 0, // constructor
 		properties,
@@ -17721,7 +17816,10 @@ bool js_cocos2dx_ReverseTime_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -17765,10 +17863,11 @@ void js_register_cocos2dx_ReverseTime(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ReverseTime_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_ReverseTime_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_ReverseTime_class,
 		js_cocos2dx_ReverseTime_constructor, 0, // constructor
 		properties,
@@ -17949,7 +18048,10 @@ bool js_cocos2dx_Animate_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -17995,10 +18097,11 @@ void js_register_cocos2dx_Animate(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Animate_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_Animate_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_Animate_class,
 		js_cocos2dx_Animate_constructor, 0, // constructor
 		properties,
@@ -18197,7 +18300,10 @@ bool js_cocos2dx_TargetedAction_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -18217,7 +18323,8 @@ void js_cocos2d_TargetedAction_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TargetedAction_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TargetedAction *nobj = new (std::nothrow) cocos2d::TargetedAction();
     if (nobj) {
         nobj->autorelease();
@@ -18260,10 +18367,11 @@ void js_register_cocos2dx_TargetedAction(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TargetedAction_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_TargetedAction_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_TargetedAction_class,
 		js_cocos2dx_TargetedAction_constructor, 0, // constructor
 		properties,
@@ -18441,7 +18549,10 @@ bool js_cocos2dx_ActionCamera_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -18461,7 +18572,8 @@ void js_cocos2d_ActionCamera_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ActionCamera_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ActionCamera *nobj = new (std::nothrow) cocos2d::ActionCamera();
     if (nobj) {
         nobj->autorelease();
@@ -18504,10 +18616,11 @@ void js_register_cocos2dx_ActionCamera(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_ActionCamera_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_ActionCamera_class,
 		js_cocos2dx_ActionCamera_constructor, 0, // constructor
 		properties,
@@ -18650,7 +18763,10 @@ bool js_cocos2dx_OrbitCamera_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -18695,10 +18811,11 @@ void js_register_cocos2dx_OrbitCamera(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_OrbitCamera_create, 7, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionCamera_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionCamera_prototype));
 	jsb_cocos2d_OrbitCamera_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionCamera_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionCamera_prototype_handle,
 		jsb_cocos2d_OrbitCamera_class,
 		js_cocos2dx_OrbitCamera_constructor, 0, // constructor
 		properties,
@@ -19086,7 +19203,10 @@ bool js_cocos2dx_ActionManager_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -19105,7 +19225,8 @@ void js_cocos2d_ActionManager_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ActionManager_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ActionManager *nobj = new (std::nothrow) cocos2d::ActionManager();
     if (nobj) {
         nobj->autorelease();
@@ -19155,9 +19276,9 @@ void js_register_cocos2dx_ActionManager(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_ActionManager_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_ActionManager_class,
 		js_cocos2dx_ActionManager_constructor, 0, // constructor
@@ -19272,10 +19393,11 @@ void js_register_cocos2dx_ActionEase(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_ActionEase_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_ActionEase_class,
 		empty_constructor, 0,
 		properties,
@@ -19405,10 +19527,11 @@ void js_register_cocos2dx_EaseRateAction(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseRateAction_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseRateAction_class,
 		empty_constructor, 0,
 		properties,
@@ -19487,7 +19610,10 @@ bool js_cocos2dx_EaseIn_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -19530,10 +19656,11 @@ void js_register_cocos2dx_EaseIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseIn_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseRateAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseRateAction_prototype));
 	jsb_cocos2d_EaseIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseRateAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseRateAction_prototype_handle,
 		jsb_cocos2d_EaseIn_class,
 		js_cocos2dx_EaseIn_constructor, 0, // constructor
 		properties,
@@ -19612,7 +19739,10 @@ bool js_cocos2dx_EaseOut_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -19655,10 +19785,11 @@ void js_register_cocos2dx_EaseOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseOut_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseRateAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseRateAction_prototype));
 	jsb_cocos2d_EaseOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseRateAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseRateAction_prototype_handle,
 		jsb_cocos2d_EaseOut_class,
 		js_cocos2dx_EaseOut_constructor, 0, // constructor
 		properties,
@@ -19737,7 +19868,10 @@ bool js_cocos2dx_EaseInOut_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -19780,10 +19914,11 @@ void js_register_cocos2dx_EaseInOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseInOut_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseRateAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseRateAction_prototype));
 	jsb_cocos2d_EaseInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseRateAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseRateAction_prototype_handle,
 		jsb_cocos2d_EaseInOut_class,
 		js_cocos2dx_EaseInOut_constructor, 0, // constructor
 		properties,
@@ -19860,7 +19995,10 @@ bool js_cocos2dx_EaseExponentialIn_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -19903,10 +20041,11 @@ void js_register_cocos2dx_EaseExponentialIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseExponentialIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseExponentialIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseExponentialIn_class,
 		js_cocos2dx_EaseExponentialIn_constructor, 0, // constructor
 		properties,
@@ -19983,7 +20122,10 @@ bool js_cocos2dx_EaseExponentialOut_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -20026,10 +20168,11 @@ void js_register_cocos2dx_EaseExponentialOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseExponentialOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseExponentialOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseExponentialOut_class,
 		js_cocos2dx_EaseExponentialOut_constructor, 0, // constructor
 		properties,
@@ -20106,7 +20249,10 @@ bool js_cocos2dx_EaseExponentialInOut_constructor(JSContext *cx, uint32_t argc, 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -20149,10 +20295,11 @@ void js_register_cocos2dx_EaseExponentialInOut(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_EaseExponentialInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseExponentialInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseExponentialInOut_class,
 		js_cocos2dx_EaseExponentialInOut_constructor, 0, // constructor
 		properties,
@@ -20229,7 +20376,10 @@ bool js_cocos2dx_EaseSineIn_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -20272,10 +20422,11 @@ void js_register_cocos2dx_EaseSineIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseSineIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseSineIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseSineIn_class,
 		js_cocos2dx_EaseSineIn_constructor, 0, // constructor
 		properties,
@@ -20352,7 +20503,10 @@ bool js_cocos2dx_EaseSineOut_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -20395,10 +20549,11 @@ void js_register_cocos2dx_EaseSineOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseSineOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseSineOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseSineOut_class,
 		js_cocos2dx_EaseSineOut_constructor, 0, // constructor
 		properties,
@@ -20475,7 +20630,10 @@ bool js_cocos2dx_EaseSineInOut_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -20518,10 +20676,11 @@ void js_register_cocos2dx_EaseSineInOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseSineInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseSineInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseSineInOut_class,
 		js_cocos2dx_EaseSineInOut_constructor, 0, // constructor
 		properties,
@@ -20668,10 +20827,11 @@ void js_register_cocos2dx_EaseElastic(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseElastic_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseElastic_class,
 		empty_constructor, 0,
 		properties,
@@ -20780,7 +20940,10 @@ bool js_cocos2dx_EaseElasticIn_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -20823,10 +20986,11 @@ void js_register_cocos2dx_EaseElasticIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseElasticIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseElastic_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseElastic_prototype));
 	jsb_cocos2d_EaseElasticIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseElastic_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseElastic_prototype_handle,
 		jsb_cocos2d_EaseElasticIn_class,
 		js_cocos2dx_EaseElasticIn_constructor, 0, // constructor
 		properties,
@@ -20935,7 +21099,10 @@ bool js_cocos2dx_EaseElasticOut_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -20978,10 +21145,11 @@ void js_register_cocos2dx_EaseElasticOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseElasticOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseElastic_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseElastic_prototype));
 	jsb_cocos2d_EaseElasticOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseElastic_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseElastic_prototype_handle,
 		jsb_cocos2d_EaseElasticOut_class,
 		js_cocos2dx_EaseElasticOut_constructor, 0, // constructor
 		properties,
@@ -21090,7 +21258,10 @@ bool js_cocos2dx_EaseElasticInOut_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -21133,10 +21304,11 @@ void js_register_cocos2dx_EaseElasticInOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseElasticInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseElastic_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseElastic_prototype));
 	jsb_cocos2d_EaseElasticInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseElastic_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseElastic_prototype_handle,
 		jsb_cocos2d_EaseElasticInOut_class,
 		js_cocos2dx_EaseElasticInOut_constructor, 0, // constructor
 		properties,
@@ -21195,10 +21367,11 @@ void js_register_cocos2dx_EaseBounce(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseBounce_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseBounce_class,
 		empty_constructor, 0,
 		properties,
@@ -21275,7 +21448,10 @@ bool js_cocos2dx_EaseBounceIn_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -21318,10 +21494,11 @@ void js_register_cocos2dx_EaseBounceIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseBounceIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseBounce_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseBounce_prototype));
 	jsb_cocos2d_EaseBounceIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseBounce_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseBounce_prototype_handle,
 		jsb_cocos2d_EaseBounceIn_class,
 		js_cocos2dx_EaseBounceIn_constructor, 0, // constructor
 		properties,
@@ -21398,7 +21575,10 @@ bool js_cocos2dx_EaseBounceOut_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -21441,10 +21621,11 @@ void js_register_cocos2dx_EaseBounceOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseBounceOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseBounce_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseBounce_prototype));
 	jsb_cocos2d_EaseBounceOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseBounce_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseBounce_prototype_handle,
 		jsb_cocos2d_EaseBounceOut_class,
 		js_cocos2dx_EaseBounceOut_constructor, 0, // constructor
 		properties,
@@ -21521,7 +21702,10 @@ bool js_cocos2dx_EaseBounceInOut_constructor(JSContext *cx, uint32_t argc, jsval
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -21564,10 +21748,11 @@ void js_register_cocos2dx_EaseBounceInOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseBounceInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_EaseBounce_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_EaseBounce_prototype));
 	jsb_cocos2d_EaseBounceInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_EaseBounce_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_EaseBounce_prototype_handle,
 		jsb_cocos2d_EaseBounceInOut_class,
 		js_cocos2dx_EaseBounceInOut_constructor, 0, // constructor
 		properties,
@@ -21644,7 +21829,10 @@ bool js_cocos2dx_EaseBackIn_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -21687,10 +21875,11 @@ void js_register_cocos2dx_EaseBackIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseBackIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseBackIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseBackIn_class,
 		js_cocos2dx_EaseBackIn_constructor, 0, // constructor
 		properties,
@@ -21767,7 +21956,10 @@ bool js_cocos2dx_EaseBackOut_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -21810,10 +22002,11 @@ void js_register_cocos2dx_EaseBackOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseBackOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseBackOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseBackOut_class,
 		js_cocos2dx_EaseBackOut_constructor, 0, // constructor
 		properties,
@@ -21890,7 +22083,10 @@ bool js_cocos2dx_EaseBackInOut_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -21933,10 +22129,11 @@ void js_register_cocos2dx_EaseBackInOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseBackInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseBackInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseBackInOut_class,
 		js_cocos2dx_EaseBackInOut_constructor, 0, // constructor
 		properties,
@@ -22039,7 +22236,10 @@ bool js_cocos2dx_EaseBezierAction_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -22059,7 +22259,8 @@ void js_cocos2d_EaseBezierAction_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseBezierAction_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseBezierAction *nobj = new (std::nothrow) cocos2d::EaseBezierAction();
     if (nobj) {
         nobj->autorelease();
@@ -22100,10 +22301,11 @@ void js_register_cocos2dx_EaseBezierAction(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseBezierAction_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseBezierAction_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseBezierAction_class,
 		js_cocos2dx_EaseBezierAction_constructor, 0, // constructor
 		properties,
@@ -22180,7 +22382,10 @@ bool js_cocos2dx_EaseQuadraticActionIn_constructor(JSContext *cx, uint32_t argc,
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -22200,7 +22405,8 @@ void js_cocos2d_EaseQuadraticActionIn_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuadraticActionIn_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuadraticActionIn *nobj = new (std::nothrow) cocos2d::EaseQuadraticActionIn();
     if (nobj) {
         nobj->autorelease();
@@ -22240,10 +22446,11 @@ void js_register_cocos2dx_EaseQuadraticActionIn(JSContext *cx, JSObject *global)
 		JS_FN("create", js_cocos2dx_EaseQuadraticActionIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuadraticActionIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuadraticActionIn_class,
 		js_cocos2dx_EaseQuadraticActionIn_constructor, 0, // constructor
 		properties,
@@ -22320,7 +22527,10 @@ bool js_cocos2dx_EaseQuadraticActionOut_constructor(JSContext *cx, uint32_t argc
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -22340,7 +22550,8 @@ void js_cocos2d_EaseQuadraticActionOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuadraticActionOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuadraticActionOut *nobj = new (std::nothrow) cocos2d::EaseQuadraticActionOut();
     if (nobj) {
         nobj->autorelease();
@@ -22380,10 +22591,11 @@ void js_register_cocos2dx_EaseQuadraticActionOut(JSContext *cx, JSObject *global
 		JS_FN("create", js_cocos2dx_EaseQuadraticActionOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuadraticActionOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuadraticActionOut_class,
 		js_cocos2dx_EaseQuadraticActionOut_constructor, 0, // constructor
 		properties,
@@ -22460,7 +22672,10 @@ bool js_cocos2dx_EaseQuadraticActionInOut_constructor(JSContext *cx, uint32_t ar
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -22480,7 +22695,8 @@ void js_cocos2d_EaseQuadraticActionInOut_finalize(JSFreeOp *fop, JSObject *obj) 
 static bool js_cocos2d_EaseQuadraticActionInOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuadraticActionInOut *nobj = new (std::nothrow) cocos2d::EaseQuadraticActionInOut();
     if (nobj) {
         nobj->autorelease();
@@ -22520,10 +22736,11 @@ void js_register_cocos2dx_EaseQuadraticActionInOut(JSContext *cx, JSObject *glob
 		JS_FN("create", js_cocos2dx_EaseQuadraticActionInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuadraticActionInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuadraticActionInOut_class,
 		js_cocos2dx_EaseQuadraticActionInOut_constructor, 0, // constructor
 		properties,
@@ -22600,7 +22817,10 @@ bool js_cocos2dx_EaseQuarticActionIn_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -22620,7 +22840,8 @@ void js_cocos2d_EaseQuarticActionIn_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuarticActionIn_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuarticActionIn *nobj = new (std::nothrow) cocos2d::EaseQuarticActionIn();
     if (nobj) {
         nobj->autorelease();
@@ -22660,10 +22881,11 @@ void js_register_cocos2dx_EaseQuarticActionIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseQuarticActionIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuarticActionIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuarticActionIn_class,
 		js_cocos2dx_EaseQuarticActionIn_constructor, 0, // constructor
 		properties,
@@ -22740,7 +22962,10 @@ bool js_cocos2dx_EaseQuarticActionOut_constructor(JSContext *cx, uint32_t argc, 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -22760,7 +22985,8 @@ void js_cocos2d_EaseQuarticActionOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuarticActionOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuarticActionOut *nobj = new (std::nothrow) cocos2d::EaseQuarticActionOut();
     if (nobj) {
         nobj->autorelease();
@@ -22800,10 +23026,11 @@ void js_register_cocos2dx_EaseQuarticActionOut(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_EaseQuarticActionOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuarticActionOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuarticActionOut_class,
 		js_cocos2dx_EaseQuarticActionOut_constructor, 0, // constructor
 		properties,
@@ -22880,7 +23107,10 @@ bool js_cocos2dx_EaseQuarticActionInOut_constructor(JSContext *cx, uint32_t argc
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -22900,7 +23130,8 @@ void js_cocos2d_EaseQuarticActionInOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuarticActionInOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuarticActionInOut *nobj = new (std::nothrow) cocos2d::EaseQuarticActionInOut();
     if (nobj) {
         nobj->autorelease();
@@ -22940,10 +23171,11 @@ void js_register_cocos2dx_EaseQuarticActionInOut(JSContext *cx, JSObject *global
 		JS_FN("create", js_cocos2dx_EaseQuarticActionInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuarticActionInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuarticActionInOut_class,
 		js_cocos2dx_EaseQuarticActionInOut_constructor, 0, // constructor
 		properties,
@@ -23020,7 +23252,10 @@ bool js_cocos2dx_EaseQuinticActionIn_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -23040,7 +23275,8 @@ void js_cocos2d_EaseQuinticActionIn_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuinticActionIn_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuinticActionIn *nobj = new (std::nothrow) cocos2d::EaseQuinticActionIn();
     if (nobj) {
         nobj->autorelease();
@@ -23080,10 +23316,11 @@ void js_register_cocos2dx_EaseQuinticActionIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseQuinticActionIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuinticActionIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuinticActionIn_class,
 		js_cocos2dx_EaseQuinticActionIn_constructor, 0, // constructor
 		properties,
@@ -23160,7 +23397,10 @@ bool js_cocos2dx_EaseQuinticActionOut_constructor(JSContext *cx, uint32_t argc, 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -23180,7 +23420,8 @@ void js_cocos2d_EaseQuinticActionOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuinticActionOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuinticActionOut *nobj = new (std::nothrow) cocos2d::EaseQuinticActionOut();
     if (nobj) {
         nobj->autorelease();
@@ -23220,10 +23461,11 @@ void js_register_cocos2dx_EaseQuinticActionOut(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_EaseQuinticActionOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuinticActionOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuinticActionOut_class,
 		js_cocos2dx_EaseQuinticActionOut_constructor, 0, // constructor
 		properties,
@@ -23300,7 +23542,10 @@ bool js_cocos2dx_EaseQuinticActionInOut_constructor(JSContext *cx, uint32_t argc
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -23320,7 +23565,8 @@ void js_cocos2d_EaseQuinticActionInOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseQuinticActionInOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseQuinticActionInOut *nobj = new (std::nothrow) cocos2d::EaseQuinticActionInOut();
     if (nobj) {
         nobj->autorelease();
@@ -23360,10 +23606,11 @@ void js_register_cocos2dx_EaseQuinticActionInOut(JSContext *cx, JSObject *global
 		JS_FN("create", js_cocos2dx_EaseQuinticActionInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseQuinticActionInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseQuinticActionInOut_class,
 		js_cocos2dx_EaseQuinticActionInOut_constructor, 0, // constructor
 		properties,
@@ -23440,7 +23687,10 @@ bool js_cocos2dx_EaseCircleActionIn_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -23460,7 +23710,8 @@ void js_cocos2d_EaseCircleActionIn_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseCircleActionIn_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseCircleActionIn *nobj = new (std::nothrow) cocos2d::EaseCircleActionIn();
     if (nobj) {
         nobj->autorelease();
@@ -23500,10 +23751,11 @@ void js_register_cocos2dx_EaseCircleActionIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseCircleActionIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseCircleActionIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseCircleActionIn_class,
 		js_cocos2dx_EaseCircleActionIn_constructor, 0, // constructor
 		properties,
@@ -23580,7 +23832,10 @@ bool js_cocos2dx_EaseCircleActionOut_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -23600,7 +23855,8 @@ void js_cocos2d_EaseCircleActionOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseCircleActionOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseCircleActionOut *nobj = new (std::nothrow) cocos2d::EaseCircleActionOut();
     if (nobj) {
         nobj->autorelease();
@@ -23640,10 +23896,11 @@ void js_register_cocos2dx_EaseCircleActionOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseCircleActionOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseCircleActionOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseCircleActionOut_class,
 		js_cocos2dx_EaseCircleActionOut_constructor, 0, // constructor
 		properties,
@@ -23720,7 +23977,10 @@ bool js_cocos2dx_EaseCircleActionInOut_constructor(JSContext *cx, uint32_t argc,
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -23740,7 +24000,8 @@ void js_cocos2d_EaseCircleActionInOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseCircleActionInOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseCircleActionInOut *nobj = new (std::nothrow) cocos2d::EaseCircleActionInOut();
     if (nobj) {
         nobj->autorelease();
@@ -23780,10 +24041,11 @@ void js_register_cocos2dx_EaseCircleActionInOut(JSContext *cx, JSObject *global)
 		JS_FN("create", js_cocos2dx_EaseCircleActionInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseCircleActionInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseCircleActionInOut_class,
 		js_cocos2dx_EaseCircleActionInOut_constructor, 0, // constructor
 		properties,
@@ -23860,7 +24122,10 @@ bool js_cocos2dx_EaseCubicActionIn_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -23880,7 +24145,8 @@ void js_cocos2d_EaseCubicActionIn_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseCubicActionIn_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseCubicActionIn *nobj = new (std::nothrow) cocos2d::EaseCubicActionIn();
     if (nobj) {
         nobj->autorelease();
@@ -23920,10 +24186,11 @@ void js_register_cocos2dx_EaseCubicActionIn(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseCubicActionIn_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseCubicActionIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseCubicActionIn_class,
 		js_cocos2dx_EaseCubicActionIn_constructor, 0, // constructor
 		properties,
@@ -24000,7 +24267,10 @@ bool js_cocos2dx_EaseCubicActionOut_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -24020,7 +24290,8 @@ void js_cocos2d_EaseCubicActionOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseCubicActionOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseCubicActionOut *nobj = new (std::nothrow) cocos2d::EaseCubicActionOut();
     if (nobj) {
         nobj->autorelease();
@@ -24060,10 +24331,11 @@ void js_register_cocos2dx_EaseCubicActionOut(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_EaseCubicActionOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseCubicActionOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseCubicActionOut_class,
 		js_cocos2dx_EaseCubicActionOut_constructor, 0, // constructor
 		properties,
@@ -24140,7 +24412,10 @@ bool js_cocos2dx_EaseCubicActionInOut_constructor(JSContext *cx, uint32_t argc, 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -24160,7 +24435,8 @@ void js_cocos2d_EaseCubicActionInOut_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_EaseCubicActionInOut_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::EaseCubicActionInOut *nobj = new (std::nothrow) cocos2d::EaseCubicActionInOut();
     if (nobj) {
         nobj->autorelease();
@@ -24200,10 +24476,11 @@ void js_register_cocos2dx_EaseCubicActionInOut(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_EaseCubicActionInOut_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionEase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionEase_prototype));
 	jsb_cocos2d_EaseCubicActionInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionEase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionEase_prototype_handle,
 		jsb_cocos2d_EaseCubicActionInOut_class,
 		js_cocos2dx_EaseCubicActionInOut_constructor, 0, // constructor
 		properties,
@@ -24262,10 +24539,11 @@ void js_register_cocos2dx_ActionInstant(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FiniteTimeAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FiniteTimeAction_prototype));
 	jsb_cocos2d_ActionInstant_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FiniteTimeAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FiniteTimeAction_prototype_handle,
 		jsb_cocos2d_ActionInstant_class,
 		empty_constructor, 0,
 		properties,
@@ -24330,7 +24608,10 @@ bool js_cocos2dx_Show_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -24373,10 +24654,11 @@ void js_register_cocos2dx_Show(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Show_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_Show_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_Show_class,
 		js_cocos2dx_Show_constructor, 0, // constructor
 		properties,
@@ -24441,7 +24723,10 @@ bool js_cocos2dx_Hide_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -24484,10 +24769,11 @@ void js_register_cocos2dx_Hide(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Hide_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_Hide_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_Hide_class,
 		js_cocos2dx_Hide_constructor, 0, // constructor
 		properties,
@@ -24552,7 +24838,10 @@ bool js_cocos2dx_ToggleVisibility_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -24595,10 +24884,11 @@ void js_register_cocos2dx_ToggleVisibility(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ToggleVisibility_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_ToggleVisibility_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_ToggleVisibility_class,
 		js_cocos2dx_ToggleVisibility_constructor, 0, // constructor
 		properties,
@@ -24704,7 +24994,10 @@ bool js_cocos2dx_RemoveSelf_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -24748,10 +25041,11 @@ void js_register_cocos2dx_RemoveSelf(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_RemoveSelf_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_RemoveSelf_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_RemoveSelf_class,
 		js_cocos2dx_RemoveSelf_constructor, 0, // constructor
 		properties,
@@ -24843,7 +25137,10 @@ bool js_cocos2dx_FlipX_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -24887,10 +25184,11 @@ void js_register_cocos2dx_FlipX(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FlipX_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_FlipX_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_FlipX_class,
 		js_cocos2dx_FlipX_constructor, 0, // constructor
 		properties,
@@ -24982,7 +25280,10 @@ bool js_cocos2dx_FlipY_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -25026,10 +25327,11 @@ void js_register_cocos2dx_FlipY(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FlipY_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_FlipY_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_FlipY_class,
 		js_cocos2dx_FlipY_constructor, 0, // constructor
 		properties,
@@ -25121,7 +25423,10 @@ bool js_cocos2dx_Place_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -25165,10 +25470,11 @@ void js_register_cocos2dx_Place(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Place_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_Place_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_Place_class,
 		js_cocos2dx_Place_constructor, 0, // constructor
 		properties,
@@ -25228,7 +25534,10 @@ bool js_cocos2dx_CallFunc_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -25269,10 +25578,11 @@ void js_register_cocos2dx_CallFunc(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_CallFunc_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_CallFunc_class,
 		js_cocos2dx_CallFunc_constructor, 0, // constructor
 		properties,
@@ -25317,7 +25627,10 @@ bool js_cocos2dx_CallFuncN_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -25357,10 +25670,11 @@ void js_register_cocos2dx_CallFuncN(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_CallFunc_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_CallFunc_prototype));
 	jsb_cocos2d_CallFuncN_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_CallFunc_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_CallFunc_prototype_handle,
 		jsb_cocos2d_CallFuncN_class,
 		js_cocos2dx_CallFuncN_constructor, 0, // constructor
 		properties,
@@ -25469,10 +25783,11 @@ void js_register_cocos2dx_GridAction(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_GridAction_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_GridAction_class,
 		empty_constructor, 0,
 		properties,
@@ -25556,10 +25871,11 @@ void js_register_cocos2dx_Grid3DAction(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_GridAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_GridAction_prototype));
 	jsb_cocos2d_Grid3DAction_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_GridAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_GridAction_prototype_handle,
 		jsb_cocos2d_Grid3DAction_class,
 		empty_constructor, 0,
 		properties,
@@ -25643,10 +25959,11 @@ void js_register_cocos2dx_TiledGrid3DAction(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_GridAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_GridAction_prototype));
 	jsb_cocos2d_TiledGrid3DAction_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_GridAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_GridAction_prototype_handle,
 		jsb_cocos2d_TiledGrid3DAction_class,
 		empty_constructor, 0,
 		properties,
@@ -25711,7 +26028,10 @@ bool js_cocos2dx_StopGrid_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -25754,10 +26074,11 @@ void js_register_cocos2dx_StopGrid(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_StopGrid_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_StopGrid_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_StopGrid_class,
 		js_cocos2dx_StopGrid_constructor, 0, // constructor
 		properties,
@@ -25849,7 +26170,10 @@ bool js_cocos2dx_ReuseGrid_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -25893,10 +26217,11 @@ void js_register_cocos2dx_ReuseGrid(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ReuseGrid_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInstant_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInstant_prototype));
 	jsb_cocos2d_ReuseGrid_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInstant_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInstant_prototype_handle,
 		jsb_cocos2d_ReuseGrid_class,
 		js_cocos2dx_ReuseGrid_constructor, 0, // constructor
 		properties,
@@ -26074,7 +26399,10 @@ bool js_cocos2dx_Waves3D_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -26122,10 +26450,11 @@ void js_register_cocos2dx_Waves3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Waves3D_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_Waves3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_Waves3D_class,
 		js_cocos2dx_Waves3D_constructor, 0, // constructor
 		properties,
@@ -26241,7 +26570,10 @@ bool js_cocos2dx_FlipX3D_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -26286,10 +26618,11 @@ void js_register_cocos2dx_FlipX3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FlipX3D_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_FlipX3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_FlipX3D_class,
 		js_cocos2dx_FlipX3D_constructor, 0, // constructor
 		properties,
@@ -26359,7 +26692,10 @@ bool js_cocos2dx_FlipY3D_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -26402,10 +26738,11 @@ void js_register_cocos2dx_FlipY3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FlipY3D_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FlipX3D_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FlipX3D_prototype));
 	jsb_cocos2d_FlipY3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FlipX3D_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FlipX3D_prototype_handle,
 		jsb_cocos2d_FlipY3D_class,
 		js_cocos2dx_FlipY3D_constructor, 0, // constructor
 		properties,
@@ -26603,7 +26940,10 @@ bool js_cocos2dx_Lens3D_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -26652,10 +26992,11 @@ void js_register_cocos2dx_Lens3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Lens3D_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_Lens3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_Lens3D_class,
 		js_cocos2dx_Lens3D_constructor, 0, // constructor
 		properties,
@@ -26878,7 +27219,10 @@ bool js_cocos2dx_Ripple3D_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -26928,10 +27272,11 @@ void js_register_cocos2dx_Ripple3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Ripple3D_create, 6, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_Ripple3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_Ripple3D_class,
 		js_cocos2dx_Ripple3D_constructor, 0, // constructor
 		properties,
@@ -27035,7 +27380,10 @@ bool js_cocos2dx_Shaky3D_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -27079,10 +27427,11 @@ void js_register_cocos2dx_Shaky3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Shaky3D_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_Shaky3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_Shaky3D_class,
 		js_cocos2dx_Shaky3D_constructor, 0, // constructor
 		properties,
@@ -27260,7 +27609,10 @@ bool js_cocos2dx_Liquid_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -27308,10 +27660,11 @@ void js_register_cocos2dx_Liquid(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Liquid_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_Liquid_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_Liquid_class,
 		js_cocos2dx_Liquid_constructor, 0, // constructor
 		properties,
@@ -27497,7 +27850,10 @@ bool js_cocos2dx_Waves_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -27545,10 +27901,11 @@ void js_register_cocos2dx_Waves(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Waves_create, 6, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_Waves_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_Waves_class,
 		js_cocos2dx_Waves_constructor, 0, // constructor
 		properties,
@@ -27767,7 +28124,10 @@ bool js_cocos2dx_Twirl_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -27817,10 +28177,11 @@ void js_register_cocos2dx_Twirl(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Twirl_create, 5, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_Twirl_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_Twirl_class,
 		js_cocos2dx_Twirl_constructor, 0, // constructor
 		properties,
@@ -27934,10 +28295,11 @@ void js_register_cocos2dx_PageTurn3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_PageTurn3D_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Grid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Grid3DAction_prototype));
 	jsb_cocos2d_PageTurn3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Grid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Grid3DAction_prototype_handle,
 		jsb_cocos2d_PageTurn3D_class,
 		dummy_constructor<cocos2d::PageTurn3D>, 0, // no constructor
 		properties,
@@ -28033,7 +28395,10 @@ bool js_cocos2dx_ProgressTo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -28077,10 +28442,11 @@ void js_register_cocos2dx_ProgressTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ProgressTo_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_ProgressTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_ProgressTo_class,
 		js_cocos2dx_ProgressTo_constructor, 0, // constructor
 		properties,
@@ -28180,7 +28546,10 @@ bool js_cocos2dx_ProgressFromTo_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -28224,10 +28593,11 @@ void js_register_cocos2dx_ProgressFromTo(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ProgressFromTo_create, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_ProgressFromTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_ProgressFromTo_class,
 		js_cocos2dx_ProgressFromTo_constructor, 0, // constructor
 		properties,
@@ -28331,7 +28701,10 @@ bool js_cocos2dx_ShakyTiles3D_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -28375,10 +28748,11 @@ void js_register_cocos2dx_ShakyTiles3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ShakyTiles3D_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_ShakyTiles3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_ShakyTiles3D_class,
 		js_cocos2dx_ShakyTiles3D_constructor, 0, // constructor
 		properties,
@@ -28482,7 +28856,10 @@ bool js_cocos2dx_ShatteredTiles3D_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -28526,10 +28903,11 @@ void js_register_cocos2dx_ShatteredTiles3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ShatteredTiles3D_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_ShatteredTiles3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_ShatteredTiles3D_class,
 		js_cocos2dx_ShatteredTiles3D_constructor, 0, // constructor
 		properties,
@@ -28697,7 +29075,10 @@ bool js_cocos2dx_ShuffleTiles_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -28744,10 +29125,11 @@ void js_register_cocos2dx_ShuffleTiles(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ShuffleTiles_create, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_ShuffleTiles_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_ShuffleTiles_class,
 		js_cocos2dx_ShuffleTiles_constructor, 0, // constructor
 		properties,
@@ -28905,7 +29287,10 @@ bool js_cocos2dx_FadeOutTRTiles_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -28952,10 +29337,11 @@ void js_register_cocos2dx_FadeOutTRTiles(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FadeOutTRTiles_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_FadeOutTRTiles_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_FadeOutTRTiles_class,
 		js_cocos2dx_FadeOutTRTiles_constructor, 0, // constructor
 		properties,
@@ -29027,7 +29413,10 @@ bool js_cocos2dx_FadeOutBLTiles_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -29070,10 +29459,11 @@ void js_register_cocos2dx_FadeOutBLTiles(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FadeOutBLTiles_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FadeOutTRTiles_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FadeOutTRTiles_prototype));
 	jsb_cocos2d_FadeOutBLTiles_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FadeOutTRTiles_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FadeOutTRTiles_prototype_handle,
 		jsb_cocos2d_FadeOutBLTiles_class,
 		js_cocos2dx_FadeOutBLTiles_constructor, 0, // constructor
 		properties,
@@ -29167,7 +29557,10 @@ bool js_cocos2dx_FadeOutUpTiles_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -29211,10 +29604,11 @@ void js_register_cocos2dx_FadeOutUpTiles(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FadeOutUpTiles_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FadeOutTRTiles_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FadeOutTRTiles_prototype));
 	jsb_cocos2d_FadeOutUpTiles_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FadeOutTRTiles_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FadeOutTRTiles_prototype_handle,
 		jsb_cocos2d_FadeOutUpTiles_class,
 		js_cocos2dx_FadeOutUpTiles_constructor, 0, // constructor
 		properties,
@@ -29286,7 +29680,10 @@ bool js_cocos2dx_FadeOutDownTiles_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -29329,10 +29726,11 @@ void js_register_cocos2dx_FadeOutDownTiles(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_FadeOutDownTiles_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_FadeOutUpTiles_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_FadeOutUpTiles_prototype));
 	jsb_cocos2d_FadeOutDownTiles_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_FadeOutUpTiles_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_FadeOutUpTiles_prototype_handle,
 		jsb_cocos2d_FadeOutDownTiles_class,
 		js_cocos2dx_FadeOutDownTiles_constructor, 0, // constructor
 		properties,
@@ -29522,7 +29920,10 @@ bool js_cocos2dx_TurnOffTiles_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -29569,10 +29970,11 @@ void js_register_cocos2dx_TurnOffTiles(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TurnOffTiles_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_TurnOffTiles_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_TurnOffTiles_class,
 		js_cocos2dx_TurnOffTiles_constructor, 0, // constructor
 		properties,
@@ -29750,7 +30152,10 @@ bool js_cocos2dx_WavesTiles3D_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -29798,10 +30203,11 @@ void js_register_cocos2dx_WavesTiles3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_WavesTiles3D_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_WavesTiles3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_WavesTiles3D_class,
 		js_cocos2dx_WavesTiles3D_constructor, 0, // constructor
 		properties,
@@ -29979,7 +30385,10 @@ bool js_cocos2dx_JumpTiles3D_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -30027,10 +30436,11 @@ void js_register_cocos2dx_JumpTiles3D(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_JumpTiles3D_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_JumpTiles3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_JumpTiles3D_class,
 		js_cocos2dx_JumpTiles3D_constructor, 0, // constructor
 		properties,
@@ -30126,7 +30536,10 @@ bool js_cocos2dx_SplitRows_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -30170,10 +30583,11 @@ void js_register_cocos2dx_SplitRows(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_SplitRows_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_SplitRows_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_SplitRows_class,
 		js_cocos2dx_SplitRows_constructor, 0, // constructor
 		properties,
@@ -30269,7 +30683,10 @@ bool js_cocos2dx_SplitCols_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -30313,10 +30730,11 @@ void js_register_cocos2dx_SplitCols(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_SplitCols_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TiledGrid3DAction_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TiledGrid3DAction_prototype));
 	jsb_cocos2d_SplitCols_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TiledGrid3DAction_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TiledGrid3DAction_prototype_handle,
 		jsb_cocos2d_SplitCols_class,
 		js_cocos2dx_SplitCols_constructor, 0, // constructor
 		properties,
@@ -30414,7 +30832,8 @@ void js_cocos2d_ActionTween_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ActionTween_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ActionTween *nobj = new (std::nothrow) cocos2d::ActionTween();
     if (nobj) {
         nobj->autorelease();
@@ -30455,10 +30874,11 @@ void js_register_cocos2dx_ActionTween(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ActionTween_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_ActionTween_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_ActionTween_class,
 		dummy_constructor<cocos2d::ActionTween>, 0, // no constructor
 		properties,
@@ -30547,7 +30967,10 @@ bool js_cocos2dx_CardinalSplineTo_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -30589,10 +31012,11 @@ void js_register_cocos2dx_CardinalSplineTo(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ActionInterval_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ActionInterval_prototype));
 	jsb_cocos2d_CardinalSplineTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ActionInterval_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ActionInterval_prototype_handle,
 		jsb_cocos2d_CardinalSplineTo_class,
 		js_cocos2dx_CardinalSplineTo_constructor, 0, // constructor
 		properties,
@@ -30637,7 +31061,10 @@ bool js_cocos2dx_CardinalSplineBy_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -30677,10 +31104,11 @@ void js_register_cocos2dx_CardinalSplineBy(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_CardinalSplineTo_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_CardinalSplineTo_prototype));
 	jsb_cocos2d_CardinalSplineBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_CardinalSplineTo_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_CardinalSplineTo_prototype_handle,
 		jsb_cocos2d_CardinalSplineBy_class,
 		js_cocos2dx_CardinalSplineBy_constructor, 0, // constructor
 		properties,
@@ -30739,10 +31167,11 @@ void js_register_cocos2dx_CatmullRomTo(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_CardinalSplineTo_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_CardinalSplineTo_prototype));
 	jsb_cocos2d_CatmullRomTo_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_CardinalSplineTo_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_CardinalSplineTo_prototype_handle,
 		jsb_cocos2d_CatmullRomTo_class,
 		dummy_constructor<cocos2d::CatmullRomTo>, 0, // no constructor
 		properties,
@@ -30801,10 +31230,11 @@ void js_register_cocos2dx_CatmullRomBy(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_CardinalSplineBy_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_CardinalSplineBy_prototype));
 	jsb_cocos2d_CatmullRomBy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_CardinalSplineBy_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_CardinalSplineBy_prototype_handle,
 		jsb_cocos2d_CatmullRomBy_class,
 		dummy_constructor<cocos2d::CatmullRomBy>, 0, // no constructor
 		properties,
@@ -31158,7 +31588,10 @@ bool js_cocos2dx_ProtectedNode_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -31211,10 +31644,11 @@ void js_register_cocos2dx_ProtectedNode(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_ProtectedNode_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_ProtectedNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_ProtectedNode_class,
 		js_cocos2dx_ProtectedNode_constructor, 0, // constructor
 		properties,
@@ -31544,7 +31978,10 @@ bool js_cocos2dx_AtlasNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -31598,10 +32035,11 @@ void js_register_cocos2dx_AtlasNode(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_AtlasNode_create, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_AtlasNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_AtlasNode_class,
 		js_cocos2dx_AtlasNode_constructor, 0, // constructor
 		properties,
@@ -32356,7 +32794,10 @@ bool js_cocos2dx_DrawNode_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -32376,7 +32817,8 @@ void js_cocos2d_DrawNode_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_DrawNode_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::DrawNode *nobj = new (std::nothrow) cocos2d::DrawNode();
     if (nobj) {
         nobj->autorelease();
@@ -32439,10 +32881,11 @@ void js_register_cocos2dx_DrawNode(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_DrawNode_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_DrawNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_DrawNode_class,
 		js_cocos2dx_DrawNode_constructor, 0, // constructor
 		properties,
@@ -32705,7 +33148,10 @@ bool js_cocos2dx_LabelAtlas_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -32752,10 +33198,11 @@ void js_register_cocos2dx_LabelAtlas(JSContext *cx, JSObject *global) {
 		JS_FN("_create", js_cocos2dx_LabelAtlas_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_AtlasNode_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_AtlasNode_prototype));
 	jsb_cocos2d_LabelAtlas_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_AtlasNode_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_AtlasNode_prototype_handle,
 		jsb_cocos2d_LabelAtlas_class,
 		js_cocos2dx_LabelAtlas_constructor, 0, // constructor
 		properties,
@@ -33562,7 +34009,10 @@ bool js_cocos2dx_LabelTTF_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -33631,10 +34081,11 @@ void js_register_cocos2dx_LabelTTF(JSContext *cx, JSObject *global) {
 		JS_FN("createWithFontDefinition", js_cocos2dx_LabelTTF_createWithFontDefinition, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_LabelTTF_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_LabelTTF_class,
 		js_cocos2dx_LabelTTF_constructor, 0, // constructor
 		properties,
@@ -34292,7 +34743,10 @@ bool js_cocos2dx_SpriteBatchNode_constructor(JSContext *cx, uint32_t argc, jsval
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -34312,7 +34766,8 @@ void js_cocos2d_SpriteBatchNode_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_SpriteBatchNode_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::SpriteBatchNode *nobj = new (std::nothrow) cocos2d::SpriteBatchNode();
     if (nobj) {
         nobj->autorelease();
@@ -34373,10 +34828,11 @@ void js_register_cocos2dx_SpriteBatchNode(JSContext *cx, JSObject *global) {
 		JS_FN("createWithTexture", js_cocos2dx_SpriteBatchNode_createWithTexture, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_SpriteBatchNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_SpriteBatchNode_class,
 		js_cocos2dx_SpriteBatchNode_constructor, 0, // constructor
 		properties,
@@ -35628,7 +36084,10 @@ bool js_cocos2dx_Label_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -35715,10 +36174,11 @@ void js_register_cocos2dx_Label(JSContext *cx, JSObject *global) {
 		JS_FN("createWithSystemFont", js_cocos2dx_Label_createWithSystemFont, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_SpriteBatchNode_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_SpriteBatchNode_prototype));
 	jsb_cocos2d_Label_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_SpriteBatchNode_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_SpriteBatchNode_prototype_handle,
 		jsb_cocos2d_Label_class,
 		js_cocos2dx_Label_constructor, 0, // constructor
 		properties,
@@ -36213,7 +36673,10 @@ bool js_cocos2dx_LabelBMFont_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -36269,10 +36732,11 @@ void js_register_cocos2dx_LabelBMFont(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_LabelBMFont_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_LabelBMFont_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_LabelBMFont_class,
 		js_cocos2dx_LabelBMFont_constructor, 0, // constructor
 		properties,
@@ -36337,7 +36801,10 @@ bool js_cocos2dx_Layer_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -36357,7 +36824,8 @@ void js_cocos2d_Layer_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_Layer_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::Layer *nobj = new (std::nothrow) cocos2d::Layer();
     if (nobj) {
         nobj->autorelease();
@@ -36397,10 +36865,11 @@ void js_register_cocos2dx_Layer(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_Layer_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_Layer_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_Layer_class,
 		js_cocos2dx_Layer_constructor, 0, // constructor
 		properties,
@@ -36465,7 +36934,10 @@ bool js_cocos2dx___LayerRGBA_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -36508,10 +36980,11 @@ void js_register_cocos2dx___LayerRGBA(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx___LayerRGBA_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Layer_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Layer_prototype));
 	jsb_cocos2d___LayerRGBA_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Layer_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Layer_prototype_handle,
 		jsb_cocos2d___LayerRGBA_class,
 		js_cocos2dx___LayerRGBA_constructor, 0, // constructor
 		properties,
@@ -36781,7 +37254,10 @@ bool js_cocos2dx_LayerColor_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -36801,7 +37277,8 @@ void js_cocos2d_LayerColor_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_LayerColor_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::LayerColor *nobj = new (std::nothrow) cocos2d::LayerColor();
     if (nobj) {
         nobj->autorelease();
@@ -36847,10 +37324,11 @@ void js_register_cocos2dx_LayerColor(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_LayerColor_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Layer_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Layer_prototype));
 	jsb_cocos2d_LayerColor_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Layer_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Layer_prototype_handle,
 		jsb_cocos2d_LayerColor_class,
 		js_cocos2dx_LayerColor_constructor, 0, // constructor
 		properties,
@@ -37256,7 +37734,10 @@ bool js_cocos2dx_LayerGradient_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -37276,7 +37757,8 @@ void js_cocos2d_LayerGradient_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_LayerGradient_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::LayerGradient *nobj = new (std::nothrow) cocos2d::LayerGradient();
     if (nobj) {
         nobj->autorelease();
@@ -37330,10 +37812,11 @@ void js_register_cocos2dx_LayerGradient(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_LayerGradient_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_LayerColor_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_LayerColor_prototype));
 	jsb_cocos2d_LayerGradient_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_LayerColor_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_LayerColor_prototype_handle,
 		jsb_cocos2d_LayerGradient_class,
 		js_cocos2dx_LayerGradient_constructor, 0, // constructor
 		properties,
@@ -37484,7 +37967,10 @@ bool js_cocos2dx_LayerMultiplex_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -37504,7 +37990,8 @@ void js_cocos2d_LayerMultiplex_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_LayerMultiplex_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::LayerMultiplex *nobj = new (std::nothrow) cocos2d::LayerMultiplex();
     if (nobj) {
         nobj->autorelease();
@@ -37546,10 +38033,11 @@ void js_register_cocos2dx_LayerMultiplex(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Layer_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Layer_prototype));
 	jsb_cocos2d_LayerMultiplex_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Layer_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Layer_prototype_handle,
 		jsb_cocos2d_LayerMultiplex_class,
 		js_cocos2dx_LayerMultiplex_constructor, 0, // constructor
 		properties,
@@ -37644,9 +38132,9 @@ void js_register_cocos2dx_TransitionEaseScene(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_TransitionEaseScene_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TransitionEaseScene_class,
 		empty_constructor, 0,
@@ -37787,7 +38275,10 @@ bool js_cocos2dx_TransitionScene_constructor(JSContext *cx, uint32_t argc, jsval
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -37807,7 +38298,8 @@ void js_cocos2d_TransitionScene_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TransitionScene_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TransitionScene *nobj = new (std::nothrow) cocos2d::TransitionScene();
     if (nobj) {
         nobj->autorelease();
@@ -37850,10 +38342,11 @@ void js_register_cocos2dx_TransitionScene(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionScene_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Scene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Scene_prototype));
 	jsb_cocos2d_TransitionScene_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Scene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Scene_prototype_handle,
 		jsb_cocos2d_TransitionScene_class,
 		js_cocos2dx_TransitionScene_constructor, 0, // constructor
 		properties,
@@ -37967,7 +38460,10 @@ bool js_cocos2dx_TransitionSceneOriented_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -38011,10 +38507,11 @@ void js_register_cocos2dx_TransitionSceneOriented(JSContext *cx, JSObject *globa
 		JS_FN("create", js_cocos2dx_TransitionSceneOriented_create, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionSceneOriented_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionSceneOriented_class,
 		js_cocos2dx_TransitionSceneOriented_constructor, 0, // constructor
 		properties,
@@ -38093,7 +38590,10 @@ bool js_cocos2dx_TransitionRotoZoom_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -38136,10 +38636,11 @@ void js_register_cocos2dx_TransitionRotoZoom(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionRotoZoom_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionRotoZoom_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionRotoZoom_class,
 		js_cocos2dx_TransitionRotoZoom_constructor, 0, // constructor
 		properties,
@@ -38218,7 +38719,10 @@ bool js_cocos2dx_TransitionJumpZoom_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -38261,10 +38765,11 @@ void js_register_cocos2dx_TransitionJumpZoom(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionJumpZoom_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionJumpZoom_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionJumpZoom_class,
 		js_cocos2dx_TransitionJumpZoom_constructor, 0, // constructor
 		properties,
@@ -38403,7 +38908,10 @@ bool js_cocos2dx_TransitionMoveInL_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -38448,10 +38956,11 @@ void js_register_cocos2dx_TransitionMoveInL(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionMoveInL_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionMoveInL_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionMoveInL_class,
 		js_cocos2dx_TransitionMoveInL_constructor, 0, // constructor
 		properties,
@@ -38530,7 +39039,10 @@ bool js_cocos2dx_TransitionMoveInR_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -38573,10 +39085,11 @@ void js_register_cocos2dx_TransitionMoveInR(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionMoveInR_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionMoveInL_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionMoveInL_prototype));
 	jsb_cocos2d_TransitionMoveInR_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionMoveInL_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionMoveInL_prototype_handle,
 		jsb_cocos2d_TransitionMoveInR_class,
 		js_cocos2dx_TransitionMoveInR_constructor, 0, // constructor
 		properties,
@@ -38655,7 +39168,10 @@ bool js_cocos2dx_TransitionMoveInT_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -38698,10 +39214,11 @@ void js_register_cocos2dx_TransitionMoveInT(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionMoveInT_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionMoveInL_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionMoveInL_prototype));
 	jsb_cocos2d_TransitionMoveInT_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionMoveInL_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionMoveInL_prototype_handle,
 		jsb_cocos2d_TransitionMoveInT_class,
 		js_cocos2dx_TransitionMoveInT_constructor, 0, // constructor
 		properties,
@@ -38780,7 +39297,10 @@ bool js_cocos2dx_TransitionMoveInB_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -38823,10 +39343,11 @@ void js_register_cocos2dx_TransitionMoveInB(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionMoveInB_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionMoveInL_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionMoveInL_prototype));
 	jsb_cocos2d_TransitionMoveInB_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionMoveInL_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionMoveInL_prototype_handle,
 		jsb_cocos2d_TransitionMoveInB_class,
 		js_cocos2dx_TransitionMoveInB_constructor, 0, // constructor
 		properties,
@@ -38965,7 +39486,10 @@ bool js_cocos2dx_TransitionSlideInL_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -39010,10 +39534,11 @@ void js_register_cocos2dx_TransitionSlideInL(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionSlideInL_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionSlideInL_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionSlideInL_class,
 		js_cocos2dx_TransitionSlideInL_constructor, 0, // constructor
 		properties,
@@ -39116,7 +39641,10 @@ bool js_cocos2dx_TransitionSlideInR_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -39160,10 +39688,11 @@ void js_register_cocos2dx_TransitionSlideInR(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionSlideInR_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSlideInL_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSlideInL_prototype));
 	jsb_cocos2d_TransitionSlideInR_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSlideInL_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSlideInL_prototype_handle,
 		jsb_cocos2d_TransitionSlideInR_class,
 		js_cocos2dx_TransitionSlideInR_constructor, 0, // constructor
 		properties,
@@ -39266,7 +39795,10 @@ bool js_cocos2dx_TransitionSlideInB_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -39310,10 +39842,11 @@ void js_register_cocos2dx_TransitionSlideInB(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionSlideInB_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSlideInL_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSlideInL_prototype));
 	jsb_cocos2d_TransitionSlideInB_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSlideInL_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSlideInL_prototype_handle,
 		jsb_cocos2d_TransitionSlideInB_class,
 		js_cocos2dx_TransitionSlideInB_constructor, 0, // constructor
 		properties,
@@ -39416,7 +39949,10 @@ bool js_cocos2dx_TransitionSlideInT_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -39460,10 +39996,11 @@ void js_register_cocos2dx_TransitionSlideInT(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionSlideInT_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSlideInL_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSlideInL_prototype));
 	jsb_cocos2d_TransitionSlideInT_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSlideInL_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSlideInL_prototype_handle,
 		jsb_cocos2d_TransitionSlideInT_class,
 		js_cocos2dx_TransitionSlideInT_constructor, 0, // constructor
 		properties,
@@ -39578,7 +40115,10 @@ bool js_cocos2dx_TransitionShrinkGrow_constructor(JSContext *cx, uint32_t argc, 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -39622,10 +40162,11 @@ void js_register_cocos2dx_TransitionShrinkGrow(JSContext *cx, JSObject *global) 
 		JS_FN("create", js_cocos2dx_TransitionShrinkGrow_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionShrinkGrow_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionShrinkGrow_class,
 		js_cocos2dx_TransitionShrinkGrow_constructor, 0, // constructor
 		properties,
@@ -39740,7 +40281,10 @@ bool js_cocos2dx_TransitionFlipX_constructor(JSContext *cx, uint32_t argc, jsval
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -39783,10 +40327,11 @@ void js_register_cocos2dx_TransitionFlipX(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionFlipX_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSceneOriented_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSceneOriented_prototype));
 	jsb_cocos2d_TransitionFlipX_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSceneOriented_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSceneOriented_prototype_handle,
 		jsb_cocos2d_TransitionFlipX_class,
 		js_cocos2dx_TransitionFlipX_constructor, 0, // constructor
 		properties,
@@ -39901,7 +40446,10 @@ bool js_cocos2dx_TransitionFlipY_constructor(JSContext *cx, uint32_t argc, jsval
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -39944,10 +40492,11 @@ void js_register_cocos2dx_TransitionFlipY(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionFlipY_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSceneOriented_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSceneOriented_prototype));
 	jsb_cocos2d_TransitionFlipY_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSceneOriented_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSceneOriented_prototype_handle,
 		jsb_cocos2d_TransitionFlipY_class,
 		js_cocos2dx_TransitionFlipY_constructor, 0, // constructor
 		properties,
@@ -40062,7 +40611,10 @@ bool js_cocos2dx_TransitionFlipAngular_constructor(JSContext *cx, uint32_t argc,
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -40105,10 +40657,11 @@ void js_register_cocos2dx_TransitionFlipAngular(JSContext *cx, JSObject *global)
 		JS_FN("create", js_cocos2dx_TransitionFlipAngular_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSceneOriented_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSceneOriented_prototype));
 	jsb_cocos2d_TransitionFlipAngular_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSceneOriented_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSceneOriented_prototype_handle,
 		jsb_cocos2d_TransitionFlipAngular_class,
 		js_cocos2dx_TransitionFlipAngular_constructor, 0, // constructor
 		properties,
@@ -40223,7 +40776,10 @@ bool js_cocos2dx_TransitionZoomFlipX_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -40266,10 +40822,11 @@ void js_register_cocos2dx_TransitionZoomFlipX(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionZoomFlipX_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSceneOriented_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSceneOriented_prototype));
 	jsb_cocos2d_TransitionZoomFlipX_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSceneOriented_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSceneOriented_prototype_handle,
 		jsb_cocos2d_TransitionZoomFlipX_class,
 		js_cocos2dx_TransitionZoomFlipX_constructor, 0, // constructor
 		properties,
@@ -40384,7 +40941,10 @@ bool js_cocos2dx_TransitionZoomFlipY_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -40427,10 +40987,11 @@ void js_register_cocos2dx_TransitionZoomFlipY(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionZoomFlipY_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSceneOriented_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSceneOriented_prototype));
 	jsb_cocos2d_TransitionZoomFlipY_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSceneOriented_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSceneOriented_prototype_handle,
 		jsb_cocos2d_TransitionZoomFlipY_class,
 		js_cocos2dx_TransitionZoomFlipY_constructor, 0, // constructor
 		properties,
@@ -40545,7 +41106,10 @@ bool js_cocos2dx_TransitionZoomFlipAngular_constructor(JSContext *cx, uint32_t a
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -40588,10 +41152,11 @@ void js_register_cocos2dx_TransitionZoomFlipAngular(JSContext *cx, JSObject *glo
 		JS_FN("create", js_cocos2dx_TransitionZoomFlipAngular_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSceneOriented_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSceneOriented_prototype));
 	jsb_cocos2d_TransitionZoomFlipAngular_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSceneOriented_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSceneOriented_prototype_handle,
 		jsb_cocos2d_TransitionZoomFlipAngular_class,
 		js_cocos2dx_TransitionZoomFlipAngular_constructor, 0, // constructor
 		properties,
@@ -40769,7 +41334,10 @@ bool js_cocos2dx_TransitionFade_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -40813,10 +41381,11 @@ void js_register_cocos2dx_TransitionFade(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionFade_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionFade_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionFade_class,
 		js_cocos2dx_TransitionFade_constructor, 0, // constructor
 		properties,
@@ -40895,7 +41464,10 @@ bool js_cocos2dx_TransitionCrossFade_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -40938,10 +41510,11 @@ void js_register_cocos2dx_TransitionCrossFade(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionCrossFade_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionCrossFade_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionCrossFade_class,
 		js_cocos2dx_TransitionCrossFade_constructor, 0, // constructor
 		properties,
@@ -41056,7 +41629,10 @@ bool js_cocos2dx_TransitionTurnOffTiles_constructor(JSContext *cx, uint32_t argc
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -41100,10 +41676,11 @@ void js_register_cocos2dx_TransitionTurnOffTiles(JSContext *cx, JSObject *global
 		JS_FN("create", js_cocos2dx_TransitionTurnOffTiles_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionTurnOffTiles_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionTurnOffTiles_class,
 		js_cocos2dx_TransitionTurnOffTiles_constructor, 0, // constructor
 		properties,
@@ -41242,7 +41819,10 @@ bool js_cocos2dx_TransitionSplitCols_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -41287,10 +41867,11 @@ void js_register_cocos2dx_TransitionSplitCols(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionSplitCols_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionSplitCols_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionSplitCols_class,
 		js_cocos2dx_TransitionSplitCols_constructor, 0, // constructor
 		properties,
@@ -41369,7 +41950,10 @@ bool js_cocos2dx_TransitionSplitRows_constructor(JSContext *cx, uint32_t argc, j
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -41412,10 +41996,11 @@ void js_register_cocos2dx_TransitionSplitRows(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionSplitRows_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionSplitCols_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionSplitCols_prototype));
 	jsb_cocos2d_TransitionSplitRows_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionSplitCols_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionSplitCols_prototype_handle,
 		jsb_cocos2d_TransitionSplitRows_class,
 		js_cocos2dx_TransitionSplitRows_constructor, 0, // constructor
 		properties,
@@ -41559,7 +42144,10 @@ bool js_cocos2dx_TransitionFadeTR_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -41604,10 +42192,11 @@ void js_register_cocos2dx_TransitionFadeTR(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionFadeTR_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionFadeTR_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionFadeTR_class,
 		js_cocos2dx_TransitionFadeTR_constructor, 0, // constructor
 		properties,
@@ -41686,7 +42275,10 @@ bool js_cocos2dx_TransitionFadeBL_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -41729,10 +42321,11 @@ void js_register_cocos2dx_TransitionFadeBL(JSContext *cx, JSObject *global) {
 		JS_FN("create", js_cocos2dx_TransitionFadeBL_create, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionFadeTR_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionFadeTR_prototype));
 	jsb_cocos2d_TransitionFadeBL_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionFadeTR_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionFadeTR_prototype_handle,
 		jsb_cocos2d_TransitionFadeBL_class,
 		js_cocos2dx_TransitionFadeBL_constructor, 0, // constructor
 		properties,
@@ -41811,7 +42404,10 @@ bool js_cocos2dx_TransitionFadeUp_constructor(JSContext *cx, uint32_t argc, jsva
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -41855,9 +42451,11 @@ void js_register_cocos2dx_TransitionFadeUp(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionFadeTR_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionFadeTR_prototype));
 	jsb_cocos2d_TransitionFadeUp_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionFadeTR_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionFadeTR_prototype_handle,
 		jsb_cocos2d_TransitionFadeUp_class,
 		js_cocos2dx_TransitionFadeUp_constructor, 0, // constructor
 		properties,
@@ -41936,7 +42534,10 @@ bool js_cocos2dx_TransitionFadeDown_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -41980,9 +42581,11 @@ void js_register_cocos2dx_TransitionFadeDown(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionFadeTR_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionFadeTR_prototype));
 	jsb_cocos2d_TransitionFadeDown_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionFadeTR_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionFadeTR_prototype_handle,
 		jsb_cocos2d_TransitionFadeDown_class,
 		js_cocos2dx_TransitionFadeDown_constructor, 0, // constructor
 		properties,
@@ -42125,7 +42728,10 @@ bool js_cocos2dx_TransitionPageTurn_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -42171,9 +42777,11 @@ void js_register_cocos2dx_TransitionPageTurn(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionPageTurn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionPageTurn_class,
 		js_cocos2dx_TransitionPageTurn_constructor, 0, // constructor
 		properties,
@@ -42252,7 +42860,10 @@ bool js_cocos2dx_TransitionProgress_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -42296,9 +42907,11 @@ void js_register_cocos2dx_TransitionProgress(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionScene_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionScene_prototype));
 	jsb_cocos2d_TransitionProgress_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionScene_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionScene_prototype_handle,
 		jsb_cocos2d_TransitionProgress_class,
 		js_cocos2dx_TransitionProgress_constructor, 0, // constructor
 		properties,
@@ -42377,7 +42990,10 @@ bool js_cocos2dx_TransitionProgressRadialCCW_constructor(JSContext *cx, uint32_t
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -42421,9 +43037,11 @@ void js_register_cocos2dx_TransitionProgressRadialCCW(JSContext *cx, JSObject *g
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionProgress_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionProgress_prototype));
 	jsb_cocos2d_TransitionProgressRadialCCW_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionProgress_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionProgress_prototype_handle,
 		jsb_cocos2d_TransitionProgressRadialCCW_class,
 		js_cocos2dx_TransitionProgressRadialCCW_constructor, 0, // constructor
 		properties,
@@ -42502,7 +43120,10 @@ bool js_cocos2dx_TransitionProgressRadialCW_constructor(JSContext *cx, uint32_t 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -42546,9 +43167,11 @@ void js_register_cocos2dx_TransitionProgressRadialCW(JSContext *cx, JSObject *gl
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionProgress_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionProgress_prototype));
 	jsb_cocos2d_TransitionProgressRadialCW_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionProgress_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionProgress_prototype_handle,
 		jsb_cocos2d_TransitionProgressRadialCW_class,
 		js_cocos2dx_TransitionProgressRadialCW_constructor, 0, // constructor
 		properties,
@@ -42627,7 +43250,10 @@ bool js_cocos2dx_TransitionProgressHorizontal_constructor(JSContext *cx, uint32_
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -42671,9 +43297,11 @@ void js_register_cocos2dx_TransitionProgressHorizontal(JSContext *cx, JSObject *
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionProgress_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionProgress_prototype));
 	jsb_cocos2d_TransitionProgressHorizontal_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionProgress_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionProgress_prototype_handle,
 		jsb_cocos2d_TransitionProgressHorizontal_class,
 		js_cocos2dx_TransitionProgressHorizontal_constructor, 0, // constructor
 		properties,
@@ -42752,7 +43380,10 @@ bool js_cocos2dx_TransitionProgressVertical_constructor(JSContext *cx, uint32_t 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -42796,9 +43427,11 @@ void js_register_cocos2dx_TransitionProgressVertical(JSContext *cx, JSObject *gl
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionProgress_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionProgress_prototype));
 	jsb_cocos2d_TransitionProgressVertical_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionProgress_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionProgress_prototype_handle,
 		jsb_cocos2d_TransitionProgressVertical_class,
 		js_cocos2dx_TransitionProgressVertical_constructor, 0, // constructor
 		properties,
@@ -42877,7 +43510,10 @@ bool js_cocos2dx_TransitionProgressInOut_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -42921,9 +43557,11 @@ void js_register_cocos2dx_TransitionProgressInOut(JSContext *cx, JSObject *globa
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionProgress_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionProgress_prototype));
 	jsb_cocos2d_TransitionProgressInOut_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionProgress_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionProgress_prototype_handle,
 		jsb_cocos2d_TransitionProgressInOut_class,
 		js_cocos2dx_TransitionProgressInOut_constructor, 0, // constructor
 		properties,
@@ -43002,7 +43640,10 @@ bool js_cocos2dx_TransitionProgressOutIn_constructor(JSContext *cx, uint32_t arg
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -43046,9 +43687,11 @@ void js_register_cocos2dx_TransitionProgressOutIn(JSContext *cx, JSObject *globa
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_TransitionProgress_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_TransitionProgress_prototype));
 	jsb_cocos2d_TransitionProgressOutIn_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_TransitionProgress_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_TransitionProgress_prototype_handle,
 		jsb_cocos2d_TransitionProgressOutIn_class,
 		js_cocos2dx_TransitionProgressOutIn_constructor, 0, // constructor
 		properties,
@@ -43251,7 +43894,10 @@ bool js_cocos2dx_MenuItem_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -43271,7 +43917,8 @@ void js_cocos2d_MenuItem_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MenuItem_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MenuItem *nobj = new (std::nothrow) cocos2d::MenuItem();
     if (nobj) {
         nobj->autorelease();
@@ -43317,9 +43964,11 @@ void js_register_cocos2dx_MenuItem(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_MenuItem_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_MenuItem_class,
 		js_cocos2dx_MenuItem_constructor, 0, // constructor
 		properties,
@@ -43523,7 +44172,10 @@ bool js_cocos2dx_MenuItemLabel_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -43543,7 +44195,8 @@ void js_cocos2d_MenuItemLabel_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MenuItemLabel_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MenuItemLabel *nobj = new (std::nothrow) cocos2d::MenuItemLabel();
     if (nobj) {
         nobj->autorelease();
@@ -43587,9 +44240,11 @@ void js_register_cocos2dx_MenuItemLabel(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_MenuItem_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_MenuItem_prototype));
 	jsb_cocos2d_MenuItemLabel_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_MenuItem_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_MenuItem_prototype_handle,
 		jsb_cocos2d_MenuItemLabel_class,
 		js_cocos2dx_MenuItemLabel_constructor, 0, // constructor
 		properties,
@@ -43686,7 +44341,10 @@ bool js_cocos2dx_MenuItemAtlasFont_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -43706,7 +44364,8 @@ void js_cocos2d_MenuItemAtlasFont_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MenuItemAtlasFont_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MenuItemAtlasFont *nobj = new (std::nothrow) cocos2d::MenuItemAtlasFont();
     if (nobj) {
         nobj->autorelease();
@@ -43745,9 +44404,11 @@ void js_register_cocos2dx_MenuItemAtlasFont(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_MenuItemLabel_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_MenuItemLabel_prototype));
 	jsb_cocos2d_MenuItemAtlasFont_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_MenuItemLabel_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_MenuItemLabel_prototype_handle,
 		jsb_cocos2d_MenuItemAtlasFont_class,
 		js_cocos2dx_MenuItemAtlasFont_constructor, 0, // constructor
 		properties,
@@ -43968,7 +44629,10 @@ bool js_cocos2dx_MenuItemFont_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -43988,7 +44652,8 @@ void js_cocos2d_MenuItemFont_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MenuItemFont_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MenuItemFont *nobj = new (std::nothrow) cocos2d::MenuItemFont();
     if (nobj) {
         nobj->autorelease();
@@ -44037,9 +44702,11 @@ void js_register_cocos2dx_MenuItemFont(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_MenuItemLabel_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_MenuItemLabel_prototype));
 	jsb_cocos2d_MenuItemFont_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_MenuItemLabel_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_MenuItemLabel_prototype_handle,
 		jsb_cocos2d_MenuItemFont_class,
 		js_cocos2dx_MenuItemFont_constructor, 0, // constructor
 		properties,
@@ -44356,7 +45023,10 @@ bool js_cocos2dx_MenuItemSprite_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -44376,7 +45046,8 @@ void js_cocos2d_MenuItemSprite_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MenuItemSprite_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MenuItemSprite *nobj = new (std::nothrow) cocos2d::MenuItemSprite();
     if (nobj) {
         nobj->autorelease();
@@ -44424,9 +45095,11 @@ void js_register_cocos2dx_MenuItemSprite(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_MenuItem_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_MenuItem_prototype));
 	jsb_cocos2d_MenuItemSprite_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_MenuItem_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_MenuItem_prototype_handle,
 		jsb_cocos2d_MenuItemSprite_class,
 		js_cocos2dx_MenuItemSprite_constructor, 0, // constructor
 		properties,
@@ -44617,7 +45290,10 @@ bool js_cocos2dx_MenuItemImage_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -44637,7 +45313,8 @@ void js_cocos2d_MenuItemImage_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MenuItemImage_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MenuItemImage *nobj = new (std::nothrow) cocos2d::MenuItemImage();
     if (nobj) {
         nobj->autorelease();
@@ -44680,9 +45357,11 @@ void js_register_cocos2dx_MenuItemImage(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_MenuItemSprite_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_MenuItemSprite_prototype));
 	jsb_cocos2d_MenuItemImage_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_MenuItemSprite_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_MenuItemSprite_prototype_handle,
 		jsb_cocos2d_MenuItemImage_class,
 		js_cocos2dx_MenuItemImage_constructor, 0, // constructor
 		properties,
@@ -44864,7 +45543,10 @@ bool js_cocos2dx_MenuItemToggle_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -44884,7 +45566,8 @@ void js_cocos2d_MenuItemToggle_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MenuItemToggle_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MenuItemToggle *nobj = new (std::nothrow) cocos2d::MenuItemToggle();
     if (nobj) {
         nobj->autorelease();
@@ -44928,9 +45611,11 @@ void js_register_cocos2dx_MenuItemToggle(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_MenuItem_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_MenuItem_prototype));
 	jsb_cocos2d_MenuItemToggle_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_MenuItem_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_MenuItem_prototype_handle,
 		jsb_cocos2d_MenuItemToggle_class,
 		js_cocos2dx_MenuItemToggle_constructor, 0, // constructor
 		properties,
@@ -45121,7 +45806,10 @@ bool js_cocos2dx_Menu_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -45141,7 +45829,8 @@ void js_cocos2d_Menu_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_Menu_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::Menu *nobj = new (std::nothrow) cocos2d::Menu();
     if (nobj) {
         nobj->autorelease();
@@ -45187,9 +45876,11 @@ void js_register_cocos2dx_Menu(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Layer_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Layer_prototype));
 	jsb_cocos2d_Menu_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Layer_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Layer_prototype_handle,
 		jsb_cocos2d_Menu_class,
 		js_cocos2dx_Menu_constructor, 0, // constructor
 		properties,
@@ -45454,7 +46145,10 @@ bool js_cocos2dx_ClippingNode_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -45505,9 +46199,11 @@ void js_register_cocos2dx_ClippingNode(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_ClippingNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_ClippingNode_class,
 		js_cocos2dx_ClippingNode_constructor, 0, // constructor
 		properties,
@@ -45898,7 +46594,10 @@ bool js_cocos2dx_MotionStreak_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -45918,7 +46617,8 @@ void js_cocos2d_MotionStreak_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_MotionStreak_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::MotionStreak *nobj = new (std::nothrow) cocos2d::MotionStreak();
     if (nobj) {
         nobj->autorelease();
@@ -45970,9 +46670,11 @@ void js_register_cocos2dx_MotionStreak(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_MotionStreak_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_MotionStreak_class,
 		js_cocos2dx_MotionStreak_constructor, 0, // constructor
 		properties,
@@ -46328,7 +47030,10 @@ bool js_cocos2dx_ProgressTimer_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -46348,7 +47053,8 @@ void js_cocos2d_ProgressTimer_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ProgressTimer_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ProgressTimer *nobj = new (std::nothrow) cocos2d::ProgressTimer();
     if (nobj) {
         nobj->autorelease();
@@ -46402,9 +47108,11 @@ void js_register_cocos2dx_ProgressTimer(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_ProgressTimer_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_ProgressTimer_class,
 		js_cocos2dx_ProgressTimer_constructor, 0, // constructor
 		properties,
@@ -47481,7 +48189,10 @@ bool js_cocos2dx_Sprite_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -47501,7 +48212,8 @@ void js_cocos2d_Sprite_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_Sprite_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::Sprite *nobj = new (std::nothrow) cocos2d::Sprite();
     if (nobj) {
         nobj->autorelease();
@@ -47577,9 +48289,11 @@ void js_register_cocos2dx_Sprite(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_Sprite_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_Sprite_class,
 		js_cocos2dx_Sprite_constructor, 0, // constructor
 		properties,
@@ -48281,7 +48995,10 @@ bool js_cocos2dx_RenderTexture_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -48301,7 +49018,8 @@ void js_cocos2d_RenderTexture_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_RenderTexture_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::RenderTexture *nobj = new (std::nothrow) cocos2d::RenderTexture();
     if (nobj) {
         nobj->autorelease();
@@ -48365,9 +49083,11 @@ void js_register_cocos2dx_RenderTexture(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_RenderTexture_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_RenderTexture_class,
 		js_cocos2dx_RenderTexture_constructor, 0, // constructor
 		properties,
@@ -48507,7 +49227,10 @@ bool js_cocos2dx_NodeGrid_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -48553,9 +49276,11 @@ void js_register_cocos2dx_NodeGrid(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_NodeGrid_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_NodeGrid_class,
 		js_cocos2dx_NodeGrid_constructor, 0, // constructor
 		properties,
@@ -48987,7 +49712,10 @@ bool js_cocos2dx_ParticleBatchNode_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -49007,7 +49735,8 @@ void js_cocos2d_ParticleBatchNode_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ParticleBatchNode_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ParticleBatchNode *nobj = new (std::nothrow) cocos2d::ParticleBatchNode();
     if (nobj) {
         nobj->autorelease();
@@ -49061,9 +49790,11 @@ void js_register_cocos2dx_ParticleBatchNode(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_ParticleBatchNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_ParticleBatchNode_class,
 		js_cocos2dx_ParticleBatchNode_constructor, 0, // constructor
 		properties,
@@ -51170,7 +51901,10 @@ bool js_cocos2dx_ParticleSystem_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -51190,7 +51924,8 @@ void js_cocos2d_ParticleSystem_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ParticleSystem_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ParticleSystem *nobj = new (std::nothrow) cocos2d::ParticleSystem();
     if (nobj) {
         nobj->autorelease();
@@ -51338,9 +52073,11 @@ void js_register_cocos2dx_ParticleSystem(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_ParticleSystem_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_ParticleSystem_class,
 		js_cocos2dx_ParticleSystem_constructor, 0, // constructor
 		properties,
@@ -51557,7 +52294,10 @@ bool js_cocos2dx_ParticleSystemQuad_constructor(JSContext *cx, uint32_t argc, js
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -51605,9 +52345,11 @@ void js_register_cocos2dx_ParticleSystemQuad(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystem_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystem_prototype));
 	jsb_cocos2d_ParticleSystemQuad_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystem_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystem_prototype_handle,
 		jsb_cocos2d_ParticleSystemQuad_class,
 		js_cocos2dx_ParticleSystemQuad_constructor, 0, // constructor
 		properties,
@@ -51714,7 +52456,10 @@ bool js_cocos2dx_ParticleFire_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -51760,9 +52505,11 @@ void js_register_cocos2dx_ParticleFire(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleFire_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleFire_class,
 		js_cocos2dx_ParticleFire_constructor, 0, // constructor
 		properties,
@@ -51891,7 +52638,10 @@ bool js_cocos2dx_ParticleFireworks_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -51938,9 +52688,11 @@ void js_register_cocos2dx_ParticleFireworks(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleFireworks_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleFireworks_class,
 		js_cocos2dx_ParticleFireworks_constructor, 0, // constructor
 		properties,
@@ -52069,7 +52821,10 @@ bool js_cocos2dx_ParticleSun_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -52116,9 +52871,11 @@ void js_register_cocos2dx_ParticleSun(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleSun_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleSun_class,
 		js_cocos2dx_ParticleSun_constructor, 0, // constructor
 		properties,
@@ -52247,7 +53004,10 @@ bool js_cocos2dx_ParticleGalaxy_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -52294,9 +53054,11 @@ void js_register_cocos2dx_ParticleGalaxy(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleGalaxy_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleGalaxy_class,
 		js_cocos2dx_ParticleGalaxy_constructor, 0, // constructor
 		properties,
@@ -52425,7 +53187,10 @@ bool js_cocos2dx_ParticleFlower_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -52472,9 +53237,11 @@ void js_register_cocos2dx_ParticleFlower(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleFlower_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleFlower_class,
 		js_cocos2dx_ParticleFlower_constructor, 0, // constructor
 		properties,
@@ -52603,7 +53370,10 @@ bool js_cocos2dx_ParticleMeteor_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -52650,9 +53420,11 @@ void js_register_cocos2dx_ParticleMeteor(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleMeteor_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleMeteor_class,
 		js_cocos2dx_ParticleMeteor_constructor, 0, // constructor
 		properties,
@@ -52781,7 +53553,10 @@ bool js_cocos2dx_ParticleSpiral_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -52828,9 +53603,11 @@ void js_register_cocos2dx_ParticleSpiral(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleSpiral_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleSpiral_class,
 		js_cocos2dx_ParticleSpiral_constructor, 0, // constructor
 		properties,
@@ -52959,7 +53736,10 @@ bool js_cocos2dx_ParticleExplosion_constructor(JSContext *cx, uint32_t argc, jsv
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -53006,9 +53786,11 @@ void js_register_cocos2dx_ParticleExplosion(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleExplosion_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleExplosion_class,
 		js_cocos2dx_ParticleExplosion_constructor, 0, // constructor
 		properties,
@@ -53137,7 +53919,10 @@ bool js_cocos2dx_ParticleSmoke_constructor(JSContext *cx, uint32_t argc, jsval *
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -53184,9 +53969,11 @@ void js_register_cocos2dx_ParticleSmoke(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleSmoke_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleSmoke_class,
 		js_cocos2dx_ParticleSmoke_constructor, 0, // constructor
 		properties,
@@ -53315,7 +54102,10 @@ bool js_cocos2dx_ParticleSnow_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -53362,9 +54152,11 @@ void js_register_cocos2dx_ParticleSnow(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleSnow_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleSnow_class,
 		js_cocos2dx_ParticleSnow_constructor, 0, // constructor
 		properties,
@@ -53493,7 +54285,10 @@ bool js_cocos2dx_ParticleRain_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -53540,9 +54335,11 @@ void js_register_cocos2dx_ParticleRain(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_ParticleSystemQuad_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_ParticleSystemQuad_prototype));
 	jsb_cocos2d_ParticleRain_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_ParticleSystemQuad_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_ParticleSystemQuad_prototype_handle,
 		jsb_cocos2d_ParticleRain_class,
 		js_cocos2dx_ParticleRain_constructor, 0, // constructor
 		properties,
@@ -54009,7 +54806,8 @@ void js_cocos2d_GridBase_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_GridBase_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::GridBase *nobj = new (std::nothrow) cocos2d::GridBase();
     if (nobj) {
         nobj->autorelease();
@@ -54069,8 +54867,9 @@ void js_register_cocos2dx_GridBase(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_GridBase_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_GridBase_class,
 		dummy_constructor<cocos2d::GridBase>, 0, // no constructor
@@ -54213,7 +55012,10 @@ bool js_cocos2dx_Grid3D_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -54233,7 +55035,8 @@ void js_cocos2d_Grid3D_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_Grid3D_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::Grid3D *nobj = new (std::nothrow) cocos2d::Grid3D();
     if (nobj) {
         nobj->autorelease();
@@ -54276,9 +55079,11 @@ void js_register_cocos2dx_Grid3D(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_GridBase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_GridBase_prototype));
 	jsb_cocos2d_Grid3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_GridBase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_GridBase_prototype_handle,
 		jsb_cocos2d_Grid3D_class,
 		js_cocos2dx_Grid3D_constructor, 0, // constructor
 		properties,
@@ -54383,7 +55188,10 @@ bool js_cocos2dx_TiledGrid3D_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -54403,7 +55211,8 @@ void js_cocos2d_TiledGrid3D_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TiledGrid3D_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TiledGrid3D *nobj = new (std::nothrow) cocos2d::TiledGrid3D();
     if (nobj) {
         nobj->autorelease();
@@ -54444,9 +55253,11 @@ void js_register_cocos2dx_TiledGrid3D(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_GridBase_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_GridBase_prototype));
 	jsb_cocos2d_TiledGrid3D_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_GridBase_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_GridBase_prototype_handle,
 		jsb_cocos2d_TiledGrid3D_class,
 		js_cocos2dx_TiledGrid3D_constructor, 0, // constructor
 		properties,
@@ -55104,7 +55915,10 @@ bool js_cocos2dx_GLProgram_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -55173,8 +55987,9 @@ void js_register_cocos2dx_GLProgram(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_GLProgram_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_GLProgram_class,
 		js_cocos2dx_GLProgram_constructor, 0, // constructor
@@ -55339,7 +56154,10 @@ bool js_cocos2dx_GLProgramCache_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -55387,8 +56205,9 @@ void js_register_cocos2dx_GLProgramCache(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_GLProgramCache_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_GLProgramCache_class,
 		js_cocos2dx_GLProgramCache_constructor, 0, // constructor
@@ -55752,7 +56571,10 @@ bool js_cocos2dx_TextureCache_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -55805,8 +56627,9 @@ void js_register_cocos2dx_TextureCache(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_TextureCache_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TextureCache_class,
 		js_cocos2dx_TextureCache_constructor, 0, // constructor
@@ -55933,8 +56756,9 @@ void js_register_cocos2dx_Device(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Device_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Device_class,
 		dummy_constructor<cocos2d::Device>, 0, // no constructor
@@ -56017,8 +56841,9 @@ void js_register_cocos2dx_SAXParser(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_SAXParser_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_SAXParser_class,
 		empty_constructor, 0,
@@ -56137,8 +56962,9 @@ void js_register_cocos2dx_Application(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Application_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Application_class,
 		empty_constructor, 0,
@@ -56352,7 +57178,10 @@ bool js_cocos2dx_AnimationCache_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -56402,8 +57231,9 @@ void js_register_cocos2dx_AnimationCache(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_AnimationCache_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_AnimationCache_class,
 		js_cocos2dx_AnimationCache_constructor, 0, // constructor
@@ -56790,8 +57620,9 @@ void js_register_cocos2dx_SpriteFrameCache(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_SpriteFrameCache_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_SpriteFrameCache_class,
 		empty_constructor, 0,
@@ -57138,7 +57969,10 @@ bool js_cocos2dx_TextFieldTTF_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -57158,7 +57992,8 @@ void js_cocos2d_TextFieldTTF_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TextFieldTTF_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TextFieldTTF *nobj = new (std::nothrow) cocos2d::TextFieldTTF();
     if (nobj) {
         nobj->autorelease();
@@ -57209,9 +58044,11 @@ void js_register_cocos2dx_TextFieldTTF(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Label_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Label_prototype));
 	jsb_cocos2d_TextFieldTTF_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Label_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Label_prototype_handle,
 		jsb_cocos2d_TextFieldTTF_class,
 		js_cocos2dx_TextFieldTTF_constructor, 0, // constructor
 		properties,
@@ -57384,7 +58221,10 @@ bool js_cocos2dx_ParallaxNode_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -57404,7 +58244,8 @@ void js_cocos2d_ParallaxNode_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_ParallaxNode_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::ParallaxNode *nobj = new (std::nothrow) cocos2d::ParallaxNode();
     if (nobj) {
         nobj->autorelease();
@@ -57449,9 +58290,11 @@ void js_register_cocos2dx_ParallaxNode(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_ParallaxNode_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_ParallaxNode_class,
 		js_cocos2dx_ParallaxNode_constructor, 0, // constructor
 		properties,
@@ -57722,7 +58565,10 @@ bool js_cocos2dx_TMXObjectGroup_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -57772,8 +58618,9 @@ void js_register_cocos2dx_TMXObjectGroup(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_TMXObjectGroup_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXObjectGroup_class,
 		js_cocos2dx_TMXObjectGroup_constructor, 0, // constructor
@@ -57856,7 +58703,10 @@ bool js_cocos2dx_TMXLayerInfo_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -57898,8 +58748,9 @@ void js_register_cocos2dx_TMXLayerInfo(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_TMXLayerInfo_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXLayerInfo_class,
 		js_cocos2dx_TMXLayerInfo_constructor, 0, // constructor
@@ -57967,7 +58818,10 @@ bool js_cocos2dx_TMXTilesetInfo_constructor(JSContext *cx, uint32_t argc, jsval 
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -58008,8 +58862,9 @@ void js_register_cocos2dx_TMXTilesetInfo(JSContext *cx, JSObject *global) {
 
 	JSFunctionSpec *st_funcs = NULL;
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_TMXTilesetInfo_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXTilesetInfo_class,
 		js_cocos2dx_TMXTilesetInfo_constructor, 0, // constructor
@@ -58783,7 +59638,10 @@ bool js_cocos2dx_TMXMapInfo_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -58802,7 +59660,8 @@ void js_cocos2d_TMXMapInfo_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TMXMapInfo_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TMXMapInfo *nobj = new (std::nothrow) cocos2d::TMXMapInfo();
     if (nobj) {
         nobj->autorelease();
@@ -58876,8 +59735,9 @@ void js_register_cocos2dx_TMXMapInfo(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_TMXMapInfo_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_TMXMapInfo_class,
 		js_cocos2dx_TMXMapInfo_constructor, 0, // constructor
@@ -59497,7 +60357,10 @@ bool js_cocos2dx_TMXLayer_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -59517,7 +60380,8 @@ void js_cocos2d_TMXLayer_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TMXLayer_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TMXLayer *nobj = new (std::nothrow) cocos2d::TMXLayer();
     if (nobj) {
         nobj->autorelease();
@@ -59580,9 +60444,11 @@ void js_register_cocos2dx_TMXLayer(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_SpriteBatchNode_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_SpriteBatchNode_prototype));
 	jsb_cocos2d_TMXLayer_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_SpriteBatchNode_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_SpriteBatchNode_prototype_handle,
 		jsb_cocos2d_TMXLayer_class,
 		js_cocos2dx_TMXLayer_constructor, 0, // constructor
 		properties,
@@ -60057,7 +60923,10 @@ bool js_cocos2dx_TMXTiledMap_constructor(JSContext *cx, uint32_t argc, jsval *vp
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -60077,7 +60946,8 @@ void js_cocos2d_TMXTiledMap_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TMXTiledMap_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TMXTiledMap *nobj = new (std::nothrow) cocos2d::TMXTiledMap();
     if (nobj) {
         nobj->autorelease();
@@ -60135,9 +61005,11 @@ void js_register_cocos2dx_TMXTiledMap(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_Node_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_Node_prototype));
 	jsb_cocos2d_TMXTiledMap_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_Node_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_Node_prototype_handle,
 		jsb_cocos2d_TMXTiledMap_class,
 		js_cocos2dx_TMXTiledMap_constructor, 0, // constructor
 		properties,
@@ -60338,7 +61210,10 @@ bool js_cocos2dx_TileMapAtlas_constructor(JSContext *cx, uint32_t argc, jsval *v
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -60358,7 +61233,8 @@ void js_cocos2d_TileMapAtlas_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_TileMapAtlas_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::TileMapAtlas *nobj = new (std::nothrow) cocos2d::TileMapAtlas();
     if (nobj) {
         nobj->autorelease();
@@ -60405,9 +61281,11 @@ void js_register_cocos2dx_TileMapAtlas(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
+	JS::HandleObject jsb_cocos2d_AtlasNode_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_AtlasNode_prototype));
 	jsb_cocos2d_TileMapAtlas_prototype = JS_InitClass(
-		cx, global,
-		jsb_cocos2d_AtlasNode_prototype,
+		cx, globalHandle,
+		jsb_cocos2d_AtlasNode_prototype_handle,
 		jsb_cocos2d_TileMapAtlas_class,
 		js_cocos2dx_TileMapAtlas_constructor, 0, // constructor
 		properties,
@@ -60634,7 +61512,10 @@ bool js_cocos2dx_Component_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
     typeClass = typeMapIter->second;
     CCASSERT(typeClass, "The value is null.");
+    JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&typeClass->proto));
+    JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&typeClass->parentProto));
     JSObject *obj = JS_NewObject(cx, typeClass->jsclass, protoHandle, parentHandle);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
     // link the native object with the javascript object
     js_proxy_t* p = jsb_new_proxy(cobj, obj);
@@ -60653,7 +61534,8 @@ void js_cocos2d_Component_finalize(JSFreeOp *fop, JSObject *obj) {
 static bool js_cocos2d_Component_ctor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     jsval *argv = JS_ARGV(cx, vp);
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
     cocos2d::Component *nobj = new (std::nothrow) cocos2d::Component();
     if (nobj) {
         nobj->autorelease();
@@ -60702,8 +61584,9 @@ void js_register_cocos2dx_Component(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_Component_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_Component_class,
 		js_cocos2dx_Component_constructor, 0, // constructor
@@ -60925,9 +61808,9 @@ void js_register_cocos2dx_ComponentContainer(JSContext *cx, JSObject *global) {
 	};
 
 	JSFunctionSpec *st_funcs = NULL;
-
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_cocos2d_ComponentContainer_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_cocos2d_ComponentContainer_class,
 		empty_constructor, 0,
@@ -61498,8 +62381,9 @@ void js_register_cocos2dx_SimpleAudioEngine(JSContext *cx, JSObject *global) {
 		JS_FS_END
 	};
 
+	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
 	jsb_CocosDenshion_SimpleAudioEngine_prototype = JS_InitClass(
-		cx, global,
+		cx, globalHandle,
 		JS::NullPtr(), // parent proto
 		jsb_CocosDenshion_SimpleAudioEngine_class,
 		empty_constructor, 0,
@@ -61530,11 +62414,12 @@ void register_all_cocos2dx(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);
-	JS_GetProperty(cx, obj, "cc", &nsval);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+	JS_GetProperty(cx, objHandle, "cc", &nsval);
 	if (nsval == JSVAL_VOID) {
-		ns = JS_NewObject(cx, NULL, NULL, NULL);
+		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
-		JS_SetProperty(cx, obj, "cc", nsval);
+		JS_SetProperty(cx, objHandle, "cc", nsval);
 	} else {
 		JS_ValueToObject(cx, nsval, &ns);
 	}
