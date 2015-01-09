@@ -877,7 +877,7 @@ void MinXmlHttpRequest::_js_register(JSContext *cx, JSObject *global)
         JS_BINDED_PROP_DEF_GETTER(MinXmlHttpRequest, responseText),
         JS_BINDED_PROP_DEF_GETTER(MinXmlHttpRequest, responseXML),
         JS_BINDED_PROP_DEF_GETTER(MinXmlHttpRequest, response),
-        {0, 0, 0, 0, 0}
+        JS_PS_END
     };
     
     static JSFunctionSpec funcs[] = {

@@ -416,7 +416,7 @@ void register_jsb_socketio(JSContext *cx, JSObject *global) {
 
     static JSPropertySpec properties[] = {
         JS_BINDED_PROP_DEF_ACCESSOR(SIOClient, tag),
-        {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+        JS_PS_END
     };
 
     static JSFunctionSpec funcs[] = {

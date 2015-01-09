@@ -4685,11 +4685,11 @@ void JSB_cpShape_createClass(JSContext *cx, JSObject* global, const char* name)
 	JSB_cpShape_class->flags = JSCLASS_HAS_PRIVATE;
 
 	static JSPropertySpec properties[] = {
-        {"bb_l", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbl), JSOP_WRAPPER(js_set_cpShape_bbl)},
-        {"bb_b", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbb), JSOP_WRAPPER(js_set_cpShape_bbb)},
-        {"bb_r", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbr), JSOP_WRAPPER(js_set_cpShape_bbr)},
-        {"bb_t", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbt), JSOP_WRAPPER(js_set_cpShape_bbt)},
-        {0, 0, 0, 0, 0}
+            {"bb_l", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbl), JSOP_WRAPPER(js_set_cpShape_bbl)},
+            {"bb_b", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbb), JSOP_WRAPPER(js_set_cpShape_bbb)},
+            {"bb_r", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbr), JSOP_WRAPPER(js_set_cpShape_bbr)},
+            {"bb_t", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpShape_bbt), JSOP_WRAPPER(js_set_cpShape_bbt)},
+            JS_PS_END
 	};
 	static JSFunctionSpec funcs[] = {
 		JS_FN("cacheBB", JSB_cpShape_cacheBB, 0, JSPROP_PERMANENT  | JSPROP_ENUMERATE),
@@ -5248,10 +5248,10 @@ void JSB_cpSegmentQueryInfo_createClass(JSContext *cx, JSObject* global, const c
 	JSB_cpSegmentQueryInfo_class->flags = JSCLASS_HAS_PRIVATE;
 
 	static JSPropertySpec properties[] = {
-        {"shape", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpSegmentQueryInfo_shape), JSOP_WRAPPER(js_set_cpSegmentQueryInfo_shape)},
-        {"t", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpSegmentQueryInfo_t), JSOP_WRAPPER(js_set_cpSegmentQueryInfo_t)},
-        {"n", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpSegmentQueryInfo_n), JSOP_WRAPPER(js_set_cpSegmentQueryInfo_n)},
-		{0, 0, 0, 0, 0}
+            {"shape", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpSegmentQueryInfo_shape), JSOP_WRAPPER(js_set_cpSegmentQueryInfo_shape)},
+            {"t", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpSegmentQueryInfo_t), JSOP_WRAPPER(js_set_cpSegmentQueryInfo_t)},
+            {"n", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpSegmentQueryInfo_n), JSOP_WRAPPER(js_set_cpSegmentQueryInfo_n)},
+            JS_PS_END
 	};
 	static JSFunctionSpec funcs[] = {
 		JS_FN("hitPoint", JSB_cpSegmentQueryInfo_hitPoint, 2, JSPROP_PERMANENT  | JSPROP_ENUMERATE),
@@ -5364,10 +5364,10 @@ void JSB_cpNearestPointQueryInfo_createClass(JSContext *cx, JSObject* global, co
 	JSB_cpNearestPointQueryInfo_class->flags = JSCLASS_HAS_PRIVATE;
 
 	static JSPropertySpec properties[] = {
-        {"shape", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpNearestPointQueryInfo_shape), JSOP_WRAPPER(js_set_cpNearestPointQueryInfo_shape)},
-        {"p", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpNearestPointQueryInfo_p), JSOP_WRAPPER(js_set_cpNearestPointQueryInfo_p)},
-        {"d", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpNearestPointQueryInfo_d), JSOP_WRAPPER(js_set_cpNearestPointQueryInfo_d)},
-		{0, 0, 0, 0, 0}
+            {"shape", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpNearestPointQueryInfo_shape), JSOP_WRAPPER(js_set_cpNearestPointQueryInfo_shape)},
+            {"p", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpNearestPointQueryInfo_p), JSOP_WRAPPER(js_set_cpNearestPointQueryInfo_p)},
+            {"d", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_cpNearestPointQueryInfo_d), JSOP_WRAPPER(js_set_cpNearestPointQueryInfo_d)},
+            JS_PS_END
 	};
 	static JSFunctionSpec funcs[] = {
 		JS_FS_END

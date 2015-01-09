@@ -998,42 +998,42 @@ CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio_manual(JSContext* cx, JS
     JS_DefineFunction(cx, jsb_cocostudio_ArmatureDataManager_prototype_handle, "addArmatureFileInfoAsync", jsb_Animation_addArmatureFileInfoAsyncCallFunc, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     static JSPropertySpec baseDataProps[] = {
-        {"x", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_x), JSOP_WRAPPER(js_set_BaseData_x)},
-        {"y", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_y), JSOP_WRAPPER(js_set_BaseData_y)},
-        {"zOrder", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_zOrder), JSOP_WRAPPER(js_set_BaseData_zOrder)},
-        {"skewX", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_skewX), JSOP_WRAPPER(js_set_BaseData_skewX)},
-        {"skewY", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_skewY), JSOP_WRAPPER(js_set_BaseData_skewY)},
-        {"scaleX", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_scaleX), JSOP_WRAPPER(js_set_BaseData_scaleX)},
-        {"scaleY", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_scaleY), JSOP_WRAPPER(js_set_BaseData_scaleY)},
-        {"tweenRotate", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_tweenRotate), JSOP_WRAPPER(js_set_BaseData_tweenRotate)},
-        {"isUseColorInfo", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_isUseColorInfo), JSOP_WRAPPER(js_set_BaseData_isUseColorInfo)},
-        {"a", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_a), JSOP_WRAPPER(js_set_BaseData_a)},
-        {"r", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_r), JSOP_WRAPPER(js_set_BaseData_r)},
-        {"g", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_g), JSOP_WRAPPER(js_set_BaseData_g)},
-        {"b", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_b), JSOP_WRAPPER(js_set_BaseData_b)},
-        {0, 0, 0, 0, 0}
+        {"x", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_x), JSOP_WRAPPER(js_set_BaseData_x)},
+        {"y", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_y), JSOP_WRAPPER(js_set_BaseData_y)},
+        {"zOrder", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_zOrder), JSOP_WRAPPER(js_set_BaseData_zOrder)},
+        {"skewX", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_skewX), JSOP_WRAPPER(js_set_BaseData_skewX)},
+        {"skewY", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_skewY), JSOP_WRAPPER(js_set_BaseData_skewY)},
+        {"scaleX", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_scaleX), JSOP_WRAPPER(js_set_BaseData_scaleX)},
+        {"scaleY", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_scaleY), JSOP_WRAPPER(js_set_BaseData_scaleY)},
+        {"tweenRotate", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_tweenRotate), JSOP_WRAPPER(js_set_BaseData_tweenRotate)},
+        {"isUseColorInfo", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_isUseColorInfo), JSOP_WRAPPER(js_set_BaseData_isUseColorInfo)},
+        {"a", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_a), JSOP_WRAPPER(js_set_BaseData_a)},
+        {"r", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_r), JSOP_WRAPPER(js_set_BaseData_r)},
+        {"g", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_g), JSOP_WRAPPER(js_set_BaseData_g)},
+        {"b", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_b), JSOP_WRAPPER(js_set_BaseData_b)},
+        JS_PS_END
     };
     JS::HandleObject jsb_cocostudio_BaseData_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_BaseData_prototype));
     JS_DefineProperties(cx, jsb_cocostudio_BaseData_prototype_handle, baseDataProps);
     
     static JSPropertySpec animationDataProps[] = {
-        {"name", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_name), JSOP_WRAPPER(js_set_AnimationData_name)},
-        {"movementNames", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_movementNames), JSOP_WRAPPER(js_set_AnimationData_movementNames)},
-        {"movementDataDic", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_movementDataDic), JSOP_WRAPPER(js_set_AnimationData_movementDataDic)},
-        {0, 0, 0, 0, 0}
+        {"name", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_name), JSOP_WRAPPER(js_set_AnimationData_name)},
+        {"movementNames", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_movementNames), JSOP_WRAPPER(js_set_AnimationData_movementNames)},
+        {"movementDataDic", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_movementDataDic), JSOP_WRAPPER(js_set_AnimationData_movementDataDic)},
+        JS_PS_END
     };
     JS::HandleObject jsb_cocostudio_AnimationData_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_AnimationData_prototype));
     JS_DefineProperties(cx, jsb_cocostudio_AnimationData_prototype_handle, animationDataProps);
     
     static JSPropertySpec movementDataProps[] = {
-        {"name", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_name), JSOP_WRAPPER(js_set_MovementData_name)},
-        {"duration", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_duration), JSOP_WRAPPER(js_set_MovementData_duration)},
-        {"scale", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_scale), JSOP_WRAPPER(js_set_MovementData_scale)},
-        {"durationTo", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_durationTo), JSOP_WRAPPER(js_set_MovementData_durationTo)},
-        {"durationTween", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_durationTween), JSOP_WRAPPER(js_set_MovementData_durationTween)},
-        {"loop", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_loop), JSOP_WRAPPER(js_set_MovementData_loop)},
-        {"tweenEasing", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_tweenEasing), JSOP_WRAPPER(js_set_MovementData_tweenEasing)},
-        {0, 0, 0, 0, 0}
+        {"name", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_name), JSOP_WRAPPER(js_set_MovementData_name)},
+        {"duration", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_duration), JSOP_WRAPPER(js_set_MovementData_duration)},
+        {"scale", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_scale), JSOP_WRAPPER(js_set_MovementData_scale)},
+        {"durationTo", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_durationTo), JSOP_WRAPPER(js_set_MovementData_durationTo)},
+        {"durationTween", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_durationTween), JSOP_WRAPPER(js_set_MovementData_durationTween)},
+        {"loop", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_loop), JSOP_WRAPPER(js_set_MovementData_loop)},
+        {"tweenEasing", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_tweenEasing), JSOP_WRAPPER(js_set_MovementData_tweenEasing)},
+        JS_PS_END
     };
     JS_DefineProperties(cx, jsb_cocostudio_AnimationData_prototype_handle, movementDataProps);
 }
