@@ -989,13 +989,13 @@ extern JSObject* jsb_cocostudio_MovementData_prototype;
 
 CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio_manual(JSContext* cx, JSObject* global)
 {
-    JS_DefineFunction(cx, jsb_cocostudio_ColliderBody_prototype, "getCalculatedVertexList", js_cocos2dx_studio_ColliderBody_getCalculatedVertexList, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-
-    JS_DefineFunction(cx, jsb_cocostudio_ArmatureAnimation_prototype, "setMovementEventCallFunc", js_cocos2dx_ArmatureAnimation_setMovementEventCallFunc, 2, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-
-    JS_DefineFunction(cx, jsb_cocostudio_ArmatureAnimation_prototype, "setFrameEventCallFunc", js_cocos2dx_ArmatureAnimation_setFrameEventCallFunc, 2, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-
-    JS_DefineFunction(cx, jsb_cocostudio_ArmatureDataManager_prototype, "addArmatureFileInfoAsync", jsb_Animation_addArmatureFileInfoAsyncCallFunc, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject jsb_cocostudio_ColliderBody_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_ColliderBody_prototype));
+    JS_DefineFunction(cx, jsb_cocostudio_ColliderBody_prototype_handle, "getCalculatedVertexList", js_cocos2dx_studio_ColliderBody_getCalculatedVertexList, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject jsb_cocostudio_ArmatureAnimation_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_ArmatureAnimation_prototype));
+    JS_DefineFunction(cx, jsb_cocostudio_ArmatureAnimation_prototype_handle, "setMovementEventCallFunc", js_cocos2dx_ArmatureAnimation_setMovementEventCallFunc, 2, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, jsb_cocostudio_ArmatureAnimation_prototype_handle, "setFrameEventCallFunc", js_cocos2dx_ArmatureAnimation_setFrameEventCallFunc, 2, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject jsb_cocostudio_ArmatureDataManager_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_ArmatureDataManager_prototype));
+    JS_DefineFunction(cx, jsb_cocostudio_ArmatureDataManager_prototype_handle, "addArmatureFileInfoAsync", jsb_Animation_addArmatureFileInfoAsyncCallFunc, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     static JSPropertySpec baseDataProps[] = {
         {"x", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_x), JSOP_WRAPPER(js_set_BaseData_x)},
@@ -1013,7 +1013,8 @@ CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio_manual(JSContext* cx, JS
         {"b", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_BaseData_b), JSOP_WRAPPER(js_set_BaseData_b)},
         {0, 0, 0, 0, 0}
     };
-    JS_DefineProperties(cx, jsb_cocostudio_BaseData_prototype, baseDataProps);
+    JS::HandleObject jsb_cocostudio_BaseData_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_BaseData_prototype));
+    JS_DefineProperties(cx, jsb_cocostudio_BaseData_prototype_handle, baseDataProps);
     
     static JSPropertySpec animationDataProps[] = {
         {"name", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_name), JSOP_WRAPPER(js_set_AnimationData_name)},
@@ -1021,7 +1022,8 @@ CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio_manual(JSContext* cx, JS
         {"movementDataDic", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_AnimationData_movementDataDic), JSOP_WRAPPER(js_set_AnimationData_movementDataDic)},
         {0, 0, 0, 0, 0}
     };
-    JS_DefineProperties(cx, jsb_cocostudio_AnimationData_prototype, animationDataProps);
+    JS::HandleObject jsb_cocostudio_AnimationData_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocostudio_AnimationData_prototype));
+    JS_DefineProperties(cx, jsb_cocostudio_AnimationData_prototype_handle, animationDataProps);
     
     static JSPropertySpec movementDataProps[] = {
         {"name", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_name), JSOP_WRAPPER(js_set_MovementData_name)},
@@ -1033,5 +1035,5 @@ CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio_manual(JSContext* cx, JS
         {"tweenEasing", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_get_MovementData_tweenEasing), JSOP_WRAPPER(js_set_MovementData_tweenEasing)},
         {0, 0, 0, 0, 0}
     };
-    JS_DefineProperties(cx, jsb_cocostudio_AnimationData_prototype, movementDataProps);
+    JS_DefineProperties(cx, jsb_cocostudio_AnimationData_prototype_handle, movementDataProps);
 }

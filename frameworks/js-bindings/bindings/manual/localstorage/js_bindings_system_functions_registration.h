@@ -7,9 +7,9 @@
 //#ifdef JSB_INCLUDE_SYSTEM
 
 //#include "LocalStorage.h"
-JS_DefineFunction(_cx, system, "getItem", JSB_localStorageGetItem, 1, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );
-JS_DefineFunction(_cx, system, "removeItem", JSB_localStorageRemoveItem, 1, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );
-JS_DefineFunction(_cx, system, "setItem", JSB_localStorageSetItem, 2, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );
-
+JS::HandleObject system_handle(JS::HandleObject::fromMarkedLocation(&system));
+JS_DefineFunction(_cx, system_handle, "getItem", JSB_localStorageGetItem, 1, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );
+JS_DefineFunction(_cx, system_handle, "removeItem", JSB_localStorageRemoveItem, 1, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );
+JS_DefineFunction(_cx, system_handle, "setItem", JSB_localStorageSetItem, 2, JSPROP_READONLY | JSPROP_PERMANENT | JSPROP_ENUMERATE );
 
 //#endif // JSB_INCLUDE_SYSTEM

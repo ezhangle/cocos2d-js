@@ -1141,23 +1141,29 @@ extern CC_BINDING_DLL JSObject* jsb_cocos2d_extension_Manifest_prototype;
 CC_BINDING_EXTENSIONS_DLL void register_all_cocos2dx_extension_manual(JSContext* cx, JSObject* global)
 {
 //    JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "retain", js_cocos2dx_ext_retain, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-//	JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "release", js_cocos2dx_ext_release, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+//    JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "release", js_cocos2dx_ext_release, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
 //    JS_DefineFunction(cx, jsb_cocos2d_extension_Manifest_prototype, "retain", js_cocos2dx_ext_retain, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-//	JS_DefineFunction(cx, jsb_cocos2d_extension_Manifest_prototype, "release", js_cocos2dx_ext_release, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+//    JS_DefineFunction(cx, jsb_cocos2d_extension_Manifest_prototype, "release", js_cocos2dx_ext_release, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    //JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "updateAssets", js_cocos2dx_ext_AssetsManager_updateAssets, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-	//JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "getFailedAssets", js_cocos2dx_ext_AssetsManager_getFailedAssets, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+//    JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "updateAssets", js_cocos2dx_ext_AssetsManager_updateAssets, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+//    JS_DefineFunction(cx, jsb_cocos2d_extension_AssetsManager_prototype, "getFailedAssets", js_cocos2dx_ext_AssetsManager_getFailedAssets, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
-    JS_DefineFunction(cx, jsb_cocos2d_extension_ScrollView_prototype, "setDelegate", js_cocos2dx_CCScrollView_setDelegate, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_cocos2d_extension_TableView_prototype, "setDelegate", js_cocos2dx_CCTableView_setDelegate, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_cocos2d_extension_TableView_prototype, "setDataSource", js_cocos2dx_CCTableView_setDataSource, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_cocos2d_extension_TableView_prototype, "_init", js_cocos2dx_CCTableView_init, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject jsb_cocos2d_extension_ScrollView_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_ScrollView_prototype));
+    JS_DefineFunction(cx, jsb_cocos2d_extension_ScrollView_prototype_handle, "setDelegate", js_cocos2dx_CCScrollView_setDelegate, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+
+    JS::HandleObject jsb_cocos2d_extension_TableView_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_TableView_prototype));
+    JS_DefineFunction(cx, jsb_cocos2d_extension_TableView_prototype_handle, "setDelegate", js_cocos2dx_CCTableView_setDelegate, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, jsb_cocos2d_extension_TableView_prototype_handle, "setDataSource", js_cocos2dx_CCTableView_setDataSource, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, jsb_cocos2d_extension_TableView_prototype_handle, "_init", js_cocos2dx_CCTableView_init, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
 //    JS_DefineFunction(cx, jsb_cocos2d_extension_EditBox_prototype, "setDelegate", js_cocos2dx_CCEditBox_setDelegate, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_cocos2d_extension_Control_prototype, "addTargetWithActionForControlEvents", js_cocos2dx_CCControl_addTargetWithActionForControlEvents, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_cocos2d_extension_Control_prototype, "removeTargetWithActionForControlEvents", js_cocos2dx_CCControl_removeTargetWithActionForControlEvents, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+
+    JS::HandleObject jsb_cocos2d_extension_Control_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocos2d_extension_Control_prototype));
+    JS_DefineFunction(cx, jsb_cocos2d_extension_Control_prototype_handle, "addTargetWithActionForControlEvents", js_cocos2dx_CCControl_addTargetWithActionForControlEvents, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, jsb_cocos2d_extension_Control_prototype_handle, "removeTargetWithActionForControlEvents", js_cocos2dx_CCControl_removeTargetWithActionForControlEvents, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     JSObject *tmpObj = anonEvaluate(cx, global, "(function () { return cc.TableView; })()").toObjectOrNull();
-    JS_DefineFunction(cx, tmpObj, "create", js_cocos2dx_CCTableView_create, 3, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS::HandleObject tmpObjHandle(JS::HandleObject::fromMarkedLocation(&tmpObj));
+    JS_DefineFunction(cx, tmpObjHandle, "create", js_cocos2dx_CCTableView_create, 3, JSPROP_READONLY | JSPROP_PERMANENT);
     
     /*
     JS::RootedObject jsbObj(cx);

@@ -58,7 +58,7 @@ private:
 	JSRuntime *_rt;
 	JSContext *_cx;
 	JSObject  *_global;
-	JSObject  *_debugGlobal;
+	JS::Heap<JSObject*> _debugGlobal;
 	SimpleRunLoop* _runLoop;
 
     bool _callFromScript;

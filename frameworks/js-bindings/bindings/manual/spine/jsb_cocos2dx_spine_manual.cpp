@@ -672,13 +672,15 @@ extern JSObject* jsb_spine_SkeletonAnimation_prototype;
 
 void register_all_cocos2dx_spine_manual(JSContext* cx, JSObject* global)
 {
-    JS_DefineFunction(cx, jsb_spine_Skeleton_prototype, "findBone", jsb_cocos2dx_spine_findBone, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_Skeleton_prototype, "findSlot", jsb_cocos2dx_spine_findSlot, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_Skeleton_prototype, "setDebugBones", jsb_cocos2dx_spine_setDebugBones, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_Skeleton_prototype, "setDebugSolots", jsb_cocos2dx_spine_setDebugSolots, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_Skeleton_prototype, "getAttachment", jsb_cocos2dx_spine_getAttachment, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_SkeletonAnimation_prototype, "getCurrent", jsb_cocos2dx_spine_getCurrent, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_SkeletonAnimation_prototype, "setAnimation", jsb_cocos2dx_spine_setAnimation, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_SkeletonAnimation_prototype, "addAnimation", jsb_cocos2dx_spine_addAnimation, 4, JSPROP_ENUMERATE | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_spine_SkeletonAnimation_prototype, "setAnimationListener", jsb_cocos2dx_spine_setAnimationListener, 2, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS::HandleObject SkeletonProtoHandle(JS::HandleObject::fromMarkedLocation(&jsb_spine_Skeleton_prototype));
+    JS::HandleObject SkeletonAnimationProtoHandle(JS::HandleObject::fromMarkedLocation(&jsb_spine_SkeletonAnimation_prototype));
+    JS_DefineFunction(cx, SkeletonProtoHandle, "findBone", jsb_cocos2dx_spine_findBone, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonProtoHandle, "findSlot", jsb_cocos2dx_spine_findSlot, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonProtoHandle, "setDebugBones", jsb_cocos2dx_spine_setDebugBones, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonProtoHandle, "setDebugSolots", jsb_cocos2dx_spine_setDebugSolots, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonProtoHandle, "getAttachment", jsb_cocos2dx_spine_getAttachment, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonAnimationProtoHandle, "getCurrent", jsb_cocos2dx_spine_getCurrent, 1, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonAnimationProtoHandle, "setAnimation", jsb_cocos2dx_spine_setAnimation, 3, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonAnimationProtoHandle, "addAnimation", jsb_cocos2dx_spine_addAnimation, 4, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, SkeletonAnimationProtoHandle, "setAnimationListener", jsb_cocos2dx_spine_setAnimationListener, 2, JSPROP_ENUMERATE | JSPROP_PERMANENT);
 }

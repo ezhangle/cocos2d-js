@@ -331,9 +331,12 @@ CC_BINDING_BUILDER_DLL void register_CCBuilderReader(JSContext *cx, JSObject *ob
     obj = ns;
 
     JSObject  *tmpObj = anonEvaluate(cx, obj, "(function () { return cc._Reader; })()").toObjectOrNull();
-    JS_DefineFunction(cx, tmpObj, "create", js_CocosBuilder_create, 2, JSPROP_READONLY | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, tmpObj, "loadScene", js_cocos2dx_CCBReader_createSceneWithNodeGraphFromFile, 2, JSPROP_READONLY | JSPROP_PERMANENT);
-    
-    JS_DefineFunction(cx, jsb_cocosbuilder_CCBReader_prototype, "load", js_cocos2dx_CCBReader_readNodeGraphFromFile, 2, JSPROP_READONLY | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_cocosbuilder_CCBAnimationManager_prototype, "setCompletedAnimationCallback", js_cocos2dx_CCBAnimationManager_animationCompleteCallback, 2, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS::HandleObject tmpObjHandle(JS::HandleObject::fromMarkedLocation(&tmpObj));
+    JS_DefineFunction(cx, tmpObjHandle, "create", js_CocosBuilder_create, 2, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, tmpObjHandle, "loadScene", js_cocos2dx_CCBReader_createSceneWithNodeGraphFromFile, 2, JSPROP_READONLY | JSPROP_PERMANENT);
+
+    JS::HandleObject jsb_cocosbuilder_CCBReader_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocosbuilder_CCBReader_prototype));
+    JS_DefineFunction(cx, jsb_cocosbuilder_CCBReader_prototype_handle, "load", js_cocos2dx_CCBReader_readNodeGraphFromFile, 2, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS::HandleObject jsb_cocosbuilder_CCBAnimationManager_prototype_handle(JS::HandleObject::fromMarkedLocation(&jsb_cocosbuilder_CCBAnimationManager_prototype));
+    JS_DefineFunction(cx, jsb_cocosbuilder_CCBAnimationManager_prototype_handle, "setCompletedAnimationCallback", js_cocos2dx_CCBAnimationManager_animationCompleteCallback, 2, JSPROP_READONLY | JSPROP_PERMANENT);
 }
