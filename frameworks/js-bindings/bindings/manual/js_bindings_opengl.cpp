@@ -41,7 +41,7 @@ void GLNode::draw(cocos2d::Renderer *renderer, const cocos2d::kmMat4& transform,
                 JS::RootedValue fval(cx);
                 jsval *argv = NULL; unsigned argc=0;
 
-                JS_GetProperty(cx, jsObj, "draw", &fval);
+                JS_GetProperty(cx, jsObjHandle, "draw", &fval);
                 JS_CallFunctionValue(cx, jsObj, fval, argc, argv, rval.address());
             }
         }

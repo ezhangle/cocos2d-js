@@ -8476,11 +8476,12 @@ CC_BINDING_STUDIO_DLL void register_all_cocos2dx_studio(JSContext* cx, JSObject*
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);
-	JS_GetProperty(cx, obj, "ccs", &nsval);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+	JS_GetProperty(cx, objHandle, "ccs", &nsval);
 	if (nsval == JSVAL_VOID) {
 		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
-		JS_SetProperty(cx, obj, "ccs", nsval);
+		JS_SetProperty(cx, objHandle, "ccs", nsval);
 	} else {
 		JS_ValueToObject(cx, nsval, &ns);
 	}

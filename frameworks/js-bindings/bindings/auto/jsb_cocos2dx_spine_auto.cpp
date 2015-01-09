@@ -1033,7 +1033,7 @@ void register_all_cocos2dx_spine(JSContext* cx, JSObject* obj) {
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);
 	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
-	JS_GetProperty(cx, obj, "sp", &nsval);
+	JS_GetProperty(cx, objHandle, "sp", &nsval);
 	if (nsval == JSVAL_VOID) {
 		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);

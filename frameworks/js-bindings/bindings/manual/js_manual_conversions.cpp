@@ -112,16 +112,17 @@ bool JSFunctionWrapper::invoke(unsigned int argc, jsval *argv, jsval &rval)
 static Color3B getColorFromJSObject(JSContext *cx, JSObject *colorObject)
 {
     JS::RootedValue jsr(cx);
+    JS::HandleObject colorObjectHandle(JS::HandleObject::fromMarkedLocation(&colorObject));
     Color3B out;
-    JS_GetProperty(cx, colorObject, "r", &jsr);
+    JS_GetProperty(cx, colorObjectHandle, "r", &jsr);
     double fontR = 0.0;
     JS::ToNumber(cx, jsr, &fontR);
     
-    JS_GetProperty(cx, colorObject, "g", &jsr);
+    JS_GetProperty(cx, colorObjectHandle, "g", &jsr);
     double fontG = 0.0;
     JS::ToNumber(cx, jsr, &fontG);
     
-    JS_GetProperty(cx, colorObject, "b", &jsr);
+    JS_GetProperty(cx, colorObjectHandle, "b", &jsr);
     double fontB = 0.0;
     JS::ToNumber(cx, jsr, &fontB);
     
@@ -136,12 +137,13 @@ static Color3B getColorFromJSObject(JSContext *cx, JSObject *colorObject)
 static Size getSizeFromJSObject(JSContext *cx, JSObject *sizeObject)
 {
     JS::RootedValue jsr(cx);
+    JS::HandleObject sizeObjectHandle(JS::HandleObject::fromMarkedLocation(&sizeObject));
     Size out;
-    JS_GetProperty(cx, sizeObject, "width", &jsr);
+    JS_GetProperty(cx, sizeObjectHandle, "width", &jsr);
     double width = 0.0;
     JS::ToNumber(cx, jsr, &width);
     
-    JS_GetProperty(cx, sizeObject, "height", &jsr);
+    JS_GetProperty(cx, sizeObjectHandle, "height", &jsr);
     double height = 0.0;
     JS::ToNumber(cx, jsr, &height);
     
@@ -990,6 +992,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
     {
         jsid idp;
         jsval key;
+        JS::HandleId idpHandle(JS::HandleId::fromMarkedLocation(&idp));
         JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
         if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
             return false; // error
@@ -1006,7 +1009,7 @@ bool jsval_to_ccvaluemap(JSContext* cx, jsval v, cocos2d::ValueMap* ret)
         JSStringWrapper keyWrapper(key.toString(), cx);
         
         JS::RootedValue value(cx);
-        JS_GetPropertyById(cx, tmp, idp, &value);
+        JS_GetPropertyById(cx, tmpHandle, idpHandle, &value);
         if (value.isObject())
         {
             JSObject* jsobj = value.toObjectOrNull();
@@ -1084,6 +1087,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
     {
         jsid idp;
         jsval key;
+        JS::HandleId idpHandle(JS::HandleId::fromMarkedLocation(&idp));
         JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
         if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
             return false; // error
@@ -1100,7 +1104,7 @@ bool jsval_to_ccvaluemapintkey(JSContext* cx, jsval v, cocos2d::ValueMapIntKey* 
         int keyVal = key.toInt32();
         
         JS::RootedValue value(cx);
-        JS_GetPropertyById(cx, tmp, idp, &value);
+        JS_GetPropertyById(cx, tmpHandle, idpHandle, &value);
         if (value.isObject())
         {
             JSObject* jsobj = value.toObjectOrNull();
@@ -1527,6 +1531,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
     {
         jsid idp;
         jsval key;
+        JS::HandleId idpHandle(JS::HandleId::fromMarkedLocation(&idp));
         JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
         if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
             return false; // error
@@ -1546,7 +1551,7 @@ bool jsval_to_ccdictionary(JSContext* cx, jsval v, __Dictionary** ret)
         }
         
         JS::RootedValue value(cx);
-        JS_GetPropertyById(cx, tmp, idp, &value);
+        JS_GetPropertyById(cx, tmpHandle, idpHandle, &value);
         if (value.isObject())
         {
             js_proxy_t *proxy;

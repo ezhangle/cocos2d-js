@@ -756,6 +756,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
         {
             jsid idp;
             jsval key;
+            JS::HandleId idpHandle(JS::HandleId::fromMarkedLocation(&idp));
             JS::MutableHandleValue keyHandle(JS::MutableHandleValue::fromMarkedLocation(&key));
             if (!JS_NextProperty(cx, itHandle, &idp) || !JS_IdToValue(cx, idp, keyHandle)) {
                 CCLOGERROR("js_set_AnimationData_movementDataDic : Error processing arguments.");
@@ -771,7 +772,7 @@ bool js_set_AnimationData_movementDataDic(JSContext *cx, JS::HandleObject obj, J
             JSStringWrapper keyWrapper(key.toString(), cx);
             
             JS::RootedValue value(cx);
-            JS_GetPropertyById(cx, tmp, idp, &value);
+            JS_GetPropertyById(cx, tmpHandle, idpHandle, &value);
             cocostudio::MovementData* movementData;
             bool ok = true;
             do {

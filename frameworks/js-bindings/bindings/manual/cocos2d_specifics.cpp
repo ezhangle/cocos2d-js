@@ -838,14 +838,15 @@ bool js_cocos2dx_JSTouchDelegate_unregisterTouchDelegate(JSContext *cx, uint32_t
 }
 
 JSObject* getObjectFromNamespace(JSContext* cx, JSObject *ns, const char *name) {
-	JS::RootedValue out(cx);
+    JS::RootedValue out(cx);
+    JS::HandleObject nsHandle(JS::HandleObject::fromMarkedLocation(&ns));
     bool ok = true;
-	if (JS_GetProperty(cx, ns, name, &out) == true) {
+    if (JS_GetProperty(cx, nsHandle, name, &out) == true) {
         JS::RootedObject obj(cx);
-		ok &= JS_ValueToObject(cx, out, &obj);
+        ok &= JS_ValueToObject(cx, out, &obj);
         JSB_PRECONDITION2(ok, cx, NULL, "Error processing arguments");
-	}
-	return NULL;
+    }
+    return NULL;
 }
 
 jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string) {
@@ -1685,7 +1686,7 @@ bool js_cocos2dx_CCNode_scheduleUpdateWithPriority(JSContext *cx, uint32_t argc,
         ok = JS_HasProperty(cx, objHandle, "update", &isFoundUpdate);
         JS::RootedValue jsUpdateFunc(cx);
         if (ok && isFoundUpdate) {
-            ok = JS_GetProperty(cx, obj, "update", &jsUpdateFunc);
+            ok = JS_GetProperty(cx, objHandle, "update", &jsUpdateFunc);
         }
         
         // if no 'update' property, return true directly.
@@ -1786,7 +1787,7 @@ bool js_cocos2dx_CCNode_scheduleUpdate(JSContext *cx, uint32_t argc, jsval *vp)
         ok = JS_HasProperty(cx, objHandle, "update", &isFoundUpdate);
         JS::RootedValue jsUpdateFunc(cx);
         if (ok && isFoundUpdate) {
-            ok = JS_GetProperty(cx, obj, "update", &jsUpdateFunc);
+            ok = JS_GetProperty(cx, objHandle, "update", &jsUpdateFunc);
         }
         
         // if no 'update' property, return true directly.
@@ -1891,7 +1892,7 @@ bool js_CCScheduler_scheduleUpdateForTarget(JSContext *cx, uint32_t argc, jsval 
         ok = JS_HasProperty(cx, tmpObjHandle, "update", &isFoundUpdate);
         JS::RootedValue jsUpdateFunc(cx);
         if (ok && isFoundUpdate) {
-            ok = JS_GetProperty(cx, tmpObj, "update", &jsUpdateFunc);
+            ok = JS_GetProperty(cx, tmpObjHandle, "update", &jsUpdateFunc);
         }
         
         // if no 'update' property, return true directly.
@@ -4410,7 +4411,7 @@ void create_js_root_obj(JSContext* cx, JSObject* global, const std::string &name
 {
 	JS::RootedValue nsval(cx);
 	JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
-	JS_GetProperty(cx, global, name.c_str(), &nsval);
+	JS_GetProperty(cx, globalHandle, name.c_str(), &nsval);
 	if (nsval == JSVAL_VOID) {
 		*jsObj = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(*jsObj);

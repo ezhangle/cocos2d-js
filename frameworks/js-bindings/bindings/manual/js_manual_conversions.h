@@ -296,8 +296,8 @@ jsval ccvector_to_jsval(JSContext* cx, const cocos2d::Vector<T>& v)
 template <class T>
 jsval ccmap_string_key_to_jsval(JSContext* cx, const cocos2d::Map<std::string, T>& v)
 {
-    JSObject* jsRet = JS_NewObject(cx, NULL, NULL, NULL);
-    
+    JSObject* jsRet = JS_NewObject(cx, NULL, JS::NullPtr(), NULL);
+    JS::HandleObject jsRetHandle(JS::HandleObject::fromMarkedLocation(&jsRet));
     for (auto iter = v.begin(); iter != v.end(); ++iter)
     {
         JS::RootedValue element(cx);
@@ -313,7 +313,7 @@ jsval ccmap_string_key_to_jsval(JSContext* cx, const cocos2d::Map<std::string, T
         
         if (!key.empty())
         {
-            JS_SetProperty(cx, jsRet, key.c_str(), element);
+            JS_SetProperty(cx, jsRetHandle, key.c_str(), element);
         }
     }
     return OBJECT_TO_JSVAL(jsRet);

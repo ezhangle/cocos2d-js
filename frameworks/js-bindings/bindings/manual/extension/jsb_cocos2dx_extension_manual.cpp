@@ -350,7 +350,7 @@ private:
         JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
         if (JS_HasProperty(cx, objHandle, jsFunctionName.c_str(), &hasAction) && hasAction)
         {
-            if(!JS_GetProperty(cx, obj, jsFunctionName.c_str(), &temp_retval))
+            if(!JS_GetProperty(cx, objHandle, jsFunctionName.c_str(), &temp_retval))
             {
                 return false;
             }
@@ -383,7 +383,7 @@ private:
         JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));   
         if (JS_HasProperty(cx, objHandle, jsFunctionName.c_str(), &hasAction) && hasAction)
         {
-            if(!JS_GetProperty(cx, obj, jsFunctionName.c_str(), &temp_retval))
+            if(!JS_GetProperty(cx, objHandle, jsFunctionName.c_str(), &temp_retval))
             {
                 return false;
             }

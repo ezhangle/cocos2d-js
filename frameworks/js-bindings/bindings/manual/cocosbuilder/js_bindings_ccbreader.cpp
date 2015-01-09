@@ -320,7 +320,7 @@ CC_BINDING_BUILDER_DLL void register_CCBuilderReader(JSContext *cx, JSObject *ob
     JS::RootedValue  nsval(cx);
     JS::RootedObject ns(cx);
     JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
-    JS_GetProperty(cx, obj, "cc", &nsval);
+    JS_GetProperty(cx, objHandle, "cc", &nsval);
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
         nsval = OBJECT_TO_JSVAL(ns);

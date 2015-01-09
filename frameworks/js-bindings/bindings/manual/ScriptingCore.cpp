@@ -369,7 +369,7 @@ void registerDefaultClasses(JSContext* cx, JSObject* global) {
     JS::RootedValue nsval(cx);
     JS::RootedObject ns(cx);
     JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
-    JS_GetProperty(cx, global, "cc", &nsval);
+    JS_GetProperty(cx, globalHandle, "cc", &nsval);
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
         nsval = OBJECT_TO_JSVAL(ns);
@@ -918,7 +918,8 @@ void ScriptingCore::cleanupSchedulesAndActions(js_proxy_t* p)
 bool ScriptingCore::isFunctionOverridedInJS(JSObject* obj, const std::string& name, JSNative native)
 {
     JS::RootedValue value(_cx);
-    bool ok = JS_GetProperty(_cx, obj, name.c_str(), &value);
+    JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+    bool ok = JS_GetProperty(_cx, objHandle, name.c_str(), &value);
     if (ok && !value.isNullOrUndefined() && !JS_IsNativeFunction(value.toObjectOrNull(), native))
     {
         return true;
@@ -1231,7 +1232,7 @@ bool ScriptingCore::executeFunctionWithOwner(jsval owner, const char *name, uint
         JSAutoCompartment ac(cx, obj);
         
         if (JS_HasProperty(cx, objHandle, name, &hasAction) && hasAction) {
-            if (!JS_GetProperty(cx, obj, name, &temp_retval)) {
+            if (!JS_GetProperty(cx, objHandle, name, &temp_retval)) {
                 break;
             }
             if (temp_retval == JSVAL_VOID) {

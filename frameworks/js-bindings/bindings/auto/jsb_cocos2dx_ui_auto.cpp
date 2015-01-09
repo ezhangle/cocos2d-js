@@ -11254,11 +11254,12 @@ CC_BINDING_GUI_DLL void register_all_cocos2dx_ui(JSContext* cx, JSObject* obj) {
 	// first, try to get the ns
 	JS::RootedValue nsval(cx);
 	JS::RootedObject ns(cx);
-	JS_GetProperty(cx, obj, "ccui", &nsval);
+	JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+	JS_GetProperty(cx, objHandle, "ccui", &nsval);
 	if (nsval == JSVAL_VOID) {
 		ns = JS_NewObject(cx, NULL, JS::NullPtr(), JS::NullPtr());
 		nsval = OBJECT_TO_JSVAL(ns);
-		JS_SetProperty(cx, obj, "ccui", nsval);
+		JS_SetProperty(cx, objHandle, "ccui", nsval);
 	} else {
 		JS_ValueToObject(cx, nsval, &ns);
 	}
