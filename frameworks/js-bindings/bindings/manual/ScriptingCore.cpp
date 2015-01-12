@@ -483,13 +483,13 @@ bool ScriptingCore::evalString(const char *string, jsval *outVal, const char *fi
     
     JSAutoCompartment ac(cx, global);
     
-    JSScript* script = JS_CompileScript(cx, JS::RootedObject(cx, global), string, strlen(string), JS::CompileOptions(cx));
+    JS::RootedScript script(cx);
+    JS_CompileScript(cx, JS::RootedObject(cx, global), string, strlen(string), JS::CompileOptions(cx), &script);
     if (script)
     {
         JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
-        JS::HandleScript scriptHandle(JS::HandleScript::fromMarkedLocation(&script));
         JS::MutableHandleValue outValHandle(JS::MutableHandleValue::fromMarkedLocation(outVal));
-        bool evaluatedOK = JS_ExecuteScript(cx, globalHandle, scriptHandle, outValHandle);
+        bool evaluatedOK = JS_ExecuteScript(cx, globalHandle, script, outValHandle);
         if (false == evaluatedOK)
         {
             fprintf(stderr, "(evaluatedOK == false)\n");
@@ -598,7 +598,7 @@ static std::string RemoveFileExt(const std::string& filePath) {
 JSScript* ScriptingCore::getScript(const char *path)
 {
     // a) check jsc file first
-	std::string byteCodePath = RemoveFileExt(std::string(path)) + BYTE_CODE_FILE_EXT;
+    std::string byteCodePath = RemoveFileExt(std::string(path)) + BYTE_CODE_FILE_EXT;
     if (filename_script[byteCodePath])
         return filename_script[byteCodePath];
     
@@ -612,30 +612,30 @@ JSScript* ScriptingCore::getScript(const char *path)
 
 void ScriptingCore::compileScript(const char *path, JSObject* global, JSContext* cx)
 {
-	if (!path) {
-		return;
-	}
+    if (!path) {
+        return;
+    }
     
     if (getScript(path)) {
         return;
     }
 
-	cocos2d::FileUtils *futil = cocos2d::FileUtils::getInstance();
+    cocos2d::FileUtils *futil = cocos2d::FileUtils::getInstance();
 
-	if (global == NULL) {
-		global = _global;
-	}
-	if (cx == NULL) {
-		cx = _cx;
-	}
+    if (global == NULL) {
+        global = _global;
+    }
+    if (cx == NULL) {
+        cx = _cx;
+    }
 
-	JSAutoCompartment ac(cx, global);
+    JSAutoCompartment ac(cx, global);
 
-	JS::RootedScript script(cx);
-	JS::RootedObject obj(cx, global);
+    JS::RootedScript script(cx);
+    JS::RootedObject obj(cx, global);
 
-	// a) check jsc file first
-	std::string byteCodePath = RemoveFileExt(std::string(path)) + BYTE_CODE_FILE_EXT;
+    // a) check jsc file first
+    std::string byteCodePath = RemoveFileExt(std::string(path)) + BYTE_CODE_FILE_EXT;
 
     // Check whether '.jsc' files exist to avoid outputing log which says 'couldn't find .jsc file'.
     if (futil->isFileExist(byteCodePath))
@@ -643,33 +643,33 @@ void ScriptingCore::compileScript(const char *path, JSObject* global, JSContext*
         Data data = futil->getDataFromFile(byteCodePath);
         if (!data.isNull())
         {
-            script = JS_DecodeScript(cx, data.getBytes(), static_cast<uint32_t>(data.getSize()), nullptr, nullptr);
+            script = JS_DecodeScript(cx, data.getBytes(), static_cast<uint32_t>(data.getSize()), nullptr);
         }
     }
 
-	// b) no jsc file, check js file
-	if (!script)
-	{
-		/* Clear any pending exception from previous failed decoding.  */
-		ReportException(cx);
+    // b) no jsc file, check js file
+    if (!script)
+    {
+        /* Clear any pending exception from previous failed decoding.  */
+        ReportException(cx);
 
-		std::string fullPath = futil->fullPathForFilename(path);
-		JS::CompileOptions options(cx);
-		options.setUTF8(true).setFileAndLine(fullPath.c_str(), 1);
+        std::string fullPath = futil->fullPathForFilename(path);
+        JS::CompileOptions options(cx);
+        options.setUTF8(true).setFileAndLine(fullPath.c_str(), 1);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		std::string jsFileContent = futil->getStringFromFile(fullPath);
-		if (!jsFileContent.empty())
-		{
-			script = JS::Compile(cx, obj, options, jsFileContent.c_str(), jsFileContent.size());
-		}
+        std::string jsFileContent = futil->getStringFromFile(fullPath);
+        if (!jsFileContent.empty())
+        {
+            script = JS::Compile(cx, obj, options, jsFileContent.c_str(), jsFileContent.size());
+        }
 #else
-		script = JS::Compile(cx, obj, options, fullPath.c_str());
+        JS::Compile(cx, obj, options, fullPath.c_str(), &script);
 #endif
         if (script) {
             filename_script[fullPath] = script;
         }
-	}
+    }
     else {
         filename_script[byteCodePath] = script;
     }
