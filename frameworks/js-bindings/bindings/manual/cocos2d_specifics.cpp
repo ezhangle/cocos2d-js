@@ -922,9 +922,11 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
             const jsval& jsvalThis = tmpCobj->getJSCallbackThis();
             const jsval& jsvalCallback = tmpCobj->getJSCallbackFunc();
             const jsval& jsvalExtraData = tmpCobj->getJSExtraData();
+            JS::HandleValue jsvalCallbackHandle(JS::HandleValue::fromMarkedLocation(&jsvalCallback));
             
             bool hasExtraData = !jsvalExtraData.isUndefined();
             JSObject* thisObj = jsvalThis.isUndefined() ? nullptr : jsvalThis.toObjectOrNull();
+            JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
             
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 
@@ -932,7 +934,8 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
             {
                 js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::Node>(cx, sender);
             
-                jsval retval;
+                jsval retVal;
+                JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
                 if(jsvalCallback != JSVAL_VOID)
                 {
                     if (hasExtraData)
@@ -940,25 +943,32 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
                         JS::Heap<JS::Value> valArr[2];
                         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
                         valArr[1] = jsvalExtraData;
+                        JS::AutoValueVector dummyArr(cx);
+                        dummyArr.append(valArr[0].get());
+                        dummyArr.append(valArr[1].get());
                         
                         AddValueRoot(cx, valArr);
-                        JS_CallFunctionValue(cx, thisObj, jsvalCallback, 2, valArr, &retval);
+                        JS_CallFunctionValue(cx, thisObjHandle, jsvalCallbackHandle, dummyArr, retValHandle);
                         RemoveValueRoot(cx, valArr);
                     }
                     else
                     {
                         JS::Heap<JS::Value> senderVal(OBJECT_TO_JSVAL(proxy->obj));
+                        JS::AutoValueVector dummyArr(cx);
+                        dummyArr.append(senderVal.address(), 1);
+
                         AddValueRoot(cx, &senderVal);
-                        JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
+                        JS_CallFunctionValue(cx, thisObjHandle, jsvalCallbackHandle, dummyArr, retValHandle);
                         RemoveValueRoot(cx, &senderVal);
                     }
                 }
             }
             else
             {
-                jsval arg;
                 jsval ret;
-                JS_CallFunctionValue(cx, thisObj, jsvalCallback, 0, &arg, &ret);
+                JS::MutableHandleValue retHandle(JS::MutableHandleValue::fromMarkedLocation(&ret));
+                JS::AutoValueVector dummyArr(cx);
+                JS_CallFunctionValue(cx, thisObjHandle, jsvalCallbackHandle, dummyArr, retHandle);
             }
             
             // I think the JSCallFuncWrapper isn't needed.
@@ -967,8 +977,8 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
             // JSCallFuncWrapper::setTargetForNativeNode(node, (JSCallFuncWrapper *)this);
         });
         
-		js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CallFunc>(cx, ret);
-		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(proxy->obj));
+        js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CallFunc>(cx, ret);
+        JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(proxy->obj));
         
         JS_SetReservedSlot(proxy->obj, 0, argv[0]);
         if(argc > 1) {
@@ -1010,9 +1020,11 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
             const jsval& jsvalThis = tmpCobj->getJSCallbackThis();
             const jsval& jsvalCallback = tmpCobj->getJSCallbackFunc();
             const jsval& jsvalExtraData = tmpCobj->getJSExtraData();
+            JS::HandleValue jsvalCallbackHandle(JS::HandleValue::fromMarkedLocation(&jsvalCallback));
             
             bool hasExtraData = !jsvalExtraData.isUndefined();
             JSObject* thisObj = jsvalThis.isUndefined() ? nullptr : jsvalThis.toObjectOrNull();
+            JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
             
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
             
@@ -1020,7 +1032,8 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
             {
                 js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::Node>(cx, sender);
             
-                jsval retval;
+                jsval retVal;
+                JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
                 if(jsvalCallback != JSVAL_VOID)
                 {
                     if (hasExtraData)
@@ -1028,25 +1041,32 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
                         JS::Heap<JS::Value> valArr[2];
                         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
                         valArr[1] = jsvalExtraData;
+                        JS::AutoValueVector dummyArr(cx);
+                        dummyArr.append(valArr[0].get());
+                        dummyArr.append(valArr[1].get());
                         
                         AddValueRoot(cx, valArr);
-                        JS_CallFunctionValue(cx, thisObj, jsvalCallback, 2, valArr, &retval);
+                        JS_CallFunctionValue(cx, thisObjHandle, jsvalCallbackHandle, dummyArr, retValHandle);
                         RemoveValueRoot(cx, valArr);
                     }
                     else
                     {
                         JS::Heap<JS::Value> senderVal(OBJECT_TO_JSVAL(proxy->obj));
+                        JS::AutoValueVector dummyArr(cx);
+                        dummyArr.append(senderVal);
+
                         AddValueRoot(cx, &senderVal);
-                        JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
+                        JS_CallFunctionValue(cx, thisObjHandle, jsvalCallbackHandle, dummyArr, retValHandle);
                         RemoveValueRoot(cx, &senderVal);
                     }
                 }
             }
             else
             {
-                jsval arg;
                 jsval ret;
-                JS_CallFunctionValue(cx, thisObj, jsvalCallback, 0, &arg, &ret);
+                JS::MutableHandleValue retHandle(JS::MutableHandleValue::fromMarkedLocation(&ret));
+                JS::AutoValueVector dummyArr(cx);
+                JS_CallFunctionValue(cx, thisObjHandle, jsvalCallbackHandle, dummyArr, retHandle);
             }
             
             
@@ -1056,7 +1076,7 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
             // JSCallFuncWrapper::setTargetForNativeNode(node, (JSCallFuncWrapper *)this);
         });
         
-		JS_SetReservedSlot(proxy->obj, 0, argv[0]);
+        JS_SetReservedSlot(proxy->obj, 0, argv[0]);
         if(argc > 1) {
             JS_SetReservedSlot(proxy->obj, 1, argv[1]);
         }
@@ -1358,10 +1378,14 @@ void JSScheduleWrapper::dump()
 
 void JSScheduleWrapper::scheduleFunc(float dt)
 {
-    jsval retval = JSVAL_NULL;
+    jsval retVal = JSVAL_NULL;
+    JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
     JS::Heap<JS::Value> data(DOUBLE_TO_JSVAL(dt));
+    JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
 
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
+    JS::AutoValueVector dummyArr(cx);
+    dummyArr.append(data);
 
     bool ok = AddValueRoot(cx, &data);
     if (!ok) {
@@ -1373,10 +1397,12 @@ void JSScheduleWrapper::scheduleFunc(float dt)
 
     if(!_jsCallback.isNullOrUndefined()) {
         if (!_jsThisObj.isNullOrUndefined()) {
-            JS_CallFunctionValue(cx, _jsThisObj.toObjectOrNull(), _jsCallback, 1, &data, &retval);
+            JSObject* obj = _jsThisObj.toObjectOrNull();
+            JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+            JS_CallFunctionValue(cx, objHandle, _jsCallbackHandle, dummyArr, retValHandle);
         }
         else {
-            JS_CallFunctionValue(cx, NULL, _jsCallback, 1, &data, &retval);
+            JS_CallFunctionValue(cx, JS::NullPtr(), _jsCallbackHandle, dummyArr, retValHandle);
         }
     }
 

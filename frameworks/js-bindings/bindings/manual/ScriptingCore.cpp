@@ -129,14 +129,23 @@ static void executeJSFunctionFromReservedSpot(JSContext *cx, JSObject *obj,
     jsval func = JS_GetReservedSlot(obj, 0);
 
     if (func == JSVAL_VOID) { return; }
+    JS::HandleValue funcHandle(JS::HandleValue::fromMarkedLocation(&func));
+
     jsval thisObj = JS_GetReservedSlot(obj, 1);
     JSAutoCompartment ac(cx, obj);
     
+    JS::AutoValueVector dummyArr(cx);
+    dummyArr.append(dataVal);
+    JS::MutableHandleValue retvalHandle(JS::MutableHandleValue::fromMarkedLocation(&retval));
+	
     if (thisObj == JSVAL_VOID) {
-        JS_CallFunctionValue(cx, obj, func, 1, &dataVal, &retval);
+        JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+        JS_CallFunctionValue(cx, objHandle, funcHandle, dummyArr, retvalHandle);
     } else {
         assert(!thisObj.isPrimitive());
-        JS_CallFunctionValue(cx, thisObj.toObjectOrNull(), func, 1, &dataVal, &retval);
+        JSObject* dummy = thisObj.toObjectOrNull();
+        JS::HandleObject dummyHandle(JS::HandleObject::fromMarkedLocation(&dummy));
+        JS_CallFunctionValue(cx, dummyHandle, funcHandle, dummyArr, retvalHandle);
     }
 }
 
@@ -241,18 +250,25 @@ void ScriptingCore::executeJSFunctionWithThisObj(jsval thisObj,
     if (callback != JSVAL_VOID || thisObj != JSVAL_VOID)
     {
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-        
+
+        JS::AutoValueVector dummyArr(_cx);
+        dummyArr.append(vp, argc);
+        JSObject* dummy = thisObj.toObjectOrNull();
+        JS::HandleObject dummyHandle(JS::HandleObject::fromMarkedLocation(&dummy));
+        JS::HandleValue callbackHandle(JS::HandleValue::fromMarkedLocation(&callback));
         // Very important: The last parameter 'retVal' passed to 'JS_CallFunctionValue' should not be a NULL pointer.
         // If it's a NULL pointer, crash will be triggered in 'JS_CallFunctionValue'. To find out the reason of this crash is very difficult.
         // So we have to check the availability of 'retVal'.
         if (retVal)
         {
-            JS_CallFunctionValue(_cx, thisObj.toObjectOrNull(), callback, argc, vp, retVal);
+            JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(retVal));
+            JS_CallFunctionValue(_cx, dummyHandle, callbackHandle, dummyArr, retValHandle);
         }
         else
         {
             jsval jsRet;
-            JS_CallFunctionValue(_cx, thisObj.toObjectOrNull(), callback, argc, vp, &jsRet);
+            JS::MutableHandleValue jsRetHandle(JS::MutableHandleValue::fromMarkedLocation(&jsRet));
+            JS_CallFunctionValue(_cx, dummyHandle, callbackHandle, dummyArr, jsRetHandle);
         }
     }
 }
@@ -1237,13 +1253,17 @@ bool ScriptingCore::executeFunctionWithOwner(jsval owner, const char *name, uint
             if (temp_retval == JSVAL_VOID) {
                 break;
             }            
-            
+      
+            JS::AutoValueVector dummyArr(cx);
+            dummyArr.append(vp, argc);
             if (retVal) {
-                bRet = JS_CallFunctionName(cx, obj, name, argc, vp, retVal);
+                JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(retVal));
+                bRet = JS_CallFunctionName(cx, objHandle, name, dummyArr, retValHandle);
             }
             else {
-                jsval jsret;
-                bRet = JS_CallFunctionName(cx, obj, name, argc, vp, &jsret);
+                JS::Value jsret;
+                JS::MutableHandleValue jsretHandle(JS::MutableHandleValue::fromMarkedLocation(&jsret));
+                bRet = JS_CallFunctionName(cx, objHandle, name, dummyArr, jsretHandle);
             }
         }
     }while(0);
@@ -1434,8 +1454,12 @@ void ScriptingCore::debugProcessInput(const std::string& str)
     JSString* jsstr = JS_NewStringCopyZ(_cx, str.c_str());
     jsval argv = STRING_TO_JSVAL(jsstr);
     jsval outval;
-    
-    JS_CallFunctionName(_cx, _debugGlobal, "processInput", 1, &argv, &outval);
+
+    JS::AutoValueVector dummyArr(_cx);
+    dummyArr.append(argv);
+    JS::HandleObject _debugGlobalHandle(JS::HandleObject::fromMarkedLocation(_debugGlobal.address()));
+    JS::MutableHandleValue outvalHandle(JS::MutableHandleValue::fromMarkedLocation(&outval));
+    JS_CallFunctionName(_cx, _debugGlobalHandle, "processInput", dummyArr, outvalHandle);
 }
 
 static bool NS_ProcessNextEvent()
@@ -1662,8 +1686,11 @@ void ScriptingCore::enableDebugger(unsigned int port)
         
         // prepare the debugger
         jsval argv = OBJECT_TO_JSVAL(_global);
+        JS::AutoValueVector dummyArr(_cx);
+        dummyArr.append(argv);
         jsval outval;
-        bool ok = JS_CallFunctionName(_cx, _debugGlobal, "_prepareDebugger", 1, &argv, &outval);
+        JS::MutableHandleValue outvalHandle(JS::MutableHandleValue::fromMarkedLocation(&outval));
+        bool ok = JS_CallFunctionName(_cx, _debugGlobalHandle, "_prepareDebugger", dummyArr, outvalHandle);
         if (!ok) {
             JS_ReportPendingException(_cx);
         }

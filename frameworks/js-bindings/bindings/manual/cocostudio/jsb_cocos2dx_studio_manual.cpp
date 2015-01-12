@@ -75,8 +75,10 @@ void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, coc
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
     JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
+    JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
     js_proxy_t *proxy = js_get_or_create_proxy(cx, armature);
-    jsval retval;
+    jsval retVal;
+    JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
     if (_jsCallback != JSVAL_VOID)
     {
         int movementEventType = (int)movementType;
@@ -88,12 +90,17 @@ void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, coc
         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
         valArr[1] = movementVal;
         valArr[2] = idVal;
+        JS::AutoValueVector dummyArr(cx);
+        dummyArr.append(valArr[0].get());
+        dummyArr.append(valArr[1].get());
+        dummyArr.append(valArr[2].get());
+        JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
 
         AddValueRoot(cx, valArr);
         
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
         
-        JS_CallFunctionValue(cx, thisObj, _jsCallback, 3, valArr, &retval);
+        JS_CallFunctionValue(cx, thisObjHandle, _jsCallbackHandle, dummyArr, retValHandle);
         RemoveValueRoot(cx, valArr);
     }
 }
@@ -102,16 +109,21 @@ void JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc(float percent)
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
     JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
-    jsval retval;
+    JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
+    jsval retVal;
+    JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
     if (_jsCallback != JSVAL_VOID)
     {
         JS::Heap<JS::Value> percentVal(DOUBLE_TO_JSVAL(percent));
+        JS::AutoValueVector dummyArr(cx);
+        dummyArr.append(percentVal);
+        JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
 
         AddValueRoot(cx, &percentVal);
         
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
         
-        JS_CallFunctionValue(cx, thisObj, _jsCallback, 1, &percentVal, &retval);
+        JS_CallFunctionValue(cx, thisObjHandle, _jsCallbackHandle, dummyArr, retValHandle);
         RemoveValueRoot(cx, &percentVal);
     }
 }
@@ -123,8 +135,10 @@ void JSArmatureWrapper::frameCallbackFunc(cocostudio::Bone *bone, const std::str
     
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
     JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
+    JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
     js_proxy_t *proxy = js_get_or_create_proxy(cx, bone);
-    jsval retval;
+    jsval retVal;
+    JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
     if (_jsCallback != JSVAL_VOID)
     {
         jsval nameVal = std_string_to_jsval(cx, evt);
@@ -136,10 +150,16 @@ void JSArmatureWrapper::frameCallbackFunc(cocostudio::Bone *bone, const std::str
         valArr[1] = nameVal;
         valArr[2] = originIndexVal;
         valArr[3] = currentIndexVal;
+        JS::AutoValueVector dummyArr(cx);
+        dummyArr.append(valArr[0].get());
+        dummyArr.append(valArr[1].get());
+        dummyArr.append(valArr[2].get());
+        dummyArr.append(valArr[3].get());
+        JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
 
         AddValueRoot(cx, valArr);
         
-        JS_CallFunctionValue(cx, thisObj, _jsCallback, 4, valArr, &retval);
+        JS_CallFunctionValue(cx, thisObjHandle, _jsCallbackHandle, dummyArr, retValHandle);
         RemoveValueRoot(cx, valArr);
     }
 }

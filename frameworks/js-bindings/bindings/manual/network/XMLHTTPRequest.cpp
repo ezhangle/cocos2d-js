@@ -232,8 +232,11 @@ void MinXmlHttpRequest::handle_requestResponse(cocos2d::network::HttpClient *sen
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
             //JS_IsExceptionPending(cx) && JS_ReportPendingException(cx);
             jsval fval = OBJECT_TO_JSVAL(_onreadystateCallback);
+            JS::HandleValue fvalHandle(JS::HandleValue::fromMarkedLocation(&fval));
             jsval out;
-            JS_CallFunctionValue(cx, NULL, fval, 0, NULL, &out);
+            JS::MutableHandleValue outHandle(JS::MutableHandleValue::fromMarkedLocation(&out));
+            JS::AutoValueVector dummyArr(cx);
+            JS_CallFunctionValue(cx, JS::NullPtr(), fvalHandle, dummyArr, outHandle);
         }
      
     }

@@ -105,8 +105,13 @@ JSFunctionWrapper::~JSFunctionWrapper()
 bool JSFunctionWrapper::invoke(unsigned int argc, jsval *argv, jsval &rval)
 {
     JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-    
-    return JS_CallFunctionValue(this->_cx, this->_jsthis, this->_fval, argc, argv, &rval);
+
+    JS::AutoValueVector dummyArr(this->_cx);
+    dummyArr.append(argv, argc);
+    JS::HandleObject _jsthisHandle(JS::HandleObject::fromMarkedLocation(_jsthis.address()));
+    JS::HandleValue _fvalHandle(JS::HandleValue::fromMarkedLocation(_fval.address()));
+    JS::MutableHandleValue rvalHandle(JS::MutableHandleValue::fromMarkedLocation(&rval));
+    return JS_CallFunctionValue(this->_cx, _jsthisHandle, _fvalHandle, dummyArr, rvalHandle);
 }
 
 static Color3B getColorFromJSObject(JSContext *cx, JSObject *colorObject)

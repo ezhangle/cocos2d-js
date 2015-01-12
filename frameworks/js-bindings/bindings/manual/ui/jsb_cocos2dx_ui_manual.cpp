@@ -76,8 +76,10 @@ void JSStudioEventListenerWrapper::eventCallbackFunc(Ref* sender,int eventType)
 {
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
     JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
+    JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
     js_proxy_t *proxy = js_get_or_create_proxy(cx, sender);
-    jsval retval;
+    jsval retVal;
+    JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
     if (_jsCallback != JSVAL_VOID)
     {
         jsval touchVal = INT_TO_JSVAL(eventType);
@@ -85,12 +87,16 @@ void JSStudioEventListenerWrapper::eventCallbackFunc(Ref* sender,int eventType)
         JS::Heap<JS::Value> valArr[2];
         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
         valArr[1] = touchVal;
+        JS::AutoValueVector dummyArr(cx);
+        dummyArr.append(valArr[0].get());
+        dummyArr.append(valArr[1].get());
+        JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
 
         AddValueRoot(cx, valArr);
 
         JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 
-        JS_CallFunctionValue(cx, thisObj, _jsCallback, 2, valArr, &retval);
+        JS_CallFunctionValue(cx, thisObjHandle, _jsCallbackHandle, dummyArr, retValHandle);
         RemoveValueRoot(cx, valArr);
     }
 }

@@ -770,10 +770,16 @@ static cpBool myCollisionBegin(cpArbiter *arb, cpSpace *space, void *data)
 		args[1] = opaque_to_jsval( handler->cx, space );
 	}
     
-    JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+ 	JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 	
 	jsval rval;
-	bool ok = JS_CallFunctionValue( handler->cx, handler->jsthis, OBJECT_TO_JSVAL(handler->begin), 2, args, &rval);
+	JS::MutableHandleValue rvalHandle(JS::MutableHandleValue::fromMarkedLocation(&rval));
+ 	JS::AutoValueVector dummyArr(handler->cx);
+	dummyArr.append(args, 2);
+	JS::HandleObject jsthisHandle(JS::HandleObject::fromMarkedLocation(handler->jsthis.address()));
+ 	JS::Value dummy = OBJECT_TO_JSVAL(handler->begin);
+	JS::HandleValue dummyHandle(JS::HandleValue::fromMarkedLocation(&dummy));
+	bool ok = JS_CallFunctionValue(handler->cx, jsthisHandle, dummyHandle, dummyArr, rvalHandle);
 	JSB_PRECONDITION2(ok, handler->cx, cpFalse, "Error calling collision callback: begin");
 
 	if( rval.isBoolean() ) {
@@ -796,17 +802,23 @@ static cpBool myCollisionPre(cpArbiter *arb, cpSpace *space, void *data)
 		args[1] = opaque_to_jsval( handler->cx, space );
 	}
     
-    JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+	JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 	
-	jsval rval;
-	bool ok = JS_CallFunctionValue( handler->cx, handler->jsthis, OBJECT_TO_JSVAL(handler->pre), 2, args, &rval);
+	jsval retVal;
+	JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
+	JS::AutoValueVector dummyArr(handler->cx);
+	dummyArr.append(args, 2);
+	JS::HandleObject jsthisHandle(JS::HandleObject::fromMarkedLocation(handler->jsthis.address()));
+	JS::Value dummy = OBJECT_TO_JSVAL(handler->pre);
+	JS::HandleValue dummyHandle(JS::HandleValue::fromMarkedLocation(&dummy));
+	bool ok = JS_CallFunctionValue(handler->cx, jsthisHandle, dummyHandle, dummyArr, retValHandle);
 	JSB_PRECONDITION2(ok, handler->cx, false, "Error calling collision callback: pre");
 	
-	if( rval.isBoolean() ) {
-		bool ret = rval.toBoolean();
+	if( retVal.isBoolean() ) {
+		bool ret = retVal.toBoolean();
 		return (cpBool)ret;
 	}
-	return cpTrue;	
+	return cpTrue;
 }
 
 static void myCollisionPost(cpArbiter *arb, cpSpace *space, void *data)
@@ -823,10 +835,16 @@ static void myCollisionPost(cpArbiter *arb, cpSpace *space, void *data)
 		args[1] = opaque_to_jsval( handler->cx, space );
 	}
     
-    JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+	JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 	
 	jsval ignore;
-	bool ok = JS_CallFunctionValue( handler->cx, handler->jsthis, OBJECT_TO_JSVAL(handler->post), 2, args, &ignore);
+	JS::MutableHandleValue ignoreHandle(JS::MutableHandleValue::fromMarkedLocation(&ignore));
+	JS::AutoValueVector dummyArr(handler->cx);
+	dummyArr.append(args, 2);
+	JS::HandleObject jsthisHandle(JS::HandleObject::fromMarkedLocation(handler->jsthis.address()));
+	JS::Value dummy = OBJECT_TO_JSVAL(handler->post);
+	JS::HandleValue dummyHandle(JS::HandleValue::fromMarkedLocation(&dummy));
+	bool ok = JS_CallFunctionValue(handler->cx, jsthisHandle, dummyHandle, dummyArr, ignoreHandle);
 	JSB_PRECONDITION2(ok, handler->cx, , "Error calling collision callback: Post");
 }
 
@@ -843,10 +861,16 @@ static void myCollisionSeparate(cpArbiter *arb, cpSpace *space, void *data)
 		args[1] = opaque_to_jsval( handler->cx, space );
 	}
     
-    JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+	JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 	
 	jsval ignore;
-	bool ok = JS_CallFunctionValue( handler->cx, handler->jsthis, OBJECT_TO_JSVAL(handler->separate), 2, args, &ignore);
+	JS::MutableHandleValue ignoreHandle(JS::MutableHandleValue::fromMarkedLocation(&ignore));
+	JS::AutoValueVector dummyArr(handler->cx);
+	dummyArr.append(args, 2);
+	JS::HandleObject jsthisHandle(JS::HandleObject::fromMarkedLocation(handler->jsthis.address()));
+	JS::Value dummy = OBJECT_TO_JSVAL(handler->separate);
+	JS::HandleValue dummyHandle(JS::HandleValue::fromMarkedLocation(&dummy));
+	bool ok = JS_CallFunctionValue(handler->cx, jsthisHandle, dummyHandle, dummyArr, ignoreHandle);
 	JSB_PRECONDITION2(ok, handler->cx, , "Error calling collision callback: Separate");}
 
 #pragma mark - cpSpace

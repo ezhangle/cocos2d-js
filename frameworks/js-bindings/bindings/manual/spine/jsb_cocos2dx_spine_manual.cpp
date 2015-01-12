@@ -615,8 +615,9 @@ public:
     void animationCallbackFunc(spine::SkeletonAnimation* node, int trackIndex, spEventType type, spEvent* event, int loopCount) const {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         JSObject *thisObj = _jsThisObj.isUndefined() ? NULL : _jsThisObj.toObjectOrNull();
+        JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
         js_proxy_t *proxy = js_get_or_create_proxy(cx, node);
-        jsval retval;
+        jsval retVal;
         if (_jsCallback != JSVAL_VOID)
         {
             jsval nodeVal = OBJECT_TO_JSVAL(proxy->obj);
@@ -634,10 +635,18 @@ public:
             valArr[2] = typeVal;
             valArr[3] = eventVal;
             valArr[4] = loopCountVal;
+            JS::AutoValueVector dummyArr(cx);
+            dummyArr.append(valArr[0].get());
+            dummyArr.append(valArr[1].get());
+            dummyArr.append(valArr[2].get());
+            dummyArr.append(valArr[3].get());
+            dummyArr.append(valArr[4].get());
+            JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
             
             AddValueRoot(cx, valArr);
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-            JS_CallFunctionValue(cx, thisObj, _jsCallback, 5, valArr, &retval);
+            JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
+            JS_CallFunctionValue(cx, thisObjHandle, _jsCallbackHandle, dummyArr, retValHandle);
             RemoveValueRoot(cx, valArr);
         }
     }

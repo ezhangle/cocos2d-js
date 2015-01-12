@@ -34,12 +34,17 @@ public:
     void animationCompleteCallback() {
         
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
-        jsval retval = JSVAL_NULL;
+        jsval retVal = JSVAL_NULL;
         
         if(!_jsCallback.isUndefined() && !_jsThisObj.isUndefined()) {
             JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
-            
-            JS_CallFunctionValue(cx, _jsThisObj.toObjectOrNull(), _jsCallback, 0, NULL, &retval);
+
+            JS::AutoValueVector dummyArr(cx);
+            JSObject* obj = _jsThisObj.toObjectOrNull();
+            JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
+            JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
+            JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
+            JS_CallFunctionValue(cx, objHandle, _jsCallbackHandle, dummyArr, retValHandle);
         }
     }
     

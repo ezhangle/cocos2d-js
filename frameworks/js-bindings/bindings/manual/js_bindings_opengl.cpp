@@ -39,10 +39,11 @@ void GLNode::draw(cocos2d::Renderer *renderer, const cocos2d::kmMat4& transform,
             if (found == true) {
                 JS::RootedValue rval(cx);
                 JS::RootedValue fval(cx);
-                jsval *argv = NULL; unsigned argc=0;
+                JS::AutoValueVector dummyArr(cx);
+                JS::MutableHandleValue rvalHandle(&rval);
 
                 JS_GetProperty(cx, jsObjHandle, "draw", &fval);
-                JS_CallFunctionValue(cx, jsObj, fval, argc, argv, rval.address());
+                JS_CallFunctionValue(cx, jsObjHandle, fval, dummyArr, rvalHandle);
             }
         }
     }

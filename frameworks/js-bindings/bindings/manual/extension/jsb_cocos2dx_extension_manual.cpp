@@ -359,8 +359,10 @@ private:
                 return false;
             }
 
-            JS_CallFunctionName(cx, obj, jsFunctionName.c_str(),
-                                1, &dataVal, &retVal);
+            JS::AutoValueVector dummyArr(cx);
+            dummyArr.append(dataVal);
+            JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
+            JS_CallFunctionName(cx, objHandle, jsFunctionName.c_str(), dummyArr, retValHandle);
             return true;
         }
         return false;
@@ -393,8 +395,10 @@ private:
                 return false;
             }
 
-            bool ret = JS_CallFunctionName(cx, obj, jsFunctionName.c_str(),
-                                2, dataVal, &retVal);
+            JS::AutoValueVector dummyArr(cx);
+            dummyArr.append(dataVal, 2);
+            JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
+            bool ret = JS_CallFunctionName(cx, objHandle, jsFunctionName.c_str(), dummyArr, retValHandle);
             return ret == true ? true : false;
         }
         return false;
