@@ -782,7 +782,8 @@ bool ScriptingCore::log(JSContext* cx, uint32_t argc, jsval *vp)
 {
     if (argc > 0) {
         JSString *string = NULL;
-        JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "S", &string);
+        JS::CallArgs args(CallArgsFromVp(argc, vp));
+        JS_ConvertArguments(cx, args, "S", &string);
         if (string) {
             JSStringWrapper wrapper(string);
             js_log("%s", wrapper.get());
@@ -868,7 +869,8 @@ bool ScriptingCore::addRootJS(JSContext *cx, uint32_t argc, jsval *vp)
 {
     if (argc == 1) {
         JS::Heap<JSObject*> o;
-        if (JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "o", &o) == true) {
+        JS::CallArgs args(CallArgsFromVp(argc, vp));
+        if (JS_ConvertArguments(cx, args, "o", &o) == true) {
             if (AddNamedObjectRoot(cx, &o, "from-js") == false) {
                 LOGD("something went wrong when setting an object to the root");
             }
@@ -882,7 +884,8 @@ bool ScriptingCore::removeRootJS(JSContext *cx, uint32_t argc, jsval *vp)
 {
     if (argc == 1) {
         JS::Heap<JSObject*> o(NULL);
-        if (JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "o", o.unsafeGet()) == true) {
+        JS::CallArgs args(CallArgsFromVp(argc, vp));
+        if (JS_ConvertArguments(cx, args, "o", o.unsafeGet()) == true) {
             RemoveObjectRoot(cx, &o);
         }
         return true;

@@ -700,7 +700,8 @@ JS_BINDED_FUNC_IMPL(MinXmlHttpRequest, send)
     
     if (argc == 1)
     {
-        if (!JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "S", &str))
+        JS::CallArgs args(CallArgsFromVp(argc, vp));
+        if (!JS_ConvertArguments(cx, args, "S", &str))
         {
             return false;
         }
@@ -777,8 +778,9 @@ JS_BINDED_FUNC_IMPL(MinXmlHttpRequest, getAllResponseHeaders)
 JS_BINDED_FUNC_IMPL(MinXmlHttpRequest, getResponseHeader)
 {
     JSString *header_value;
-    
-    if (!JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "S", &header_value)) {
+    JS::CallArgs args(CallArgsFromVp(argc, vp));
+
+    if (!JS_ConvertArguments(cx, args, "S", &header_value)) {
         return false;
     };
     
