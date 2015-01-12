@@ -628,7 +628,7 @@ public:
                 eventVal = spevent_to_jsval(cx, *event);
             jsval loopCountVal = INT_TO_JSVAL(loopCount);
             
-            jsval valArr[5];
+            JS::Heap<JS::Value> valArr[5];
             valArr[0] = nodeVal;
             valArr[1] = trackIndexVal;
             valArr[2] = typeVal;

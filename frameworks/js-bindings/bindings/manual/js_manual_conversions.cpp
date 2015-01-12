@@ -1835,7 +1835,8 @@ jsval FontDefinition_to_jsval(JSContext* cx, const FontDefinition& t)
     ok &= JS_DefineProperty(cx, tmpHandle, "boundingHeight", t._dimensions.height, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     // Shadow
-    JS::Value shadowEnabled(t._shadow._shadowEnabled);
+    JS::Value shadowEnabled;
+    shadowEnabled.setBoolean(t._shadow._shadowEnabled);
     JS::HandleValue shadowEnabledHandle(JS::HandleValue::fromMarkedLocation(&shadowEnabled));
     ok &= JS_DefineProperty(cx, tmpHandle, "shadowEnabled", shadowEnabledHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
@@ -1848,7 +1849,8 @@ jsval FontDefinition_to_jsval(JSContext* cx, const FontDefinition& t)
     ok &= JS_DefineProperty(cx, tmpHandle, "shadowOpacity", t._shadow._shadowOpacity, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     
     // Stroke
-    JS::Value strokeEnabled(t._stroke._strokeEnabled);
+    JS::Value strokeEnabled;
+    strokeEnabled.setBoolean(t._stroke._strokeEnabled);
     JS::HandleValue strokeEnabledHandle(JS::HandleValue::fromMarkedLocation(&strokeEnabled));
     ok &= JS_DefineProperty(cx, tmpHandle, "strokeEnabled", strokeEnabledHandle, JSPROP_ENUMERATE | JSPROP_PERMANENT);
     

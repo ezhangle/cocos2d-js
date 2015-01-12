@@ -66,7 +66,8 @@ void JSArmatureWrapper::setJSCallbackThis(jsval _jsThisObj)
     {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         m_bNeedUnroot = true;
-        m_bNeedUnroot &= AddValueRoot(cx, &_jsThisObj);
+        JS::Heap<JS::Value> dummy(_jsThisObj);
+        m_bNeedUnroot &= AddValueRoot(cx, &dummy);
     }
 }
 
@@ -83,7 +84,7 @@ void JSArmatureWrapper::movementCallbackFunc(cocostudio::Armature *armature, coc
 
         jsval idVal = std_string_to_jsval(cx, movementID);
 
-        jsval valArr[3];
+        JS::Heap<JS::Value> valArr[3];
         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
         valArr[1] = movementVal;
         valArr[2] = idVal;
@@ -104,7 +105,7 @@ void JSArmatureWrapper::addArmatureFileInfoAsyncCallbackFunc(float percent)
     jsval retval;
     if (_jsCallback != JSVAL_VOID)
     {
-        jsval percentVal = DOUBLE_TO_JSVAL(percent);
+        JS::Heap<JS::Value> percentVal(DOUBLE_TO_JSVAL(percent));
 
         AddValueRoot(cx, &percentVal);
         
@@ -130,7 +131,7 @@ void JSArmatureWrapper::frameCallbackFunc(cocostudio::Bone *bone, const std::str
         jsval originIndexVal = INT_TO_JSVAL(originFrameIndex);
         jsval currentIndexVal = INT_TO_JSVAL(currentFrameIndex);
 
-        jsval valArr[4];
+        JS::Heap<JS::Value> valArr[4];
         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
         valArr[1] = nameVal;
         valArr[2] = originIndexVal;

@@ -285,7 +285,7 @@ bool js_cocos2dx_extension_WebSocket_constructor(JSContext *cx, uint32_t argc, j
                 JSB_PRECONDITION(JS_IsArrayObject(cx, arg2Handle), "Object must be an array");
                 
                 uint32_t len = 0;
-                JS_GetArrayLength(cx, arg2, &len);
+                JS_GetArrayLength(cx, arg2Handle, &len);
                 
                 for( uint32_t i=0; i< len;i++ )
                 {
@@ -330,12 +330,14 @@ bool js_cocos2dx_extension_WebSocket_constructor(JSContext *cx, uint32_t argc, j
 static bool js_cocos2dx_extension_WebSocket_get_readyState(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS::MutableHandleValue vp)
 {
     JSObject* jsobj = obj.get();
-	js_proxy_t *proxy = jsb_get_js_proxy(jsobj);
-	WebSocket* cobj = (WebSocket *)(proxy ? proxy->ptr : NULL);
-	JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
+    js_proxy_t *proxy = jsb_get_js_proxy(jsobj);
+    WebSocket* cobj = (WebSocket *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "Invalid Native Object");
     
     if (cobj) {
-        vp.set((int)cobj->getReadyState());
+        JS::Value dummy;
+        dummy.setInt32((int)cobj->getReadyState());
+        vp.set(dummy);
         return true;
     } else {
         JS_ReportError(cx, "Error: WebSocket instance is invalid.");

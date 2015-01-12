@@ -67,7 +67,8 @@ void JSStudioEventListenerWrapper::setJSCallbackThis(jsval jsThisObj)
     {
         JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
         m_bNeedUnroot = true;
-        m_bNeedUnroot &= AddValueRoot(cx, &jsThisObj);
+        JS::Heap<JS::Value> dummy(jsThisObj);
+        m_bNeedUnroot &= AddValueRoot(cx, &dummy);
     }
 }
 
@@ -81,7 +82,7 @@ void JSStudioEventListenerWrapper::eventCallbackFunc(Ref* sender,int eventType)
     {
         jsval touchVal = INT_TO_JSVAL(eventType);
 
-        jsval valArr[2];
+        JS::Heap<JS::Value> valArr[2];
         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
         valArr[1] = touchVal;
 

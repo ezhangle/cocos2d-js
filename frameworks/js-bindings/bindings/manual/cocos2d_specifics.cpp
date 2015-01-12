@@ -937,7 +937,7 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
                 {
                     if (hasExtraData)
                     {
-                        jsval valArr[2];
+                        JS::Heap<JS::Value> valArr[2];
                         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
                         valArr[1] = jsvalExtraData;
                         
@@ -947,7 +947,7 @@ static bool js_callFunc(JSContext *cx, uint32_t argc, jsval *vp)
                     }
                     else
                     {
-                        jsval senderVal = OBJECT_TO_JSVAL(proxy->obj);
+                        JS::Heap<JS::Value> senderVal(OBJECT_TO_JSVAL(proxy->obj));
                         AddValueRoot(cx, &senderVal);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
                         RemoveValueRoot(cx, &senderVal);
@@ -1025,7 +1025,7 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
                 {
                     if (hasExtraData)
                     {
-                        jsval valArr[2];
+                        JS::Heap<JS::Value> valArr[2];
                         valArr[0] = OBJECT_TO_JSVAL(proxy->obj);
                         valArr[1] = jsvalExtraData;
                         
@@ -1035,7 +1035,7 @@ bool js_cocos2dx_CallFunc_initWithFunction(JSContext *cx, uint32_t argc, jsval *
                     }
                     else
                     {
-                        jsval senderVal = OBJECT_TO_JSVAL(proxy->obj);
+                        JS::Heap<JS::Value> senderVal(OBJECT_TO_JSVAL(proxy->obj));
                         AddValueRoot(cx, &senderVal);
                         JS_CallFunctionValue(cx, thisObj, jsvalCallback, 1, &senderVal, &retval);
                         RemoveValueRoot(cx, &senderVal);
@@ -1359,7 +1359,7 @@ void JSScheduleWrapper::dump()
 void JSScheduleWrapper::scheduleFunc(float dt)
 {
     jsval retval = JSVAL_NULL;
-    jsval data = DOUBLE_TO_JSVAL(dt);
+    JS::Heap<JS::Value> data(DOUBLE_TO_JSVAL(dt));
 
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
 
@@ -1385,7 +1385,7 @@ void JSScheduleWrapper::scheduleFunc(float dt)
 
 void JSScheduleWrapper::update(float dt)
 {
-    jsval data = DOUBLE_TO_JSVAL(dt);
+    JS::Heap<JS::Value> data(DOUBLE_TO_JSVAL(dt));
     
     JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
     
@@ -1395,7 +1395,7 @@ void JSScheduleWrapper::update(float dt)
         return;
     }
     
-    ScriptingCore::getInstance()->executeFunctionWithOwner(_jsThisObj, "update", 1, &data);
+    ScriptingCore::getInstance()->executeFunctionWithOwner(_jsThisObj, "update", 1, data.unsafeGet());
     
     RemoveValueRoot(cx, &data);
 }
