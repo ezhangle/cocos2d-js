@@ -868,7 +868,8 @@ void MinXmlHttpRequest::_js_register(JSContext *cx, JSObject *global)
         "XMLHttpRequest", JSCLASS_HAS_PRIVATE, JS_PropertyStub,
         JS_DeletePropertyStub, JS_PropertyStub, JS_StrictPropertyStub,
         JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub,
-        basic_object_finalize, JSCLASS_NO_OPTIONAL_MEMBERS
+        basic_object_finalize,
+        0, 0, 0, 0, 0
     };
     
     MinXmlHttpRequest::js_class = jsclass;
