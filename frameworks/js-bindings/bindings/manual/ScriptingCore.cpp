@@ -527,8 +527,7 @@ void ScriptingCore::removeAllRoots(JSContext *cx) {
 static JSPrincipals shellTrustedPrincipals = { 1 };
 
 static bool
-CheckObjectAccess(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JSAccessMode mode,
-                  JS::MutableHandleValue vp)
+CheckObjectAccess(JSContext *cx)
 {
     return true;
 }
@@ -553,7 +552,7 @@ void ScriptingCore::createGlobalContext() {
     
     // Removed from Spidermonkey 19.
     //JS_SetCStringsAreUTF8();
-    this->_rt = JS_NewRuntime(8L * 1024L * 1024L, JS_USE_HELPER_THREADS);
+    this->_rt = JS_NewRuntime(8L * 1024L * 1024L);
     JS_SetGCParameter(_rt, JSGC_MAX_BYTES, 0xffffffff);
 	
     JS_SetTrustedPrincipals(_rt, &shellTrustedPrincipals);
@@ -564,9 +563,9 @@ void ScriptingCore::createGlobalContext() {
     
     // Removed in Firefox v27
 //    JS_SetOptions(this->_cx, JSOPTION_TYPE_INFERENCE);
-    JS::ContextOptionsRef(_cx).setTypeInference(true);
-    JS::ContextOptionsRef(_cx).setIon(true);
-    JS::ContextOptionsRef(_cx).setBaseline(true);
+//    JS::ContextOptionsRef(_cx).setTypeInference(true);
+    JS::RuntimeOptionsRef(_cx).setIon(true);
+    JS::RuntimeOptionsRef(_cx).setBaseline(true);
 
 //    JS_SetVersion(this->_cx, JSVERSION_LATEST);
     
