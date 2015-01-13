@@ -304,7 +304,9 @@ JSObject* bind_menu_item(JSContext *cx, T* nativeObj, jsval callback, jsval this
 	} else {
 		js_type_class_t *classType = js_get_type_from_native<T>(nativeObj);
 		assert(classType);
-		JSObject *tmp = JS_NewObject(cx, classType->jsclass, classType->proto, classType->parentProto);
+		JS::HandleObject protoHandle(JS::HandleObject::fromMarkedLocation(&classType->proto));
+		JS::HandleObject parentHandle(JS::HandleObject::fromMarkedLocation(&classType->parentProto));
+		JSObject *tmp = JS_NewObject(cx, classType->jsclass, protoHandle, parentHandle);
 
 		// bind nativeObj <-> JSObject
 		js_proxy_t *proxy = jsb_new_proxy(nativeObj, tmp);
@@ -4189,9 +4191,10 @@ bool js_PlistParser_parse(JSContext *cx, unsigned argc, JS::Value *vp) {
         
         std::string parsedStr = delegator->parseText(arg0);
         jsval strVal = std_string_to_jsval(cx, parsedStr);
+        JS::RootedString rootedStrVal(cx, strVal.toString());
         // create a new js obj of the parsed string
         JS::RootedValue outVal(cx);
-        ok = JS_ParseJSON(cx, JS_GetStringCharsZ(cx, strVal.toString()), static_cast<uint32_t>(parsedStr.size()), &outVal);
+        ok = JS_ParseJSON(cx, rootedStrVal, &outVal);
         
         if (ok)
             JS_SET_RVAL(cx, vp, outVal);

@@ -76,9 +76,9 @@ void JSStringWrapper::set(JSString* str, JSContext* cx)
     }
     // JS_EncodeString isn't supported in SpiderMonkey ff19.0.
     //buffer = JS_EncodeString(cx, string);
-    unsigned short* pStrUTF16 = (unsigned short*)JS_GetStringCharsZ(cx, str);
-    
-    _buffer = cc_utf16_to_utf8(pStrUTF16, -1, NULL, NULL);
+    //unsigned short* pStrUTF16 = (unsigned short*)JS_GetStringCharsZ(cx, str);
+    //_buffer = cc_utf16_to_utf8(pStrUTF16, -1, NULL, NULL);
+    _buffer = JS_EncodeString(cx, str);
 }
 
 const char* JSStringWrapper::get()
