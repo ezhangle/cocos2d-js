@@ -149,91 +149,77 @@ JSAutoCompartment __jsb_ac(ScriptingCore::getInstance()->getGlobalContext(), Scr
  Defines correct possibility of export functions to DLL on Windows systems
  */
 #if defined(WP8)
-  #if defined(JS_BINDING_DLL)
-    #define CC_BINDING_DLL __declspec(dllexport)
-  #else                  /* use a DLL library */
-    #define CC_BINDING_DLL __declspec(dllimport)
-  #endif
-#else
   #define CC_BINDING_DLL
+#elif defined(JS_BINDING_DLL)
+  #define CC_BINDING_DLL __declspec(dllexport)
+#else                  /* use a DLL library */
+  #define CC_BINDING_DLL __declspec(dllimport)
 #endif // CC_BINDING_DLL
 
 /** @def CC_BINDING_BUILDER_DLL
  Defines correct possibility of export functions to DLL on Windows systems
  */
 #if defined(WP8)
-  #if defined(JS_BINDING_BUILDER_DLL)
-    #define CC_BINDING_BUILDER_DLL __declspec(dllexport)
-  #else                          /* use a DLL library */
-    #define CC_BINDING_BUILDER_DLL __declspec(dllimport)
-  #endif
-#else
   #define CC_BINDING_BUILDER_DLL
+#elif defined(JS_BINDING_BUILDER_DLL)
+  #define CC_BINDING_BUILDER_DLL __declspec(dllexport)
+#else                          /* use a DLL library */
+  #define CC_BINDING_BUILDER_DLL __declspec(dllimport)
 #endif // CC_BINDING_BUILDER_DLL
 
 /** @def CC_BINDING_EXTENSIONS_DLL
  Defines correct possibility of export functions to DLL on Windows systems
  */
 #if defined(WP8)
-  #if defined(JS_BINDING_EXTENSIONS_DLL)
-    #define CC_BINDING_EXTENSIONS_DLL __declspec(dllexport)
-  #else                             /* use a DLL library */
-    #define CC_BINDING_EXTENSIONS_DLL __declspec(dllimport)
-  #endif
-#else
   #define CC_BINDING_EXTENSIONS_DLL
+#elif defined(JS_BINDING_EXTENSIONS_DLL)
+  #define CC_BINDING_EXTENSIONS_DLL __declspec(dllexport)
+#else                             /* use a DLL library */
+  #define CC_BINDING_EXTENSIONS_DLL __declspec(dllimport)
 #endif // CC_BINDING_EXTENSIONS_DLL
 
 /** @def CC_BINDING_GUI_DLL
  Defines correct possibility of export functions to DLL on Windows systems
  */
 #if defined(WP8)
-  #if defined(JS_BINDING_GUI_DLL)
-    #define CC_BINDING_GUI_DLL __declspec(dllexport)
-  #else                      /* use a DLL library */
-    #define CC_BINDING_GUI_DLL __declspec(dllimport)
-  #endif
-#else
   #define CC_BINDING_GUI_DLL
+#elif defined(JS_BINDING_GUI_DLL)
+  #define CC_BINDING_GUI_DLL __declspec(dllexport)
+#else                      /* use a DLL library */
+  #define CC_BINDING_GUI_DLL __declspec(dllimport)
 #endif // CC_BINDING_GUI_DLL
 
 /** @def CC_BINDING_STUDIO_DLL
  Defines correct possibility of export functions to DLL on Windows systems
  */
 #if defined(WP8)
-  #if defined(JS_BINDING_STUDIO_DLL)
-    #define CC_BINDING_STUDIO_DLL __declspec(dllexport)
-  #else                         /* use a DLL library */
-    #define CC_BINDING_STUDIO_DLL __declspec(dllimport)
-  #endif
-#else
   #define CC_BINDING_STUDIO_DLL
+#elif defined(JS_BINDING_STUDIO_DLL)
+  #define CC_BINDING_STUDIO_DLL __declspec(dllexport)
+#else                         /* use a DLL library */
+  #define CC_BINDING_STUDIO_DLL __declspec(dllimport)
 #endif // CC_BINDING_STUDIO_DLL
 
 /** @def CC_BINDING_CHIPMUNK_DLL
  Defines correct possibility of export functions to DLL on Windows systems
  */
 #if defined(WP8)
-  #if defined(JS_BINDING_CHIPMUNK_DLL)
-    #define CC_BINDING_CHIPMUNK_DLL __declspec(dllexport)
-  #else                           /* use a DLL library */
-    #define CC_BINDING_CHIPMUNK_DLL __declspec(dllimport)
-  #endif
-#else
   #define CC_BINDING_CHIPMUNK_DLL
+#elif defined(JS_BINDING_CHIPMUNK_DLL)
+  #define CC_BINDING_CHIPMUNK_DLL __declspec(dllexport)
+#else                           /* use a DLL library */
+  #define CC_BINDING_CHIPMUNK_DLL __declspec(dllimport)
 #endif // CC_BINDING_CHIPMUNK_DLL
 
 /** @def CC_BINDING_STORAGE_DLL
  Defines correct possibility of export functions to DLL on Windows systems
  */
 #if defined(WP8)
-  #if defined(JS_BINDING_STORAGE_DLL)
-    #define CC_BINDING_STORAGE_DLL __declspec(dllexport)
-  #else                          /* use a DLL library */
-    #define CC_BINDING_STORAGE_DLL __declspec(dllimport)
-  #endif
-#else
   #define CC_BINDING_STORAGE_DLL
+#elif defined(JS_BINDING_STORAGE_DLL)
+  #define CC_BINDING_STORAGE_DLL __declspec(dllexport)
+#else                          /* use a DLL library */
+  #define CC_BINDING_STORAGE_DLL __declspec(dllimport)
 #endif // CC_BINDING_STORAGE_DLL
 
 #endif // __JS_BINDINGS_CONFIG_H
