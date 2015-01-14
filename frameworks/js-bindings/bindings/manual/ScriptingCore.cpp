@@ -429,7 +429,7 @@ static JSClass global_class = {
     "global", JSCLASS_GLOBAL_FLAGS,
     JS_PropertyStub, JS_DeletePropertyStub, JS_PropertyStub, JS_StrictPropertyStub,
     JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub, sc_finalize,
-    0, 0, 0, 0, 0
+    0, 0, 0, JS_GlobalObjectTraceHook, JSCLASS_NO_INTERNAL_MEMBERS
 };
 
 ScriptingCore::ScriptingCore()
