@@ -475,7 +475,7 @@ void js_register_cocos2dx_studio_ActionObject(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_ActionObject_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -742,7 +742,7 @@ void js_register_cocos2dx_studio_ActionManagerEx(JSContext *cx, JSObject *global
 	jsb_cocostudio_ActionManagerEx_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -897,7 +897,7 @@ void js_register_cocos2dx_studio_BaseData(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_BaseData_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1068,7 +1068,7 @@ void js_register_cocos2dx_studio_MovementData(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_MovementData_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1256,7 +1256,7 @@ void js_register_cocos2dx_studio_AnimationData(JSContext *cx, JSObject *global) 
 	jsb_cocostudio_AnimationData_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1642,7 +1642,7 @@ void js_register_cocos2dx_studio_ProcessBase(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_ProcessBase_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1936,7 +1936,7 @@ void js_register_cocos2dx_studio_Tween(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_Tween_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -2007,7 +2007,7 @@ void js_register_cocos2dx_studio_ColliderFilter(JSContext *cx, JSObject *global)
 	jsb_cocostudio_ColliderFilter_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -2068,7 +2068,7 @@ void js_register_cocos2dx_studio_ColliderBody(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_ColliderBody_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -2364,7 +2364,7 @@ void js_register_cocos2dx_studio_ColliderDetector(JSContext *cx, JSObject *globa
 	jsb_cocostudio_ColliderDetector_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -2626,7 +2626,7 @@ void js_register_cocos2dx_studio_DecorativeDisplay(JSContext *cx, JSObject *glob
 	jsb_cocostudio_DecorativeDisplay_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -3274,7 +3274,7 @@ void js_register_cocos2dx_studio_DisplayManager(JSContext *cx, JSObject *global)
 	jsb_cocostudio_DisplayManager_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -4164,7 +4164,7 @@ void js_register_cocos2dx_studio_Bone(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_Bone_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -4282,7 +4282,7 @@ void js_register_cocos2dx_studio_BatchNode(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_BatchNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -4833,7 +4833,7 @@ void js_register_cocos2dx_studio_ArmatureAnimation(JSContext *cx, JSObject *glob
 	jsb_cocostudio_ArmatureAnimation_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -5401,7 +5401,7 @@ void js_register_cocos2dx_studio_ArmatureDataManager(JSContext *cx, JSObject *gl
 	jsb_cocostudio_ArmatureDataManager_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -6159,7 +6159,7 @@ void js_register_cocos2dx_studio_Armature(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_Armature_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -6447,7 +6447,7 @@ void js_register_cocos2dx_studio_Skin(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_Skin_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -6785,7 +6785,7 @@ void js_register_cocos2dx_studio_ComAttribute(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_ComAttribute_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -7417,7 +7417,7 @@ void js_register_cocos2dx_studio_ComAudio(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_ComAudio_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -7693,7 +7693,7 @@ void js_register_cocos2dx_studio_InputDelegate(JSContext *cx, JSObject *global) 
 	jsb_cocostudio_InputDelegate_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -7831,7 +7831,7 @@ void js_register_cocos2dx_studio_ComController(JSContext *cx, JSObject *global) 
 	jsb_cocostudio_ComController_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -8003,7 +8003,7 @@ void js_register_cocos2dx_studio_ComRender(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_ComRender_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -8218,7 +8218,7 @@ void js_register_cocos2dx_studio_GUIReader(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_GUIReader_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -8426,7 +8426,7 @@ void js_register_cocos2dx_studio_SceneReader(JSContext *cx, JSObject *global) {
 	jsb_cocostudio_SceneReader_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 

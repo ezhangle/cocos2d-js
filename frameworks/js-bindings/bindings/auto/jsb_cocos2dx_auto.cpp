@@ -430,7 +430,7 @@ void js_register_cocos2dx_Configuration(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Configuration_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1216,7 +1216,7 @@ void js_register_cocos2dx_Texture2D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Texture2D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1496,7 +1496,7 @@ void js_register_cocos2dx_Touch(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Touch_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1671,7 +1671,7 @@ void js_register_cocos2dx_Event(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Event_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1803,7 +1803,7 @@ void js_register_cocos2dx_EventTouch(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventTouch_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1902,7 +1902,7 @@ void js_register_cocos2dx_EventKeyboard(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventKeyboard_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -5197,7 +5197,7 @@ void js_register_cocos2dx_Node(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Node_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -5445,7 +5445,7 @@ void js_register_cocos2dx___NodeRGBA(JSContext *cx, JSObject *global) {
 	jsb_cocos2d___NodeRGBA_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -5666,7 +5666,7 @@ void js_register_cocos2dx_Scene(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Scene_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -6267,7 +6267,7 @@ void js_register_cocos2dx_GLView(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_GLView_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -7575,7 +7575,7 @@ void js_register_cocos2dx_Director(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Director_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -7797,7 +7797,7 @@ void js_register_cocos2dx_Scheduler(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Scheduler_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -8424,7 +8424,7 @@ void js_register_cocos2dx_FileUtils(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FileUtils_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -8930,7 +8930,7 @@ void js_register_cocos2dx_Camera(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Camera_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -9089,7 +9089,7 @@ void js_register_cocos2dx_EventListener(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventListener_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -9605,7 +9605,7 @@ void js_register_cocos2dx_EventDispatcher(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventDispatcher_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -9763,7 +9763,7 @@ void js_register_cocos2dx_EventListenerTouchOneByOne(JSContext *cx, JSObject *gl
 	jsb_cocos2d_EventListenerTouchOneByOne_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -9875,7 +9875,7 @@ void js_register_cocos2dx_EventListenerTouchAllAtOnce(JSContext *cx, JSObject *g
 	jsb_cocos2d_EventListenerTouchAllAtOnce_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -9985,7 +9985,7 @@ void js_register_cocos2dx_EventListenerKeyboard(JSContext *cx, JSObject *global)
 	jsb_cocos2d_EventListenerKeyboard_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -10349,7 +10349,7 @@ void js_register_cocos2dx_EventMouse(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventMouse_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -10473,7 +10473,7 @@ void js_register_cocos2dx_EventListenerMouse(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventListenerMouse_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -10569,7 +10569,7 @@ void js_register_cocos2dx_EventAcceleration(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventAcceleration_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -10750,7 +10750,7 @@ void js_register_cocos2dx_EventListenerAcceleration(JSContext *cx, JSObject *glo
 	jsb_cocos2d_EventListenerAcceleration_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -10866,7 +10866,7 @@ void js_register_cocos2dx_EventCustom(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventCustom_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -11006,7 +11006,7 @@ void js_register_cocos2dx_EventListenerCustom(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventListenerCustom_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -11120,7 +11120,7 @@ void js_register_cocos2dx_EventFocus(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventFocus_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -11249,7 +11249,7 @@ void js_register_cocos2dx_EventListenerFocus(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EventListenerFocus_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -11601,7 +11601,7 @@ void js_register_cocos2dx_Action(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Action_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -11713,7 +11713,7 @@ void js_register_cocos2dx_FiniteTimeAction(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FiniteTimeAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -11960,7 +11960,7 @@ void js_register_cocos2dx_Speed(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Speed_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -12203,7 +12203,7 @@ void js_register_cocos2dx_Follow(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Follow_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -12911,7 +12911,7 @@ void js_register_cocos2dx_SpriteFrame(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SpriteFrame_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -13260,7 +13260,7 @@ void js_register_cocos2dx_AnimationFrame(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_AnimationFrame_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -13871,7 +13871,7 @@ void js_register_cocos2dx_Animation(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Animation_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -14030,7 +14030,7 @@ void js_register_cocos2dx_ActionInterval(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ActionInterval_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -14164,7 +14164,7 @@ void js_register_cocos2dx_Sequence(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Sequence_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -14373,7 +14373,7 @@ void js_register_cocos2dx_Repeat(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Repeat_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -14583,7 +14583,7 @@ void js_register_cocos2dx_RepeatForever(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_RepeatForever_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -14719,7 +14719,7 @@ void js_register_cocos2dx_Spawn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Spawn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -14940,7 +14940,7 @@ void js_register_cocos2dx_RotateTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_RotateTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -15180,7 +15180,7 @@ void js_register_cocos2dx_RotateBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_RotateBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -15327,7 +15327,7 @@ void js_register_cocos2dx_MoveBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MoveBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -15474,7 +15474,7 @@ void js_register_cocos2dx_MoveTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MoveTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -15625,7 +15625,7 @@ void js_register_cocos2dx_SkewTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SkewTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -15776,7 +15776,7 @@ void js_register_cocos2dx_SkewBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SkewBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -15931,7 +15931,7 @@ void js_register_cocos2dx_JumpBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_JumpBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -16058,7 +16058,7 @@ void js_register_cocos2dx_JumpTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_JumpTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -16153,7 +16153,7 @@ void js_register_cocos2dx_BezierBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_BezierBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -16245,7 +16245,7 @@ void js_register_cocos2dx_BezierTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_BezierTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -16493,7 +16493,7 @@ void js_register_cocos2dx_ScaleTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ScaleTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -16674,7 +16674,7 @@ void js_register_cocos2dx_ScaleBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ScaleBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -16820,7 +16820,7 @@ void js_register_cocos2dx_Blink(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Blink_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -16967,7 +16967,7 @@ void js_register_cocos2dx_FadeTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FadeTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -17115,7 +17115,7 @@ void js_register_cocos2dx_FadeIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FadeIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -17263,7 +17263,7 @@ void js_register_cocos2dx_FadeOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FadeOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -17418,7 +17418,7 @@ void js_register_cocos2dx_TintTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TintTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -17573,7 +17573,7 @@ void js_register_cocos2dx_TintBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TintBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -17694,7 +17694,7 @@ void js_register_cocos2dx_DelayTime(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_DelayTime_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -17850,7 +17850,7 @@ void js_register_cocos2dx_ReverseTime(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ReverseTime_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -18082,7 +18082,7 @@ void js_register_cocos2dx_Animate(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Animate_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -18351,7 +18351,7 @@ void js_register_cocos2dx_TargetedAction(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TargetedAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -18600,7 +18600,7 @@ void js_register_cocos2dx_ActionCamera(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ActionCamera_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -18797,7 +18797,7 @@ void js_register_cocos2dx_OrbitCamera(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_OrbitCamera_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -19253,7 +19253,7 @@ void js_register_cocos2dx_ActionManager(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ActionManager_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -19382,7 +19382,7 @@ void js_register_cocos2dx_ActionEase(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ActionEase_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -19515,7 +19515,7 @@ void js_register_cocos2dx_EaseRateAction(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseRateAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -19644,7 +19644,7 @@ void js_register_cocos2dx_EaseIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -19773,7 +19773,7 @@ void js_register_cocos2dx_EaseOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -19902,7 +19902,7 @@ void js_register_cocos2dx_EaseInOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20029,7 +20029,7 @@ void js_register_cocos2dx_EaseExponentialIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseExponentialIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20156,7 +20156,7 @@ void js_register_cocos2dx_EaseExponentialOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseExponentialOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20283,7 +20283,7 @@ void js_register_cocos2dx_EaseExponentialInOut(JSContext *cx, JSObject *global) 
 	jsb_cocos2d_EaseExponentialInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20410,7 +20410,7 @@ void js_register_cocos2dx_EaseSineIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseSineIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20537,7 +20537,7 @@ void js_register_cocos2dx_EaseSineOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseSineOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20664,7 +20664,7 @@ void js_register_cocos2dx_EaseSineInOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseSineInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20815,7 +20815,7 @@ void js_register_cocos2dx_EaseElastic(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseElastic_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -20974,7 +20974,7 @@ void js_register_cocos2dx_EaseElasticIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseElasticIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21133,7 +21133,7 @@ void js_register_cocos2dx_EaseElasticOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseElasticOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21292,7 +21292,7 @@ void js_register_cocos2dx_EaseElasticInOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseElasticInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21358,7 +21358,7 @@ void js_register_cocos2dx_EaseBounce(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBounce_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21482,7 +21482,7 @@ void js_register_cocos2dx_EaseBounceIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBounceIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21609,7 +21609,7 @@ void js_register_cocos2dx_EaseBounceOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBounceOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21736,7 +21736,7 @@ void js_register_cocos2dx_EaseBounceInOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBounceInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21863,7 +21863,7 @@ void js_register_cocos2dx_EaseBackIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBackIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -21990,7 +21990,7 @@ void js_register_cocos2dx_EaseBackOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBackOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -22117,7 +22117,7 @@ void js_register_cocos2dx_EaseBackInOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBackInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -22287,7 +22287,7 @@ void js_register_cocos2dx_EaseBezierAction(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseBezierAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -22433,7 +22433,7 @@ void js_register_cocos2dx_EaseQuadraticActionIn(JSContext *cx, JSObject *global)
 	jsb_cocos2d_EaseQuadraticActionIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -22578,7 +22578,7 @@ void js_register_cocos2dx_EaseQuadraticActionOut(JSContext *cx, JSObject *global
 	jsb_cocos2d_EaseQuadraticActionOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -22723,7 +22723,7 @@ void js_register_cocos2dx_EaseQuadraticActionInOut(JSContext *cx, JSObject *glob
 	jsb_cocos2d_EaseQuadraticActionInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -22868,7 +22868,7 @@ void js_register_cocos2dx_EaseQuarticActionIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseQuarticActionIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -23013,7 +23013,7 @@ void js_register_cocos2dx_EaseQuarticActionOut(JSContext *cx, JSObject *global) 
 	jsb_cocos2d_EaseQuarticActionOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -23158,7 +23158,7 @@ void js_register_cocos2dx_EaseQuarticActionInOut(JSContext *cx, JSObject *global
 	jsb_cocos2d_EaseQuarticActionInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -23303,7 +23303,7 @@ void js_register_cocos2dx_EaseQuinticActionIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseQuinticActionIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -23448,7 +23448,7 @@ void js_register_cocos2dx_EaseQuinticActionOut(JSContext *cx, JSObject *global) 
 	jsb_cocos2d_EaseQuinticActionOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -23593,7 +23593,7 @@ void js_register_cocos2dx_EaseQuinticActionInOut(JSContext *cx, JSObject *global
 	jsb_cocos2d_EaseQuinticActionInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -23738,7 +23738,7 @@ void js_register_cocos2dx_EaseCircleActionIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseCircleActionIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -23883,7 +23883,7 @@ void js_register_cocos2dx_EaseCircleActionOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseCircleActionOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24028,7 +24028,7 @@ void js_register_cocos2dx_EaseCircleActionInOut(JSContext *cx, JSObject *global)
 	jsb_cocos2d_EaseCircleActionInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24173,7 +24173,7 @@ void js_register_cocos2dx_EaseCubicActionIn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseCubicActionIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24318,7 +24318,7 @@ void js_register_cocos2dx_EaseCubicActionOut(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_EaseCubicActionOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24463,7 +24463,7 @@ void js_register_cocos2dx_EaseCubicActionInOut(JSContext *cx, JSObject *global) 
 	jsb_cocos2d_EaseCubicActionInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24530,7 +24530,7 @@ void js_register_cocos2dx_ActionInstant(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ActionInstant_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24642,7 +24642,7 @@ void js_register_cocos2dx_Show(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Show_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24757,7 +24757,7 @@ void js_register_cocos2dx_Hide(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Hide_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -24872,7 +24872,7 @@ void js_register_cocos2dx_ToggleVisibility(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ToggleVisibility_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25028,7 +25028,7 @@ void js_register_cocos2dx_RemoveSelf(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_RemoveSelf_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25171,7 +25171,7 @@ void js_register_cocos2dx_FlipX(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FlipX_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25314,7 +25314,7 @@ void js_register_cocos2dx_FlipY(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FlipY_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25457,7 +25457,7 @@ void js_register_cocos2dx_Place(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Place_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25568,7 +25568,7 @@ void js_register_cocos2dx_CallFunc(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_CallFunc_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25661,7 +25661,7 @@ void js_register_cocos2dx_CallFuncN(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_CallFuncN_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25772,7 +25772,7 @@ void js_register_cocos2dx_GridAction(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_GridAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25861,7 +25861,7 @@ void js_register_cocos2dx_Grid3DAction(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Grid3DAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -25949,7 +25949,7 @@ void js_register_cocos2dx_TiledGrid3DAction(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TiledGrid3DAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -26062,7 +26062,7 @@ void js_register_cocos2dx_StopGrid(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_StopGrid_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -26204,7 +26204,7 @@ void js_register_cocos2dx_ReuseGrid(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ReuseGrid_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -26433,7 +26433,7 @@ void js_register_cocos2dx_Waves3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Waves3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -26604,7 +26604,7 @@ void js_register_cocos2dx_FlipX3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FlipX3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -26726,7 +26726,7 @@ void js_register_cocos2dx_FlipY3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FlipY3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -26974,7 +26974,7 @@ void js_register_cocos2dx_Lens3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Lens3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -27253,7 +27253,7 @@ void js_register_cocos2dx_Ripple3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Ripple3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -27414,7 +27414,7 @@ void js_register_cocos2dx_Shaky3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Shaky3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -27643,7 +27643,7 @@ void js_register_cocos2dx_Liquid(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Liquid_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -27884,7 +27884,7 @@ void js_register_cocos2dx_Waves(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Waves_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -28158,7 +28158,7 @@ void js_register_cocos2dx_Twirl(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Twirl_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -28282,7 +28282,7 @@ void js_register_cocos2dx_PageTurn3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_PageTurn3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -28429,7 +28429,7 @@ void js_register_cocos2dx_ProgressTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ProgressTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -28580,7 +28580,7 @@ void js_register_cocos2dx_ProgressFromTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ProgressFromTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -28735,7 +28735,7 @@ void js_register_cocos2dx_ShakyTiles3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ShakyTiles3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -28890,7 +28890,7 @@ void js_register_cocos2dx_ShatteredTiles3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ShatteredTiles3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -29109,7 +29109,7 @@ void js_register_cocos2dx_ShuffleTiles(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ShuffleTiles_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -29321,7 +29321,7 @@ void js_register_cocos2dx_FadeOutTRTiles(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FadeOutTRTiles_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -29447,7 +29447,7 @@ void js_register_cocos2dx_FadeOutBLTiles(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FadeOutBLTiles_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -29591,7 +29591,7 @@ void js_register_cocos2dx_FadeOutUpTiles(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FadeOutUpTiles_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -29714,7 +29714,7 @@ void js_register_cocos2dx_FadeOutDownTiles(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_FadeOutDownTiles_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -29954,7 +29954,7 @@ void js_register_cocos2dx_TurnOffTiles(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TurnOffTiles_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -30186,7 +30186,7 @@ void js_register_cocos2dx_WavesTiles3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_WavesTiles3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -30419,7 +30419,7 @@ void js_register_cocos2dx_JumpTiles3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_JumpTiles3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -30570,7 +30570,7 @@ void js_register_cocos2dx_SplitRows(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SplitRows_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -30717,7 +30717,7 @@ void js_register_cocos2dx_SplitCols(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SplitCols_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -30860,7 +30860,7 @@ void js_register_cocos2dx_ActionTween(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ActionTween_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -31001,7 +31001,7 @@ void js_register_cocos2dx_CardinalSplineTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_CardinalSplineTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -31095,7 +31095,7 @@ void js_register_cocos2dx_CardinalSplineBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_CardinalSplineBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -31158,7 +31158,7 @@ void js_register_cocos2dx_CatmullRomTo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_CatmullRomTo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -31221,7 +31221,7 @@ void js_register_cocos2dx_CatmullRomBy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_CatmullRomBy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -31622,7 +31622,7 @@ void js_register_cocos2dx_ProtectedNode(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ProtectedNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -32012,7 +32012,7 @@ void js_register_cocos2dx_AtlasNode(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_AtlasNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -32845,7 +32845,7 @@ void js_register_cocos2dx_DrawNode(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_DrawNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -33182,7 +33182,7 @@ void js_register_cocos2dx_LabelAtlas(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_LabelAtlas_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -34043,7 +34043,7 @@ void js_register_cocos2dx_LabelTTF(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_LabelTTF_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -34794,7 +34794,7 @@ void js_register_cocos2dx_SpriteBatchNode(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SpriteBatchNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -36118,7 +36118,7 @@ void js_register_cocos2dx_Label(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Label_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -36707,7 +36707,7 @@ void js_register_cocos2dx_LabelBMFont(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_LabelBMFont_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -36852,7 +36852,7 @@ void js_register_cocos2dx_Layer(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Layer_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -36968,7 +36968,7 @@ void js_register_cocos2dx___LayerRGBA(JSContext *cx, JSObject *global) {
 	jsb_cocos2d___LayerRGBA_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -37305,7 +37305,7 @@ void js_register_cocos2dx_LayerColor(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_LayerColor_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -37785,7 +37785,7 @@ void js_register_cocos2dx_LayerGradient(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_LayerGradient_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -38018,7 +38018,7 @@ void js_register_cocos2dx_LayerMultiplex(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_LayerMultiplex_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -38122,7 +38122,7 @@ void js_register_cocos2dx_TransitionEaseScene(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionEaseScene_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -38326,7 +38326,7 @@ void js_register_cocos2dx_TransitionScene(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionScene_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -38494,7 +38494,7 @@ void js_register_cocos2dx_TransitionSceneOriented(JSContext *cx, JSObject *globa
 	jsb_cocos2d_TransitionSceneOriented_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -38624,7 +38624,7 @@ void js_register_cocos2dx_TransitionRotoZoom(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionRotoZoom_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -38753,7 +38753,7 @@ void js_register_cocos2dx_TransitionJumpZoom(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionJumpZoom_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -38942,7 +38942,7 @@ void js_register_cocos2dx_TransitionMoveInL(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionMoveInL_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -39073,7 +39073,7 @@ void js_register_cocos2dx_TransitionMoveInR(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionMoveInR_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -39202,7 +39202,7 @@ void js_register_cocos2dx_TransitionMoveInT(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionMoveInT_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -39331,7 +39331,7 @@ void js_register_cocos2dx_TransitionMoveInB(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionMoveInB_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -39520,7 +39520,7 @@ void js_register_cocos2dx_TransitionSlideInL(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionSlideInL_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -39675,7 +39675,7 @@ void js_register_cocos2dx_TransitionSlideInR(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionSlideInR_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -39829,7 +39829,7 @@ void js_register_cocos2dx_TransitionSlideInB(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionSlideInB_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -39983,7 +39983,7 @@ void js_register_cocos2dx_TransitionSlideInT(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionSlideInT_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -40149,7 +40149,7 @@ void js_register_cocos2dx_TransitionShrinkGrow(JSContext *cx, JSObject *global) 
 	jsb_cocos2d_TransitionShrinkGrow_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -40315,7 +40315,7 @@ void js_register_cocos2dx_TransitionFlipX(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionFlipX_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -40480,7 +40480,7 @@ void js_register_cocos2dx_TransitionFlipY(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionFlipY_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -40645,7 +40645,7 @@ void js_register_cocos2dx_TransitionFlipAngular(JSContext *cx, JSObject *global)
 	jsb_cocos2d_TransitionFlipAngular_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -40810,7 +40810,7 @@ void js_register_cocos2dx_TransitionZoomFlipX(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionZoomFlipX_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -40975,7 +40975,7 @@ void js_register_cocos2dx_TransitionZoomFlipY(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionZoomFlipY_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -41140,7 +41140,7 @@ void js_register_cocos2dx_TransitionZoomFlipAngular(JSContext *cx, JSObject *glo
 	jsb_cocos2d_TransitionZoomFlipAngular_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -41368,7 +41368,7 @@ void js_register_cocos2dx_TransitionFade(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionFade_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -41498,7 +41498,7 @@ void js_register_cocos2dx_TransitionCrossFade(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionCrossFade_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -41663,7 +41663,7 @@ void js_register_cocos2dx_TransitionTurnOffTiles(JSContext *cx, JSObject *global
 	jsb_cocos2d_TransitionTurnOffTiles_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -41853,7 +41853,7 @@ void js_register_cocos2dx_TransitionSplitCols(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionSplitCols_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -41984,7 +41984,7 @@ void js_register_cocos2dx_TransitionSplitRows(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionSplitRows_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -42178,7 +42178,7 @@ void js_register_cocos2dx_TransitionFadeTR(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionFadeTR_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -42309,7 +42309,7 @@ void js_register_cocos2dx_TransitionFadeBL(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionFadeBL_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -42438,7 +42438,7 @@ void js_register_cocos2dx_TransitionFadeUp(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionFadeUp_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -42568,7 +42568,7 @@ void js_register_cocos2dx_TransitionFadeDown(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionFadeDown_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -42762,7 +42762,7 @@ void js_register_cocos2dx_TransitionPageTurn(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionPageTurn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -42894,7 +42894,7 @@ void js_register_cocos2dx_TransitionProgress(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TransitionProgress_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -43024,7 +43024,7 @@ void js_register_cocos2dx_TransitionProgressRadialCCW(JSContext *cx, JSObject *g
 	jsb_cocos2d_TransitionProgressRadialCCW_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -43154,7 +43154,7 @@ void js_register_cocos2dx_TransitionProgressRadialCW(JSContext *cx, JSObject *gl
 	jsb_cocos2d_TransitionProgressRadialCW_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -43284,7 +43284,7 @@ void js_register_cocos2dx_TransitionProgressHorizontal(JSContext *cx, JSObject *
 	jsb_cocos2d_TransitionProgressHorizontal_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -43414,7 +43414,7 @@ void js_register_cocos2dx_TransitionProgressVertical(JSContext *cx, JSObject *gl
 	jsb_cocos2d_TransitionProgressVertical_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -43544,7 +43544,7 @@ void js_register_cocos2dx_TransitionProgressInOut(JSContext *cx, JSObject *globa
 	jsb_cocos2d_TransitionProgressInOut_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -43674,7 +43674,7 @@ void js_register_cocos2dx_TransitionProgressOutIn(JSContext *cx, JSObject *globa
 	jsb_cocos2d_TransitionProgressOutIn_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -43945,7 +43945,7 @@ void js_register_cocos2dx_MenuItem(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MenuItem_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -44223,7 +44223,7 @@ void js_register_cocos2dx_MenuItemLabel(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MenuItemLabel_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -44392,7 +44392,7 @@ void js_register_cocos2dx_MenuItemAtlasFont(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MenuItemAtlasFont_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -44680,7 +44680,7 @@ void js_register_cocos2dx_MenuItemFont(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MenuItemFont_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -45074,7 +45074,7 @@ void js_register_cocos2dx_MenuItemSprite(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MenuItemSprite_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -45341,7 +45341,7 @@ void js_register_cocos2dx_MenuItemImage(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MenuItemImage_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -45594,7 +45594,7 @@ void js_register_cocos2dx_MenuItemToggle(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MenuItemToggle_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -45857,7 +45857,7 @@ void js_register_cocos2dx_Menu(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Menu_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -46179,7 +46179,7 @@ void js_register_cocos2dx_ClippingNode(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ClippingNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -46645,7 +46645,7 @@ void js_register_cocos2dx_MotionStreak(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_MotionStreak_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -47081,7 +47081,7 @@ void js_register_cocos2dx_ProgressTimer(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ProgressTimer_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -48240,7 +48240,7 @@ void js_register_cocos2dx_Sprite(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Sprite_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -49046,7 +49046,7 @@ void js_register_cocos2dx_RenderTexture(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_RenderTexture_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -49261,7 +49261,7 @@ void js_register_cocos2dx_NodeGrid(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_NodeGrid_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -49763,7 +49763,7 @@ void js_register_cocos2dx_ParticleBatchNode(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleBatchNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -51952,7 +51952,7 @@ void js_register_cocos2dx_ParticleSystem(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleSystem_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -52328,7 +52328,7 @@ void js_register_cocos2dx_ParticleSystemQuad(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleSystemQuad_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -52490,7 +52490,7 @@ void js_register_cocos2dx_ParticleFire(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleFire_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -52672,7 +52672,7 @@ void js_register_cocos2dx_ParticleFireworks(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleFireworks_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -52855,7 +52855,7 @@ void js_register_cocos2dx_ParticleSun(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleSun_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -53038,7 +53038,7 @@ void js_register_cocos2dx_ParticleGalaxy(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleGalaxy_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -53221,7 +53221,7 @@ void js_register_cocos2dx_ParticleFlower(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleFlower_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -53404,7 +53404,7 @@ void js_register_cocos2dx_ParticleMeteor(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleMeteor_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -53587,7 +53587,7 @@ void js_register_cocos2dx_ParticleSpiral(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleSpiral_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -53770,7 +53770,7 @@ void js_register_cocos2dx_ParticleExplosion(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleExplosion_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -53953,7 +53953,7 @@ void js_register_cocos2dx_ParticleSmoke(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleSmoke_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -54136,7 +54136,7 @@ void js_register_cocos2dx_ParticleSnow(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleSnow_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -54319,7 +54319,7 @@ void js_register_cocos2dx_ParticleRain(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParticleRain_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -54834,7 +54834,7 @@ void js_register_cocos2dx_GridBase(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_GridBase_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -55063,7 +55063,7 @@ void js_register_cocos2dx_Grid3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Grid3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -55239,7 +55239,7 @@ void js_register_cocos2dx_TiledGrid3D(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TiledGrid3D_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -55948,7 +55948,7 @@ void js_register_cocos2dx_GLProgram(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_GLProgram_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -56187,7 +56187,7 @@ void js_register_cocos2dx_GLProgramCache(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_GLProgramCache_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -56604,7 +56604,7 @@ void js_register_cocos2dx_TextureCache(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TextureCache_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -56740,7 +56740,7 @@ void js_register_cocos2dx_Device(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Device_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -56830,7 +56830,7 @@ void js_register_cocos2dx_SAXParser(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SAXParser_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -56947,7 +56947,7 @@ void js_register_cocos2dx_Application(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Application_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -57211,7 +57211,7 @@ void js_register_cocos2dx_AnimationCache(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_AnimationCache_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -57595,7 +57595,7 @@ void js_register_cocos2dx_SpriteFrameCache(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_SpriteFrameCache_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -58020,7 +58020,7 @@ void js_register_cocos2dx_TextFieldTTF(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TextFieldTTF_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -58272,7 +58272,7 @@ void js_register_cocos2dx_ParallaxNode(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ParallaxNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -58598,7 +58598,7 @@ void js_register_cocos2dx_TMXObjectGroup(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TMXObjectGroup_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -58736,7 +58736,7 @@ void js_register_cocos2dx_TMXLayerInfo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TMXLayerInfo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -58851,7 +58851,7 @@ void js_register_cocos2dx_TMXTilesetInfo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TMXTilesetInfo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -59688,7 +59688,7 @@ void js_register_cocos2dx_TMXMapInfo(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TMXMapInfo_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -60408,7 +60408,7 @@ void js_register_cocos2dx_TMXLayer(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TMXLayer_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -60974,7 +60974,7 @@ void js_register_cocos2dx_TMXTiledMap(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TMXTiledMap_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -61261,7 +61261,7 @@ void js_register_cocos2dx_TileMapAtlas(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_TileMapAtlas_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -61562,7 +61562,7 @@ void js_register_cocos2dx_Component(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_Component_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -61793,7 +61793,7 @@ void js_register_cocos2dx_ComponentContainer(JSContext *cx, JSObject *global) {
 	jsb_cocos2d_ComponentContainer_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -62346,7 +62346,7 @@ void js_register_cocos2dx_SimpleAudioEngine(JSContext *cx, JSObject *global) {
 	jsb_CocosDenshion_SimpleAudioEngine_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 

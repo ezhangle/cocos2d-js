@@ -525,7 +525,7 @@ void js_register_cocos2dx_spine_Skeleton(JSContext *cx, JSObject *global) {
 	jsb_spine_Skeleton_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -981,7 +981,7 @@ void js_register_cocos2dx_spine_SkeletonAnimation(JSContext *cx, JSObject *globa
 	jsb_spine_SkeletonAnimation_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 

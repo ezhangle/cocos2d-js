@@ -926,7 +926,7 @@ void js_register_cocos2dx_builder_CCBAnimationManager(JSContext *cx, JSObject *g
 	jsb_cocosbuilder_CCBAnimationManager_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 
@@ -1671,7 +1671,7 @@ void js_register_cocos2dx_builder_CCBReader(JSContext *cx, JSObject *global) {
 	jsb_cocosbuilder_CCBReader_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
-		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
+		{"__nativeObj", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
 		JS_PS_END
 	};
 

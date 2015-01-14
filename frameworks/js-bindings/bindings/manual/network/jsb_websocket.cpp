@@ -360,7 +360,7 @@ void register_jsb_websocket(JSContext *cx, JSObject *global) {
     js_cocos2dx_websocket_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
     
     static JSPropertySpec properties[] = {
-        {"readyState", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(js_cocos2dx_extension_WebSocket_get_readyState), NULL},
+        {"readyState", JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(js_cocos2dx_extension_WebSocket_get_readyState), NULL},
         JS_PS_END
     };
     

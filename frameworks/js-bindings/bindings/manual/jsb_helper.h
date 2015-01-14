@@ -109,10 +109,10 @@ JS_BINDED_PROP_GET(klass, propName); \
 JS_BINDED_PROP_SET(klass, propName);
 
 #define JS_BINDED_PROP_DEF_GETTER(klass, propName) \
-{#propName, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(_js_get_##klass##_##propName), NULL}
+{#propName, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(_js_get_##klass##_##propName), NULL}
 
 #define JS_BINDED_PROP_DEF_ACCESSOR(klass, propName) \
-{#propName, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED, JSOP_WRAPPER(_js_get_##klass##_##propName), JSOP_WRAPPER(_js_set_##klass##_##propName)}
+{#propName, JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED | JSPROP_NATIVE_ACCESSORS, JSOP_WRAPPER(_js_get_##klass##_##propName), JSOP_WRAPPER(_js_set_##klass##_##propName)}
 
 #define JS_CREATE_UINT_WRAPPED(valOut, propName, val) \
 do { \
