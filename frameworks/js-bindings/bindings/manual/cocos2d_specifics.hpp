@@ -107,7 +107,7 @@ inline js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj) {
         JSObject* js_obj = JS_NewObject(cx, typeProxy->jsclass, protoHandle, parentHandle);
         proxy = jsb_new_proxy(native_obj, js_obj);
 #ifdef DEBUG
-        AddNamedObjectRoot(cx, &proxy->obj, typeid(*native_obj).name());
+        JS::AddNamedObjectRoot(cx, &proxy->obj, typeid(*native_obj).name());
 #else
         JS::AddObjectRoot(cx, &proxy->obj);
 #endif

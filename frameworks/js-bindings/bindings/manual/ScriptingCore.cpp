@@ -456,7 +456,8 @@ void ScriptingCore::string_report(jsval val) {
         // return 1;
     } else if (val.isString()) {
         JSContext* cx = this->getGlobalContext();
-        JSString *str = JS::ToString(cx, JS::RootedValue(cx, val));
+        JS::RootedValue dummy(cx, val);
+        JSString *str = JS::ToString(cx, dummy);
         if (NULL == str) {
             LOGD("val : return string is NULL");
         } else {
@@ -465,8 +466,9 @@ void ScriptingCore::string_report(jsval val) {
         }
     } else if (val.isNumber()) {
         double number;
+        JS::RootedValue dummy(_cx, val);
         if (false ==
-            JS::ToNumber(this->getGlobalContext(), JS::RootedValue(_cx, val), &number)) {
+            JS::ToNumber(this->getGlobalContext(), dummy, &number)) {
             LOGD("val : return number could not be converted");
         } else {
             LOGD("val : return number =\n%f", number);
@@ -484,7 +486,8 @@ bool ScriptingCore::evalString(const char *string, jsval *outVal, const char *fi
     JSAutoCompartment ac(cx, global);
     
     JS::RootedScript script(cx);
-    JS_CompileScript(cx, JS::RootedObject(cx, global), string, strlen(string), JS::CompileOptions(cx), &script);
+    JS::RootedObject dummy(cx, global);
+    JS_CompileScript(cx, dummy, string, strlen(string), JS::CompileOptions(cx), &script);
     if (script)
     {
         JS::HandleObject globalHandle(JS::HandleObject::fromMarkedLocation(&global));
@@ -816,7 +819,8 @@ bool ScriptingCore::executeScript(JSContext *cx, uint32_t argc, jsval *vp)
 {
     if (argc >= 1) {
         jsval* argv = JS_ARGV(cx, vp);
-        JSString* str = JS::ToString(cx, JS::RootedValue(cx, argv[0]));
+        JS::RootedValue dummy(cx, argv[0]);
+        JSString* str = JS::ToString(cx, dummy);
         JSStringWrapper path(str);
         bool res = false;
         if (argc == 2 && argv[1].isString()) {

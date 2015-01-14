@@ -156,7 +156,8 @@ bool JSPROXY_CCPhysicsSprite_setIgnoreBodyRotation_(JSContext *cx, uint32_t argc
 	TEST_NATIVE_OBJECT(cx, real)
     
 	jsval *argvp = JS_ARGV(cx,vp);
-	bool arg0 = JS::ToBoolean( JS::RootedValue(cx, *argvp++) );
+	JS::RootedValue dummy(cx, *argvp++);
+	bool arg0 = JS::ToBoolean( dummy );
     
 	real->setIgnoreBodyRotation((bool)arg0);
 	JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -634,15 +635,16 @@ void register_CCPhysicsDebugNode(JSContext *cx, JSObject *obj) {
 
 bool jsval_to_cpBB( JSContext *cx, jsval vp, cpBB *ret )
 {
-    JS::RootedObject jsobj(cx);
-	bool ok = JS_ValueToObject( cx, JS::RootedValue(cx, vp), &jsobj );
+	JS::RootedObject jsobj(cx);
+	JS::RootedValue dummy(cx, vp);
+	bool ok = JS_ValueToObject( cx, dummy, &jsobj );
 	JSB_PRECONDITION( ok, "Error converting value to object");
 	JSB_PRECONDITION( jsobj, "Not a valid JS object");
 	
-    JS::RootedValue vall(cx);
-    JS::RootedValue valb(cx);
-    JS::RootedValue valr(cx);
-    JS::RootedValue valt(cx);
+	JS::RootedValue vall(cx);
+	JS::RootedValue valb(cx);
+	JS::RootedValue valr(cx);
+	JS::RootedValue valt(cx);
 	ok = true;
 	ok &= JS_GetProperty(cx, jsobj, "l", &vall);
 	ok &= JS_GetProperty(cx, jsobj, "b", &valb);
@@ -688,8 +690,9 @@ jsval cpBB_to_jsval(JSContext *cx, cpBB bb )
 bool jsval_to_array_of_cpvect( JSContext *cx, jsval vp, cpVect**verts, int *numVerts)
 {
 	// Parsing sequence
-    JS::RootedObject jsobj(cx);
-	bool ok = JS_ValueToObject( cx, JS::RootedValue(cx, vp), &jsobj );
+	JS::RootedObject jsobj(cx);
+	JS::RootedValue dummy(cx, vp);
+	bool ok = JS_ValueToObject( cx, dummy, &jsobj );
 	JSB_PRECONDITION( ok, "Error converting value to object");
 	
 	JSB_PRECONDITION( jsobj && JS_IsArrayObject( cx, jsobj),  "Object must be an array");
@@ -1495,9 +1498,10 @@ bool JSB_cpBody_getUserData(JSContext *cx, uint32_t argc, jsval *vp)
 static
 bool __jsb_cpBody_setUserData(JSContext *cx, jsval *vp, jsval *argvp, cpBody *body)
 {
-    JS::RootedObject jsobj(cx);
+	JS::RootedObject jsobj(cx);
+	JS::RootedValue dummy(cx, *argvp);
 
-	bool ok = JS_ValueToObject(cx, JS::RootedValue(cx, *argvp), &jsobj);
+	bool ok = JS_ValueToObject(cx, dummy, &jsobj);
 
 	JSB_PRECONDITION(ok, "Error parsing arguments");
 	
@@ -1563,8 +1567,9 @@ bool JSB_cpMomentForPoly(JSContext *cx, uint32_t argc, jsval *vp)
 	cpVect *verts; cpVect offset;
 	int numVerts;
 	double m;
-	
-	ok &= JS::ToNumber(cx, JS::RootedValue(cx, *argvp++), &m);
+	JS::RootedValue dummy(cx, *argvp++);
+
+	ok &= JS::ToNumber(cx, dummy, &m);
 	ok &= jsval_to_array_of_cpvect( cx, *argvp++, &verts, &numVerts);
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &offset );
 

@@ -256,9 +256,10 @@ bool js_cocos2dx_EventTouch_setTouches(JSContext *cx, uint32_t argc, jsval *vp)
 	if (argc == 1) {
 		std::vector<Touch*> arg0;
         JS::RootedObject jsobj(cx);
-        ok = argv->isObject() && JS_ValueToObject( cx, JS::RootedValue(cx, *argv), &jsobj );
-        JSB_PRECONDITION3( ok, cx, false, "Error converting value to object");
-        JSB_PRECONDITION3( jsobj && JS_IsArrayObject( cx, jsobj),  cx, false, "Object must be an array");
+        JS::RootedValue dummy(cx, *argv);
+        ok = argv->isObject() && JS_ValueToObject( cx, dummy, &jsobj );
+        JSB_PRECONDITION3(ok, cx, false, "Error converting value to object");
+        JSB_PRECONDITION3(jsobj && JS_IsArrayObject(cx, jsobj), cx, false, "Object must be an array");
         
         uint32_t len = 0;
         JS_GetArrayLength(cx, jsobj, &len);
@@ -691,28 +692,30 @@ bool js_cocos2dx_CCAnimation_create(JSContext *cx, uint32_t argc, jsval *vp)
                 ok &= jsval_to_ccvector(cx, argv[0], &arg0);
                 JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
             }
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[1]), &arg1);
+            JS::RootedValue dummy(cx, argv[1]);
+            ok &= JS::ToNumber(cx, dummy, &arg1);
             JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
-			ret = cocos2d::Animation::createWithSpriteFrames(arg0, arg1);
-		} else if (argc == 3) {
+            ret = cocos2d::Animation::createWithSpriteFrames(arg0, arg1);
+        } else if (argc == 3) {
             Vector<AnimationFrame*> arg0;
             if (argc > 0) {
                 ok &= jsval_to_ccvector(cx, argv[0], &arg0);
                 JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
             }
-			unsigned int loops;
-			ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[1]), &arg1);
-			ok &= jsval_to_uint32(cx, argv[2], &loops);
+            unsigned int loops;
+            JS::RootedValue dummy(cx, argv[1]);
+            ok &= JS::ToNumber(cx, dummy, &arg1);
+            ok &= jsval_to_uint32(cx, argv[2], &loops);
             JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
-			ret = cocos2d::Animation::create(arg0, arg1, loops);
-		} else if (argc == 1) {
+            ret = cocos2d::Animation::create(arg0, arg1, loops);
+        } else if (argc == 1) {
             Vector<SpriteFrame*> arg0;
             if (argc > 0) {
                 ok &= jsval_to_ccvector(cx, argv[0], &arg0);
                 JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
             }
-			ret = cocos2d::Animation::createWithSpriteFrames(arg0);
-		} else if (argc == 0) {
+            ret = cocos2d::Animation::createWithSpriteFrames(arg0);
+        } else if (argc == 0) {
             ret = cocos2d::Animation::create();
         }
 		jsval jsret;
@@ -732,7 +735,7 @@ bool js_cocos2dx_CCAnimation_create(JSContext *cx, uint32_t argc, jsval *vp)
 		return true;
 	}
     JS_ReportError(cx, "wrong number of arguments");
-	return false;
+    return false;
 }
 
 bool js_cocos2dx_CCScene_init(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1555,7 +1558,8 @@ bool js_CCNode_scheduleOnce(JSContext *cx, uint32_t argc, jsval *vp)
         //
         double delay;
         if( argc >= 2 ) {
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[1]), &delay );
+            JS::RootedValue dummy(cx, argv[1]);
+            ok &= JS::ToNumber(cx, dummy, &delay );
             JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
         }
         
@@ -1630,7 +1634,8 @@ bool js_CCNode_schedule(JSContext *cx, uint32_t argc, jsval *vp)
 
     	double interval = 0.0;
         if( argc >= 2 ) {
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[1]), &interval );
+            JS::RootedValue dummy(cx, argv[1]);
+            ok &= JS::ToNumber(cx, dummy, &interval );
         }
         
         //
@@ -1638,7 +1643,8 @@ bool js_CCNode_schedule(JSContext *cx, uint32_t argc, jsval *vp)
         //
         double repeat = 0.0;
         if( argc >= 3 ) {
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[2]), &repeat );
+            JS::RootedValue dummy(cx, argv[2]);
+            ok &= JS::ToNumber(cx, dummy, &repeat );
         }
         
         //
@@ -1646,7 +1652,8 @@ bool js_CCNode_schedule(JSContext *cx, uint32_t argc, jsval *vp)
         //
         double delay = 0.0;
         if( argc >= 4 ) {
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[3]), &delay );
+            JS::RootedValue dummy(cx, argv[3]);
+            ok &= JS::ToNumber(cx, dummy, &delay );
         }
         
         JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
@@ -1937,7 +1944,8 @@ bool js_CCScheduler_scheduleUpdateForTarget(JSContext *cx, uint32_t argc, jsval 
         bool paused = false;
         
         if( argc >= 3 ) {
-            paused = JS::ToBoolean(JS::RootedValue(cx, argv[2]));
+            JS::RootedValue dummy(cx, argv[2]);
+            paused = JS::ToBoolean(dummy);
         }
         
         JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
@@ -2036,7 +2044,8 @@ bool js_CCScheduler_schedule(JSContext *cx, uint32_t argc, jsval *vp)
         
     	double interval = 0;
         if( argc >= 3 ) {
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[2]), &interval );
+            JS::RootedValue dummy(cx, argv[2]);
+            ok &= JS::ToNumber(cx, dummy, &interval );
         }
         
         //
@@ -2044,7 +2053,8 @@ bool js_CCScheduler_schedule(JSContext *cx, uint32_t argc, jsval *vp)
         //
         double repeat = kRepeatForever;
         if( argc >= 4 ) {
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[3]), &repeat );
+            JS::RootedValue dummy(cx, argv[3]);
+            ok &= JS::ToNumber(cx, dummy, &repeat );
         }
         
         //
@@ -2052,13 +2062,15 @@ bool js_CCScheduler_schedule(JSContext *cx, uint32_t argc, jsval *vp)
         //
         double delay = 0;
         if( argc >= 5 ) {
-            ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[4]), &delay );
+            JS::RootedValue dummy(cx, argv[4]);
+            ok &= JS::ToNumber(cx, dummy, &delay );
         }
         
         bool paused = false;
         
         if( argc >= 6 ) {
-            paused = JS::ToBoolean(JS::RootedValue(cx,  argv[5]));
+            JS::RootedValue dummy(cx, argv[5]);
+            paused = JS::ToBoolean(dummy);
         }
         
         JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
@@ -2375,9 +2387,11 @@ bool js_cocos2dx_CCNode_setPosition(JSContext *cx, uint32_t argc, jsval *vp)
 		return true;
 	} if (argc == 2) {
         double x;
-        ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[0]), &x );
+        JS::RootedValue dummy0(cx, argv[0]);
+        ok &= JS::ToNumber(cx, dummy0, &x );
         double y;
-        ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[1]), &y );
+        JS::RootedValue dummy1(cx, argv[1]);
+        ok &= JS::ToNumber(cx, dummy1, &y );
         JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
         
         cobj->setPosition(Point(x,y));
@@ -2407,9 +2421,11 @@ bool js_cocos2dx_CCNode_setContentSize(JSContext *cx, uint32_t argc, jsval *vp)
 		return true;
 	} if (argc == 2) {
         double width;
-        ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[0]), &width );
+        JS::RootedValue dummy0(cx, argv[0]);
+        ok &= JS::ToNumber(cx, dummy0, &width );
         double height;
-        ok &= JS::ToNumber(cx, JS::RootedValue(cx, argv[1]), &height );
+        JS::RootedValue dummy1(cx, argv[1]);
+        ok &= JS::ToNumber(cx, dummy1, &height );
         JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
         
         cobj->setContentSize(Size(width,height));
@@ -2711,10 +2727,11 @@ bool js_cocos2dx_ActionInterval_easing(JSContext *cx, uint32_t argc, jsval *vp)
     for (int i = 0; i < argc; i++)
     {
         jsval vpi = argv[i];
+        JS::RootedValue dummy(cx, vpi);
         bool ok = vpi.isObject() &&
-            JS_ValueToObject(cx, JS::RootedValue(cx, vpi), &tmp) &&
-            JS_GetProperty(cx, tmp, "tag", &jsTag) &&
-            JS::ToNumber(cx, jsTag, &tag);
+        JS_ValueToObject(cx, dummy, &tmp) &&
+        JS_GetProperty(cx, tmp, "tag", &jsTag) &&
+        JS::ToNumber(cx, jsTag, &tag);
         JS_GetProperty(cx, tmp, "param", &jsParam) && JS::ToNumber(cx, jsParam, &parameter);
         bool hasParam = (parameter == parameter);
         if (!ok) continue;
@@ -2903,7 +2920,8 @@ bool js_BezierActions_initWithDuration(JSContext *cx, uint32_t argc, jsval *vp)
     if (argc == 2) {
         double arg0;
         cocos2d::_ccBezierConfig arg1;
-        ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[0]), &arg0);
+        JS::RootedValue dummy(cx, argv[0]);
+        ok &= JS::ToNumber( cx, dummy, &arg0);
 
         int num;
         cocos2d::Vec2 *arr;
@@ -3035,9 +3053,10 @@ bool js_CatmullRomActions_initWithDuration(JSContext *cx, uint32_t argc, jsval *
 	JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_CatmullRom_initWithDuration : Invalid Native Object");
 	if (argc == 2) {
 		double arg0;
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[0]), &arg0);
+        JS::RootedValue dummy(cx, argv[0]);
+        ok &= JS::ToNumber( cx, dummy, &arg0);
 
-		int num;
+        int num;
         Point *arr;
         ok &= jsval_to_ccarray_of_CCPoint(cx, argv[1], &arr, &num);
                 
@@ -3089,17 +3108,18 @@ bool JSB_CCCardinalSplineTo_actionWithDuration(JSContext *cx, uint32_t argc, jsv
 
 bool js_cocos2dx_CardinalSplineTo_initWithDuration(JSContext *cx, uint32_t argc, jsval *vp)
 {
-	jsval *argv = JS_ARGV(cx, vp);
-	bool ok = true;
-	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy = jsb_get_js_proxy(obj);
-	cocos2d::CardinalSplineTo* cobj = (cocos2d::CardinalSplineTo *)(proxy ? proxy->ptr : NULL);
-	JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_CardinalSplineTo_initWithDuration : Invalid Native Object");
-	if (argc == 3) {
-		double arg0;
+    jsval *argv = JS_ARGV(cx, vp);
+    bool ok = true;
+    JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    js_proxy_t *proxy = jsb_get_js_proxy(obj);
+    cocos2d::CardinalSplineTo* cobj = (cocos2d::CardinalSplineTo *)(proxy ? proxy->ptr : NULL);
+    JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_CardinalSplineTo_initWithDuration : Invalid Native Object");
+    if (argc == 3) {
+        double arg0;
 		
-		double arg2;
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[0]), &arg0);
+        double arg2;
+        JS::RootedValue dummy0(cx, argv[0]);
+        ok &= JS::ToNumber( cx, dummy0, &arg0);
 		
         int num;
         Point *arr;
@@ -3109,19 +3129,20 @@ bool js_cocos2dx_CardinalSplineTo_initWithDuration(JSContext *cx, uint32_t argc,
             arg1->addControlPoint(arr[i]);
         }
 
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
-		JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_CardinalSplineTo_initWithDuration : Error processing arguments");
-		bool ret = cobj->initWithDuration(arg0, arg1, arg2);
+        JS::RootedValue dummy2(cx, argv[2]);
+        ok &= JS::ToNumber( cx, dummy2, &arg2);
+        JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_CardinalSplineTo_initWithDuration : Error processing arguments");
+        bool ret = cobj->initWithDuration(arg0, arg1, arg2);
         
         delete [] arr;
-		jsval jsret = JSVAL_NULL;
-		jsret = BOOLEAN_TO_JSVAL(ret);
-		JS_SET_RVAL(cx, vp, jsret);
-		return true;
-	}
+        jsval jsret = JSVAL_NULL;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        JS_SET_RVAL(cx, vp, jsret);
+        return true;
+    }
 
-	JS_ReportError(cx, "js_cocos2dx_CardinalSplineTo_initWithDuration : wrong number of arguments: %d, was expecting %d", argc, 3);
-	return false;
+    JS_ReportError(cx, "js_cocos2dx_CardinalSplineTo_initWithDuration : wrong number of arguments: %d, was expecting %d", argc, 3);
+    return false;
 }
 
 bool JSB_CCCatmullRomBy_actionWithDuration(JSContext *cx, uint32_t argc, jsval *vp) {
@@ -3750,7 +3771,8 @@ bool js_cocos2dx_CCDrawNode_drawPolygon(JSContext *cx, uint32_t argc, jsval *vp)
 
 static bool jsval_to_string_vector(JSContext* cx, jsval v, std::vector<std::string>& ret) {
     JS::RootedObject jsobj(cx);
-    bool ok = JS_ValueToObject( cx, JS::RootedValue(cx, v), &jsobj );
+    JS::RootedValue dummy(cx, v);
+    bool ok = JS_ValueToObject( cx, dummy, &jsobj );
     JSB_PRECONDITION2( ok, cx, false, "Error converting value to object");
 	JSB_PRECONDITION2( jsobj && JS_IsArrayObject( cx, jsobj),  cx, false, "Object must be an array");
     
@@ -4306,8 +4328,9 @@ bool jsval_to_TTFConfig(JSContext *cx, jsval v, TTFConfig* ret) {
     std::string fontFilePath,customGlyphs;
     double fontSize, glyphs;
 
+    JS::RootedValue dummy(cx, v);
     bool ok = v.isObject() &&
-        JS_ValueToObject(cx, JS::RootedValue(cx, v), &tmp) &&
+        JS_ValueToObject(cx, dummy, &tmp) &&
         JS_GetProperty(cx, tmp, "fontFilePath", &js_fontFilePath) &&
         JS_GetProperty(cx, tmp, "fontSize", &js_fontSize) &&
         JS_GetProperty(cx, tmp, "glyphs", &js_glyphs) &&

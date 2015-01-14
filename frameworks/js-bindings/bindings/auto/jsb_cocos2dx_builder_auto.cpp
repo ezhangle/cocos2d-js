@@ -254,7 +254,8 @@ bool js_cocos2dx_builder_CCBAnimationManager_runAnimationsForSequenceNamedTweenD
 		const char* arg0;
 		double arg1;
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[1]), &arg1);
+		JS::RootedValue dummy(cx, argv[1]);
+		ok &= JS::ToNumber( cx, dummy, &arg1);
 		JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_builder_CCBAnimationManager_runAnimationsForSequenceNamedTweenDuration : Error processing arguments");
 		cobj->runAnimationsForSequenceNamedTweenDuration(arg0, arg1);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -544,7 +545,8 @@ bool js_cocos2dx_builder_CCBAnimationManager_runAnimationsForSequenceIdTweenDura
 		int arg0;
 		double arg1;
 		ok &= jsval_to_int32(cx, argv[0], (int32_t *)&arg0);
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[1]), &arg1);
+		JS::RootedValue dummy(cx, argv[1]);
+		ok &= JS::ToNumber( cx, dummy, &arg1);
 		JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_builder_CCBAnimationManager_runAnimationsForSequenceIdTweenDuration : Error processing arguments");
 		cobj->runAnimationsForSequenceIdTweenDuration(arg0, arg1);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -1377,7 +1379,8 @@ bool js_cocos2dx_builder_CCBReader_setResolutionScale(JSContext *cx, uint32_t ar
 	bool ok = true;
 	if (argc == 1) {
 		double arg0;
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[0]), &arg0);
+		JS::RootedValue dummy(cx, argv[0]);
+		ok &= JS::ToNumber( cx, dummy, &arg0);
 		JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_builder_CCBReader_setResolutionScale : Error processing arguments");
 		cocosbuilder::CCBReader::setResolutionScale(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);

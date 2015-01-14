@@ -639,11 +639,14 @@ JS_BINDED_FUNC_IMPL(MinXmlHttpRequest, open)
         const char* method;
         const char* urlstr;
         bool async = true;
-        JSString* jsMethod = JS::ToString( cx, JS::RootedValue(cx, argv[0]) );
-        JSString* jsURL = JS::ToString( cx, JS::RootedValue(cx, argv[1]) );
+        JS::RootedValue dummy0(cx, argv[0]);
+        JS::RootedValue dummy1(cx, argv[1]);
+        JSString* jsMethod = JS::ToString( cx, dummy0 );
+        JSString* jsURL = JS::ToString( cx, dummy1 );
         
         if (argc > 2) {
-            async = JS::ToBoolean( JS::RootedValue(cx, argv[2]) );
+            JS::RootedValue dummy2(cx, argv[2]);
+            async = JS::ToBoolean( dummy2 );
         }
         
         JSStringWrapper w1(jsMethod);
@@ -821,9 +824,11 @@ JS_BINDED_FUNC_IMPL(MinXmlHttpRequest, setRequestHeader)
         jsval* argv = JS_ARGV(cx, vp);
         const char* field;
         const char* value;
-        
-        JSString* jsField = JS::ToString( cx, JS::RootedValue(cx, argv[0]) );
-        JSString* jsValue = JS::ToString( cx, JS::RootedValue(cx, argv[1]) );
+        JS::RootedValue dummy0(cx, argv[0]);
+        JS::RootedValue dummy1(cx, argv[1]);
+
+        JSString* jsField = JS::ToString( cx, dummy0 );
+        JSString* jsValue = JS::ToString( cx, dummy1 );
         
         JSStringWrapper w1(jsField);
         JSStringWrapper w2(jsValue);
