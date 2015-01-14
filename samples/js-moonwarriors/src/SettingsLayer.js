@@ -67,7 +67,7 @@ var SettingsLayer = cc.Layer.extend({
         MW.SOUND = !MW.SOUND;
         var audioEngine = cc.audioEngine;
         if(MW.SOUND){
-            audioEngine.playMusic(res.mainMainMusic_mp3);
+            audioEngine.playMusic(res.mainMainMusic_wav);
         }
         else{
             audioEngine.stopMusic();

@@ -61,7 +61,7 @@ var SysMenu = cc.Layer.extend({
 
         if (MW.SOUND) {
             cc.audioEngine.setMusicVolume(0.7);
-            cc.audioEngine.playMusic(res.mainMainMusic_mp3, true);
+            cc.audioEngine.playMusic(res.mainMainMusic_wav, true);
         }
 
         return true;
@@ -101,7 +101,7 @@ var SysMenu = cc.Layer.extend({
     },
     onButtonEffect:function(){
         if (MW.SOUND) {
-            var s = cc.audioEngine.playEffect(res.buttonEffet_mp3);
+            var s = cc.audioEngine.playEffect(res.buttonEffet_wav);
         }
     }
 });

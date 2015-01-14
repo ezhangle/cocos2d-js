@@ -52,7 +52,7 @@ var Enemy = cc.Sprite.extend({
         });
         SparkEffect.getOrCreateSparkEffect(this.x, this.y);
         if (MW.SOUND) {
-	        cc.audioEngine.playEffect(res.explodeEffect_mp3);
+	        cc.audioEngine.playEffect(res.explodeEffect_wav);
         }
         this.visible = false;
         this.active = false;
