@@ -242,7 +242,8 @@ bool js_cocos2dx_spine_Skeleton_createWithFile(JSContext *cx, uint32_t argc, jsv
 			std::string arg1_tmp; ok &= jsval_to_std_string(cx, argv[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			spine::Skeleton* ret = spine::Skeleton::createWithFile(arg0, arg1, arg2);
 			jsval jsret = JSVAL_NULL;
@@ -292,7 +293,8 @@ bool js_cocos2dx_spine_Skeleton_createWithFile(JSContext *cx, uint32_t argc, jsv
 			ok = false;
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			spine::Skeleton* ret = spine::Skeleton::createWithFile(arg0, arg1, arg2);
 			jsval jsret = JSVAL_NULL;
@@ -358,7 +360,8 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			ok = false;
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			cobj = new (std::nothrow) spine::Skeleton(arg0, arg1, arg2);
 			cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
@@ -413,7 +416,8 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			ok = false;
 			if (!ok) { ok = true; break; }
 			bool arg1;
-			arg1 = JS::ToBoolean(JS::RootedValue(cx, argv[1]));
+			JS::RootedValue dummyArg1(cx, argv[1]);
+			arg1 = JS::ToBoolean(dummyArg1);
 			cobj = new (std::nothrow) spine::Skeleton(arg0, arg1);
 			cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
 			if (_ccobj) {
@@ -471,7 +475,8 @@ bool js_cocos2dx_spine_Skeleton_constructor(JSContext *cx, uint32_t argc, jsval 
 			std::string arg1_tmp; ok &= jsval_to_std_string(cx, argv[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			cobj = new (std::nothrow) spine::Skeleton(arg0, arg1, arg2);
 			cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
@@ -589,7 +594,8 @@ bool js_cocos2dx_spine_SkeletonAnimation_update(JSContext *cx, uint32_t argc, js
 	JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_spine_SkeletonAnimation_update : Invalid Native Object");
 	if (argc == 1) {
 		double arg0;
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[0]), &arg0);
+		JS::RootedValue dummyArg0(cx, argv[0]);
+		ok &= JS::ToNumber( cx, dummyArg0, &arg0);
 		JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_spine_SkeletonAnimation_update : Error processing arguments");
 		cobj->update(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -611,9 +617,10 @@ bool js_cocos2dx_spine_SkeletonAnimation_setMix(JSContext *cx, uint32_t argc, js
 		const char* arg0;
 		const char* arg1;
 		double arg2;
+		JS::RootedValue dummyArg2(cx, argv[2]);
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
 		std::string arg1_tmp; ok &= jsval_to_std_string(cx, argv[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
-		ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+		ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 		JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_spine_SkeletonAnimation_setMix : Error processing arguments");
 		cobj->setMix(arg0, arg1, arg2);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -726,7 +733,8 @@ bool js_cocos2dx_spine_SkeletonAnimation_createWithFile(JSContext *cx, uint32_t 
 			std::string arg1_tmp; ok &= jsval_to_std_string(cx, argv[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			spine::SkeletonAnimation* ret = spine::SkeletonAnimation::createWithFile(arg0, arg1, arg2);
 			jsval jsret = JSVAL_NULL;
@@ -776,7 +784,8 @@ bool js_cocos2dx_spine_SkeletonAnimation_createWithFile(JSContext *cx, uint32_t 
 			ok = false;
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			spine::SkeletonAnimation* ret = spine::SkeletonAnimation::createWithFile(arg0, arg1, arg2);
 			jsval jsret = JSVAL_NULL;
@@ -842,7 +851,8 @@ bool js_cocos2dx_spine_SkeletonAnimation_constructor(JSContext *cx, uint32_t arg
 			ok = false;
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			cobj = new (std::nothrow) spine::SkeletonAnimation(arg0, arg1, arg2);
 			cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
@@ -927,7 +937,8 @@ bool js_cocos2dx_spine_SkeletonAnimation_constructor(JSContext *cx, uint32_t arg
 			std::string arg1_tmp; ok &= jsval_to_std_string(cx, argv[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
 			if (!ok) { ok = true; break; }
 			double arg2;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			JS::RootedValue dummyArg2(cx, argv[2]);
+			ok &= JS::ToNumber( cx, dummyArg2, &arg2);
 			if (!ok) { ok = true; break; }
 			cobj = new (std::nothrow) spine::SkeletonAnimation(arg0, arg1, arg2);
 			cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
