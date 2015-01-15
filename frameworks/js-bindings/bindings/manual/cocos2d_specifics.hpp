@@ -130,9 +130,9 @@ public:
     void setJSCallbackThis(jsval thisObj);
     void setJSExtraData(jsval data);
     
-    const jsval& getJSCallbackFunc() const;
-    const jsval& getJSCallbackThis() const;
-    const jsval& getJSExtraData() const;
+    JS::HandleValue getJSCallbackFunc() const;
+    JS::HandleValue getJSCallbackThis() const;
+    JS::HandleValue getJSExtraData() const;
 protected:
     JS::Heap<JS::Value> _jsCallback;
     JS::Heap<JS::Value> _jsThisObj;
