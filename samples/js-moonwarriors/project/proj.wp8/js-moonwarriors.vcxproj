@@ -49,9 +49,12 @@
     <OutDir>$(SolutionDir)$(Platform).$(Configuration)\</OutDir>
     <IntDir>$(Platform).$(Configuration)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>WP8;STATIC_JS_API;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WP8;_WINRT_DLL;STATIC_JS_API;PSAPI_VERSION=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -62,17 +65,19 @@
         $(EngineRoot)cocos\base;
         $(EngineRoot)..\external\spidermonkey\include\wp8;
         %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <AdditionalDependencies>
+        zlib.lib;
         d3d11.lib;
         sqlite3.lib;
         xaudio2.lib;
+        mozjs-33.lib;
         libcocos2d.lib;
         libNetwork.lib;
         libEGL_phone.lib;
         libJSBinding.lib;
-        Spidermonkey.lib;
         CocosDenshion.lib;
         libwebsockets.lib;
         libJSBindingForGui.lib;
@@ -91,25 +96,22 @@
 xcopy /Y /Q "$(EngineRoot)external\sqlite3\libraries\wp8\$(Platform)\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"
 xcopy /Y /Q "$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform)\*.*" "$(OutDir)"
-xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform).$(Configuration)\*.*" "$(OutDir)"</Command>
+xcopy /Y /Q "$(EngineRoot)..\external\spidermonkey\prebuilt\wp8\$(Platform)\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
     <PostBuildEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-if exist "$(OutDir)\js-moonwarriors-res" rd /s /q "$(OutDir)\js-moonwarriors-res"
-mkdir "$(OutDir)\js-moonwarriors-res"
-mkdir "$(OutDir)\js-moonwarriors-res\script"
-mkdir "$(OutDir)\js-moonwarriors-res\src"
-mkdir "$(OutDir)\js-moonwarriors-res\res"
-xcopy "$(ProjectDir)..\..\..\..\frameworks\js-bindings\bindings\script\*" "$(OutDir)\js-moonwarriors-res\script" /e /Y
-xcopy "$(ProjectDir)..\..\src" "$(OutDir)\js-moonwarriors-res\src\" /e /Y
-xcopy "$(ProjectDir)..\..\res" "$(OutDir)\js-moonwarriors-res\res\" /e /Y
-copy "$(ProjectDir)..\..\main.js" "$(OutDir)\js-moonwarriors-res" /Y
-copy "$(ProjectDir)..\..\project.json" "$(OutDir)\js-moonwarriors-res" /Y
-mkdir "$(OutDir)\js-moonwarriors-res\cocos2d-html5"
-xcopy "$(ProjectDir)..\..\..\..\frameworks\cocos2d-html5" "$(OutDir)\js-moonwarriors-res\cocos2d-html5\" /E /Y
-copy "$(OutDir)*.lib" "$(OutDir)\js-moonwarriors-res" /Y
-copy "$(OutDir)*.dll" "$(OutDir)\js-moonwarriors-res" /Y
-copy "$(OutDir)js-moonwarriors.exe" "$(OutDir)\js-moonwarriors-res" /Y</Command>
+if not exist "$(OutDir)\cocos2d-html5" mkdir "$(OutDir)\cocos2d-html5"
+if not exist "$(OutDir)\fonts" mkdir "$(OutDir)\fonts"
+if not exist "$(OutDir)\res" mkdir "$(OutDir)\res"
+if not exist "$(OutDir)\script" mkdir "$(OutDir)\script"
+if not exist "$(OutDir)\src" mkdir "$(OutDir)\src"
+xcopy "$(ProjectDir)..\..\..\..\frameworks\cocos2d-html5" "$(OutDir)\cocos2d-html5\" /E /Y
+xcopy "$(ProjectDir)..\..\fonts" "$(OutDir)\fonts\" /e /Y
+xcopy "$(ProjectDir)..\..\res" "$(OutDir)\res\" /e /Y
+xcopy "$(ProjectDir)..\..\..\..\frameworks\js-bindings\bindings\script\*" "$(OutDir)\script" /e /Y
+xcopy "$(ProjectDir)..\..\src" "$(OutDir)\src\" /e /Y
+copy "$(ProjectDir)..\..\main.js" "$(OutDir)" /Y
+copy "$(ProjectDir)..\..\project.json" "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -125,15 +127,20 @@ copy "$(OutDir)js-moonwarriors.exe" "$(OutDir)\js-moonwarriors-res" /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="Cocos2dRenderer.cpp" />
+    <ClCompile Include="Direct3DBase.cpp" />
+    <ClCompile Include="PhoneApp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="Cocos2dRenderer.h" />
+    <ClInclude Include="Direct3DBase.h" />
+    <ClInclude Include="PhoneApp.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="$(OutDir)\js-moonwarriors-res" />
+    <Image Include="$(OutDir)" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\frameworks\js-bindings\bindings\proj.wp8\libJSBinding.vcxproj">

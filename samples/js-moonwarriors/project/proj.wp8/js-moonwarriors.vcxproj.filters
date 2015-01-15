@@ -15,6 +15,15 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Cocos2dRenderer.cpp">
+      <Filter>wp8</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3DBase.cpp">
+      <Filter>wp8</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneApp.cpp">
+      <Filter>wp8</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>wp8</Filter>
     </ClCompile>
@@ -23,11 +32,20 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Cocos2dRenderer.h">
+      <Filter>wp8</Filter>
+    </ClInclude>
+    <ClInclude Include="Direct3DBase.h">
+      <Filter>wp8</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneApp.h">
+      <Filter>wp8</Filter>
+    </ClInclude>
     <ClInclude Include="main.h">
       <Filter>wp8</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>wp8</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="$(OutDir)" />
   </ItemGroup>
 </Project>
