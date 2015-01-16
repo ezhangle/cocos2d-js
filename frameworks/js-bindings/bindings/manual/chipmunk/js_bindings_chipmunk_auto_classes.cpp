@@ -200,7 +200,7 @@ bool JSB_cpConstraint_setErrorBias(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpConstraintSetErrorBias((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -220,7 +220,7 @@ bool JSB_cpConstraint_setMaxBias(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpConstraintSetMaxBias((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -240,7 +240,7 @@ bool JSB_cpConstraint_setMaxForce(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpConstraintSetMaxForce((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -509,7 +509,7 @@ bool JSB_cpSimpleMotor_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg0, NULL );
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg1, NULL );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg2 );
+	JS::RootedValue dummyArg2(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg2, &arg2 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpSimpleMotorNew((cpBody*)arg0 , (cpBody*)arg1 , (cpFloat)arg2  );
 
@@ -563,7 +563,7 @@ bool JSB_cpSimpleMotor_setRate(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSimpleMotorSetRate((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -916,7 +916,7 @@ bool JSB_cpPinJoint_setDist(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpPinJointSetDist((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -982,8 +982,8 @@ bool JSB_cpSlideJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg1, NULL );
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg2 );
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg3 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg4 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg5 );
+	JS::RootedValue dummyArg4(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg4, &arg4 );
+	JS::RootedValue dummyArg5(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg5, &arg5 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpSlideJointNew((cpBody*)arg0 , (cpBody*)arg1 , (cpVect)arg2 , (cpVect)arg3 , (cpFloat)arg4 , (cpFloat)arg5  );
 
@@ -1128,7 +1128,7 @@ bool JSB_cpSlideJoint_setMax(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSlideJointSetMax((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1148,7 +1148,7 @@ bool JSB_cpSlideJoint_setMin(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSlideJointSetMin((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1214,8 +1214,8 @@ bool JSB_cpGearJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg0, NULL );
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg1, NULL );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg2 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg3 );
+	JS::RootedValue dummyArg2(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg2, &arg2 );
+	JS::RootedValue dummyArg3(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg3, &arg3 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpGearJointNew((cpBody*)arg0 , (cpBody*)arg1 , (cpFloat)arg2 , (cpFloat)arg3  );
 
@@ -1284,7 +1284,7 @@ bool JSB_cpGearJoint_setPhase(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpGearJointSetPhase((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1304,7 +1304,7 @@ bool JSB_cpGearJoint_setRatio(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpGearJointSetRatio((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1366,9 +1366,9 @@ bool JSB_cpDampedRotarySpring_constructor(JSContext *cx, uint32_t argc, jsval *v
 
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg0, NULL );
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg1, NULL );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg2 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg3 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg4 );
+	JS::RootedValue dummyArg2(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg2, &arg2 );
+	JS::RootedValue dummyArg3(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg3, &arg3 );
+	JS::RootedValue dummyArg4(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg4, &arg4 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpDampedRotarySpringNew((cpBody*)arg0 , (cpBody*)arg1 , (cpFloat)arg2 , (cpFloat)arg3 , (cpFloat)arg4  );
 
@@ -1452,7 +1452,7 @@ bool JSB_cpDampedRotarySpring_setDamping(JSContext *cx, uint32_t argc, jsval *vp
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpDampedRotarySpringSetDamping((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1472,7 +1472,7 @@ bool JSB_cpDampedRotarySpring_setRestAngle(JSContext *cx, uint32_t argc, jsval *
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpDampedRotarySpringSetRestAngle((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1492,7 +1492,7 @@ bool JSB_cpDampedRotarySpring_setStiffness(JSContext *cx, uint32_t argc, jsval *
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpDampedRotarySpringSetStiffness((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1558,9 +1558,9 @@ bool JSB_cpDampedSpring_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg1, NULL );
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg2 );
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg3 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg4 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg5 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg6 );
+	JS::RootedValue dummyArg4(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg4, &arg4 );
+	JS::RootedValue dummyArg5(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg5, &arg5 );
+	JS::RootedValue dummyArg6(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg6, &arg6 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpDampedSpringNew((cpBody*)arg0 , (cpBody*)arg1 , (cpVect)arg2 , (cpVect)arg3 , (cpFloat)arg4 , (cpFloat)arg5 , (cpFloat)arg6  );
 
@@ -1720,7 +1720,7 @@ bool JSB_cpDampedSpring_setDamping(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpDampedSpringSetDamping((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1740,7 +1740,7 @@ bool JSB_cpDampedSpring_setRestLength(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpDampedSpringSetRestLength((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1760,7 +1760,7 @@ bool JSB_cpDampedSpring_setStiffness(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpDampedSpringSetStiffness((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1828,8 +1828,8 @@ bool JSB_cpRatchetJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg0, NULL );
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg1, NULL );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg2 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg3 );
+	JS::RootedValue dummyArg2(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg2, &arg2 );
+	JS::RootedValue dummyArg3(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg3, &arg3 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpRatchetJointNew((cpBody*)arg0 , (cpBody*)arg1 , (cpFloat)arg2 , (cpFloat)arg3  );
 
@@ -1913,7 +1913,7 @@ bool JSB_cpRatchetJoint_setAngle(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpRatchetJointSetAngle((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1933,7 +1933,7 @@ bool JSB_cpRatchetJoint_setPhase(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpRatchetJointSetPhase((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -1953,7 +1953,7 @@ bool JSB_cpRatchetJoint_setRatchet(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpRatchetJointSetRatchet((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -2017,8 +2017,8 @@ bool JSB_cpRotaryLimitJoint_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg0, NULL );
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg1, NULL );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg2 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg3 );
+	JS::RootedValue dummyArg2(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg2, &arg2 );
+	JS::RootedValue dummyArg3(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg3, &arg3 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpRotaryLimitJointNew((cpBody*)arg0 , (cpBody*)arg1 , (cpFloat)arg2 , (cpFloat)arg3  );
 
@@ -2087,7 +2087,7 @@ bool JSB_cpRotaryLimitJoint_setMax(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpRotaryLimitJointSetMax((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -2107,7 +2107,7 @@ bool JSB_cpRotaryLimitJoint_setMin(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpRotaryLimitJointSetMin((cpConstraint*)arg0 , (cpFloat)arg1  );
@@ -2355,7 +2355,7 @@ bool JSB_cpArbiter_setElasticity(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpArbiterSetElasticity((cpArbiter*)arg0 , (cpFloat)arg1  );
@@ -2375,7 +2375,7 @@ bool JSB_cpArbiter_setFriction(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpArbiterSetFriction((cpArbiter*)arg0 , (cpFloat)arg1  );
@@ -2919,7 +2919,7 @@ bool JSB_cpSpace_setCollisionBias(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSpaceSetCollisionBias((cpSpace*)arg0 , (cpFloat)arg1  );
@@ -2959,7 +2959,7 @@ bool JSB_cpSpace_setCollisionSlop(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSpaceSetCollisionSlop((cpSpace*)arg0 , (cpFloat)arg1  );
@@ -2979,7 +2979,7 @@ bool JSB_cpSpace_setDamping(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSpaceSetDamping((cpSpace*)arg0 , (cpFloat)arg1  );
@@ -3039,7 +3039,7 @@ bool JSB_cpSpace_setIdleSpeedThreshold(JSContext *cx, uint32_t argc, jsval *vp) 
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSpaceSetIdleSpeedThreshold((cpSpace*)arg0 , (cpFloat)arg1  );
@@ -3079,7 +3079,7 @@ bool JSB_cpSpace_setSleepTimeThreshold(JSContext *cx, uint32_t argc, jsval *vp) 
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSpaceSetSleepTimeThreshold((cpSpace*)arg0 , (cpFloat)arg1  );
@@ -3099,7 +3099,7 @@ bool JSB_cpSpace_step(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpSpaceStep((cpSpace*)arg0 , (cpFloat)arg1  );
@@ -3119,7 +3119,7 @@ bool JSB_cpSpace_useSpatialHash(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; int32_t arg2; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	ok &= jsval_to_int32( cx, *argvp++, &arg2 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
@@ -3658,8 +3658,8 @@ bool JSB_cpBody_init(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; double arg2; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg2 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
+	JS::RootedValue dummyArg2(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg2, &arg2 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	cpBody* ret_val;
 
@@ -3799,7 +3799,7 @@ bool JSB_cpBody_setAngVel(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodySetAngVel((cpBody*)arg0 , (cpFloat)arg1  );
@@ -3819,7 +3819,7 @@ bool JSB_cpBody_setAngVelLimit(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodySetAngVelLimit((cpBody*)arg0 , (cpFloat)arg1  );
@@ -3839,7 +3839,7 @@ bool JSB_cpBody_setAngle(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodySetAngle((cpBody*)arg0 , (cpFloat)arg1  );
@@ -3879,7 +3879,7 @@ bool JSB_cpBody_setMass(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodySetMass((cpBody*)arg0 , (cpFloat)arg1  );
@@ -3899,7 +3899,7 @@ bool JSB_cpBody_setMoment(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodySetMoment((cpBody*)arg0 , (cpFloat)arg1  );
@@ -3939,7 +3939,7 @@ bool JSB_cpBody_setTorque(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodySetTorque((cpBody*)arg0 , (cpFloat)arg1  );
@@ -3979,7 +3979,7 @@ bool JSB_cpBody_setVelLimit(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodySetVelLimit((cpBody*)arg0 , (cpFloat)arg1  );
@@ -4033,7 +4033,7 @@ bool JSB_cpBody_updatePosition(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodyUpdatePosition((cpBody*)arg0 , (cpFloat)arg1  );
@@ -4054,8 +4054,8 @@ bool JSB_cpBody_updateVelocity(JSContext *cx, uint32_t argc, jsval *vp) {
 	cpVect arg1; double arg2; double arg3; 
 
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg1 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg2 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg3 );
+	JS::RootedValue dummyArg2(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg2, &arg2 );
+	JS::RootedValue dummyArg3(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg3, &arg3 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpBodyUpdateVelocity((cpBody*)arg0 , (cpVect)arg1 , (cpFloat)arg2 , (cpFloat)arg3  );
@@ -4467,7 +4467,7 @@ bool JSB_cpShape_setElasticity(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpShapeSetElasticity((cpShape*)arg0 , (cpFloat)arg1  );
@@ -4487,7 +4487,7 @@ bool JSB_cpShape_setFriction(JSContext *cx, uint32_t argc, jsval *vp) {
 	bool ok = true;
 	double arg1; 
 
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 
 	cpShapeSetFriction((cpShape*)arg0 , (cpFloat)arg1  );
@@ -4746,7 +4746,7 @@ bool JSB_cpCircleShape_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 	cpBody* arg0; double arg1; cpVect arg2; 
 
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg0, NULL );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg1 );
+	JS::RootedValue dummyArg1(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg1, &arg1 );
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg2 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpCircleShapeNew((cpBody*)arg0 , (cpFloat)arg1 , (cpVect)arg2  );
@@ -4860,7 +4860,7 @@ bool JSB_cpSegmentShape_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 	ok &= jsval_to_c_class( cx, *argvp++, (void**)&arg0, NULL );
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg1 );
 	ok &= jsval_to_cpVect( cx, *argvp++, (cpVect*) &arg2 );
-	ok &= JS::ToNumber( cx, JS::RootedValue(cx, *argvp++), &arg3 );
+	JS::RootedValue dummyArg3(cx, *argvp++); ok &= JS::ToNumber( cx, dummyArg3, &arg3 );
 	JSB_PRECONDITION2(ok, cx, false, "Error processing arguments");
 	void* 	ret_val = cpSegmentShapeNew((cpBody*)arg0 , (cpVect)arg1 , (cpVect)arg2 , (cpFloat)arg3  );
 
