@@ -1,5 +1,5 @@
+#include "js/TypeDecls.h"
 #include "AppDelegate.h"
-
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "ScriptingCore.h"

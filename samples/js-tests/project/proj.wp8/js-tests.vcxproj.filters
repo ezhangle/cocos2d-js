@@ -1,8 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Xml Include="WMAppManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{52e31694-def9-48ac-b549-654d4c2f8f8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wp8">
+      <UniqueIdentifier>{adeb2fe8-0924-4d15-bffc-b64f8cee53bc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Cocos2dRenderer.cpp">
+      <Filter>wp8</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3DBase.cpp">
+      <Filter>wp8</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneApp.cpp">
+      <Filter>wp8</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>wp8</Filter>
@@ -12,29 +32,20 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Cocos2dRenderer.h">
+      <Filter>wp8</Filter>
+    </ClInclude>
+    <ClInclude Include="Direct3DBase.h">
+      <Filter>wp8</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneApp.h">
+      <Filter>wp8</Filter>
+    </ClInclude>
     <ClInclude Include="main.h">
       <Filter>wp8</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AppManifest.xaml">
-      <Filter>resource</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Classes">
-      <UniqueIdentifier>{1022df2f-f930-4c12-aecf-f94c56de8f00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="wp8">
-      <UniqueIdentifier>{0600d370-0ce0-4e26-8cc1-6e02e5770447}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resource">
-      <UniqueIdentifier>{98a0f8c5-3184-4d71-8233-4f966f43cbe3}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="WMAppManifest.xml">
-      <Filter>resource</Filter>
-    </Xml>
+    <Image Include="$(OutDir)" />
   </ItemGroup>
 </Project>
