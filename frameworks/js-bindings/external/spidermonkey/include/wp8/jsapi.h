@@ -72,7 +72,9 @@ class JS_PUBLIC_API(AutoCheckRequestDepth)
 JS_PUBLIC_API(void)
 AssertArgumentsAreSane(JSContext *cx, JS::HandleValue v);
 #else
-void AssertArgumentsAreSane(JSContext *cx, JS::HandleValue v);
+inline void AssertArgumentsAreSane(JSContext *cx, JS::HandleValue v) {
+    /* Do nothing */
+}
 #endif /* JS_DEBUG */
 
 /* AutoValueArray roots an internal fixed-size array of Values. */
