@@ -8301,8 +8301,8 @@ bool js_cocos2dx_extension_AssetsManager_create(JSContext *cx, uint32_t argc, js
 			auto lambda = [=](int larg0) -> void {
 				jsval largv[1];
 				largv[0] = int32_to_jsval(cx, larg0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -8315,8 +8315,8 @@ bool js_cocos2dx_extension_AssetsManager_create(JSContext *cx, uint32_t argc, js
 			auto lambda = [=](int larg0) -> void {
 				jsval largv[1];
 				largv[0] = int32_to_jsval(cx, larg0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -8327,8 +8327,8 @@ bool js_cocos2dx_extension_AssetsManager_create(JSContext *cx, uint32_t argc, js
 		do {
 			std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[5]));
 			auto lambda = [=]() -> void {
-				jsval rval;
-				bool ok = func->invoke(0, nullptr, rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(0, nullptr, &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}

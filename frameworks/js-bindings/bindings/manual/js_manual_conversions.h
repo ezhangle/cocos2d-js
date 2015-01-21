@@ -60,7 +60,7 @@ public:
     JSFunctionWrapper(JSContext* cx, JSObject *jsthis, jsval fval);
     ~JSFunctionWrapper();
 
-    bool invoke(unsigned int argc, jsval *argv, jsval &rval);
+    bool invoke(unsigned int argc, jsval *argv, JS::MutableHandleValue rval);
 private:
     JSContext *_cx;
     JS::Heap<JSObject*> _jsthis;

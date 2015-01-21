@@ -55,7 +55,8 @@ public:
         if (!p) return;
         
         jsval arg = OBJECT_TO_JSVAL(p->obj);
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), "scrollViewDidScroll", 1, &arg, NULL);
+        JS::RootedValue ret(ScriptingCore::getInstance()->getGlobalContext());
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), "scrollViewDidScroll", 1, &arg, &ret);
     }
     
     virtual void scrollViewDidZoom(ScrollView* view) override
@@ -64,7 +65,8 @@ public:
         if (!p) return;
         
         jsval arg = OBJECT_TO_JSVAL(p->obj);
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), "scrollViewDidZoom", 1, &arg, NULL);
+        JS::RootedValue ret(ScriptingCore::getInstance()->getGlobalContext());
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), "scrollViewDidZoom", 1, &arg, &ret);
     }
     
     void setJSDelegate(JSObject* pJSDelegate)
@@ -187,7 +189,8 @@ private:
         if (!p) return;
         
         jsval arg = OBJECT_TO_JSVAL(p->obj);
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), jsFunctionName.c_str(), 1, &arg, NULL);
+        JS::RootedValue ret(ScriptingCore::getInstance()->getGlobalContext());
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), jsFunctionName.c_str(), 1, &arg, &ret);
     }
     
     void callJSDelegate(TableView* table, TableViewCell* cell, std::string jsFunctionName)
@@ -201,8 +204,8 @@ private:
         jsval args[2];
         args[0] = OBJECT_TO_JSVAL(p->obj);
         args[1] = OBJECT_TO_JSVAL(pCellProxy->obj);
-        
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), jsFunctionName.c_str(), 2, args, NULL);
+        JS::RootedValue ret(ScriptingCore::getInstance()->getGlobalContext());
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate), jsFunctionName.c_str(), 2, args, &ret);
     }
     
     JS::Heap<JSObject*> _JSDelegate;

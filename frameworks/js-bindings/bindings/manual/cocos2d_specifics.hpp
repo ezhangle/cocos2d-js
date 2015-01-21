@@ -35,13 +35,13 @@ extern CC_BINDING_DLL std::unordered_map<std::string, js_type_class_t*> _js_glob
 // To debug this, you could refer to JSScheduleWrapper::dump function.
 // It will prove that i'm right. :)
 typedef struct jsScheduleFunc_proxy {
-    JSObject* jsfuncObj;
+    JS::Heap<JSObject*> jsfuncObj;
     cocos2d::__Array*  targets;
     UT_hash_handle hh;
 } schedFunc_proxy_t;
 
 typedef struct jsScheduleTarget_proxy {
-    JSObject* jsTargetObj;
+    JS::Heap<JSObject*> jsTargetObj;
     cocos2d::__Array*  targets;
     UT_hash_handle hh;
 } schedTarget_proxy_t;
@@ -254,7 +254,7 @@ public:
 
 private:
     cocos2d::SAXParser _parser;
-    JSObject* _obj;
+    JS::Heap<JSObject*> _obj;
     std::string _result;
     bool _isStoringCharacters;
     std::string _currentValue;

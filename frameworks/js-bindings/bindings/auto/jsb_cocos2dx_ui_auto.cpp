@@ -1736,8 +1736,8 @@ bool js_cocos2dx_ui_Widget_addClickEventListener(JSContext *cx, uint32_t argc, j
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}

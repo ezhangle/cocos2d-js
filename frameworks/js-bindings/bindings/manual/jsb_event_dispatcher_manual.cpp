@@ -32,8 +32,8 @@ bool js_EventListenerTouchOneByOne_create(JSContext *cx, uint32_t argc, jsval *v
     if (argc == 0) {
         auto ret = EventListenerTouchOneByOne::create();
         
-        ret->onTouchBegan = [ret](Touch* touch, Event* event) -> bool {
-            jsval jsret = JSVAL_NULL;
+        ret->onTouchBegan = [cx, ret](Touch* touch, Event* event) -> bool {
+            JS::RootedValue jsret(cx);
             bool ok = ScriptingCore::getInstance()->handleTouchEvent(ret, EventTouch::EventCode::BEGAN, touch, event, &jsret);
             
             // Not found the method, just return false.

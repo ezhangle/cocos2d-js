@@ -2252,8 +2252,8 @@ bool js_cocos2dx_Node_setOnExitCallback(JSContext *cx, uint32_t argc, jsval *vp)
 		do {
 			std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
 			auto lambda = [=]() -> void {
-				jsval rval;
-				bool ok = func->invoke(0, nullptr, rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(0, nullptr, &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -2525,8 +2525,8 @@ bool js_cocos2dx_Node_setonEnterTransitionDidFinishCallback(JSContext *cx, uint3
 		do {
 			std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
 			auto lambda = [=]() -> void {
-				jsval rval;
-				bool ok = func->invoke(0, nullptr, rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(0, nullptr, &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -2867,8 +2867,8 @@ bool js_cocos2dx_Node_setOnEnterCallback(JSContext *cx, uint32_t argc, jsval *vp
 		do {
 			std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
 			auto lambda = [=]() -> void {
-				jsval rval;
-				bool ok = func->invoke(0, nullptr, rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(0, nullptr, &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -2918,8 +2918,8 @@ bool js_cocos2dx_Node_setonExitTransitionDidStartCallback(JSContext *cx, uint32_
 		do {
 			std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
 			auto lambda = [=]() -> void {
-				jsval rval;
-				bool ok = func->invoke(0, nullptr, rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(0, nullptr, &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -4806,8 +4806,8 @@ bool js_cocos2dx_Node_enumerateChildren(JSContext *cx, uint32_t argc, jsval *vp)
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -7772,8 +7772,8 @@ bool js_cocos2dx_Scheduler_performFunctionInCocosThread(JSContext *cx, uint32_t 
 		do {
 			std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, JS_THIS_OBJECT(cx, vp), argv[0]));
 			auto lambda = [=]() -> void {
-				jsval rval;
-				bool ok = func->invoke(0, nullptr, rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(0, nullptr, &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -9308,8 +9308,8 @@ bool js_cocos2dx_EventDispatcher_addCustomEventListener(JSContext *cx, uint32_t 
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -10721,8 +10721,8 @@ bool js_cocos2dx_EventListenerAcceleration_init(JSContext *cx, uint32_t argc, js
 						largv[1] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(2, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(2, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -10760,8 +10760,8 @@ bool js_cocos2dx_EventListenerAcceleration_create(JSContext *cx, uint32_t argc, 
 						largv[1] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(2, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(2, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -11016,8 +11016,8 @@ bool js_cocos2dx_EventListenerCustom_create(JSContext *cx, uint32_t argc, jsval 
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -44239,8 +44239,8 @@ bool js_cocos2dx_MenuItem_initWithCallback(JSContext *cx, uint32_t argc, jsval *
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -44554,8 +44554,8 @@ bool js_cocos2dx_MenuItemLabel_initWithLabel(JSContext *cx, uint32_t argc, jsval
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -44767,8 +44767,8 @@ bool js_cocos2dx_MenuItemAtlasFont_initWithString(JSContext *cx, uint32_t argc, 
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -44980,8 +44980,8 @@ bool js_cocos2dx_MenuItemFont_initWithString(JSContext *cx, uint32_t argc, jsval
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -45336,8 +45336,8 @@ bool js_cocos2dx_MenuItemSprite_initWithNormalSprite(JSContext *cx, uint32_t arg
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -45717,8 +45717,8 @@ bool js_cocos2dx_MenuItemImage_initWithNormalImage(JSContext *cx, uint32_t argc,
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}
@@ -56891,8 +56891,8 @@ bool js_cocos2dx_TextureCache_addImageAsync(JSContext *cx, uint32_t argc, jsval 
 						largv[0] = JSVAL_NULL;
 					}
 				} while (0);
-				jsval rval;
-				bool ok = func->invoke(1, &largv[0], rval);
+				JS::RootedValue rval(cx);
+				bool ok = func->invoke(1, &largv[0], &rval);
 				if (!ok && JS_IsExceptionPending(cx)) {
 					JS_ReportPendingException(cx);
 				}

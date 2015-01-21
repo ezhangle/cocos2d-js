@@ -144,12 +144,13 @@ void JSTouchDelegate::unregisterTouchDelegate()
 
 bool JSTouchDelegate::onTouchBegan(Touch *touch, Event *event)
 {
-    CC_UNUSED_PARAM(event); 
-    jsval retval;
+    CC_UNUSED_PARAM(event);
+    JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
+    JS::RootedValue retval(cx);
     bool bRet = false;
     
     ScriptingCore::getInstance()->executeCustomTouchEvent(EventTouch::EventCode::BEGAN,
-        touch, _obj, retval);
+        touch, _obj, &retval);
     
     if(retval.isBoolean())
     {
@@ -216,8 +217,7 @@ bool js_cocos2dx_EventTouch_getTouches(JSContext *cx, uint32_t argc, jsval *vp) 
 	JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_EventTouch_getTouches : Invalid Native Object");
 	if (argc == 0) {
 		const std::vector<cocos2d::Touch*>& ret = cobj->getTouches();
-        JSObject *jsretArr = JS_NewArrayObject(cx, 0);
-        JS::HandleObject jsretArrHandle(JS::HandleObject::fromMarkedLocation(&jsretArr));
+        JS::RootedObject jsretArr(cx, JS_NewArrayObject(cx, 0));
         
         int i = 0;
         for (cocos2d::Touch* touchObj : ret)
@@ -229,8 +229,7 @@ bool js_cocos2dx_EventTouch_getTouches(JSContext *cx, uint32_t argc, jsval *vp) 
             if (jsproxy) {
                 arrElement = OBJECT_TO_JSVAL(jsproxy->obj);
             }
-            JS::HandleValue arrElementHandle(arrElement);
-            if (!JS_SetElement(cx, jsretArrHandle, i, arrElementHandle)) {
+            if (!JS_SetElement(cx, jsretArr, i, arrElement)) {
                 break;
             }
             ++i;
@@ -855,11 +854,10 @@ JSObject* getObjectFromNamespace(JSContext* cx, JSObject *ns, const char *name) 
 }
 
 jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string) {
-	jsval out;
+	JS::RootedValue out(cx);
 	JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 	JS::HandleObject thisObjHandle(JS::HandleObject::fromMarkedLocation(&thisObj));
-	JS::MutableHandleValue outHandle(JS::MutableHandleValue::fromMarkedLocation(&out));
-	if (JS_EvaluateScript(cx, thisObjHandle, string, strlen(string), "(string)", 1, outHandle) == true) {
+	if (JS_EvaluateScript(cx, thisObjHandle, string, strlen(string), "(string)", 1, &out) == true) {
 		return out;
 	}
 	return JSVAL_VOID;
@@ -1381,12 +1379,11 @@ void JSScheduleWrapper::dump()
 
 void JSScheduleWrapper::scheduleFunc(float dt)
 {
-    jsval retVal = JSVAL_NULL;
-    JS::MutableHandleValue retValHandle(JS::MutableHandleValue::fromMarkedLocation(&retVal));
+    JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
+    JS::RootedValue retVal(cx);
     JS::Heap<JS::Value> data(DOUBLE_TO_JSVAL(dt));
     JS::HandleValue _jsCallbackHandle(JS::HandleValue::fromMarkedLocation(_jsCallback.address()));
 
-    JSContext *cx = ScriptingCore::getInstance()->getGlobalContext();
     JS::AutoValueVector dummyArr(cx);
     dummyArr.append(data);
 
@@ -1402,10 +1399,10 @@ void JSScheduleWrapper::scheduleFunc(float dt)
         if (!_jsThisObj.isNullOrUndefined()) {
             JSObject* obj = _jsThisObj.toObjectOrNull();
             JS::HandleObject objHandle(JS::HandleObject::fromMarkedLocation(&obj));
-            JS_CallFunctionValue(cx, objHandle, _jsCallbackHandle, dummyArr, retValHandle);
+            JS_CallFunctionValue(cx, objHandle, _jsCallbackHandle, dummyArr, &retVal);
         }
         else {
-            JS_CallFunctionValue(cx, JS::NullPtr(), _jsCallbackHandle, dummyArr, retValHandle);
+            JS_CallFunctionValue(cx, JS::NullPtr(), _jsCallbackHandle, dummyArr, &retVal);
         }
     }
 
